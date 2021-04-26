@@ -1,7 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
     kotlin(Plugins.android)
-    kotlin(Plugins.androidExtensions)
 }
 
 
@@ -24,13 +23,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", true)))
             //signingConfig = signingConfigs.release
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", false)))
             //signingConfig = signingConfigs.debug
         }
     }
@@ -52,4 +49,6 @@ android {
 dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+    implementation(AppDependencies.moduleLibraries)
 }

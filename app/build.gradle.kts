@@ -1,9 +1,9 @@
 plugins {
     id(Plugins.application)
+    id(Plugins.daggerHiltPlugin)
     kotlin(Plugins.android)
-    kotlin(Plugins.androidExtensions)
+    id(Plugins.kotlinKapt)
 }
-
 
 android {
 
@@ -25,13 +25,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", true)))
             //signingConfig = signingConfigs.release
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", false)))
             //signingConfig = signingConfigs.debug
         }
     }
@@ -70,7 +68,10 @@ dependencies {
 
     implementation(AppDependencies.appLibraries)
 
+    implementation(AppDependencies.daggerHiltLibraries)
+    kapt(AppDependencies.daggerHiltCompiler)
+
     implementation(project(Modules.data))
-    implementation(project(Modules.account))
-    implementation(project(Modules.dashboard))
+    //implementation(project(Modules.account))
+    //implementation(project(Modules.dashboard))
 }

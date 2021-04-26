@@ -12,20 +12,52 @@ object AppDependencies {
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     private const val material = "com.google.android.material:material:${Versions.material}"
 
+    //di hilt
+    const val daggerHiltCompiler =
+        "com.google.dagger:hilt-android-compiler:${Versions.daggerHilt}"
+    private const val daggerHilt = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
+    private const val daggerHiltViewModel =
+        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.daggerHiltAndroidX}"
+    private const val daggerHiltAndroidXCompiler =
+        "androidx.hilt:hilt-compiler:${Versions.daggerHiltAndroidX}"
+
+    //javax
+    private const val javaxInject = "javax.inject:javax.inject:${Versions.javaxInject}"
+    private const val javaxAnnotations = "javax.annotation:jsr250-api:${Versions.javaxAnnotations}"
+
+    //security-crypto
+    private const val encryptedSharedPref =
+        "androidx.security:security-crypto:${Versions.encryptedSharedPref}"
+
+    //coroutines
+    private const val coroutines =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    private const val coroutinesAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+
     val appLibraries = arrayListOf(
         kotlinStdLib,
         coreKtx,
         appcompat,
         constraintLayout,
-        material
+        material,
+        encryptedSharedPref,
+        coroutines,
+        coroutinesAndroid
+    )
+
+    val daggerHiltLibraries = arrayListOf(
+        daggerHilt,
+        daggerHiltAndroidXCompiler
+    )
+
+    val moduleLibraries = arrayListOf(
+        kotlinStdLib,
+        coroutines,
+        javaxInject,
+        javaxAnnotations
     )
 }
-
-//fun DependencyHandler.kapt(list: List<String>) {
-//    list.forEach { dependency ->
-//        add("kapt", dependency)
-//    }
-//}
 
 fun DependencyHandler.implementation(list: List<String>) {
     list.forEach { dependency ->

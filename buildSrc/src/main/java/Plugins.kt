@@ -4,12 +4,15 @@ import org.gradle.api.initialization.dsl.ScriptHandler
 object Plugins {
 
     private const val gradle = "com.android.tools.build:gradle:${PluginVersion.gradle}"
-    private const val kotlin =
+    private const val kotlin_gradle =
         "org.jetbrains.kotlin:kotlin-gradle-plugin:${PluginVersion.kotlin}"
+    private const val daggerHilt =
+        "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHilt}"
 
     val classpathList = arrayListOf(
         gradle,
-        kotlin
+        kotlin_gradle,
+        daggerHilt
     )
 
     /*---*/
@@ -18,6 +21,10 @@ object Plugins {
     const val android = "android"
     const val androidExtensions = "android.extensions"
     const val androidLibrary = "com.android.library"
+    const val javaLibrary = "java-library"
+    const val kotlin = "kotlin"
+    const val kotlinKapt = "kotlin-kapt"
+    const val daggerHiltPlugin = "dagger.hilt.android.plugin"
 }
 
 fun DependencyHandler.classpathL(list: List<String>) {
