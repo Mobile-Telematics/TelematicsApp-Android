@@ -1,16 +1,287 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginContent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorAuthScreenBg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:ignore="MissingPrefix">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login Activity"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@drawable/ic_wizard_logo_back"
+        android:translationX="20dp"
+        android:translationY="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/loginCommonLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_auth_logo"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/loginContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loginContent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <!-- Description for Login -->
+    <TextView
+        android:id="@+id/loginUseEmailOrPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_screen_use_email"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginCommonLogo"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- Input and button -->
+    <LinearLayout
+        android:id="@+id/loginInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/loginSend"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginUseEmailOrPhone">
+
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginInputEmailTill"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="bottom"
+            android:hint="@string/login_screen_hint_email"
+            android:textColor="@color/colorPrimaryText"
+            android:visibility="visible"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginInputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_login_email_rect"
+                android:imeOptions="actionGo"
+                android:inputType="textEmailAddress"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorPrimaryText"
+                android:theme="@style/EditText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Phone -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginInputPhoneTill"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="bottom"
+            android:hint="@string/login_screen_hint_phone"
+            android:textColor="@color/colorPrimaryText"
+            android:visibility="gone"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <!-- <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:background="@drawable/dr_login_email_rect"
+                 android:gravity="center"
+                 android:hint="@string/login_screen_hint_phone"
+                 android:orientation="horizontal">-->
+
+            <!--<com.hbb20.CountryCodePicker
+                android:id="@+id/loginInputPhoneCCP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_autoFormatNumber="false"
+                app:ccp_flagBorderColor="@color/colorPrimaryLightText"
+                app:ccp_showFlag="true"
+                app:ccp_textSize="@dimen/bottom_input_field_edit_text_size" />-->
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginInputPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_login_email_rect"
+                android:imeOptions="actionGo"
+                android:inputType="phone"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorPrimaryText"
+                android:theme="@style/EditText" />
+
+            <!--</LinearLayout>-->
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/loginEmailError"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@string/change_pass_length_validate"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+
+        <!-- Password -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginInputPasswordTill"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="bottom"
+            android:hint="@string/login_screen_hint_password"
+            android:textColor="@color/colorPrimaryText"
+            android:visibility="visible"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginInputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_login_email_rect"
+                android:imeOptions="actionGo"
+                android:inputType="textEmailAddress"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorPrimaryText"
+                android:theme="@style/EditText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- Send -->
+    <Button
+        android:id="@+id/loginSend"
+        style="@style/Button"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:enabled="true"
+        android:text="@string/login_screen_join"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginPolicyLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginInput" />
+
+    <ProgressBar
+        android:id="@+id/loginProgress"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:elevation="4dp"
+        android:progress="20"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/loginSend"
+        app:layout_constraintEnd_toEndOf="@id/loginSend"
+        app:layout_constraintStart_toStartOf="@id/loginSend"
+        app:layout_constraintTop_toTopOf="@id/loginSend"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/loginJoinVia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join via"
+        android:textColor="@color/colorPrimaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/loginChangeButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginSend"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/loginChangeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:drawablePadding="4dp"
+        android:drawableTint="@color/colorDefButton"
+        android:gravity="center_vertical"
+        android:text="@string/login_screen_hint_email"
+        android:textColor="@color/colorDefButton"
+        app:drawableStartCompat="@drawable/ic_login_email"
+        app:layout_constraintBottom_toBottomOf="@id/loginJoinVia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/loginJoinVia"
+        app:layout_constraintTop_toTopOf="@id/loginJoinVia" />
+
+
+    <LinearLayout
+        android:id="@+id/loginPolicyLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginChangeButton">
+
+        <CheckBox
+            android:id="@+id/login_policy_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:button="@drawable/ic_rect_checkbox"
+            android:buttonTint="@color/colorDefButton"
+            android:checked="true" />
+
+        <!-- Policy -->
+        <TextView
+            android:id="@+id/loginPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_screen_policy"
+            android:textAlignment="center"
+            android:textColor="@color/colorDefButton"
+            android:textColorLink="@color/colorDefButton"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

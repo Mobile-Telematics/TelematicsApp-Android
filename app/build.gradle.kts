@@ -25,11 +25,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "userUrl", "\"https://user.telematicssdk.com/\"")
             //signingConfig = signingConfigs.release
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
+            buildConfigField("String", "userUrl", "\"https://user.telematicssdk.com/\"")
             //signingConfig = signingConfigs.debug
         }
     }
@@ -59,6 +61,10 @@ android {
         jvmTarget = "1.8"
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     //dynamicFeatures = DynamicModules.modules
 }
 
@@ -70,8 +76,10 @@ dependencies {
 
     implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)
+    implementation(AppDependencies.retrofitLibraries)
+    implementation(AppDependencies.lifecycleKtx)
 
     implementation(project(Modules.data))
-    //implementation(project(Modules.account))
-    //implementation(project(Modules.dashboard))
+    implementation(project(Modules.dashboard))
+    implementation(project(Modules.account))
 }

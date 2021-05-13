@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="vector"
+    android:width="18dp"
+    android:height="18dp"
+    android:viewportWidth="7"
+    android:viewportHeight="7">
+    <group android:name="group">
+        <path
+            android:fillAlpha="0"
+            android:pathData="M 0.303 0.303 L 0.303 6.047 L 6.047 6.047 L 6.047 0.303 Z"
+            android:strokeWidth="0.7"
+            android:strokeColor="@color/colorDefButton" />
+        <path
+            android:fillColor="@color/colorDefButton"
+            android:pathData="M 1.321 1.321 L 5.029 1.321 L 5.029 5.029 L 1.321 5.029 Z"
+            android:strokeWidth="0" />
+    </group>
+</vector>

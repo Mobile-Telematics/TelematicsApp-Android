@@ -13,10 +13,16 @@ object Versions {
     const val javaxInject = "1"
     const val javaxAnnotations = "1.0"
     const val encryptedSharedPref = "1.1.0-alpha03"
+    const val retrofit = "2.8.1"
+    const val retrofitRxAdapter = "2.9.0"
+    const val okHttp = "4.8.1"
+    const val okHttpLogging = "4.9.1"
+    const val gson = "2.8.4"
+    const val lifecycle = "2.3.1"
 
 }
 
-object PluginVersion{
+object PluginVersion {
 
     const val gradle = "4.1.1"
     const val kotlin = "1.4.32"

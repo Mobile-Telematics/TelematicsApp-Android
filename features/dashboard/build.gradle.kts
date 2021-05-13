@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.androidLibrary)
     kotlin(Plugins.android)
+    id("kotlin-android")
 }
 
 android {
@@ -52,4 +53,6 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(AppDependencies.appLibraries)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 }

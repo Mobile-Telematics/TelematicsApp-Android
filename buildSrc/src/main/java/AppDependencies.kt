@@ -35,6 +35,26 @@ object AppDependencies {
     private const val coroutinesAndroid =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
+    //retrofit
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val retrofitConverterGson =
+        "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    const val retrofitRxJava2Adapter = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
+    const val retrofitRxJava3Adapter =
+        "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofitRxAdapter}"
+    const val retrofitUrlManager = "me.jessyan:retrofit-url-manager:1.4.0"
+
+    //okhttp
+    const val okHttp3 = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    const val okHttp3Logging = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpLogging}"
+
+    // Gson
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
+
+    //lifecycle
+    const val lifecycleKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+
+
     val appLibraries = arrayListOf(
         kotlinStdLib,
         coreKtx,
@@ -56,6 +76,17 @@ object AppDependencies {
         coroutines,
         javaxInject,
         javaxAnnotations
+    )
+
+    val retrofitLibraries = arrayListOf(
+        retrofit,
+        retrofitConverterGson,
+        retrofitRxJava2Adapter,
+        retrofitRxJava3Adapter,
+        retrofitUrlManager,
+        okHttp3,
+        okHttp3Logging,
+        gson
     )
 }
 
