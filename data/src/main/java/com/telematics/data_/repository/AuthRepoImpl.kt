@@ -3,10 +3,11 @@ package com.telematics.data_.repository
 import com.telematics.data_.api.LoginApi
 import com.telematics.data_.api.errors.ApiError
 import com.telematics.data_.mappers.toSessionData
-import com.telematics.data_.model.SessionData
 import com.telematics.data_.model.login.LoginBody
 import com.telematics.data_.model.login.LoginFields
-import com.telematics.data_.model.login.LoginType
+import com.telematics.domain_.model.LoginType
+import com.telematics.domain_.model.SessionData
+import com.telematics.domain_.repository.AuthRepo
 import javax.inject.Inject
 
 class AuthRepoImpl @Inject constructor(

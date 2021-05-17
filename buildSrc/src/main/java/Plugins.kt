@@ -24,7 +24,10 @@ object Plugins {
     const val javaLibrary = "java-library"
     const val kotlin = "kotlin"
     const val kotlinKapt = "kotlin-kapt"
+    const val kotlinAndroid = "kotlin-android"
     const val daggerHiltPlugin = "dagger.hilt.android.plugin"
+    const val dynamicFeature = "com.android.dynamic-feature"
+    const val kotlinAndroidExtensions ="kotlin-android-extensions"
 }
 
 fun DependencyHandler.classpathL(list: List<String>) {

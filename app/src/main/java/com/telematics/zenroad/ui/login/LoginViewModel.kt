@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.telematics.data_.model.SessionData
-import com.telematics.data_.model.login.LoginType
-import com.telematics.data_.usecase.LoginUseCase
 import com.telematics.data_.utils.Resource
+import com.telematics.domain_.model.LoginType
+import com.telematics.domain_.model.SessionData
+import com.telematics.domain_.usecase.LoginUseCase
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,6 +23,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                 loginState.postValue(Resource.Loading())
             }
             .onEach {
+                com.telematics.features.dashboard.ui.ui.deviceToken = it.deviceToken
                 loginState.postValue(Resource.Success(it))
             }
             .catch { error ->

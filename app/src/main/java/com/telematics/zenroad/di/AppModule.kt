@@ -9,12 +9,12 @@ import com.telematics.data_.api.LoginApi
 import com.telematics.data_.api.RefreshApi
 import com.telematics.data_.interceptor.AppIDInterceptor
 import com.telematics.data_.interceptor.InstanceValuesInterceptor
-import com.telematics.data_.repository.AuthRepo
-import com.telematics.data_.repository.AuthRepoImpl
-import com.telematics.data_.repository.SessionRepo
-import com.telematics.data_.repository.SessionRepoImpl
 import com.telematics.data_.interceptor.MainInterceptor
-import com.telematics.zenroad.BuildConfig
+import com.telematics.data_.repository.AuthRepoImpl
+import com.telematics.data_.repository.SessionRepoImpl
+import com.telematics.domain_.BuildConfig
+import com.telematics.domain_.repository.AuthRepo
+import com.telematics.domain_.repository.SessionRepo
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -32,15 +32,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module(
     includes = [
-        DataModule1::class
+        DataModule::class
     ]
 )
 object AppModule {
-
     @Singleton
     @Provides
     fun provideTransactionsUrl(): String {
-        return BuildConfig.userUrl
+        return BuildConfig.userServiceUrl
     }
 
     @Singleton
@@ -123,7 +122,7 @@ object AppModule {
         return Retrofit
             .Builder()
             .client(client)
-            .baseUrl(BuildConfig.userUrl)
+            .baseUrl(BuildConfig.userServiceUrl)
             .addConverterFactory(converterFactory)
             .build()
     }
@@ -146,7 +145,7 @@ object AppModule {
         val retrofit = Retrofit
             .Builder()
             .client(client)
-            .baseUrl(BuildConfig.userUrl)
+            .baseUrl(BuildConfig.userServiceUrl)
             .addConverterFactory(converterFactory)
             .build()
         return retrofit.create(RefreshApi::class.java)
@@ -155,7 +154,7 @@ object AppModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DataModule1 {
+interface DataModule {
     @Binds
     @Singleton
     fun bindAuthRepository(repository: AuthRepoImpl): AuthRepo

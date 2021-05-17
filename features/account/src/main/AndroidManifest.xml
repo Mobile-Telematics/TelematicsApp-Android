@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.telematics.account_">
+<manifest xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.telematics.features.account">
 
+    <dist:module
+        dist:instant="false"
+        dist:title="Account">
+        <dist:delivery>
+            <dist:install-time />
+        </dist:delivery>
+        <dist:fusing dist:include="true" />
+    </dist:module>
 </manifest>

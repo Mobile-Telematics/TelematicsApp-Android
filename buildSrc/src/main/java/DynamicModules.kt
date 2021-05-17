@@ -1,13 +1,13 @@
 object Modules {
 
+    const val app = ":app"
     const val data = ":data"
+    const val domain = ":domain"
     const val account = ":features:account"
     const val dashboard = ":features:dashboard"
 }
 
 object DynamicModules {
 
-    private const val HOME = ":features:home"
-
-    val modules = mutableSetOf(HOME)
+    val modules = mutableSetOf(Modules.account)
 }

@@ -1,15 +1,14 @@
 package com.telematics.data_.interceptor
 
 import com.telematics.data_.api.RefreshApi
-import com.telematics.data_.api.errors.ApiError
 import com.telematics.data_.mappers.toSessionData
-import com.telematics.data_.model.SessionData
 import com.telematics.data_.model.refresh_token.RefreshRequest
-import com.telematics.data_.repository.SessionRepo
+import com.telematics.domain_.model.SessionData
+import com.telematics.domain_.repository.SessionRepo
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import okhttp3.*
 import javax.inject.Inject
 

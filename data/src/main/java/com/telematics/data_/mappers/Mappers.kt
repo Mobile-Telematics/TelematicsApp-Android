@@ -1,7 +1,7 @@
 package com.telematics.data_.mappers
 
-import com.telematics.data_.model.SessionData
 import com.telematics.data_.model.rest.ApiResult
+import com.telematics.domain_.model.SessionData
 import java.util.*
 
 fun ApiResult.toSessionData(): SessionData {

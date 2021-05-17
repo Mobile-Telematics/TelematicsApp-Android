@@ -26,7 +26,7 @@ object AppDependencies {
     private const val javaxAnnotations = "javax.annotation:jsr250-api:${Versions.javaxAnnotations}"
 
     //security-crypto
-    private const val encryptedSharedPref =
+    const val encryptedSharedPref =
         "androidx.security:security-crypto:${Versions.encryptedSharedPref}"
 
     //coroutines

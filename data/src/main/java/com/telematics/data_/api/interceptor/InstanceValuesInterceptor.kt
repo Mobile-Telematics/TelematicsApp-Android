@@ -1,6 +1,6 @@
 package com.telematics.data_.api.interceptor
 
-import com.telematics.data_.BuildConfig
+import com.telematics.domain_.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 

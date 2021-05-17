@@ -7,9 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.telematics.data_.model.SessionData
-import com.telematics.data_.model.login.LoginType
 import com.telematics.data_.utils.Resource
+import com.telematics.domain_.model.LoginType
+import com.telematics.domain_.model.SessionData
 import com.telematics.zenroad.MainActivity
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.LoginActivityBinding

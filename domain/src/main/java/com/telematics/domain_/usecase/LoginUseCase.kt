@@ -1,9 +1,9 @@
-package com.telematics.data_.usecase
+package com.telematics.domain_.usecase
 
-import com.telematics.data_.model.SessionData
-import com.telematics.data_.model.login.LoginType
-import com.telematics.data_.repository.AuthRepo
-import com.telematics.data_.repository.SessionRepo
+import com.telematics.domain_.model.LoginType
+import com.telematics.domain_.model.SessionData
+import com.telematics.domain_.repository.AuthRepo
+import com.telematics.domain_.repository.SessionRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

@@ -4,8 +4,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.telematics.features.account.AccountFragment
-import com.telematics.features.dashboard.ui.DashboardFragment
+import com.telematics.features.account.ui.AccountFragment
+import com.telematics.features.dashboard.ui.ui.DashboardFragment
 
 class ViewPagerFragmentStateAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 

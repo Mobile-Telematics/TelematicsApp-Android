@@ -1,7 +1,8 @@
 include(
     ":app",
     ":data",
+    ":domain",
     ":features:account",
     ":features:dashboard"
 )
-rootProject.name = "Zenroad(AppBundle)"
+rootProject.name = "Zenroad"

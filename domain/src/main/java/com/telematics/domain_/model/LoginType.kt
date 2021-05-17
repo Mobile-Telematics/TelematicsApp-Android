@@ -1,4 +1,4 @@
-package com.telematics.data_.model.login
+package com.telematics.domain_.model
 
 enum class LoginType {
     EMAIL,

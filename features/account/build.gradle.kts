@@ -1,7 +1,8 @@
 plugins {
     id(Plugins.androidLibrary)
-    kotlin(Plugins.android)
-    id("kotlin-android")
+    id(Plugins.kotlinAndroidExtensions)
+    id(Plugins.kotlinAndroid)
+    id(Plugins.kotlinKapt)
 }
 
 android {
@@ -9,6 +10,7 @@ android {
     compileSdkVersion(AppConfig.compileSdk)
 
     defaultConfig {
+        //applicationId = "${AppConfig.applicationIdPrefix}.account"
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
         minSdkVersion(AppConfig.minSdk)
@@ -24,7 +26,6 @@ android {
                 "proguard-rules.pro"
             )
             manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", true)))
-
             //signingConfig = signingConfigs.release
         }
         getByName("debug") {
@@ -35,10 +36,6 @@ android {
         }
     }
 
-    viewBinding {
-        android.buildFeatures.viewBinding = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -47,6 +44,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+//    android.buildFeatures.viewBinding = true
+//    android.buildFeatures.dataBinding = true
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -54,6 +58,8 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(AppDependencies.appLibraries)
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+
+    implementation(project(Modules.data))
+    //implementation(AppDependencies.daggerHiltLibraries)
 }

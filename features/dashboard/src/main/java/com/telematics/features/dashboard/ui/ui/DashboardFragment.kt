@@ -1,4 +1,4 @@
-package com.telematics.features.dashboard.ui
+package com.telematics.features.dashboard.ui.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.telematics.dashboard_.R
+
+var deviceToken = ""
 
 class DashboardFragment : Fragment() {
 

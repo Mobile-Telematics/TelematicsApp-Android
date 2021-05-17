@@ -1,4 +1,4 @@
-package com.telematics.data_.model
+package com.telematics.domain_.model
 
 data class SessionData(
     val deviceToken: String,

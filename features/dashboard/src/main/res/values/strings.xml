@@ -1,4 +1,722 @@
 <resources>
+    <string name="app_name">Zenroad</string>
 
+    <!-- Notification channels -->
+    <string name="notification_service_channel_name">Services</string>
+    <string name="notification_service_channel_description">Services</string>
+    <string name="notification_warning_channel_name">Warnings</string>
+    <string name="notification_warning_channel_description">Warnings</string>
+    <string name="notification_challenges_channel_name">Challenges</string>
+    <string name="notification_challenges_channel_description">Challenges</string>
+    <string name="notification_trips_channel_name">Trips</string>
+    <string name="notification_trips_channel_description">Trips</string>
+    <string name="notification_rewards_channel_name">Rewards</string>
+    <string name="notification_rewards_channel_description">Rewards</string>
+    <string name="notification_community_channel_name">Community</string>
+    <string name="notification_community_channel_description">Community</string>
+
+    <!-- Nav menu items -->
+    <string name="nav_exit">exit</string>
+    <string name="nav_logout_question">Logout?</string>
+
+    <string name="nav_item_feed">Feed</string>
+    <string name="nav_item_networks">Network</string>
+    <string name="nav_item_experience">Experience</string>
+    <string name="nav_item_reward">My Rewards</string>
+    <string name="nav_item_more">More</string>
+    <string name="nav_item_settings">Settings</string>
+    <string name="nav_item_profile">Profile</string>
+
+    <!-- Nav menu -->
+    <string name="nav_menu_power_rt" translatable="false">Powered by Raxel Telematics</string>
+    <string name="nav_menu_power_by_link" translatable="false">http://www.rtelematicssdk.com</string>
+
+    <!-- URLs -->
+    <string name="url_base" translatable="false">https://www.telematicssdk.com</string>
+    <string name="url_how_it_works" translatable="false">/zrhiw</string>
+    <string name="url_telematics_settings" translatable="false">/zrTsettings</string>
+    <string name="url_telematics_settings_troubleshooting" translatable="false">https://help.telematicssdk.com/en/collections/1827809-mobile-application#troubleshooting</string>
+
+    <!-- Zero layout -->
+    <string name="zero_layout_refresh">REFRESH</string>
+    <string name="zero_layout_description">We are doing our best!\nThank you for your patience.</string>
+    <string name="zero_layout_info_puzzled">We are puzzled too, but…</string>
+    <string name="zero_layout_info_wrong">Whoops!\nSomething went wrong, but…</string>
+
+    <!-- Crop screen -->
+    <string name="crop_screen_title">Crop Image</string>
+    <string name="crop_screen_done">DONE</string>
+
+    <!-- Loading item view -->
+    <string name="loading_item_view_error">Error loading</string>
+
+    <!--Error messages todo-->
+    <string name="unknown_error">Unknown error</string>
+    <string name="network_error">Unable to establish connection.</string>
+    <string name="not_modified_error" translatable="false">@string/server_error_error</string>
+    <string name="bad_request_error" translatable="false">Oops! Something went wrong.\nWe received this information and already working on it.</string>
+    <string name="unauthorized_error">Unauthorized</string>
+    <string name="forbidden_error" translatable="false">@string/server_error_error</string>
+    <string name="not_found_error">Not found</string>
+    <string name="method_not_allowed_error" translatable="false">@string/server_error_error</string>
+    <string name="conflict_error" translatable="false">@string/server_error_error</string>
+    <string name="unprocessable_error" translatable="false">@string/server_error_error</string>
+    <string name="server_error_error">Service is temporarily unavailable.</string>
+    <string name="login_error">Email or password is incorrect.</string>
+    <string name="storage_camera_permission_error">Access to photo camera and storage is required to add a photo.</string>
+
+    <!-- Tracking -->
+    <string name="tracking_dialog_cancel">CANCEL</string>
+    <string name="tracking_dialog_confirm">OK</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_cancel">CANCEL</string>
+    <string name="dialog_confirm">OK</string>
+    <string name="dialog_profile">PROFILE</string>
+    <string name="dialog_yes">YES</string>
+    <string name="dialog_no">NO</string>
+    <string name="dialog_registration_confirm_proceed">This Login is not registered. Do you want to proceed registration with this Login?</string>
+    <string name="dialog_registration_confirm_reset_pass">Confirm sending new Password?</string>
+    <string name="dialog_contacts_need_permission_question">Access to Contacts data is required to proceed connect operation.</string>
+    <string name="dialog_contacts_need_first_and_last_names">Please complete your first and last names in Profile.</string>
+    <string name="dialog_events_hide_trip">Delete this trip?</string>
+    <string name="dialog_events_share_trip">Share this trip with all users?</string>
+    <string name="dialog_events_unshare_trip">Unshare this trip with all users?</string>
+
+    <!-- Login Screen -->
+    <string name="login_screen_login">Log In</string>
+    <string name="login_screen_join">Join</string>
+    <string name="login_screen_login_error">This field must be filled.</string>
+    <string name="login_screen_password_error">The password is missing.</string>
+    <string name="login_screen_hint_email">Email Address</string>
+    <string name="login_screen_hint_phone_number">Phone</string>
+    <string name="login_screen_hint_phone">Phone</string>
+    <string name="login_screen_hint_password">Password</string>
+    <string name="login_screen_forgot_password">Forgot password?</string>
+    <string name="login_screen_use_email">Use your E-mail</string>
+    <string name="login_screen_use_phone">Use your phone number</string>
+    <string name="login_screen_change_reg_type_email">Email Address</string>
+    <string name="login_screen_change_reg_type_phone_number">Phone Number</string>
+    <string name="login_screen_no_account">Don’t have an account?</string>
+    <!--<string name="login_screen_policy">I agree with <u>Privacy Policy</u></string>-->
+    <string name="login_screen_policy">I agree with <a href="https://www.telematicssdk.com/privacy-policy/">Privacy Policy</a></string>
+    <string name="login_screen_terms">Terms Of Conditions</string>
+    <string name="account_screen_first_name_invalid">First name isn’t correct.</string>
+    <string name="account_screen_last_name_invalid">Last name isn’t correct.</string>
+    <string name="login_screen_email_invalid">Email address isn’t correct.</string>
+    <string name="login_screen_phone_invalid">Phone number isn\'t correct.</string>
+    <string name="login_reg_error_token_invalid">Authorization error, please, use another authorization method</string>
+
+    <!-- Welcomeback Screen -->
+    <string name="welcomeback_screen_title_back">Welcomeback</string>
+    <string name="welcomeback_screen_title_user">You were logged in as\n%1$s</string>
+    <string name="welcomeback_screen_title_confirm">Confirm \nregistration</string>
+    <string name="welcomeback_screen_title_incorrect_pass">Please carefuly \nenter your \npassword again \nor reset it</string>
+    <string name="welcomeback_screen_continue">Continue</string>
+    <string name="welcomeback_screen_enter">Enter</string>
+    <string name="welcomeback_screen_try_again">Try again</string>
+    <string name="welcomeback_screen_send_new_sms"><u>Get a new SMS</u></string>
+    <string name="welcomeback_screen_send_new_pass"><u>Get a new password</u></string>
+    <string name="welcomeback_screen_reset_pass">Reset password</string>
+    <string name="welcomeback_screen_login_another_user"><u>Login with another account</u></string>
+    <string name="welcomeback_screen_pass_sent_email">New Password sent to Email</string>
+    <string name="welcomeback_screen_pass_sent_sms">New Password sent by SMS</string>
+    <string name="welcomeback_screen_pass_sent_email_long">New Password sent to Email</string>
+    <string name="welcomeback_screen_pass_sent_sms_long">New Password sent by SMS</string>
+    <string name="welcomeback_screen_pass_from_email">Password from E-mail</string>
+    <string name="welcomeback_screen_pass_from_sms">Password from SMS</string>
+    <string name="welcomeback_screen_error_incorrect_pass_email">Password is incorrect. Please see your E-mail\nor get new password.</string>
+    <string name="welcomeback_screen_error_incorrect_pass_sms">Password is incorrect. Please see SMS\nor get new password.</string>
+    <string name="welcomeback_screen_error_incorrect_phone_number" translatable="false">Phone number is not valid</string>
+    <string name="welcomeback_screen_error_incorrect_pass">Password isn\'t correct</string>
+    <string name="singup_screen_singup">Sign up</string>
+
+    <!--Verify code Screen-->
+    <string name="verify_code_screen_message">Message with a code was sent to %1s\nEnter it in the field below</string>
+    <string name="verify_code_screen_enter_code">Enter code</string>
+    <string name="verify_code_screen_get_a_new_code"><u>Get a new code</u></string>
+    <string name="verify_code_screen_next">Next</string>
+    <string name="verify_code_screen_sign_in_with_another_email"><u>Sign in with another email</u></string>
+
+    <!--Reset password Screen-->
+    <string name="reset_password_enter_new_password">Enter new password</string>
+    <string name="reset_password_enter_reset">Reset</string>
+    <string name="reset_password_sign_in_with_another_email_or_phone"><u>Sign in with another email or phone</u></string>
+    <string name="reset_password_create_a_new_password">Create a new password for your account</string>
+    <string name="reset_password_code_is_incorrect">Code is incorrect. Please see email or get new code again</string>
+
+    <!-- Welcome HelpScreen -->
+    <string name="welcome_help_screen_content1">- Grant Required Permissions</string>
+    <string name="welcome_help_screen_content2">- Start Your Trip</string>
+    <string name="welcome_help_screen_content3">- Tracking Will Start &amp; Stop Automatically</string>
+    <string name="welcome_help_screen_welcome_aboard">Welcome aboard</string>
+
+    <!-- Progress Events -->
+    <string name="progress_title">Feed</string>
+    <string name="progress_no_items">There are no events.</string>
+    <string name="progress_all_users">All Users</string>
+    <string name="progress_friends">Friends</string>
+    <string name="progress_all_events">All Events</string>
+    <string name="progress_message">Message</string>
+    <string name="progress_message_useful">Useful</string>
+    <string name="progress_messages">Messages</string>
+    <string name="progress_challenge">Challenge</string>
+    <string name="progress_challenge_money_label">coins</string>
+    <string name="progress_challenge_join_until">Join until</string>
+    <string name="progress_challenge_join_buttom">Join</string>
+    <string name="progress_challenges">Challenges</string>
+    <string name="progress_trip">Trip</string>
+    <string name="progress_trip_overall_score">Overall Score</string>
+    <string name="progress_shared_trip">Shared Trip</string>
+    <string name="progress_shared_trip_shared_by">Shared by</string>
+    <string name="progress_trips">Trips</string>
+    <string name="progress_trip_type_driver">Driver</string>
+    <string name="progress_trip_type_passenger">Passenger</string>
+    <string name="progress_trip_type_bus">Bus</string>
+    <string name="progress_trip_type_motorcycle">Motorcycle</string>
+    <string name="progress_trip_type_train">Train</string>
+    <string name="progress_trip_type_taxi">Taxi</string>
+    <string name="progress_trip_type_bicycle">Bicycle</string>
+    <string name="progress_trip_type_other">Other</string>
+    <string name="progress_event_trip">Trip</string>
+    <string name="progress_event_shared_trip">Shared Trip</string>
+    <string name="progress_event_my_shared_trip">My Shared Trip</string>
+    <string name="progress_event_share_trip_successfully">Trip shared successfully</string>
+
+    <!-- Trip Details Screen -->
+    <string name="trip_details_title">Trip Details</string>
+    <string name="trip_details_point_a">A</string>
+    <string name="trip_details_point_b">B</string>
+    <string name="trip_details_acceleration_score">Acceleration Score</string>
+    <string name="trip_details_braking_score">Braking Score</string>
+    <string name="trip_details_phone_dist_score">Phone Distraction Score</string>
+    <string name="trip_details_speeding_score">Speeding Score</string>
+    <string name="trip_details_cornering_score">Cornering Score</string>
+    <string name="trip_details_km_h">Speed: %1$s km/h</string>
+    <string name="trip_details_mi_h">Speed: %1$s mi/h</string>
+    <string name="trip_details_max_force">Max Force: %1$s m/s/s</string>
+    <string name="trip_details_braking">Braking</string>
+    <string name="trip_details_acceleration">Acceleration</string>
+    <string name="trip_details_cornering">Cornering</string>
+    <string name="trip_details_phone_usage">Phone Usage</string>
+    <string name="trip_details_swipe_up_for_details">Swipe up for details</string>
+
+    <!-- Networks-->
+    <string name="networks_title">Network</string>
+    <string name="networks_my_community">My Community</string>
+    <string name="networks_facebook">Facebook</string>
+    <string name="networks_instagramm">Instagram</string>
+    <string name="networks_vkontakte">VK.com</string>
+    <string name="networks_contacts">Contacts</string>
+    <string name="networks_requests">Requests</string>
+    <string name="networks_friends">My Friends</string>
+    <string name="networks_no_requests">You don’t have friend requests yet.</string>
+    <string name="networks_no_friends">You don’t have your friends here yet.\nPlease don’t hesitate to add them right now.</string>
+    <string name="networks_add_new_group">Add New Group</string>
+    <string name="networks_add_new_friends">Invite your friends</string>
+    <string name="networks_contacts_add_contacts">Connect Your Contacts</string>
+    <string name="networks_contacts_find_zenroad_contacts">Find people you know on ZenRoad and\nchoose who to follow</string>
+    <string name="networks_contacts_connect_contacts_phonebook">Connect phonebook</string>
+    <string name="networks_contacts_connect_contacts_vk">Connect vk.com</string>
+    <string name="networks_contacts_connect_contacts_fb">Connect fb</string>
+    <string name="networks_contacts_connect_contacts_instagram">Connect insta</string>
+    <string name="networks_contacts_invite">Invite</string>
+    <string name="networks_contacts_add">Add</string>
+    <string name="networks_contacts_connected">Connected</string>
+    <string name="networks_contacts_friendship">Requested</string>
+    <string name="networks_contacts_no_items">No Contacts found.</string>
+    <string name="networks_contacts_analyse">We are analysing your contacts\nto link you with your friends.\nPlease wait for a while.</string>
+    <string name="networks_contacts_choose_number">Choose phone number to invite…</string>
+    <string name="networks_contacts_server_error">Update contacts failed. We\'ll try again later.</string>
+    <string name="networks_contacts_from_server_updated">Contacts updated. Check-in.</string>
+
+    <!-- Rewards-->
+    <string name="rewards_name">My Rewards</string>
+    <string name="rewards_card_activate">Activate</string>
+    <string name="rewards_card_manage">Manage</string>
+    <string name="rewards_learn_more">Learn more about how can you earn money</string>
+    <string name="rewards_trips">Trips:</string>
+    <string name="rewards_referrals">Referrals:</string>
+    <string name="rewards_challenges">Challenges:</string>
+    <string name="rewards_others">Others:</string>
+    <string name="rewards_report"><u>Get Detailed Report</u></string>
+    <string name="rewards_report_soon"><u>Keep driving and get Detailed Report soon</u></string>
+    <string name="rewards_support"><u>Contact Support</u></string>
+
+    <!-- Rewards Invite Screen-->
+    <string name="rewards_invite_start">Start Now</string>
+    <string name="rewards_invite_info">You are about to earn\nsome <b>Money!</b></string>
+    <string name="rewards_invite_support"><u>Support</u></string>
+
+
+    <!-- Rewards Help Dialog-->
+    <string name="rewards_dialog_ways">3 Ways to Earn</string>
+    <string name="rewards_dialog_challenges_complete">Complete Challenges</string>
+    <string name="rewards_dialog_challenges_btn">View All Challenges</string>
+    <string name="rewards_dialog_trips_complete">Complete Trips</string>
+    <string name="rewards_dialog_trips_btn">Turn on Telematics</string>
+    <string name="rewards_dialog_referrals">Invite Friends</string>
+    <string name="rewards_dialog_referrals_btn">Send Invite Code</string>
+
+    <!-- Dashboard Screen Initial Strings -->
+    <string name="dashboard_user_name">User Name</string>
+    <string name="dashboard_bottom_tab_text">Drive safe with global insurance</string>
+
+    <!-- Dashboard Screen Items -->
+    <string name="dashboard_driving_activity">My Activity</string>
+    <string name="dashboard_driving_period_time_week">Week</string>
+    <string name="dashboard_driving_period_time_month">Month</string>
+    <string name="dashboard_driving_period_time_year">Year</string>
+
+    <!-- Dashboard Hub Screen Content -->
+    <string name="dashboard_hub_add_policy">Add Insurance Policy (MTPL)</string>
+    <string name="dashboard_hub_policy_expires">Your Policy expires in</string>
+    <string name="dashboard_hub_bottom_btn_text">Open Full Leaderboard</string>
+    <string name="dashboard_hub_telematics_data_warning">Telematics Data is off</string>
+    <string name="dashboard_hub_telematics_turn_on">Turn On</string>
+    <string name="dashboard_hub_mileage_progress_scoring_available">Scoring available in:</string>
+    <string name="dashboard_hub_mileage_progress_drive_norm">Drive as you do normally</string>
+    <string name="dashboard_hub_balance_label">Current balance:</string>
+    <string name="dashboard_hub_balance_drivecoins">drivecoins</string>
+    <string name="dashboard_hub_balance_earn_more">Earn more</string>
+    <string name="dashboard_hub_new_challenge_available">New Challenge Available -</string>
+    <string name="dashboard_hub_new_challenge_days_left">days left</string>
+    <string name="dashboard_hub_new_challenge_users_joined">users have joined</string>
+    <string name="dashboard_hub_new_challenge_more">More</string>
+    <string name="dashboard_hub_active_challenge">Active Challenge:</string>
+    <string name="dashboard_hub_active_challenge_completion">Completion:</string>
+    <string name="dashboard_hub_general_leaderboard">Global Leaderboard:</string>
+    <string name="dashboard_hub_friends_leaderboard">Friends Leaderboard:</string>
+    <string name="dashboard_hub_pager_first_title">Users drive 60% safer with our app!</string>
+    <string name="dashboard_hub_pager_first_desc">Save time &amp; money when searching for the best auto, life, home, or health insurance policy online.</string>
+    <string name="dashboard_hub_pager_second_title">Always listen carefully to our advices!</string>
+    <string name="dashboard_hub_pager_second_desc">Inappropriate braking behaviour has a cumulative effect on a vehicle safety systems. This leads to increased risk!</string>
+
+    <string name="dashboard_hub_telematics_location">Enable Location Access</string>
+    <string name="dashboard_hub_telematics_foreground">Enable Foreground Services</string>
+    <string name="dashboard_hub_telematics_physical_activity">Enable Physical Activity</string>
+    <string name="dashboard_hub_telematics_storage">Enable Storage Read/Write Access</string>
+    <string name="dashboard_hub_telematics_gps">Enable GPS</string>
+    <string name="dashboard_hub_telematics_wifi">Enable Wi-Fi</string>
+    <string name="dashboard_hub_telematics_mobile_data">Enable Mobile Data</string>
+    <string name="dashboard_hub_telematics_data_turn_on">Turn On Telematics Data</string>
+    <string name="dashboard_hub_telematics_data_desc">To collect accurate data and complete app operation, you need to resolve access to the following functions:</string>
+
+    <!-- Dashboard Driving Score Items -->
+    <string name="dashboard_safety_score">Safety Driving\nScore</string>
+    <string name="dashboard_discount_score">Discount at\nGlobal Insurance</string>
+    <string name="dashboard_eco_score">Eco Driving\nScore</string>
+    <string name="dashboard_safety_maneuvers">Maneuvers</string>
+    <string name="dashboard_safety_speeding">Speeding</string>
+    <string name="dashboard_safety_mileage">Mileage</string>
+    <string name="dashboard_safety_driving_time">Driving Time</string>
+    <string name="dashboard_safety_average_speed">Average Speed</string>
+    <string name="dashboard_safety_max_speed">Max Speed</string>
+    <string name="dashboard_safety_average_trip_distance">Average Trip Distance</string>
+    <string name="dashboard_eco_fuel">Fuel</string>
+    <string name="dashboard_eco_tyres">Tyres</string>
+    <string name="dashboard_eco_brakes">Brakes</string>
+    <string name="dashboard_eco_cost">Cost of ownership</string>
+    <string name="dashboard_eco_depreciation">Depreciation</string>
+    <string name="dashboard_eco_av_fuel_consumption">Av. Fuel Consumption</string>
+    <string name="dashboard_activity_period_week">\u0020last week</string>
+    <string name="dashboard_activity_period_month">\u0020last month</string>
+    <string name="dashboard_activity_period_year">\u0020last year</string>
+    <string name="dashboard_discount_amount_plus_sign">\u002B\u0020</string>
+    <string name="dashboard_discount_amount_percent_for_discount">\u0020\u0025 for discount</string>
+    <string name="dashboard_discount_no_discount">no discount</string>
+    <string name="dashboard_safety_driving_default_hint">Keep the Mileage and Maneuverability in green for another ~ days and get ~ coins</string>
+    <string name="dashboard_safety_accident_default_hint">Each ~ trip can end in an accident. Observe the speed limit.</string>
+    <string name="dashboard_eco_driving_default_hint">Keep the Fuel and Brakes scores in green level for ~ days more and get ~ coins</string>
+    <string name="dashboard_eco_rating_default_hint">Your rating is higher than ~% of users. We believe that you can better!</string>
+
+    <string name="dashboard_safety_driving_default_hint_temp">Make 10 consecutive trips within the speed limit to improve your driving score!</string>
+    <string name="dashboard_safety_accident_default_hint_temp">Harsh braking behaviour has a negative effect on a vehicle’s safety systems.</string>
+    <string name="dashboard_eco_driving_default_hint_temp">Make 10 Trips with a Eco Driving Score of 90 or higher to improve your driving score!</string>
+    <string name="dashboard_eco_rating_default_hint_temp">Avoid heavy braking and you will reduce fuel consumption!</string>
+
+    <!--dashboard ecoscoring period-->
+    <string-array name="dashboard_ecoscoring_period">
+        <item>WEEK</item>
+        <item>MONTH</item>
+        <item>YEAR</item>
+    </string-array>
+
+    <!-- App Settings Screen -->
+    <string name="app_settings_title">Settings</string>
+
+    <!-- App Settings menu items -->
+    <string name="dashboard_settings_my_profile">My Profile</string>
+    <string name="dashboard_settings_how_it_works">How it works</string>
+    <string name="dashboard_settings_telematics">Telematics Settings</string>
+    <string name="dashboard_settings_security">Security</string>
+    <string name="dashboard_settings_security_change_pass">Change Password</string>
+    <string name="dashboard_settings_add_dealer">Add Dealer/Agent</string>
+    <string name="dashboard_settings_ride_hailing">Ride-hailing</string>
+    <string name="dashboard_settings_notifications">Notifications</string>
+    <string name="dashboard_settings_logout">Log out</string>
+    <string name="dashboard_settings_delete_account">Delete Account</string>
+    <string name="dashboard_settings_privacy">Privacy Policy</string>
+    <string name="dashboard_settings_terms">Terms of Use</string>
+    <string name="dashboard_settings_rate">Rate our app</string>
+    <string name="dashboard_settings_help">Help</string>
+    <string name="dashboard_settings_help_text_sender">Contact Support team</string>
+    <string name="dashboard_settings_help_email">support@telematicssdk.com</string>
+
+    <!-- Change pass Screen -->
+    <string name="change_pass_old_pass">Old Password</string>
+    <string name="change_pass_new_pass">New Password</string>
+    <string name="change_pass_confirm_pass">Confirm New Password</string>
+    <string name="change_pass_submit_pass">Save</string>
+    <string name="change_pass_length_validate">Password must be at least 6 characters.</string>
+    <string name="change_pass_validate">Passwords should match.</string>
+    <string name="change_pass_changed">Password changed successfully</string>
+
+    <!-- Leaderboard Screen -->
+    <string name="leaderboard_summary_title">Leaderboard Summary</string>
+    <string name="leaderboard_title">Leaderboard</string>
+    <string name="leaderboard_mileage_driving_title">Mileage</string>
+    <string name="leaderboard_safety_driving_title">Safety Score</string>
+    <string name="leaderboard_no_users">No users\nin this list.</string>
+    <string name="leaderboard_no_friends">Invite 5 friends and more\nto participate\nin the leaderboard.</string>
+    <string name="leaderboard_invite_now">Invite now</string>
+    <string name="leaderboard_info_title">Number of Trips leaderboard</string>
+    <string name="leaderboard_info_desc">To be included into the leaderboard, please create your profile and attach you phone.</string>
+    <string name="leaderboard_keep_driving">Keep driving!\nLeaderboard appears soon</string>
+    <!-- Account -->
+    <string name="account_user_name">User Name</string>
+    <string name="account_status_verified">Verified Account</string>
+    <string name="account_status_no_verified">Unverified Account</string>
+    <string name="account_email">Email:</string>
+    <string name="account_phone">Phone:</string>
+    <string name="account_marital_status">Marital Status:</string>
+    <string name="account_marital_married">Married</string>
+    <string name="account_marital_widowed">Widowed</string>
+    <string name="account_marital_separated">Separated</string>
+    <string name="account_marital_divorced">Divorced</string>
+    <string name="account_marital_single">Single</string>
+    <string name="account_marital_unknown">Unknown Marital</string>
+    <string name="account_marital_unknown_empty"></string>
+    <string name="account_kids">Kids:</string>
+    <string name="account_complete_btn">Complete Profile</string>
+
+    <string name="account_driver_information">Driver Information</string>
+    <string name="account_my_cars">My Vehicles</string>
+    <string name="account_add_new_doc">Add New Document</string>
+    <string name="account_add_new_car">Add new vehicle</string>
+    <string name="account_car_doc_vin">VIN #: %1$s</string>
+
+    <!-- Account Status Popup -->
+    <string name="account_popup_your_acc_status">Your Account Status</string>
+    <string name="account_popup_completed">Completed</string>
+    <string name="account_popup_uncompleted">Uncompleted</string>
+    <string name="account_popup_personal_info">Personal Info</string>
+    <string name="account_popup_driver_info">Driver Info</string>
+    <string name="account_popup_vechile_info">Vehicle Info</string>
+    <string name="account_popup_uncomplete_desc">Complete info in order to use all\nfeatures available within the app!</string>
+    <string name="account_popup_complete_desc">You are now able to use all features\navailable within the app!</string>
+    <string name="account_popup_fix_issues">FIX ISSUES</string>
+    <string name="account_popup_continue">CONTINUE</string>
+    <string name="account_popup_ok">OK</string>
+
+    <!-- Account Wizard General -->
+    <string name="acc_wizard_btn_next">Next Step</string>
+    <string name="acc_wizard_btn_back">Back</string>
+    <string name="acc_wizard_btn_save">Save</string>
+    <string name="acc_wizard_acc_complete">Complete account</string>
+    <string name="acc_wizard_profile_info"><b>Profile Info</b></string>
+    <string name="acc_wizard_driving_licence">Driving licence</string>
+    <string name="acc_wizard_car_info">Car Info</string>
+    <string name="acc_wizard_acc_completed">Completed account</string>
+    <string name="acc_wizard_acc_uncompleted">Uncompleted account</string>
+    <string name="acc_wizard_fullname">%1$s %2$s</string>
+
+    <!-- Account Wizard Profile -->
+    <string name="acc_wizard_name">FIRST NAME</string>
+    <string name="acc_wizard_family_name">LAST NAME</string>
+    <string name="acc_wizard_email">EMAIL</string>
+    <string name="acc_wizard_phone_number">PHONE NUMBER</string>
+    <string name="acc_wizard_birthday">BIRTHDAY</string>
+    <string name="acc_wizard_marital">MARITAL STATUS</string>
+    <string name="acc_wizard_children">CHILDREN</string>
+    <string name="acc_wizard_address">ADDRESS</string>
+    <string name="acc_wizard_camera_preview">There will be previews.</string>
+    <string name="acc_wizard_camera_take_photos_hints">Take %1$s photos of your document.\nThere will be previews.</string>
+    <string name="acc_wizard_camera_take_photos_max">You can take only %1$s photos for this document.</string>
+
+    <!-- Account Wizard Driving Licence -->
+    <string name="acc_wizard_camera_desc">Point the camera on the back side of your driving\nlicense and your information will be\nautomatically recognized by the app.\n\nNo need to type it in manually.</string>
+    <string name="acc_wizard_start_scan">START SCANNING</string>
+    <string name="acc_wizard_enter_manually"><u>Enter Information Manually</u></string>
+
+    <string name="acc_wizard_licence_number">LICENSE NUMBER</string>
+    <string name="acc_wizard_full_name">FULL NAME</string>
+    <string name="acc_wizard_registration">REGISTRATION DATE</string>
+    <string name="acc_wizard_document_valid_until">DOCUMENT VALID UNTIL</string>
+    <string name="acc_wizard_document_issued_by">DOCUMENT ISSUED BY</string>
+    <string name="acc_wizard_registration_location">REGISTRATION LOCATION</string>
+    <string name="acc_wizard_category">CATEGORY</string>
+
+    <string name="account_wizard_passport_number">Passport #: %1$s</string>
+    <string name="account_wizard_driving_licence_owner_empty_msg">Owner Name</string>
+    <string name="account_wizard_passport_owner_empty_msg">Owner Name</string>
+    <string name="account_wizard_driving_licence_number">License #: %1$s</string>
+    <string name="account_wizard_driving_licence_number_not_set">not set</string>
+    <string name="account_wizard_driving_passport_number_not_set">not set</string>
+    <string name="account_wizard_passport_upload">Upload Passport Photos</string>
+    <string name="account_wizard_passport_uploaded">Passport Photos <b>uploaded</b></string>
+    <string name="account_wizard_driving_licence_upload">Upload Driving License Photos</string>
+    <string name="account_wizard_driving_licence_uploaded">Driving License Photos <b>uploaded</b></string>
+    <string name="account_wizard_passport_attached">Passport Photos <b>attached</b></string>
+    <string name="account_wizard_driving_licence_attached">Driving License Photos <b>attached</b></string>
+    <string name="account_user_card_birthday">Birthday:\n%1$s</string>
+    <string name="account_user_card_address">Address:\n%1$s</string>
+    <string name="account_not_specified">Not specified</string>
+
+
+    <!-- Account Wizard Car Info -->
+    <string name="acc_wizard_licence_plate">LICENSE PLATE</string>
+    <string name="acc_wizard_vin_number">VIN NUMBER</string>
+    <string name="acc_wizard_make_model">MAKE &amp; MODEL</string>
+    <string name="acc_wizard_manufacturer">MAKE</string>
+    <string name="acc_wizard_model">MODEL</string>
+    <string name="acc_wizard_car_name">CAR NICKNAME</string>
+    <string name="acc_wizard_car_type">CAR TYPE</string>
+    <string name="acc_wizard_car_year">CAR YEAR</string>
+    <string name="acc_wizard_car_initial_mileage">INITIAL MILEAGE</string>
+    <string name="acc_wizard_chassy_number">CHASSY NUMBER</string>
+    <string name="acc_wizard_color">COLOR</string>
+    <string name="acc_wizard_engine_power_hp">ENGINE POWER HP</string>
+    <string name="acc_wizard_engine_power_kwt">ENGINE POWER KWt</string>
+    <string name="acc_wizard_engine_volume">ENGINE VOLUME cm3</string>
+    <string name="acc_wizard_ecology_class">ECOLOGY CLASS</string>
+    <string name="acc_wizard_tech_passport_series">TECHNICAL PASSPORT SERIES</string>
+    <string name="acc_wizard_tech_passport_number">TECHNICAL PASSPORT NUMBER</string>
+    <string name="acc_wizard_max_car_weight">MAX CAR WEIGHT kg</string>
+    <string name="acc_wizard_noload_car_weight">NO LOAD CAR WEIGHT kg</string>
+    <string name="acc_wizard_owner_name">OWNER NAME</string>
+    <string name="acc_wizard_owner_lastname">OWNER LAST NAME</string>
+    <string name="acc_wizard_owner_middlename">OWNER MIDDLE NAME</string>
+    <string name="acc_wizard_car_address">ADDRESS</string>
+    <string name="acc_wizard_marks">SPECIAL MARKS</string>
+    <string name="account_wizard_cardoc_upload">Upload Car Document Photos</string>
+    <string name="account_wizard_cardoc_uploaded">Car Document Photos <b>uploaded</b></string>
+    <string name="account_wizard_cardoc_attached">Car Document Photos <b>attached</b></string>
+    <string name="account_wizard_cardoc_mark_empty_msg">Car mark and model</string>
+    <string name="account_wizard_cardoc_number_not_set">not set</string>
+    <string name="account_wizard_cardoc_vin_incorrect">The VIN must be 17 characters long.</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_view_set_image_dialog_msg">To upload the image(s) you can capture it with Camera or choose from the device Gallery</string>
+    <string name="settings_view_take_a_picture">Camera</string>
+    <string name="settings_view_from_gallery">Gallery</string>
+
+    <!-- Origin type -->
+    <string name="not_driver"><u>I was a Passenger</u></string>
+    <string name="origin_driver"><u>I was a Driver</u></string>
+    <string name="origin_passenger">I was a Passenger</string>
+    <string name="origin_bus">I was on a bus</string>
+    <string name="origin_taxi">I was in a taxi</string>
+    <string name="origin_train">I was on a train</string>
+    <string name="origin_bicycle">I was on a bicycle</string>
+    <string name="origin_motocycle">I was on a motorcycle</string>
+    <string name="origin_walking">I was walking</string>
+    <string name="origin_run">I was running</string>
+    <string name="origin_other">Other kind of transport</string>
+
+    <!--Synchronisation-->
+    <string name="sync_notification_body">Data is being synchronized</string>
+    <string name="retry">Retry</string>
+    <string name="congratulations">Congratulations!</string>
+
+    <plurals name="month">
+        <item quantity="one">%d+ Month</item>
+        <item quantity="other">%d+ Months</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">%dhour</item>
+        <item quantity="other">%dhours</item>
+    </plurals>
+    <plurals name="minute">
+        <item quantity="one">%dmin</item>
+        <item quantity="other">%dmins</item>
+    </plurals>
+    <plurals name="second">
+        <item quantity="one">%dsec</item>
+        <item quantity="other">%dsecs</item>
+    </plurals>
+
+    <!-- New Dashboard -->
+    <string name="dashboard_new_points">points</string>
+
+    <string name="dashboard_new_error_empty_list_message">You have no trips yet</string>
+    <string name="dashboard_new_error_trip_getting">Error fetching last trip</string>
+    <string name="dashboard_new_error_getting_image">Error getting image</string>
+
+    <string name="dashboard_new_overall_score">Overall Score</string>
+    <string name="dashboard_new_acceleration_score">Acceleration Score</string>
+    <string name="dashboard_new_braking_score">Braking Score</string>
+    <string name="dashboard_new_phone_dist_score">Phone Distraction Score</string>
+    <string name="dashboard_new_speeding_score">Speeding Score</string>
+    <string name="dashboard_new_cornering_score">Cornering Score</string>
+
+
+    <string name="dashboard_new_latest_trip_score">Latest Scored Trip</string>
+    <string name="dashboard_new_quantity">quantity</string>
+    <string name="dashboard_new_total_trips">Total Trips</string>
+    <string name="dashboard_new_km">km</string>
+    <string name="dashboard_new_mi">mi</string>
+    <string name="dashboard_new_mileage">Mileage</string>
+    <string name="dashboard_new_hours">hours</string>
+    <string name="dashboard_new_time_driven">Time Driven</string>
+    <string name="dashboard_new_congratulations_permissions_text">You have given access to all permissions and now you can use all power of ZenRoad app</string>
+    <string name="dashboard_new_complete_challenges_gain_coins"><![CDATA[Complete Challenges & Gain Coins]]></string>
+    <string name="dashboard_new_complete_with_your_friends">Complete with your friends</string>
+    <string name="dashboard_new_grow_your_safe_driving_score">Grow your Safe Driving Score</string>
+    <string name="dashboard_new_let_s_go">Let\'s go!</string>
+
+    <string name="dashboard_new_template_progress_km">%1$s km / %2$s km</string>
+    <string name="dashboard_new_template_progress_mi">%1$s mi / %2$s mi</string>
+    <string name="dashboard_new_just_press_start">To get full experience of our product, pass test drive and get your personal driving style analysis. \n Just press <b>Start</b></string>
+    <string name="dashboard_new_rank">Rank</string>
+    <string name="leaderboard_global">Global</string>
+    <string name="leaderboard_friends">Friends</string>
+    <string name="change_pass_equal_pass">Passwords should not be equal</string>
+    <string name="leaderboard_rate">Overall Safety Score</string>
+    <string name="leaderboard_acceleration">Acceleration</string>
+    <string name="leaderboard_deceleration">Braking</string>
+    <string name="leaderboard_distraction">Distraction</string>
+    <string name="leaderboard_speeding">Speeding</string>
+    <string name="leaderboard_turn">Cornering</string>
+    <string name="settings_leaderboard">Leaderboard</string>
+    <string name="nav_item_leaderboard">Leaderboard</string>
+    <string name="dashboard_new_scoring_is_available_in">Scoring is available in:</string>
+    <string name="dashboard_new_drive_as_you_do_normally">Drive as you do normally</string>
+    <string name="dashboard_new_welcome_aboard">Welcome aboard!</string>
+    <string name="dashboard_new_start_test_drive"><b>START\nTEST-DRIVE</b></string>
+    <string name="dashboard_new_start_driving_to_reveal_your_score">Start Driving to Reveal Your Score!</string>
+    <string name="dashboard_new_start_driving_to_reveal_your_score_alt">\?</string>
+    <string name="leaderboard_not_provided">Not provided</string>
+    <string name="trip_details_info_wrong_event">Wrong event</string>
+    <string name="trip_details_thanks">"Thank you, we've received\n your feedback!"</string>
+    <string name="trip_details_error">"Your internet connection is unstable.\n Please, try again later."</string>
+    <string name="trip_details_claim">Claim</string>
+    <string name="trip_details_review">Review</string>
+    <string name="trip_details_there_was_no_event_here">There was NO event here:</string>
+    <string name="trip_details_there_was_another_event_here">There was another event here:</string>
+
+
+    <string name="settings_measure_km">km</string>
+    <string name="settings_measure_mi">mi</string>
+    <string name="settings_measure_speed">Speed</string>
+    <string name="settings_measure_distance">Distance</string>
+    <string name="settings_measure_date_format">Date format</string>
+    <string name="settings_measure_dd_mm_yyy">dd/mm</string>
+    <string name="settings_measure_mm_dd_yyy">mm/dd</string>
+    <string name="settings_measure_time_format">Time format</string>
+    <string name="settings_measure_24h">24h</string>
+    <string name="settings_measure_12h">12h</string>
+    <string name="dashboard_settings_measures">Measures</string>
+    <string name="dashboard_settings_company_id">Join a Company</string>
+    <string name="dashboard_settings_company_id_success">You have successfully joined%1$s</string>
+    <string name="leaderboard_time_driven">Time Driven</string>
+    <string name="leaderboard_total_trips">Total Trips</string>
+    <string name="leaderboard_mileage">Mileage</string>
+    <string name="leaderboard_statistics">Statistics</string>
+
+
+    <string name="account_profile">Profile</string>
+    <string name="welcome_back_screen_empty_username">Login to your account</string>
+    // odb section
+    <string name="odb_step_1">STEP <b>1</b></string>
+    <string name="odb_step_2">STEP <b>2</b></string>
+    <string name="odb_step_3">STEP <b>3</b></string>
+    <string name="odb_install_your_device">Install Your Device</string>
+    <string name="odb_connect_the_device_to_the_can_port">Connect the Device to the CAN Port in\nyour vehicle. The CAN port is normally\nlocated below the dashboard, next to\nyour steering wheel.</string>
+    <string name="odb_can_t_find_the_can">Can’t find the CAN\nPort in your car?</string>
+    <string name="odb_turn_on_your_vehicle">Turn On Your Vehicle</string>
+    <string name="odb_start_your_engine_to_power_on_your_device">Start your engine to power on your Device.</string>
+    <string name="odb_take_a_photo_of_your_odometer">Take a photo of your Odometer</string>
+    <string name="odb_the_photo_will_show_the_odometer">The photo will show the odometer\nreading at the start of your policy.</string>
+    <string name="odb_open_camera">OPEN CAMERA</string>
+    <string name="odb_prepare_the_device_for_pairing">Prepare the Device for pairing</string>
+    <string name="odb_make_sure_the_device_in">Make sure the Device is plugged\ninto the CAN Port.</string>
+    <string name="odb_turn_on_bluetooth">Turn on Bluetooth</string>
+    <string name="odb_to_continue_please_enable_bluetooth">To continue, please enable Bluetooth in\nSettings or Control Centre on your phone.</string>
+    <string name="odb_search">SEARCH</string>
+    <string name="odb_oops_we_couldnt">Oops, we couldn’t\nconnect to your Device!</string>
+    <string name="odb_we_can_t_find_your_device">We can’t find your Device.\nPlease make sure that:</string>
+    <string name="odb_tips">- Your engine is turned on\n\n\n- Your Device is installed and has a red light\n\n\n- Your mobile Bluetooth is switched on\n\n\n- Your Device is already paired</string>
+    <string name="odb_try_again">TRY AGAIN</string>
+    <string name="odb_unfortunately_car_not_supported">Unfortunately, your car\nis not supported</string>
+    <string name="odb_if_your_car_model">If your car model was manufactured\nbefore 1996, our Device will\nnot support it.</string>
+    <string name="odb_give_us_a_call_at">Give us a call at:</string>
+    <string name="odb_1_300_824_227">1 300 824 227</string>
+    <string name="odb_chat_with_us">or chat with us through the app</string>
+    <string name="quit">QUIT</string>
+    <string name="odb_successfully_paired">Successfully\nPaired</string>
+    <string name="odb_congratulations_nyour_device_is_now_ready">Congratulations!\nYour Device is now ready!</string>
+    <string name="odb_device_number">Device number: %1$s</string>
+    <string name="odb_policy_number">Policy number: %1$s</string>
+    <string name="odb_next">NEXT</string>
+    <string name="odb_we_found_these_devices">We found these Devices</string>
+    <string name="odb_please_select_the_device">Please select the Device that you would\nlike to link to your policy.</string>
+    <string name="odb_can_t_see_your_device_listed">Can’t see your Device listed?\nTry again.</string>
+    <string name="odb_looking_for_a_device">Looking for a device</string>
+    <string name="odb_please_wait_while_we_search_for_your_device">Please wait while we search for your Device. This may take up to one minute.</string>
+    <string name="odb_once_we_find_it">Once we find it, you will be automatically directed to the next page.</string>
+    <string name="obd_select_the_vehicle">Select the vehicle you’re installing the\nDevice in, from the list below\nor add a new vehicle.</string>
+    <string name="obd_your_vehicles">Your Vehicles</string>
+    <string name="settings_obd">Connect OBD device</string>
+    <string name="odb_confirm">CONFIRM</string>
+    <string name="odb_would_you_like_to_use_this_photo">Would you like to use this photo?</string>
+    <string name="obd_internet_error">Your internet connection is unstable.</string>
+    <string name="obd_taking_too_long">Taking too long?</string>
+    <string name="obd_finish">FINISH</string>
+    <string name="obd_no_vehicles_error">You cars list is empty</string>
+    <string name="obd_connected">Connected</string>
+    <string name="obd_not_connected">Not Connected</string>
+    <string name="obd_device_activated">Device Activated</string>
+    <string name="obd_add">ADD</string>
+    <string name="obd_car_last_session_min">Connected (%dm ago)</string>
+    <string name="obd_car_last_session_hours">Connected  (%dh ago</string>
+    <string name="obd_car_last_session_days">Connected (%dd ago)</string>
+    <string name="obd_car_last_session_never">Not Connected</string>
+    <string name="cars_error_validation_message">The field must be filled</string>
+    <string name="obd_please_check_your_internet_connection_and_try_again">Please, check your internet connection and try again</string>
+    <string name="obd_search">Search</string>
+    <string name="acc_wizard_client_id">ID (Optional)</string>
+    <string name="obd_help_link">http://help.telematicssdk.com/en/articles/4170881-obd-settings</string>
+    <string name="cars_error_yaer">Invalid car year</string>
+
+    <string name="wizard_telematics_attention_dialog_battery">Let app always run in background?\nAllowing Zenroad to always run in the background may reduce battery life.\nYou can change this later from Settings > Apps &amp; notifications.</string>
+    <string name="enter_your_new_email_address_here_verification_code_will_be_sent_to_this_email">Enter your new email address here.\nVerification code will be sent to this email.</string>
+    <string name="enter_your_new_phone_address_here_verification_code_will_be_sent_to_this_phone">Enter your new phone number here.\nVerification code will be sent to this phone.</string>
+    <string name="change_phone_number">Change Phone number</string>
+    <string name="change_email"><b>Change Email</b></string>
+    <string name="verification_code_is_invalid"><b>Verification code is invalid</b></string>
+    <string name="company_id"><b>Company ID</b></string>
+    <string name="if_you_have_a_company_invitation_code">If you have a Company invitation code, enter it in the field below.</string>
+    <string name="invite_code">Invite code</string>
+    <string name="company_screen_join">JOIN</string>
+    <string name="company_screen_empty_code">Invite code can\'t be empty</string>
+    <string name="company_screen_invalid_code">Invite code is invalid</string>
+    <string name="on_demand_tracking">On-Demand Tracking</string>
+    <string name="automatic_tracking">Automatic Tracking</string>
+    <string name="tracking_disabled">Tracking Disabled</string>
+    <string name="proceed_with_mode">Proceed with %s Mode</string>
+
+    <string name="on_demand_go_online"><u>Go Online</u></string>
+    <string name="on_demand_go_offline"><u>Go Offline</u></string>
+    <string name="on_demand_no_current_job">No current job</string>
+    <string name="on_demand_pause">PAUSE</string>
+    <string name="on_demand_resume">RESUME</string>
+    <string name="on_demand_start">START</string>
+    <string name="on_demand_offline">Offline</string>
+    <string name="on_demand_online">Online</string>
+    <string name="on_demand_on_duty">On Duty</string>
+
+    <string name="dashboard_settings_troubleshooting">Troubleshooting</string>
 
 </resources>

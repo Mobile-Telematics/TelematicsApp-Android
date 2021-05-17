@@ -1,6 +1,6 @@
-package com.telematics.data_.repository
+package com.telematics.domain_.repository
 
-import com.telematics.data_.model.SessionData
+import com.telematics.domain_.model.SessionData
 
 
 interface SessionRepo {

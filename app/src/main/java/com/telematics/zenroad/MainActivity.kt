@@ -3,11 +3,11 @@ package com.telematics.zenroad
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.telematics.data_.repository.SessionRepo
+import com.telematics.domain_.repository.SessionRepo
+import com.telematics.zenroad.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import com.telematics.zenroad.databinding.ActivityMainBinding
 import com.telematics.zenroad.ui.bottom_menu.ViewPagerFragmentStateAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject

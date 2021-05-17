@@ -1,7 +1,8 @@
 package com.telematics.data_.repository
 
 import android.content.SharedPreferences
-import com.telematics.data_.model.SessionData
+import com.telematics.domain_.model.SessionData
+import com.telematics.domain_.repository.SessionRepo
 import javax.inject.Inject
 
 class SessionRepoImpl @Inject constructor(
@@ -36,7 +37,10 @@ class SessionRepoImpl @Inject constructor(
     override suspend fun clearSession() {
         sharedPreferences.edit()
             .remove(deviceTokenKey)
-            .commit()
+            .remove(accessTokenKey)
+            .remove(refreshTokenKey)
+            .remove(expiresInKey)
+            .apply()
     }
 
     @Synchronized

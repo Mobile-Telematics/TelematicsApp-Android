@@ -53,6 +53,9 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(AppDependencies.appLibraries)
+    // TODO: need to refactor
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("me.relex:circleindicator:2.1.4")
 }

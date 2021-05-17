@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="90dp"
+    android:layout_height="80dp"
+    android:background="@drawable/background_with_elevation"
+    android:padding="2dp"
+    android:elevation="2dp"
+    android:layout_margin="10dp"
+    >
+    <TextView
+        android:id="@+id/top_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        tools:text="566"
+        android:gravity="center"
+        android:textColor="@color/colorEventTripMileageText"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="22sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/middle_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:text="Total trips"
+        android:gravity="center"
+        android:textColor="@color/colorEventTripMileageText"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
+        android:layout_weight="1"
+        />
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/bottom_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeMaxTextSize="8sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
+        tools:text="km"
+        android:gravity="center"
+        android:textColor="@color/colorEventTripMileageText"
+        />
+
+</LinearLayout>

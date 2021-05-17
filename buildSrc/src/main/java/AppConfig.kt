@@ -1,5 +1,5 @@
 object AppConfig {
-    private const val applicationIdPrefix = "com.telematics"
+    const val applicationIdPrefix = "com.telematics"
     private const val name = "zenroad"
 
     const val applicationId = "$applicationIdPrefix.$name"
@@ -15,4 +15,7 @@ object AppConfig {
     const val INSTANCE_KEY_PROD = "\"C70A300F-CD9A-4541-90F3-73B5B660743E\""
     const val INSTANCE_ID_DEV = "\"da48d3b8-9dee-4d70-802d-108be3cb1d52\""
     const val INSTANCE_KEY_DEV = "\"be1c097b-bf88-44a2-92ca-53210be240da\""
+
+    const val USER_SERVICE_URL = "\"https://user.telematicssdk.com/\""
+    const val USER_SERVICE_URL_DEV = "\"https://user.telematicssdk.com/\""
 }

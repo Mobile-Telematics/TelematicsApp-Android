@@ -3,7 +3,7 @@ package com.telematics.zenroad
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.telematics.data_.repository.SessionRepo
+import com.telematics.domain_.repository.SessionRepo
 import com.telematics.zenroad.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
