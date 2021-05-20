@@ -1,7 +1,9 @@
 plugins {
     id(Plugins.androidLibrary)
-    kotlin(Plugins.android)
-    id("kotlin-android")
+    id(Plugins.daggerHiltPlugin)
+    id(Plugins.kotlinAndroid)
+    id(Plugins.kotlinKapt)
+    id(Plugins.kotlinAndroidExtensions)
 }
 
 android {
@@ -9,6 +11,7 @@ android {
     compileSdkVersion(AppConfig.compileSdk)
 
     defaultConfig {
+        //applicationId = "${AppConfig.applicationIdPrefix}.dashboard"
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
         minSdkVersion(AppConfig.minSdk)
@@ -34,10 +37,6 @@ android {
         }
     }
 
-    viewBinding {
-        android.buildFeatures.viewBinding = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -46,6 +45,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -53,8 +57,16 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(AppDependencies.appLibraries)
+
+    implementation(project(Modules.domain))
+    implementation(project(Modules.data))
+
+    implementation(AppDependencies.lifecycleKtx)
+    implementation(AppDependencies.daggerHiltLibraries)
+    kapt(AppDependencies.daggerHiltCompiler)
+    kapt(AppDependencies.daggerHiltAndroidXCompiler)
+
     // TODO: need to refactor
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("me.relex:circleindicator:2.1.4")

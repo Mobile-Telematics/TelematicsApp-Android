@@ -719,4 +719,8 @@
 
     <string name="dashboard_settings_troubleshooting">Troubleshooting</string>
 
+    <string name="template_km">%1$s km</string>
+    <string name="template_mi">%1$s mi</string>
+    <string name="template_km_h">%1$s km/h</string>
+    <string name="template_mi_h">%1$s mi/h</string>
 </resources>

@@ -22,9 +22,3 @@ interface LoginApi {
     @POST("v1/Auth/Login")
     suspend fun login(@Body loginBody: LoginBody): ApiResponse<ApiResult>
 }
-
-/*
-AppId: d0a14a5d-4942-4e0c-8afc-5e8dd6bad424
-InstanceId: c05391ba-488c-4f06-99c4-e677604a71d7
-InstanceKey: 03dd661f-d0f4-431f-8392-e4e843209db9
-*/

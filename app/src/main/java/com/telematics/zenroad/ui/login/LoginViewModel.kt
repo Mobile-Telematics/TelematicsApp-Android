@@ -23,17 +23,12 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                 loginState.postValue(Resource.Loading())
             }
             .onEach {
-                com.telematics.features.dashboard.ui.ui.deviceToken = it.deviceToken
                 loginState.postValue(Resource.Success(it))
             }
             .catch { error ->
                 Log.d("LoginViewModel", "${error.printStackTrace()}")
                 loginState.postValue(Resource.Failure(error))
             }.launchIn(viewModelScope)
-    }
-
-    suspend fun getSessionData(): SessionData {
-        return loginUseCase.getSessionData()
     }
 
     fun checkUserExists() {

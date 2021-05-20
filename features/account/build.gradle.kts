@@ -1,6 +1,6 @@
 plugins {
     id(Plugins.androidLibrary)
-    id(Plugins.kotlinAndroidExtensions)
+    id(Plugins.daggerHiltPlugin)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
 }
@@ -45,9 +45,6 @@ android {
         jvmTarget = "1.8"
     }
 
-//    android.buildFeatures.viewBinding = true
-//    android.buildFeatures.dataBinding = true
-
     buildFeatures {
         viewBinding = true
     }
@@ -60,6 +57,10 @@ dependencies {
     implementation(AppDependencies.appLibraries)
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
+    implementation(project(Modules.domain))
     implementation(project(Modules.data))
-    //implementation(AppDependencies.daggerHiltLibraries)
+
+    implementation(AppDependencies.daggerHiltLibraries)
+    kapt(AppDependencies.daggerHiltCompiler)
+    kapt(AppDependencies.daggerHiltAndroidXCompiler)
 }

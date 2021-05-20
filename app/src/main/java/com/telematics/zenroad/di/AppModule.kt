@@ -5,17 +5,20 @@ import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
+import com.telematics.data_.api.DriveCoinsApi
 import com.telematics.data_.api.LoginApi
 import com.telematics.data_.api.RefreshApi
+import com.telematics.data_.api.UserStatisticsApi
 import com.telematics.data_.interceptor.AppIDInterceptor
 import com.telematics.data_.interceptor.InstanceValuesInterceptor
 import com.telematics.data_.interceptor.MainInterceptor
 import com.telematics.data_.repository.AuthRepoImpl
+import com.telematics.data_.repository.DashboardRepoImpl
 import com.telematics.data_.repository.SessionRepoImpl
 import com.telematics.domain_.BuildConfig
 import com.telematics.domain_.repository.AuthRepo
+import com.telematics.domain_.repository.DashboardRepo
 import com.telematics.domain_.repository.SessionRepo
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -31,9 +34,6 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module(
-    includes = [
-        DataModule::class
-    ]
 )
 object AppModule {
     @Singleton
@@ -115,22 +115,47 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(
+    fun provideLoginApi(
         client: OkHttpClient,
         converterFactory: Converter.Factory
-    ): Retrofit {
-        return Retrofit
+    ): LoginApi {
+        val retrofit = Retrofit
             .Builder()
             .client(client)
             .baseUrl(BuildConfig.userServiceUrl)
             .addConverterFactory(converterFactory)
             .build()
+        return retrofit.create(LoginApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideApi(retrofit: Retrofit): LoginApi {
-        return retrofit.create(LoginApi::class.java)
+    fun provideDriveCoinsApi(
+        client: OkHttpClient,
+        converterFactory: Converter.Factory
+    ): DriveCoinsApi {
+        val retrofit = Retrofit
+            .Builder()
+            .client(client)
+            .baseUrl(BuildConfig.driveCoinUrl)
+            .addConverterFactory(converterFactory)
+            .build()
+        return retrofit.create(DriveCoinsApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserStatisticsApi(
+        client: OkHttpClient,
+        converterFactory: Converter.Factory
+    ): UserStatisticsApi {
+        val retrofit = Retrofit
+            .Builder()
+            .client(client)
+            .baseUrl(BuildConfig.userStatisticsUrl)
+            .addConverterFactory(converterFactory)
+            .build()
+        return retrofit.create(UserStatisticsApi::class.java)
     }
 
     @Singleton
@@ -150,16 +175,21 @@ object AppModule {
             .build()
         return retrofit.create(RefreshApi::class.java)
     }
-}
 
-@Module
-@InstallIn(SingletonComponent::class)
-interface DataModule {
-    @Binds
+    @Provides
     @Singleton
-    fun bindAuthRepository(repository: AuthRepoImpl): AuthRepo
+    fun provideAuthRepo(loginApi: LoginApi): AuthRepo = AuthRepoImpl(loginApi)
 
-    @Binds
+    @Provides
     @Singleton
-    fun bindSessionRepository(repository: SessionRepoImpl): SessionRepo
+    fun provideSessionRepo(sharedPreferences: SharedPreferences): SessionRepo =
+        SessionRepoImpl(sharedPreferences)
+
+    @Provides
+    @Singleton
+    fun provideDashboardRepo(
+        driveCoinsApi: DriveCoinsApi,
+        userStatisticsApi: UserStatisticsApi,
+        sessionRepo: SessionRepo
+    ): DashboardRepo = DashboardRepoImpl(driveCoinsApi, userStatisticsApi, sessionRepo)
 }

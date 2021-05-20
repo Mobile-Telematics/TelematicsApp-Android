@@ -23,17 +23,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-//            buildConfigField("String", "APP_ID", AppConfig.APP_ID)
-//            buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID_PROD)
-//            buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY_PROD)
-            //signingConfig = signingConfigs.release
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-//            buildConfigField("String", "APP_ID", AppConfig.APP_ID)
-//            buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID_PROD)
-//            buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY_PROD)
         }
     }
 

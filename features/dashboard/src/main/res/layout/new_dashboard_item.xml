@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:layout_gravity="center"
+    tools:layout_height="250dp"
+    tools:layout_width="250dp">
+
+    <com.telematics.features.dashboard.ui.ui.chart.ProgressView
+        android:id="@+id/dashboardProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/dashboardIcon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dashboardProgress"
+        app:layout_constraintEnd_toEndOf="@+id/dashboardProgress"
+        app:layout_constraintStart_toStartOf="@+id/dashboardProgress"
+        app:layout_constraintTop_toTopOf="@+id/dashboardProgress"
+        app:layout_constraintVertical_bias="0.26"
+        app:srcCompat="@drawable/ic_not_bad_score" />
+
+    <TextView
+        android:id="@+id/dashboardText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/dashboardProgress"
+        app:layout_constraintTop_toTopOf="@+id/dashboardProgress"
+        app:layout_constraintVertical_bias="0.637"
+        tools:drawableEnd=""
+        tools:text="92" />
+
+    <TextView
+        android:id="@+id/dashboardZeroText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:maxLines="3"
+        android:text="@string/dashboard_new_start_driving_to_reveal_your_score_alt"
+        android:textColor="@android:color/darker_gray"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:autoSizeMaxTextSize="40sp"
+        app:autoSizeMinTextSize="20sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/dashboardProgress"
+        app:layout_constraintTop_toBottomOf="@+id/dashboardIcon" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="120dp"
+        android:layout_height="1px"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboardText" />
+
+    <TextView
+        android:id="@+id/dashboardType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dashboardProgress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dashboardProgress"
+        app:layout_constraintVertical_bias="0.9"
+        tools:text="Cornering" />
+</androidx.constraintlayout.widget.ConstraintLayout>

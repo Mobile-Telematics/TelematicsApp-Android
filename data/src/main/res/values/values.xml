@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorSpeedTypeNormal">#54c751</color>
+    <color name="colorSpeedTypeMid">#ffd42d</color>
+    <color name="colorSpeedTypeMid2">#ff7e00</color>
+    <color name="colorSpeedTypeHigh">#FF0C0C</color>
+</resources>

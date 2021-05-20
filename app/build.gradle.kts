@@ -34,17 +34,17 @@ android {
         }
     }
 
-    flavorDimensions(AppConfig.dimension)
-    productFlavors {
-        create("prod") {
-            dimension(AppConfig.dimension)
-        }
-
-        create("dev") {
-            applicationIdSuffix = ".dev"
-            dimension(AppConfig.dimension)
-        }
-    }
+//    flavorDimensions(AppConfig.dimension)
+//    productFlavors {
+//        create("prod") {
+//            dimension(AppConfig.dimension)
+//        }
+//
+//        create("dev") {
+//            applicationIdSuffix = ".dev"
+//            dimension(AppConfig.dimension)
+//        }
+//    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -67,7 +67,6 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(AppDependencies.appLibraries)
-    implementation(AppDependencies.lifecycleKtx)
 
     implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)

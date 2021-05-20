@@ -1,22 +1,23 @@
 package com.telematics.features.account.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.telematics.features.account.databinding.FragmentAccountBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class AccountFragment : Fragment() {
 
-//    @Inject
-//    lateinit var sessionRepository: SessionRepo
+    @Inject
+    lateinit var accountViewModel: AccountViewModel
 
     private lateinit var binding: FragmentAccountBinding
 
@@ -25,6 +26,7 @@ class AccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentAccountBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,13 +42,11 @@ class AccountFragment : Fragment() {
 
     private fun logout() {
         CoroutineScope(Dispatchers.IO).launch {
-            //sessionRepository.clearSession()
-
-            //val sessionData = sessionRepository.getSession()
-//            Log.d("MainActivity", "refreshToken: " + sessionData.refreshToken)
-//            Log.d("MainActivity", "accessToken: " + sessionData.accessToken)
-//            Log.d("MainActivity", "deviceToken: " + sessionData.deviceToken)
-//            Log.d("MainActivity", "expiresIn: " + sessionData.expiresIn.toString())
+            accountViewModel.logout()
+//            val intent = Intent(requireContext(), SplashActivity::class.java).apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            }
+//            requireActivity().startActivity(intent)
         }
     }
 }

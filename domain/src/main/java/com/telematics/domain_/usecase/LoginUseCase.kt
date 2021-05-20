@@ -15,9 +15,15 @@ class LoginUseCase @Inject constructor(
     fun runLogin(login: String, password: String, loginType: LoginType): Flow<SessionData> {
         return flow {
             val result = authRepository.login(login, password, loginType)
+            result
             sessionRepository.saveSession(result)
             emit(result)
         }
+    }
+
+    suspend fun logout() {
+        sessionRepository.clearSession()
+        authRepository.logout()
     }
 
     suspend fun getSessionData(): SessionData = sessionRepository.getSession()

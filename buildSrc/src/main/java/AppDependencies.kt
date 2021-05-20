@@ -18,7 +18,7 @@ object AppDependencies {
     private const val daggerHilt = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
     private const val daggerHiltViewModel =
         "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.daggerHiltAndroidX}"
-    private const val daggerHiltAndroidXCompiler =
+    const val daggerHiltAndroidXCompiler =
         "androidx.hilt:hilt-compiler:${Versions.daggerHiltAndroidX}"
 
     //javax

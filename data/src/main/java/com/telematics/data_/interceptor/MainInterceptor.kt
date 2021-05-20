@@ -21,8 +21,9 @@ class MainInterceptor @Inject constructor(
         var request = chain.request()
         runBlocking {
             if (sessionRepository.isLoggedIn()) {
+                val accessToken = sessionRepository.getSession().accessToken
                 request = request.newBuilder()
-                    .addHeader("Authorization", sessionRepository.getSession().accessToken)
+                    .addHeader("Authorization", "Bearer $accessToken")
                     .build()
             }
         }
