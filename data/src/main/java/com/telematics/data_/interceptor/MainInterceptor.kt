@@ -20,12 +20,10 @@ class MainInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         runBlocking {
-            if (sessionRepository.isLoggedIn()) {
-                val accessToken = sessionRepository.getSession().accessToken
-                request = request.newBuilder()
-                    .addHeader("Authorization", "Bearer $accessToken")
-                    .build()
-            }
+            val accessToken = sessionRepository.getSession().accessToken
+            request = request.newBuilder()
+                .addHeader("Authorization", "Bearer $accessToken")
+                .build()
         }
         return chain.proceed(request)
     }

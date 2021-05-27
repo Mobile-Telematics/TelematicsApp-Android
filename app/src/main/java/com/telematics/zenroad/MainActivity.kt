@@ -1,22 +1,21 @@
 package com.telematics.zenroad
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.telematics.domain_.repository.SessionRepo
+import com.telematics.domain_.listener.AuthenticationListener
+import com.telematics.features.account.ui.AccountViewModel
 import com.telematics.zenroad.databinding.ActivityMainBinding
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import com.telematics.zenroad.ui.bottom_menu.ViewPagerFragmentStateAdapter
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AuthenticationListener {
 
     @Inject
-    lateinit var sessionRepository: SessionRepo
+    lateinit var authenticationRepo: AccountViewModel
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         initBottomMenu()
 
-        getSessionData()
+        authenticationRepo.setListener(this, null)
     }
 
     private fun initBottomMenu() {
@@ -60,14 +59,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSessionData() {
+    override fun onLogout() {
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val sessionData = sessionRepository.getSession()
-            Log.d("MainActivity", "refreshToken: " + sessionData.refreshToken)
-            Log.d("MainActivity", "accessToken: " + sessionData.accessToken)
-            Log.d("MainActivity", "deviceToken: " + sessionData.deviceToken)
-            Log.d("MainActivity", "expiresIn: " + sessionData.expiresIn.toString())
-        }
+        Log.d("Authentication", "Main activity logout")
+
+        startActivity(Intent(this, SplashActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
     }
 }

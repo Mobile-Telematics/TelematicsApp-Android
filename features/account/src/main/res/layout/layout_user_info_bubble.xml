@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/accountDocumentItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:id="@+id/plateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/acc_wizard_document_bubble_margin"
+        android:layout_marginEnd="@dimen/acc_wizard_document_bubble_margin"
+        android:background="@drawable/ic_wizard_back_bubble_smallest"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/accountDocumentClickArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/acc_wizard_document_click_area_margin"
+            android:layout_marginEnd="@dimen/acc_wizard_document_click_area_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Doc photo/icon -->
+            <ImageView
+                android:id="@+id/accountDocumentIcon"
+                android:layout_width="@dimen/acc_wizard_document_icon_width"
+                android:layout_height="@dimen/acc_wizard_document_icon_height"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_wizard_driving_licence" />
+
+            <!-- Document Data area -->
+            <LinearLayout
+                android:id="@+id/accountDocumentData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/acc_wizard_document_info_margin_start"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:visibility="visible">
+
+                <!-- Owner name -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/birthDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/acc_wizard_document_label_text_size"
+                        tools:text="@string/account_user_card_birthday" />
+
+                    <!-- Verified icon -->
+                    <!--                    <ImageView-->
+                    <!--                        android:id="@+id/accountDocumentVerifiedIcon"-->
+                    <!--                        android:src="@drawable/ic_wizard_verified"-->
+                    <!--                        android:layout_width="@dimen/acc_wizard_document_verified_icon_size"-->
+                    <!--                        android:layout_height="@dimen/acc_wizard_document_verified_icon_size"-->
+                    <!--                        android:layout_marginStart="5dp"-->
+                    <!--                        android:layout_gravity="center_vertical"-->
+                    <!--                        />-->
+
+                </LinearLayout>
+
+                <!-- Doc Number -->
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryLightText"
+                    android:textSize="@dimen/acc_wizard_document_number_text_size"
+                    tools:text="@string/account_user_card_address" />
+
+            </LinearLayout>
+
+            <!-- Upload Document image area -->
+            <LinearLayout
+                android:id="@+id/accountDocumentUpload"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/acc_wizard_document_info_margin_start"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/accountDocumentUploadLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_wizard_passport_upload"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/acc_wizard_document_upload_text_size" />
+
+            </LinearLayout>
+
+            <!-- Arrow Button -->
+            <ImageView
+                android:id="@+id/accountDocumentArrow"
+                android:layout_width="@dimen/acc_wizard_document_arrow_icon_size"
+                android:layout_height="@dimen/acc_wizard_document_arrow_icon_size"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_dash_arrow_right_gray"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

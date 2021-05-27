@@ -3,6 +3,7 @@ plugins {
     id(Plugins.daggerHiltPlugin)
     kotlin(Plugins.android)
     id(Plugins.kotlinKapt)
+    id(Plugins.googlePlugins)
 }
 
 android {
@@ -25,6 +26,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
             //signingConfig = signingConfigs.release
         }
         getByName("debug") {
@@ -34,6 +36,22 @@ android {
         }
     }
 
+    //val keystorePropertiesFile = rootProject.file("keystore/key.properties")
+
+    signingConfigs {
+        getByName("debug") {
+            keyAlias = "raxelcore"
+            keyPassword = "123456"
+            storeFile = file("keystore/raxel.jks")
+            storePassword = "123456"
+        }
+        create("release") {
+            keyAlias = "raxelcore"
+            keyPassword = "123456"
+            storeFile = file("keystore/raxel.jks")
+            storePassword = "123456"
+        }
+    }
 //    flavorDimensions(AppConfig.dimension)
 //    productFlavors {
 //        create("prod") {
@@ -77,4 +95,6 @@ dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.dashboard))
     implementation(project(Modules.account))
+    implementation(project(Modules.authentication))
+    implementation(project(Modules.content))
 }

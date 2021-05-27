@@ -1,17 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/accountParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/accountLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="logout"
+<!--    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <!-- User info -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/account_background_height"
+            android:orientation="vertical"
+            app:layout_collapseMode="parallax">
+
+            <!-- Background -->
+            <ImageView
+                android:id="@+id/accountBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_dash"
+                android:scaleType="centerCrop" />
+
+            <!-- Profile area -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <!-- Avatar icon -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/account_avatar_size"
+                    android:layout_height="@dimen/account_avatar_size"
+                    android:layout_gravity="center"
+                    android:innerRadius="0dp"
+                    android:shape="ring"
+                    tools:src="@drawable/ic_error">
+
+                    <ImageView
+                        android:id="@+id/accountAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- User info area -->
+                <LinearLayout
+                    android:id="@+id/accountInfoArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/account_user_info_text_margin"
+                    android:layout_marginBottom="@dimen/account_user_info_text_margin"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <!-- User name -->
+                    <TextView
+                        android:id="@+id/accountUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/account_user_info_text_margin"
+                        android:text="{user.firstName}"
+                        android:textAlignment="textStart"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/account_user_name_text_size"
+                        tools:text="@string/account_user_name" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/account_user_info_text_margin"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/account_email"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorAlfaWhiteText"
+                            android:textSize="@dimen/account_user_info_text_size" />
+
+                        <TextView
+                            android:id="@+id/accountEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="{user.email}"
+                            android:textAlignment="textStart"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/account_user_info_text_size" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Complete Button -->
+                <Button
+                    android:id="@+id/accountCompleteBtn"
+                    style="@style/Button"
+                    android:layout_width="@dimen/account_complete_btn_width"
+                    android:layout_height="@dimen/account_complete_btn_height"
+                    android:layout_gravity="center"
+                    android:enabled="true"
+                    android:text="@string/account_complete_btn"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/accountView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/account_profile"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/account_list_label_text_size" />
+
+                <include
+                    android:id="@+id/userInfoCard"
+                    layout="@layout/layout_user_info_bubble" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <Button
+            android:id="@+id/accountLogout"
+            style="@style/Button"
+            android:layout_width="@dimen/acc_wizard_next_btn_width"
+            android:layout_height="@dimen/acc_wizard_btn_height"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/acc_wizard_btn_margin_top"
+            android:layout_marginBottom="@dimen/acc_wizard_btn_margin_top"
+            android:enabled="true"
+            android:text="@string/dashboard_settings_logout"
+            android:textAllCaps="true" />
+
+    </LinearLayout>
+
+</FrameLayout>
+

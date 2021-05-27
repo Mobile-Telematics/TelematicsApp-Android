@@ -4,22 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.telematics.domain_.listener.UserUpdatedListener
+import com.telematics.domain_.model.authentication.User
+import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentAccountBinding
+import com.telematics.features.account.model.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AccountFragment : Fragment() {
+class AccountFragment : Fragment(), UserUpdatedListener {
 
     @Inject
     lateinit var accountViewModel: AccountViewModel
 
     private lateinit var binding: FragmentAccountBinding
+    //var user = User()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,25 +31,85 @@ class AccountFragment : Fragment() {
     ): View {
 
         binding = FragmentAccountBinding.inflate(inflater, container, false)
+        //binding.user = accountViewModel.getUser()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.getInt("position")
+
+        setListeners()
+
+        lifecycleScope.launchWhenResumed {
+            accountViewModel.user.collect { it ->
+                when (it) {
+                    is Resource.Success -> {
+                        bindUser(it.data ?: User())
+                    }
+                    is Resource.Failure -> {
+                        it.error
+                    }
+                }
+            }
+        }
+        //val user = accountViewModel.getUser()
+        //bindUser(user)
+    }
+
+    override fun onUserUpdated(user: User) {
+        bindUser(user)
+    }
+
+    override fun onUserUpdateFailure() {
+        //show error message
+    }
+
+    private fun setListeners() {
+
+        binding.userInfoCard.accountDocumentItem.setOnClickListener {
+            openProfileFragment()
+        }
 
         binding.accountLogout.setOnClickListener {
-            Toast.makeText(view.context, "accountLogout", Toast.LENGTH_SHORT).show()
             logout()
         }
+
+        accountViewModel.setListener(null, this)
+    }
+
+    private fun bindUser(user: User) {
+
+        val userName = "${user.firstName.orEmpty()} ${user.lastName.orEmpty()}"
+        binding.accountUserName.text = userName
+        binding.accountEmail.text = user.email
+
+        if (user.isCompleted()) {
+            binding.accountInfoArea.visibility = View.VISIBLE
+            binding.accountCompleteBtn.visibility = View.GONE
+        } else {
+            binding.accountInfoArea.visibility = View.GONE
+            binding.accountCompleteBtn.visibility = View.VISIBLE
+        }
+
+        val birthdayStr =
+            if (user.birthday.isNullOrEmpty()) resources.getString(R.string.account_not_specified) else user.birthday
+        binding.userInfoCard.birthDay.text = birthdayStr
+
+        val addressStr =
+            if (user.address.isNullOrEmpty()) resources.getString(R.string.account_not_specified) else user.address
+        binding.userInfoCard.address.text = addressStr
     }
 
     private fun logout() {
-        CoroutineScope(Dispatchers.IO).launch {
-            accountViewModel.logout()
-//            val intent = Intent(requireContext(), SplashActivity::class.java).apply {
-//                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            }
-//            requireActivity().startActivity(intent)
-        }
+
+        accountViewModel.logout()
+    }
+
+    private fun openProfileFragment() {
+        //fix user nav_graph
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.accountParent, ProfileFragment(), "ProfileFragment")
+            .addToBackStack("ProfileFragment")
+            .commit()
+        //binding.root.findNavController().navigate(R.id.action_accountFragment_to_profileFragment
     }
 }

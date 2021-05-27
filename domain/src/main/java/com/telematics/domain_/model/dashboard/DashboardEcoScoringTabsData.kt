@@ -1,7 +1,5 @@
 package com.telematics.domain_.model.dashboard
 
-import android.util.Log
-
 data class DashboardEcoScoringTabsData(
     var week: DashboardEcoScoringTabData = DashboardEcoScoringTabData(),
     var month: DashboardEcoScoringTabData = DashboardEcoScoringTabData(),

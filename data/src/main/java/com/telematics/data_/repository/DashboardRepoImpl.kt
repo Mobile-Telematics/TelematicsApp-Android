@@ -8,6 +8,7 @@ import com.telematics.data_.mappers.*
 import com.telematics.domain_.model.dashboard.*
 import com.telematics.domain_.repository.DashboardRepo
 import com.telematics.domain_.repository.SessionRepo
+import com.telematics.domain_.usecase.TrackingUseCase
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -89,5 +90,9 @@ class DashboardRepoImpl @Inject constructor(
             startDate,
             endDate
         ).result?.toDashboardEcoScoringTabData() ?: DashboardEcoScoringTabData()
+    }
+
+    override suspend fun getLastTrip() {
+
     }
 }

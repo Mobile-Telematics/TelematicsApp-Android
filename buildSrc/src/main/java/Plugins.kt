@@ -9,10 +9,13 @@ object Plugins {
     private const val daggerHilt =
         "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHilt}"
 
+    private const val googleServices = "com.google.gms:google-services:4.3.8"
+
     val classpathList = arrayListOf(
         gradle,
         kotlin_gradle,
-        daggerHilt
+        daggerHilt,
+        googleServices
     )
 
     /*---*/
@@ -27,10 +30,11 @@ object Plugins {
     const val kotlinAndroid = "kotlin-android"
     const val daggerHiltPlugin = "dagger.hilt.android.plugin"
     const val dynamicFeature = "com.android.dynamic-feature"
-    const val kotlinAndroidExtensions ="kotlin-android-extensions"
+    const val kotlinAndroidExtensions = "kotlin-android-extensions"
+    const val googlePlugins = "com.google.gms.google-services"
 }
 
-fun DependencyHandler.classpathL(list: List<String>) {
+fun DependencyHandler.classpathList(list: List<String>) {
     list.forEach { dependency ->
         add(ScriptHandler.CLASSPATH_CONFIGURATION, dependency)
     }

@@ -15,7 +15,6 @@ class ViewPagerFragmentStateAdapter(activity: FragmentActivity) : FragmentStateA
     )
 
     override fun createFragment(position: Int): Fragment {
-
         return fragments[position].apply {
             arguments = bundleOf(
                 "position" to position

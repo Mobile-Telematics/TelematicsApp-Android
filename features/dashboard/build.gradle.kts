@@ -49,7 +49,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
 }
 
 dependencies {
@@ -60,6 +59,7 @@ dependencies {
 
     implementation(project(Modules.domain))
     implementation(project(Modules.data))
+    //implementation(project(Modules.tracking))
 
     implementation(AppDependencies.lifecycleKtx)
     implementation(AppDependencies.daggerHiltLibraries)

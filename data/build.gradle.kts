@@ -67,5 +67,4 @@ dependencies {
     implementation(AppDependencies.encryptedSharedPref)
 
     implementation(project(Modules.domain))
-
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="bottom_menu_text_size">2.6sp</dimen>
+
+    <!-- Overrided SDK resources -->
+    <dimen name="dialog_telematics_view_bubble_corners">20dp</dimen>
+    <dimen name="dialog_telematics_button_corners">35dp</dimen>
+
+    <!-- On boarding-->
+    <dimen name="slide_title_text_size">18sp</dimen>
+    <dimen name="slide_description_text_size">14sp</dimen>
+    <dimen name="slide_button_margin_bottom">60dp</dimen>
+
+    <!-- Rewards Content Zen -->
+    <dimen name="reward_card_height">220dp</dimen>
+    <dimen name="reward_card_margin">20dp</dimen>
+    <dimen name="reward_card_margin_top">5dp</dimen>
+    <dimen name="reward_card_info_margin_start">30dp</dimen>
+    <dimen name="reward_card_info_margin_top">25dp</dimen>
+    <dimen name="reward_card_info_margin_bottom">40dp</dimen>
+    <dimen name="reward_card_user_name_text_size">14sp</dimen>
+    <dimen name="reward_card_drivecoins_icon_size">43dp</dimen>
+    <dimen name="reward_card_balance_value_text_margin_start">5dp</dimen>
+    <dimen name="reward_card_balance_value_text_size">24sp</dimen>
+    <dimen name="reward_card_balance_units_margin_top">-7dp</dimen>
+    <dimen name="reward_card_balance_units_text_size">15sp</dimen>
+    <dimen name="reward_card_info_icon_size">22dp</dimen>
+    <dimen name="reward_mastercard_width">54dp</dimen>
+    <dimen name="reward_mastercard_height">42dp</dimen>
+    <dimen name="reward_mastercard_margin_end">30dp</dimen>
+    <dimen name="reward_mastercard_margin_bottom">40dp</dimen>
+    <dimen name="reward_card_btn_margin">14dp</dimen>
+    <dimen name="reward_card_btn_width">115dp</dimen>
+    <dimen name="reward_card_btn_height">28dp</dimen>
+    <dimen name="reward_info_bar_height">68dp</dimen>
+    <dimen name="reward_info_bar_margin_start">30dp</dimen>
+    <dimen name="reward_info_bar_margin_end">19dp</dimen>
+    <dimen name="reward_info_bar_icon_width">57dp</dimen>
+    <dimen name="reward_info_bar_icon_height">37dp</dimen>
+    <dimen name="reward_info_bar_text_margin_start">10dp</dimen>
+    <dimen name="reward_info_bar_text_size">12sp</dimen>
+    <dimen name="reward_info_bar_arrow_width">8.3dp</dimen>
+    <dimen name="reward_info_bar_arrow_height">26.7dp</dimen>
+
+    <dimen name="reward_layout_values_margin_side">15dp</dimen>
+    <dimen name="reward_diagram_margin_width">170dp</dimen>
+    <dimen name="reward_diagram_margin_start">15dp</dimen>
+    <dimen name="reward_diagram_margin_end">15dp</dimen>
+    <dimen name="reward_diagram_margin_vertical">5dp</dimen>
+    <dimen name="reward_diagram_balance_value_text_margin_start">5dp</dimen>
+    <dimen name="reward_diagram_balance_value_text_size">20sp</dimen>
+    <dimen name="reward_diagram_drivecoins_icon_size">32dp</dimen>
+    <dimen name="reward_bottom_bar_text_margin">20dp</dimen>
+    <dimen name="reward_bottom_bar_text_size">12sp</dimen>
+
+    <dimen name="reward_coins_progress_layout_width">90dp</dimen>
+    <dimen name="reward_coins_progress_drivecoins_icon_size">25dp</dimen>
+    <dimen name="reward_coins_progress_desc_text_size">15sp</dimen>
+    <dimen name="reward_coins_progress_value_text_size">17sp</dimen>
+    <dimen name="reward_coins_progress_label_margin_start">5dp</dimen>
+
+    <!-- Rewards Dialog Content Zen -->
+    <dimen name="reward_dialog_title_margin_top">15dp</dimen>
+    <dimen name="reward_dialog_title_margin_bottom">15dp</dimen>
+    <dimen name="reward_dialog_title_text_size">16sp</dimen>
+    <dimen name="reward_dialog_btn_width">200dp</dimen>
+    <dimen name="reward_dialog_btn_height">36dp</dimen>
+    <dimen name="reward_dialog_btn_margin_bottom">30dp</dimen>
+    <dimen name="reward_dialog_icon_size">70dp</dimen>
+
+    <!-- Rewards Invite Content Zen -->
+    <dimen name="reward_invite_logo_width">250dp</dimen>
+    <dimen name="reward_invite_logo_height">180dp</dimen>
+    <dimen name="reward_invite_info_margin">30dp</dimen>
+    <dimen name="reward_invite_info_text_size">18sp</dimen>
+    <dimen name="reward_invite_info_detailed_text_size">12sp</dimen>
+    <dimen name="reward_invite_info_support_text_size">12sp</dimen>
+    <dimen name="reward_invite_btn_width">135dp</dimen>
+    <dimen name="reward_invite_btn_height">36dp</dimen>
+    <dimen name="reward_invite_btn_margin">20dp</dimen>
+    <dimen name="reward_invite_support_margin">30dp</dimen>
+
+
+</resources>

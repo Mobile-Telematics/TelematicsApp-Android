@@ -2,15 +2,15 @@ package com.telematics.features.dashboard.ui.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.telematics.data_.utils.Resource
-import com.telematics.domain_.model.SessionData
-import com.telematics.domain_.usecase.LoginUseCase
-import kotlinx.coroutines.flow.*
 import androidx.lifecycle.viewModelScope
 import com.telematics.data_.extentions.setLiveData
 import com.telematics.data_.mappers.toScoreTypeModelList
+import com.telematics.data_.utils.Resource
+import com.telematics.domain_.model.SessionData
 import com.telematics.domain_.model.dashboard.*
 import com.telematics.domain_.repository.DashboardRepo
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
 import java.util.*
 import javax.inject.Inject
 

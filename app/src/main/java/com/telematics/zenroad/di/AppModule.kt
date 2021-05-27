@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
+import com.telematics.domain_.repository.AuthenticationRepo
+import com.telematics.authentication.data.Authentication
 import com.telematics.data_.api.DriveCoinsApi
 import com.telematics.data_.api.LoginApi
 import com.telematics.data_.api.RefreshApi
@@ -16,9 +18,10 @@ import com.telematics.data_.repository.AuthRepoImpl
 import com.telematics.data_.repository.DashboardRepoImpl
 import com.telematics.data_.repository.SessionRepoImpl
 import com.telematics.domain_.BuildConfig
-import com.telematics.domain_.repository.AuthRepo
+import com.telematics.domain_.repository.UserServicesRepo
 import com.telematics.domain_.repository.DashboardRepo
 import com.telematics.domain_.repository.SessionRepo
+import com.telematics.zenroad.App
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -32,10 +35,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+
 @InstallIn(SingletonComponent::class)
 @Module(
 )
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideContext(application: App): Context {
+        return application.applicationContext
+    }
+
     @Singleton
     @Provides
     fun provideTransactionsUrl(): String {
@@ -109,7 +120,8 @@ object AppModule {
             addInterceptor(appIDInterceptor)
             addInterceptor(instanceValuesInterceptor)
             authenticator(mainInterceptor)
-            if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
+            //if (BuildConfig.DEBUG)
+            addInterceptor(loggingInterceptor)
         }.build()
     }
 
@@ -178,7 +190,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepo(loginApi: LoginApi): AuthRepo = AuthRepoImpl(loginApi)
+    fun provideAuthRepo(loginApi: LoginApi): UserServicesRepo = AuthRepoImpl(loginApi)
 
     @Provides
     @Singleton
@@ -192,4 +204,13 @@ object AppModule {
         userStatisticsApi: UserStatisticsApi,
         sessionRepo: SessionRepo
     ): DashboardRepo = DashboardRepoImpl(driveCoinsApi, userStatisticsApi, sessionRepo)
+
+    @Provides
+    @Singleton
+    fun provideAuthentication(
+        authRepo: UserServicesRepo,
+        sessionRepo: SessionRepo
+    ): AuthenticationRepo {
+        return Authentication(authRepo, sessionRepo)
+    }
 }

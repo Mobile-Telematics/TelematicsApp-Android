@@ -2,8 +2,11 @@ include(
     ":app",
     ":data",
     ":domain",
-    ":tracking_api",
+    ":content",
+    ":authentication",
     ":features:account",
     ":features:dashboard"
+    //":tracking_api",
+    //":features:settings"
 )
 rootProject.name = "Zenroad"

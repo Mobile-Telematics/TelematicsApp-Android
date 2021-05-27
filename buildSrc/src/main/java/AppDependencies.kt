@@ -2,6 +2,7 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 
 object AppDependencies {
 
+    const val trackingApi = "com.telematicssdk:tracking:${Versions.trackingApi}"
     //std lib
     private const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
 

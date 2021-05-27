@@ -4,12 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.telematics.data_.utils.Resource
+import com.google.android.material.snackbar.Snackbar
+import com.telematics.domain_.error.ErrorCode
+import com.telematics.domain_.listener.AuthenticationListener
 import com.telematics.domain_.model.LoginType
 import com.telematics.domain_.model.SessionData
+import com.telematics.features.account.ui.AccountViewModel
 import com.telematics.zenroad.MainActivity
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.LoginActivityBinding
@@ -19,13 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), AuthenticationListener {
 
     @Inject
-    lateinit var loginViewModel: LoginViewModel
+    lateinit var accountViewModel: AccountViewModel
+
     private lateinit var binding: LoginActivityBinding
 
     private var loginType = LoginType.EMAIL
+    private val PASSWORD_LIMIT = 4
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,46 +39,16 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginSend.setOnClickListener {
-
-            if (!validFields()) return@setOnClickListener
-
-            val login = when (loginType) {
-                LoginType.EMAIL -> {
-                    binding.loginInputEmail.text.toString()
-                }
-                LoginType.PHONE -> {
-                    binding.loginInputPhone.text.toString()
-                }
-            }
-            loginViewModel.login(
-                login,
-                binding.loginInputPassword.text.toString(),
-                loginType
-            )
+            login()
         }
 
         binding.loginChangeButton.setOnClickListener {
             changeInputLoginType()
         }
 
-        loginViewModel.loginState.observe(this, {
-            when (it) {
-                is Resource.Failure -> {
-                    showLoginFailed("Incorrect login or password")
-                    hideProgress()
-                }
-                is Resource.Loading -> {
-                    showProgress()
-                }
-                is Resource.Success<SessionData> -> {
-                    hideProgress()
-                    startMainActivity()
-                }
-            }
-        })
+        accountViewModel.setListener(this, null)
 
         initScreen()
-
         mockFields()
     }
 
@@ -179,47 +154,120 @@ class LoginActivity : AppCompatActivity() {
 
     private fun validFields(): Boolean {
 
+        val passwordField = binding.loginInputPassword.text.toString()
+        val emailField = binding.loginInputEmail.text.toString()
+        val phoneField = binding.loginInputPhone.text.toString()
+
         var valid = true
 
         if (loginType == LoginType.EMAIL) {
-            val email = binding.loginInputEmail.text.toString()
 
-            if (email.isBlank()) {
-                showLoginFailed("Email field must be filled.")
+            if (emailField.isBlank()) {
+                showLoginFailedMessage("Email field must be filled.")
                 valid = false
             } else {
-                if (!email.isValidEmail()) {
-                    showLoginFailed("Email address isn’t correct.")
+                if (!emailField.isValidEmail()) {
+                    showLoginFailedMessage("Email address isn’t correct.")
                     valid = false
                 }
             }
         }
 
         if (loginType == LoginType.PHONE)
-            if (binding.loginInputPhone.text.isNullOrBlank()) {
-                showLoginFailed("Phone field must be filled.")
+            if (phoneField.isBlank()) {
+                showLoginFailedMessage("Phone field must be filled.")
                 valid = false
             }
 
-        if (binding.loginInputPassword.text.isNullOrBlank()) {
-            showLoginFailed("Password field must be filled.")
+        if (passwordField.isBlank() && passwordField.length >= PASSWORD_LIMIT) {
+            showLoginFailedMessage("Password field must be filled.")
             valid = false
         }
 
         return valid
     }
 
-    private fun showLoginFailed(message: String) {
-        Log.d("LoginActivity", message)
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    private fun showLoginFailedMessage(message: String) {
+        Log.d("LoginActivity", "message: $message")
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
-
 
     private fun mockFields() {
 
         // FIXME: remove
         binding.loginInputPhone.setText("+6281338240831")
-        binding.loginInputEmail.setText("notogel205@yncyjs.com")
+        binding.loginInputEmail.setText("android_06@dev.com")
         binding.loginInputPassword.setText("123456")
+    }
+
+    private fun getLoginField(): String {
+
+        return when (loginType) {
+            LoginType.EMAIL -> {
+                binding.loginInputEmail.text.toString()
+            }
+            LoginType.PHONE -> {
+                binding.loginInputPhone.text.toString()
+            }
+        }
+    }
+
+    private fun getPasswordField(): String {
+        return binding.loginInputPassword.text.toString()
+    }
+
+    private fun login() {
+
+        showProgress()
+
+        if (!validFields()) return
+
+        accountViewModel.login(
+            getLoginField(),
+            getPasswordField(),
+            loginType
+        )
+    }
+
+    override fun onLoginSuccess(sessionData: SessionData) {
+        hideProgress()
+        startMainActivity()
+    }
+
+    override fun onLoginFailure(errorCode: ErrorCode) {
+
+        hideProgress()
+        when (errorCode) {
+            ErrorCode.INVALID_PASSWORD -> {
+                showLoginFailedMessage("Incorrect password")
+            }
+            ErrorCode.USER_NOT_EXIST -> {
+                showRegistrationDialog()
+            }
+            ErrorCode.NONE -> {
+                showLoginFailedMessage("Unknown error")
+            }
+        }
+    }
+
+    private fun showRegistrationDialog() {
+
+        AlertDialog.Builder(this)
+            .setMessage(R.string.dialog_registration_confirm_proceed)
+            .setPositiveButton(R.string.dialog_confirm) { d, _ ->
+                registration()
+                d.cancel()
+            }
+            .setNegativeButton(R.string.dialog_cancel) { d, _ ->
+                d.cancel()
+            }
+            .setCancelable(true)
+            .show()
+    }
+
+    private fun registration() {
+        showProgress()
+        if (!validFields()) return
+        accountViewModel.registration(getLoginField(), getPasswordField(), loginType)
     }
 }

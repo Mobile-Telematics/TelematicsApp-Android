@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/accountWizardProfileScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:paddingTop="20dp"
+    android:scrollbars="none"
+    app:behavior_overlapTop="0dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <!-- Data  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/accountWizardProfileFocusView"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+        <!--
+                <ru.vsk.autometrica.presentationlayer.customviews.HintStateEditText
+                    android:id="@+id/frag_registration_email_hint"
+                    style="@style/RegEditText"
+                    android:hint="@string/frag_registration_email_for_recovery_hint"
+                    android:inputType="textEmailAddress"/>-->
+
+        <!-- Email -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/accountWizardEmail"
+                style="@style/TextLabelWizard"
+                android:layout_height="48dp"
+                android:backgroundTint="@android:color/transparent"
+                android:drawableStart="@drawable/ic_wizard_email"
+                android:drawableTint="#afafaf"
+                android:enabled="false"
+                android:hint="@string/acc_wizard_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress" />
+
+            <ImageView
+                android:id="@+id/accountWizardEmailEdit"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/acc_wizard_input_margin_side"
+                android:background="@drawable/claim_icons_back"
+                android:padding="10dp"
+                android:src="@drawable/ic_edit" />
+        </RelativeLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_wizard_phone" />
+
+            <Space
+                android:id="@+id/accountWizardPhoneMargin"
+                android:layout_width="8dp"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/accountWizardPhoneCCP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:gravity="start"
+                android:visibility="visible"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_autoFormatNumber="false"
+                app:ccp_clickable="false"
+                app:ccp_countryPreference="RU"
+                app:ccp_defaultNameCode="RU"
+                app:ccp_flagBorderColor="@color/colorPrimaryLightText"
+                app:ccp_hintExampleNumber="false"
+                app:ccp_showFlag="false"
+                app:ccp_textSize="@dimen/bottom_input_field_label_text_size" />
+
+            &lt;!&ndash; Phone &ndash;&gt;
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/accountWizardPhone"
+                style="@style/TextLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:gravity="start"
+                android:hint="@string/acc_wizard_phone_number"
+                android:imeOptions="actionNext"
+                android:inputType="phone" />
+
+            <ImageView
+                android:id="@+id/accountWizardPhoneEdit"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/acc_wizard_input_margin_side"
+                android:background="@drawable/claim_icons_back"
+                android:padding="10dp"
+                android:src="@drawable/ic_edit" />
+
+        </LinearLayout>-->
+
+        <View style="@style/ViewLineInProfile" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_wizard_phone" />
+
+            <!-- Phone -->
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/accountWizardPhone"
+                style="@style/TextLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:gravity="start"
+                android:hint="@string/acc_wizard_phone_number"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/accountWizardPhoneEdit"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/acc_wizard_input_margin_side"
+                android:background="@drawable/claim_icons_back"
+                android:padding="10dp"
+                android:src="@drawable/ic_edit" />
+
+        </LinearLayout>
+
+        <View style="@style/ViewLineInProfile" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <!-- Name -->
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/accountWizardName"
+            style="@style/TextLabelWizard"
+            android:drawableStart="@drawable/ic_wizard_user"
+            android:hint="@string/acc_wizard_name"
+            android:imeOptions="actionNext"
+            android:inputType="textCapWords" />
+
+        <View style="@style/ViewLineInProfile" />
+
+        <!-- Family Name -->
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/accountWizardFamilyName"
+            style="@style/TextLabelWizard"
+            android:drawableStart="@drawable/ic_wizard_user"
+            android:hint="@string/acc_wizard_family_name"
+            android:imeOptions="actionNext"
+            android:inputType="textCapWords" />
+
+        <View style="@style/ViewLineInProfile" />
+
+        <!-- Birthday -->
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/accountWizardBirthday"
+            style="@style/TextLabelWizard"
+            android:drawableStart="@drawable/ic_wizard_calendar"
+            android:focusable="true"
+            android:hint="@string/acc_wizard_birthday"
+            android:imeOptions="actionNext"
+            android:inputType="date" />
+
+        <View style="@style/ViewLineInProfile" />
+
+        <!-- Address -->
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/accountWizardAddress"
+            style="@style/TextLabelWizard"
+            android:drawableStart="@drawable/ic_wizard_address"
+            android:focusableInTouchMode="false"
+            android:hint="@string/acc_wizard_address"
+            android:imeOptions="actionGo"
+            android:inputType="textCapWords" />
+
+        <View
+            style="@style/ViewLineInProfile"
+            android:visibility="gone" />
+
+        <View style="@style/ViewLineInProfile" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/accountClientId"
+            style="@style/TextLabelWizard"
+            android:drawableStart="@drawable/ic_wizard_number"
+            android:hint="@string/acc_wizard_client_id"
+            android:imeOptions="actionGo"
+            android:inputType="textCapWords" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

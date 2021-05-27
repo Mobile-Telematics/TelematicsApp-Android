@@ -9,4 +9,5 @@ interface DashboardRepo {
     suspend fun getUserStatisticsScoreData(): UserStatisticsScoreData
     suspend fun getMainEcoScoring(): DashboardEcoScoringMain
     suspend fun getEcoScoringStatisticsData(type: Int): DashboardEcoScoringTabData
+    suspend fun getLastTrip()
 }

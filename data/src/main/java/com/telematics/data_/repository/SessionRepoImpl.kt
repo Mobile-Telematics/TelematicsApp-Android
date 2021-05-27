@@ -14,18 +14,17 @@ class SessionRepoImpl @Inject constructor(
     private val refreshTokenKey = "refresh_token"
     private val expiresInKey = "expires_in"
 
-    @Synchronized
-    override suspend fun saveSession(session: SessionData) {
+    override fun saveSession(session: SessionData) {
         sharedPreferences.edit()
             .putString(deviceTokenKey, session.deviceToken)
             .putString(accessTokenKey, session.accessToken)
             .putString(refreshTokenKey, session.refreshToken)
             .putLong(expiresInKey, session.expiresIn ?: -1)
-            .commit()
+            .apply()
     }
 
-    @Synchronized
-    override suspend fun getSession(): SessionData {
+
+    override fun getSession(): SessionData {
         val deviceToken = sharedPreferences.getString(deviceTokenKey, "") ?: ""
         val accessToken = sharedPreferences.getString(accessTokenKey, "") ?: ""
         val refreshToken = sharedPreferences.getString(refreshTokenKey, "") ?: ""
@@ -33,8 +32,7 @@ class SessionRepoImpl @Inject constructor(
         return SessionData(deviceToken, accessToken, refreshToken, expiresIn)
     }
 
-    @Synchronized
-    override suspend fun clearSession() {
+    override fun clearSession() {
         sharedPreferences.edit()
             .remove(deviceTokenKey)
             .remove(accessTokenKey)
@@ -42,8 +40,4 @@ class SessionRepoImpl @Inject constructor(
             .remove(expiresInKey)
             .apply()
     }
-
-    @Synchronized
-    override suspend fun isLoggedIn(): Boolean =
-        !sharedPreferences.getString(deviceTokenKey, "").isNullOrBlank()
 }

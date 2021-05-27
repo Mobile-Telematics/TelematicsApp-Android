@@ -8,7 +8,8 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-        classpathL(Plugins.classpathList)
+        classpath("com.android.tools.build:gradle:3.3.2")
+        classpathList(Plugins.classpathList)
     }
 }
 
@@ -17,6 +18,7 @@ allprojects {
         google()
         jcenter()
         maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://s3.us-east-2.amazonaws.com/android.telematics.sdk.production/") }
     }
 }
 
