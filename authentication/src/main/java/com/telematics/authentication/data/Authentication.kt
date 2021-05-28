@@ -241,6 +241,10 @@ class Authentication constructor(
 
     private fun checkPhoneCode(code: String) {
         Log.d(TAG, "checkPhoneCode code: $code phoneVerificationId: $phoneVerificationId")
+        if (code.isBlank()) {
+            error(ErrorCode.EMPTY_VERIFICATION_CODE)
+            return
+        }
         val credential = PhoneAuthProvider.getCredential(phoneVerificationId, code)
         signInWithPhoneAuthCredential(credential)
     }
@@ -255,7 +259,7 @@ class Authentication constructor(
                 user.userId = userId
                 getUserDeviceToken(userId)
             } else {
-                error(ErrorCode.NONE)
+                error(ErrorCode.INVALID_VERIFICATION_CODE)
             }
         }
     }

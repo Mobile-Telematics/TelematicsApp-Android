@@ -279,6 +279,12 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
             ErrorCode.LOGIN_TIMEOUT -> {
                 showLoginFailedMessage("Login verification timeout")
             }
+            ErrorCode.EMPTY_VERIFICATION_CODE -> {
+                showLoginFailedMessage("Incorrect verification code")
+            }
+            ErrorCode.INVALID_VERIFICATION_CODE -> {
+                showLoginFailedMessage("Incorrect verification code")
+            }
             ErrorCode.NONE -> {
                 showLoginFailedMessage("Unknown error")
             }

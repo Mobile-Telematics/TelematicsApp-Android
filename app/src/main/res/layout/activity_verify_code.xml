@@ -54,20 +54,26 @@
             android:id="@+id/verifyInputEmailTill"
             style="@style/TextLabel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/login_input_field_margin"
-            android:layout_marginEnd="@dimen/login_input_field_margin"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="bottom"
             android:hint="@string/verify_code_screen_enter_code"
             android:textColor="@color/colorPrimaryText"
+            android:visibility="visible"
             app:hintTextAppearance="@style/TextLabel">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/verifyInputCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/dr_login_email_rect"
                 android:imeOptions="actionGo"
-                android:inputType="textVisiblePassword"
+                android:inputType="textEmailAddress"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
                 android:textColor="@color/colorPrimaryText"
                 android:theme="@style/EditText" />
 
