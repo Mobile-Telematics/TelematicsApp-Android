@@ -1,9 +1,12 @@
 package com.telematics.zenroad.ui.login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -32,8 +35,12 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
     private var loginType = LoginType.EMAIL
     private val PASSWORD_LIMIT = 4
 
+    private lateinit var verifyCodeActivityResult: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initVerifyCodeActivityResult()
 
         binding = LoginActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -66,6 +73,7 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
                 //initInputField(loginInputEmail, regType)
                 binding.loginInputEmailTill.setVisible(true)
                 binding.loginInputPhoneTill.setVisible(null)
+                binding.loginInputPasswordTill.setVisible(true)
                 binding.loginUseEmailOrPhone.text = getString(R.string.login_screen_use_email)
                 binding.loginChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_phone_number)
@@ -83,6 +91,7 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
                 //initInputField(loginInputPhone, regType)
                 binding.loginInputPhoneTill.setVisible(true)
                 binding.loginInputEmailTill.setVisible(null)
+                binding.loginInputPasswordTill.setVisible(null)
                 binding.loginUseEmailOrPhone.text = getString(R.string.login_screen_use_phone)
                 //binding.loginInputPhoneCCP.registerCarrierNumberEditText(loginInputPhone)
                 //val typeFace = Typeface.createFromAsset(context!!.assets,getString(R.string.font_main_semibold))
@@ -100,6 +109,29 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
                     }
             }
         }
+    }
+
+    private fun initVerifyCodeActivityResult() {
+
+        verifyCodeActivityResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                when (result.resultCode) {
+                    Activity.RESULT_OK -> {
+                        val code =
+                            result.data?.getStringExtra(LoginVerifyCodeActivity.RESULT_CODE_KEY)
+                        accountViewModel.setVerifyCode(code)
+                    }
+                    Activity.RESULT_CANCELED -> {
+                        hideProgress()
+                    }
+                }
+            }
+    }
+
+    private fun startVerifyCodeActivity() {
+
+        val intent = Intent(this, LoginVerifyCodeActivity::class.java)
+        verifyCodeActivityResult.launch(intent)
     }
 
     private fun animateViews() {
@@ -184,20 +216,14 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
             valid = false
         }
 
+        if (!valid) hideProgress()
+
         return valid
     }
 
     private fun showLoginFailedMessage(message: String) {
         Log.d("LoginActivity", "message: $message")
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun mockFields() {
-
-        // FIXME: remove
-        binding.loginInputPhone.setText("+6281338240831")
-        binding.loginInputEmail.setText("android_06@dev.com")
-        binding.loginInputPassword.setText("123456")
     }
 
     private fun getLoginField(): String {
@@ -225,13 +251,19 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
         accountViewModel.login(
             getLoginField(),
             getPasswordField(),
-            loginType
+            loginType,
+            this
         )
     }
 
     override fun onLoginSuccess(sessionData: SessionData) {
         hideProgress()
         startMainActivity()
+    }
+
+    override fun onLoginNeedPhoneCode() {
+
+        startVerifyCodeActivity()
     }
 
     override fun onLoginFailure(errorCode: ErrorCode) {
@@ -243,6 +275,9 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
             }
             ErrorCode.USER_NOT_EXIST -> {
                 showRegistrationDialog()
+            }
+            ErrorCode.LOGIN_TIMEOUT -> {
+                showLoginFailedMessage("Login verification timeout")
             }
             ErrorCode.NONE -> {
                 showLoginFailedMessage("Unknown error")
@@ -269,5 +304,13 @@ class LoginActivity : AppCompatActivity(), AuthenticationListener {
         showProgress()
         if (!validFields()) return
         accountViewModel.registration(getLoginField(), getPasswordField(), loginType)
+    }
+
+    private fun mockFields() {
+
+        // FIXME: remove
+        binding.loginInputPhone.setText("+79009057055")
+        binding.loginInputEmail.setText("android_06@dev.com")
+        binding.loginInputPassword.setText("123456")
     }
 }

@@ -10,7 +10,6 @@ android {
     compileSdkVersion(AppConfig.compileSdk)
 
     defaultConfig {
-        //applicationId = "${AppConfig.applicationIdPrefix}.account"
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
         minSdkVersion(AppConfig.minSdk)

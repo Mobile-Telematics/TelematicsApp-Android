@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAuthScreenBg"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/verifyCommonLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_auth_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/login_logo_vertical_bias" />
+
+    <!-- Description for Login -->
+    <TextView
+        android:id="@+id/verifyMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/verify_code_screen_message"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/login_description_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/verifyInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verifyCommonLogo"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <!-- Input and button -->
+    <LinearLayout
+        android:id="@+id/verifyInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/login_input_field_margin_side"
+        android:layout_marginTop="@dimen/login_input_layout_margin_top"
+        android:layout_marginEnd="@dimen/login_input_field_margin_side"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/verifySend"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verifyMessage">
+
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/verifyInputEmailTill"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/login_input_field_margin"
+            android:layout_marginEnd="@dimen/login_input_field_margin"
+            android:hint="@string/verify_code_screen_enter_code"
+            android:textColor="@color/colorPrimaryText"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/verifyInputCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionGo"
+                android:inputType="textVisiblePassword"
+                android:textColor="@color/colorPrimaryText"
+                android:theme="@style/EditText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/verifyGetNewCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/welcomeback_button_margin_vertical"
+            android:text="@string/verify_code_screen_get_a_new_code"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryLightText"
+            android:textSize="@dimen/login_description_text_size"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/welcomebackPassSend"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcomebackInput" />
+
+    </LinearLayout>
+
+    <!-- Send -->
+    <Button
+        android:id="@+id/verifySend"
+        style="@style/Button"
+        android:layout_width="@dimen/login_button_width"
+        android:layout_height="@dimen/login_button_height"
+        android:layout_marginTop="@dimen/login_button_margin_vertical"
+        android:layout_marginBottom="@dimen/login_button_margin_vertical"
+        android:enabled="true"
+        android:text="@string/verify_code_screen_next"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verifyInput" />
+
+    <TextView
+        android:id="@+id/verifyByAnotherType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryLightText"
+        android:textSize="@dimen/login_description_text_size"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verifySend" />
+
+    <TextView
+        android:id="@+id/verifyAnotherEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_password_sign_in_with_another_email_or_phone"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryLightText"
+        android:textSize="@dimen/login_description_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verifySend" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

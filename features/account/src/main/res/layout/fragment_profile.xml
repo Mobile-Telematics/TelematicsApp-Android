@@ -29,6 +29,7 @@
 
             <!-- Email -->
             <RelativeLayout
+                android:id="@+id/accountWizardEmailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -55,11 +56,15 @@
                     android:padding="10dp"
                     android:src="@drawable/ic_edit"
                     android:visibility="invisible" />
+
             </RelativeLayout>
 
-            <View style="@style/ViewLineInProfile" />
+            <View
+                android:id="@+id/accountWizardEmailLine"
+                style="@style/ViewLineInProfile" />
 
             <LinearLayout
+                android:id="@+id/accountWizardPhoneLayout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:orientation="horizontal">
@@ -81,7 +86,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:enabled="true"
+                    android:enabled="false"
                     android:gravity="start"
                     android:hint="@string/acc_wizard_phone_number"
                     android:imeOptions="actionNext"

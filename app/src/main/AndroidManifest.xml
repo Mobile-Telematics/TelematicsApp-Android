@@ -25,6 +25,7 @@
         </activity>
         <activity android:name="com.telematics.zenroad.MainActivity" />
         <activity android:name="com.telematics.zenroad.ui.login.LoginActivity" />
+        <activity android:name="com.telematics.zenroad.ui.login.LoginVerifyCodeActivity" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.telematics.features.account.ui
 
+import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,9 +10,8 @@ import com.telematics.domain_.model.LoginType
 import com.telematics.domain_.model.authentication.User
 import com.telematics.domain_.repository.AuthenticationRepo
 import com.telematics.features.account.model.Resource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,12 +34,19 @@ class AccountViewModel @Inject constructor(
         }
     }
 
-    fun login(login: String, password: String, loginType: LoginType) {
+    fun login(login: String, password: String?, loginType: LoginType, activity: Activity) {
         Log.d(TAG, "setListener")
         when (loginType) {
-            LoginType.EMAIL -> authenticationRepo.signInEmailPassword(login, password)
+            LoginType.EMAIL -> authenticationRepo.signInEmailPassword(login, password.orEmpty())
             LoginType.PHONE -> {
+                authenticationRepo.signInPhone(login, activity)
             }
+        }
+    }
+
+    fun setVerifyCode(code: String?) {
+        code?.let {
+            authenticationRepo.checkPhoneVerificationCode(code)
         }
     }
 
@@ -48,6 +55,7 @@ class AccountViewModel @Inject constructor(
         when (loginType) {
             LoginType.EMAIL -> authenticationRepo.registrationUser(login, password)
             LoginType.PHONE -> {
+                authenticationRepo.registrationUser(login, null)
             }
         }
     }

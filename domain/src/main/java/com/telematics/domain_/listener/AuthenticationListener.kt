@@ -5,6 +5,7 @@ import com.telematics.domain_.model.SessionData
 
 interface AuthenticationListener {
     fun onLoginSuccess(sessionData: SessionData) {}
+    fun onLoginNeedPhoneCode() {}
     fun onLoginFailure(errorCode: ErrorCode) {}
     fun onLogout() {}
 }

@@ -80,7 +80,14 @@ class AccountFragment : Fragment(), UserUpdatedListener {
 
         val userName = "${user.firstName.orEmpty()} ${user.lastName.orEmpty()}"
         binding.accountUserName.text = userName
-        binding.accountEmail.text = user.email
+
+        if (user.phone.isNullOrBlank()) {
+            binding.accountLoginField.text = user.email
+            binding.accountLoginType.setText(R.string.account_email)
+        } else {
+            binding.accountLoginField.text = user.phone
+            binding.accountLoginType.setText(R.string.account_phone)
+        }
 
         if (user.isCompleted()) {
             binding.accountInfoArea.visibility = View.VISIBLE

@@ -75,6 +75,14 @@ class ProfileFragment : Fragment() {
 
     private fun bindUser(user: User) {
 
+        if (user.email.isNullOrBlank()) {
+            binding.accountWizardEmail.isEnabled = true
+        }
+
+        if (user.phone.isNullOrBlank()) {
+            binding.accountWizardPhone.isEnabled = true
+        }
+
         binding.accountWizardEmail.setText(user.email.orEmpty())
         binding.accountWizardPhone.setText(user.phone.orEmpty())
         binding.accountWizardName.setText(user.firstName.orEmpty())
