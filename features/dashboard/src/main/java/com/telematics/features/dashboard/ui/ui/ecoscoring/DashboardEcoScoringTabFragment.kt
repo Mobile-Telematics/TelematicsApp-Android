@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.telematics.dashboard_.R
+import com.telematics.dashboard.R
 
 class DashboardEcoScoringTabFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,

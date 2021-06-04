@@ -31,7 +31,6 @@ android {
             buildConfigField("String", "userServiceUrl", AppConfig.USER_SERVICE_URL)
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL)
             buildConfigField("String", "userStatisticsUrl", AppConfig.USER_STATISTICS)
-
         }
         getByName("debug") {
             isMinifyEnabled = false
@@ -67,4 +66,5 @@ dependencies {
     implementation(AppDependencies.encryptedSharedPref)
 
     implementation(project(Modules.domain))
+    implementation(project(Modules.content))
 }

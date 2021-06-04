@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.telematics.dashboard_.R
-import com.telematics.domain_.model.dashboard.DashboardEcoScoringTabsData
+import com.telematics.dashboard.R
+import com.telematics.domain.model.dashboard.DashboardEcoScoringTabsData
 
 class DashboardEcoScoringTabAdapter(
     fm: FragmentManager,

@@ -2,8 +2,8 @@ package com.telematics.authentication.mapper
 
 import com.google.firebase.auth.FirebaseAuthException
 import com.telematics.authentication.model.UserDatabase
-import com.telematics.domain_.error.ErrorCode
-import com.telematics.domain_.model.authentication.User
+import com.telematics.domain.error.ErrorCode
+import com.telematics.domain.model.authentication.User
 
 class Mapper {
     companion object {

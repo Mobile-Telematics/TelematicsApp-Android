@@ -2,6 +2,7 @@ package com.telematics.authentication.data
 
 import android.app.Activity
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -15,16 +16,14 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.telematics.authentication.mapper.Mapper
 import com.telematics.authentication.model.UserDatabase
-import com.telematics.data_.extentions.setLiveData
-import com.telematics.data_.utils.Resource
-import com.telematics.domain_.error.ErrorCode
-import com.telematics.domain_.listener.AuthenticationListener
-import com.telematics.domain_.listener.UserUpdatedListener
-import com.telematics.domain_.model.SessionData
-import com.telematics.domain_.model.authentication.User
-import com.telematics.domain_.repository.AuthenticationRepo
-import com.telematics.domain_.repository.SessionRepo
-import com.telematics.domain_.repository.UserServicesRepo
+import com.telematics.data.extentions.setLiveDataForResult
+import com.telematics.domain.error.ErrorCode
+import com.telematics.domain.model.LoginType
+import com.telematics.domain.model.SessionData
+import com.telematics.domain.model.authentication.User
+import com.telematics.domain.repository.AuthenticationRepo
+import com.telematics.domain.repository.SessionRepo
+import com.telematics.domain.repository.UserServicesRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.MainScope
@@ -34,7 +33,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 
-//use like login usecase
+//use like login use case
 class Authentication constructor(
     private val authRepo: UserServicesRepo,
     private val sessionRepo: SessionRepo
@@ -45,39 +44,63 @@ class Authentication constructor(
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = Firebase.database.reference
 
-    private var authenticationListener: AuthenticationListener? = null
-    private var userUpdatedListener: UserUpdatedListener? = null
     private var user = User()
-
     private var phoneVerificationId = ""
+    private var activityForPhoneAuth: Activity? = null
+
+    /** LIVE DATA */
+    private val loginLiveData = MutableLiveData<Result<SessionData>>()
+    private val userLiveData = MutableLiveData<Result<User>>()
+    private val phoneVerificationMutableLiveData = MutableLiveData<Result<Boolean>>()
 
     /** PUBLIC */
-    override fun signInEmailPassword(email: String, password: String) {
-
-        user.email = email
-        user.password = password
+    override suspend fun signInEmailPassword(email: String, password: String) {
 
         Log.d(TAG, "signInEmailPassword start e:$email p:$password")
-        tryAuthWithEmailPassword(email, password)
+        user.email = email
+        user.password = password
+        registrationInApi(LoginType.EMAIL)
     }
 
-    override fun signInPhone(phone: String, activity: Activity?) {
+    override suspend fun signInPhone(phone: String, activity: Activity?) {
+
         Log.d(TAG, "signInPhone  phone: $phone")
         user.phone = phone
-        tryAuthWithPhone(phone, activity)
+        activityForPhoneAuth = activity
+        registrationInApi(LoginType.PHONE)
     }
 
-    override fun checkPhoneVerificationCode(code: String) {
+    override suspend fun login() {
+
+        Log.d(TAG, "tryLogin")
+        firebaseAuth.currentUser?.uid?.let { userId ->
+            Log.d(TAG, "tryLogin user: $userId")
+            user.userId = userId
+            getUserDeviceToken(userId)
+        } ?: run {
+            Log.d(TAG, "tryLogin user: null")
+            error(ErrorCode.EMPTY_SESSION)
+        }
+    }
+
+    override fun needPhoneVerification(): LiveData<Result<Boolean>> {
+        return phoneVerificationMutableLiveData
+    }
+
+    override suspend fun checkPhoneVerificationCode(code: String) {
 
         checkPhoneCode(code)
     }
 
-    override fun registrationUser(email: String, password: String?) {
+    override suspend fun registrationUser(email: String, password: String?) {
+
+        user.email = email
+        user.password = password
 
         firebaseAuth.currentUser?.let {
             Log.d(TAG, "registrationUser currentUser exists")
             user.userId = it.uid
-            registrationInApi(email)
+            registrationInApi(LoginType.EMAIL)
             return
         }
 
@@ -89,7 +112,7 @@ class Authentication constructor(
                     Log.d(TAG, "registrationUser isSuccessful")
                     it.result?.user?.uid?.let { userId ->
                         user.userId = userId
-                        registrationInApi(email)
+                        registrationInApi(LoginType.EMAIL)
                     } ?: run {
                         //error
                     }
@@ -103,43 +126,21 @@ class Authentication constructor(
             }
     }
 
-    override fun logout() {
+    override suspend fun logout() {
 
         Log.d(TAG, "logout")
 
-        CoroutineScope(IO).launch {
-            sessionRepo.clearSession()
-            authRepo.logout()
-        }
         firebaseAuth.signOut()
-        this.authenticationListener?.onLogout()
+        sessionRepo.clearSession()
+        authRepo.logout()
+        onLogout()
     }
 
-    override fun tryLogin() {
-        Log.d(TAG, "tryLogin")
-        firebaseAuth.currentUser?.uid?.let { userId ->
-            Log.d(TAG, "tryLogin user: $userId")
-            user.userId = userId
-            getUserDeviceToken(userId)
-        } ?: run {
-            Log.d(TAG, "tryLogin user: null")
-            error(ErrorCode.USER_NOT_EXIST)
-        }
+    override fun getSessionData(): MutableLiveData<Result<SessionData>> {
+        return loginLiveData
     }
 
-    override fun isLoggedIn(): Boolean {
-        return firebaseAuth.currentUser != null
-    }
-
-    override fun setListener(listener: AuthenticationListener) {
-        this.authenticationListener = listener
-    }
-
-    override fun setListener(listener: UserUpdatedListener) {
-        this.userUpdatedListener = listener
-    }
-
-    override fun updateUser(newUser: User) {
+    override suspend fun updateUser(newUser: User) {
 
         Log.d(TAG, "updateUser user:${newUser}")
 
@@ -161,20 +162,23 @@ class Authentication constructor(
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
         firebaseDatabase.child("users").child(this.user.userId!!).setValue(userDatabase)
             .addOnCompleteListener {
-                update(newUser)
+                onUpdate(newUser)
             }
             .addOnFailureListener {
-                updateFail()
+                onUpdateFail()
             }
     }
 
-    override suspend fun getUser(): User {
-        user
-        return user
+    override fun getUser(): MutableLiveData<Result<User>> {
+        userLiveData.postValue(Result.success(user))
+        return userLiveData
     }
 
     /** AUTHENTICATE EMAIL */
-    private fun tryAuthWithEmailPassword(email: String, password: String) {
+    private fun tryAuthWithEmailPassword(
+        email: String = user.email!!,
+        password: String = user.password!!
+    ) {
 
         Log.d(TAG, "loginWithEmailPassword start e:$email p:$password")
 
@@ -185,7 +189,7 @@ class Authentication constructor(
                     user.userId = userId
                     getUserDeviceToken(userId)
                 } ?: run {
-                    //error
+                    error(ErrorCode.NONE)
                 }
             } else {
                 Log.d(TAG, "loginWithEmailPassword isFailed")
@@ -198,7 +202,10 @@ class Authentication constructor(
     }
 
     /** AUTHENTICATE PHONE */
-    private fun tryAuthWithPhone(phone: String, activity: Activity?) {
+    private fun tryAuthWithPhone(
+        phone: String = user.phone!!,
+        activity: Activity? = activityForPhoneAuth
+    ) {
 
         Log.d(TAG, "tryAuthWithPhone start p:$phone")
 
@@ -222,7 +229,7 @@ class Authentication constructor(
                 override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
                     Log.d(TAG, "tryAuthWithPhone onCodeSent")
                     phoneVerificationId = p0
-                    authenticationListener?.onLoginNeedPhoneCode()
+                    needVerificationCode()
                 }
 
                 override fun onVerificationFailed(p0: FirebaseException) {
@@ -265,31 +272,32 @@ class Authentication constructor(
     }
 
     /** REGISTRATION */
-    private fun registrationInApi(email: String) {
+    private fun registrationInApi(loginType: LoginType) {
 
         Log.d(TAG, "registrationInApi start")
 
-        val registrationMutableLiveData = MutableLiveData<Resource<SessionData>>()
-        registrationMutableLiveData.observeForever {
-            when (it) {
-                is Resource.Success -> {
-                    Log.d(TAG, "registrationInApi Success")
-                    user.deviceToken = it.data!!.deviceToken
-                    createUserInDatabase(user)
-                }
-                is Resource.Failure -> {
-                    Log.d(TAG, "registrationInApi Failure")
-                    error(ErrorCode.NONE)
-                }
-                is Resource.Loading -> {
+        val registrationMutableLiveData = MutableLiveData<Result<SessionData>>()
+        registrationMutableLiveData.observeForever { result ->
+            result.onSuccess {
+                Log.d(TAG, "registrationInApi Success")
+                user.deviceToken = it.deviceToken
+                createUserInDatabase(user)
+            }
+            result.onFailure {
+                Log.d(TAG, "registrationInApi Failure")
+                when (loginType) {
+                    LoginType.EMAIL -> tryAuthWithEmailPassword()
+                    LoginType.PHONE -> tryAuthWithPhone()
                 }
             }
         }
         flow {
-            //fixme: use email
-            val tempEmail = "${System.currentTimeMillis()}@temp.dev"
-            emit(authRepo.registrationWithEmail(tempEmail))
-        }.setLiveData(registrationMutableLiveData)
+            val data = when (loginType) {
+                LoginType.EMAIL -> authRepo.registrationWithEmail(user.email!!)
+                LoginType.PHONE -> authRepo.registrationWithPhone(user.phone!!)
+            }
+            emit(data)
+        }.setLiveDataForResult(registrationMutableLiveData)
             .launchIn(MainScope())
     }
 
@@ -338,48 +346,62 @@ class Authentication constructor(
         Log.d(TAG, "loginInApi start deviceToken:${deviceToken}")
 
         user.deviceToken = deviceToken
-        val loginMutableLiveData = MutableLiveData<Resource<SessionData>>()
-        loginMutableLiveData.observeForever {
-            when (it) {
-                is Resource.Success -> {
-                    Log.d(TAG, "loginInApi Success")
-                    user.accessToken = it.data!!.accessToken
-                    success(it.data!!)
-                }
-                is Resource.Failure -> {
-                    Log.d(TAG, "loginInApi Failure")
-                }
-                is Resource.Loading -> {
-                }
+        val loginMutableLiveData = MutableLiveData<Result<SessionData>>()
+        loginMutableLiveData.observeForever { result ->
+            result.onSuccess {
+                Log.d(TAG, "loginInApi Success")
+                user.accessToken = it.accessToken
+                onSuccess(it)
+            }
+            result.onFailure {
+                Log.d(TAG, "loginInApi Failure")
+                error(ErrorCode.NONE)
             }
         }
 
         flow {
             emit(authRepo.loginWithDeviceToken(deviceToken))
         }
-            .setLiveData(loginMutableLiveData)
+            .setLiveDataForResult(loginMutableLiveData)
             .launchIn(MainScope())
-
     }
 
     /** CALLBACKS */
-    private fun update(user: User) {
+    private fun needVerificationCode() {
 
-        this.userUpdatedListener?.onUserUpdated(user)
+        phoneVerificationMutableLiveData.postValue(Result.success(true))
     }
 
-    private fun updateFail() {
-        this.userUpdatedListener?.onUserUpdateFailure()
+    private fun onUpdate(user: User) {
+
+        userLiveData.postValue(Result.success(user))
     }
 
-    private fun success(sessionData: SessionData) {
+    private fun onUpdateFail() {
+
+        //this.userUpdatedListener?.onUserUpdateFailure()
+    }
+
+    private fun onSuccess(sessionData: SessionData) {
+
         CoroutineScope(IO).launch {
             sessionRepo.saveSession(sessionData)
         }
-        this.authenticationListener?.onLoginSuccess(sessionData)
+        loginLiveData.postValue(Result.success(sessionData))
+        //this.authenticationListener?.onLoginSuccess(sessionData)
     }
 
     private fun error(errorCode: ErrorCode) {
-        this.authenticationListener?.onLoginFailure(errorCode)
+
+        Log.d(TAG, "error: error${errorCode.name}")
+
+        sessionRepo.clearSession()
+        loginLiveData.postValue(Result.failure(AuthException(errorCode)))
     }
+
+    private fun onLogout() {
+        loginLiveData.postValue(Result.failure(AuthException(ErrorCode.EMPTY_SESSION)))
+    }
+
+    class AuthException(val errorCode: ErrorCode) : Exception()
 }

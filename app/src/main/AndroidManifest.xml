@@ -16,16 +16,14 @@
         android:theme="@style/Theme.ZenroadAppBundle">
         <activity
             android:theme="@style/SplashScreenTheme"
-            android:name="com.telematics.zenroad.SplashActivity">
+            android:name="com.telematics.zenroad.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.telematics.zenroad.MainActivity" />
-        <activity android:name="com.telematics.zenroad.ui.login.LoginActivity" />
-        <activity android:name="com.telematics.zenroad.ui.login.LoginVerifyCodeActivity" />
+        <activity android:name="com.telematics.zenroad.ui.login.verification_code.LoginVerifyCodeFragment" />
     </application>
 
 </manifest>

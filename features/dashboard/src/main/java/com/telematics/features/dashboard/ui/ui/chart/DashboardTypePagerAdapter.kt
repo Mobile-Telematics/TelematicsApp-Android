@@ -3,9 +3,9 @@ package com.telematics.features.dashboard.ui.ui.chart
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.telematics.dashboard_.R
-import com.telematics.domain_.model.dashboard.ScoreType
-import com.telematics.domain_.model.dashboard.ScoreTypeModel
+import com.telematics.dashboard.R
+import com.telematics.domain.model.dashboard.ScoreType
+import com.telematics.domain.model.dashboard.ScoreTypeModel
 import kotlinx.android.extensions.LayoutContainer
 
 

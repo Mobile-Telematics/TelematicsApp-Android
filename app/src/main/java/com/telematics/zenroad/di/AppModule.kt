@@ -5,22 +5,23 @@ import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
-import com.telematics.domain_.repository.AuthenticationRepo
 import com.telematics.authentication.data.Authentication
-import com.telematics.data_.api.DriveCoinsApi
-import com.telematics.data_.api.LoginApi
-import com.telematics.data_.api.RefreshApi
-import com.telematics.data_.api.UserStatisticsApi
-import com.telematics.data_.interceptor.AppIDInterceptor
-import com.telematics.data_.interceptor.InstanceValuesInterceptor
-import com.telematics.data_.interceptor.MainInterceptor
-import com.telematics.data_.repository.AuthRepoImpl
-import com.telematics.data_.repository.DashboardRepoImpl
-import com.telematics.data_.repository.SessionRepoImpl
-import com.telematics.domain_.BuildConfig
-import com.telematics.domain_.repository.UserServicesRepo
-import com.telematics.domain_.repository.DashboardRepo
-import com.telematics.domain_.repository.SessionRepo
+import com.telematics.data.BuildConfig
+import com.telematics.data.api.DriveCoinsApi
+import com.telematics.data.api.LoginApi
+import com.telematics.data.api.RefreshApi
+import com.telematics.data.api.UserStatisticsApi
+import com.telematics.data.interceptor.AppIDInterceptor
+import com.telematics.data.interceptor.ErrorInterceptor
+import com.telematics.data.interceptor.InstanceValuesInterceptor
+import com.telematics.data.interceptor.MainInterceptor
+import com.telematics.data.repository.AuthRepoImpl
+import com.telematics.data.repository.DashboardRepoImpl
+import com.telematics.data.repository.SessionRepoImpl
+import com.telematics.domain.repository.AuthenticationRepo
+import com.telematics.domain.repository.DashboardRepo
+import com.telematics.domain.repository.SessionRepo
+import com.telematics.domain.repository.UserServicesRepo
 import com.telematics.zenroad.App
 import dagger.Module
 import dagger.Provides
@@ -106,6 +107,9 @@ object AppModule {
     @Provides
     fun provideInstanceValuesInterceptor(): InstanceValuesInterceptor = InstanceValuesInterceptor()
 
+    @Singleton
+    @Provides
+    fun provideErrorInterceptor(): ErrorInterceptor = ErrorInterceptor()
 
     @Singleton
     @Provides
@@ -113,12 +117,14 @@ object AppModule {
         mainInterceptor: MainInterceptor,
         loggingInterceptor: HttpLoggingInterceptor,
         appIDInterceptor: AppIDInterceptor,
-        instanceValuesInterceptor: InstanceValuesInterceptor
+        instanceValuesInterceptor: InstanceValuesInterceptor,
+        errorInterceptor: ErrorInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             addInterceptor(mainInterceptor)
             addInterceptor(appIDInterceptor)
             addInterceptor(instanceValuesInterceptor)
+            addInterceptor(errorInterceptor)
             authenticator(mainInterceptor)
             //if (BuildConfig.DEBUG)
             addInterceptor(loggingInterceptor)

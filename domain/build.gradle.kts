@@ -45,4 +45,6 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(AppDependencies.moduleLibraries)
+    implementation(AppDependencies.moduleLibraries)
+    implementation(AppDependencies.appLibraries)
 }
