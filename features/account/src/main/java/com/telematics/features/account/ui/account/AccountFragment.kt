@@ -2,6 +2,7 @@ package com.telematics.features.account.ui.account
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,18 @@ import androidx.navigation.fragment.findNavController
 import com.telematics.domain.model.authentication.User
 import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentAccountBinding
-import com.telematics.features.account.ui.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
+
+    private val TAG = "AccountFragment"
+
+    companion object {
+        const val ACCOUNT_USER_KEY = "account_user_key"
+        const val ACCOUNT_USER_BUNDLE_KEY = "account_user_bundle_key"
+    }
 
     @Inject
     lateinit var accountViewModel: AccountViewModel
@@ -37,10 +44,6 @@ class AccountFragment : Fragment() {
         setListeners()
     }
 
-    fun onUserUpdated(user: User) {
-        bindUser(user)
-    }
-
     private fun setListeners() {
 
         binding.userInfoCard.accountDocumentItem.setOnClickListener {
@@ -58,6 +61,16 @@ class AccountFragment : Fragment() {
             result.onFailure {
                 bindUser(User())
             }
+        }
+
+        //get user after update
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>(
+            ACCOUNT_USER_KEY
+        )?.observe(
+            viewLifecycleOwner
+        ) { result ->
+            val user = result.getSerializable(ACCOUNT_USER_BUNDLE_KEY) as User
+            bindUser(user)
         }
     }
 
@@ -93,11 +106,21 @@ class AccountFragment : Fragment() {
 
     private fun logout() {
 
-        accountViewModel.logout()
+        accountViewModel.logout().observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                openSplashFragment()
+            }
+            result.onFailure { }
+        }
     }
 
     private fun openProfileFragment() {
         val uri = Uri.parse("telematics://profileFragment")
+        findNavController().navigate(uri)
+    }
+
+    private fun openSplashFragment() {
+        val uri = Uri.parse("telematics://splashFragment")
         findNavController().navigate(uri)
     }
 }

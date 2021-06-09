@@ -18,11 +18,9 @@ import com.telematics.data.interceptor.MainInterceptor
 import com.telematics.data.repository.AuthRepoImpl
 import com.telematics.data.repository.DashboardRepoImpl
 import com.telematics.data.repository.SessionRepoImpl
-import com.telematics.domain.repository.AuthenticationRepo
-import com.telematics.domain.repository.DashboardRepo
-import com.telematics.domain.repository.SessionRepo
-import com.telematics.domain.repository.UserServicesRepo
-import com.telematics.zenroad.App
+import com.telematics.data.repository.UserRepoImpl
+import com.telematics.data.tracking.TrackingApiImpl
+import com.telematics.domain.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -44,8 +42,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideContext(application: App): Context {
-        return application.applicationContext
+    fun provideContext(@ApplicationContext application: Context): Context {
+        return application
     }
 
     @Singleton
@@ -109,7 +107,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideErrorInterceptor(): ErrorInterceptor = ErrorInterceptor()
+    fun provideErrorInterceptor(gson: Gson): ErrorInterceptor = ErrorInterceptor(gson)
 
     @Singleton
     @Provides
@@ -124,10 +122,10 @@ object AppModule {
             addInterceptor(mainInterceptor)
             addInterceptor(appIDInterceptor)
             addInterceptor(instanceValuesInterceptor)
-            addInterceptor(errorInterceptor)
             authenticator(mainInterceptor)
             //if (BuildConfig.DEBUG)
             addInterceptor(loggingInterceptor)
+            addInterceptor(errorInterceptor)
         }.build()
     }
 
@@ -205,18 +203,30 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideUserRepo(sharedPreferences: SharedPreferences): UserRepo =
+        UserRepoImpl(sharedPreferences)
+
+    @Provides
+    @Singleton
     fun provideDashboardRepo(
         driveCoinsApi: DriveCoinsApi,
         userStatisticsApi: UserStatisticsApi,
-        sessionRepo: SessionRepo
-    ): DashboardRepo = DashboardRepoImpl(driveCoinsApi, userStatisticsApi, sessionRepo)
+        userRepo: UserRepo
+    ): StatisticRepo = DashboardRepoImpl(driveCoinsApi, userStatisticsApi, userRepo)
 
     @Provides
     @Singleton
     fun provideAuthentication(
         authRepo: UserServicesRepo,
-        sessionRepo: SessionRepo
+        sessionRepo: SessionRepo,
+        userRepo: UserRepo
     ): AuthenticationRepo {
-        return Authentication(authRepo, sessionRepo)
+        return Authentication(authRepo, sessionRepo, userRepo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTrackingRepo(): TrackingApiRepo {
+        return TrackingApiImpl()
     }
 }

@@ -17,5 +17,5 @@ fun String.isValidEmail(): Boolean {
 }
 
 fun SessionData.isEmpty(): Boolean {
-    return deviceToken.isBlank() || accessToken.isBlank()
+    return accessToken.isBlank()
 }

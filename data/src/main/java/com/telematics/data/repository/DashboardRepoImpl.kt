@@ -5,9 +5,9 @@ import com.telematics.data.api.UserStatisticsApi
 import com.telematics.data.extentions.DateFormat
 import com.telematics.data.extentions.timeMillsToDisplayableString
 import com.telematics.data.mappers.*
-import com.telematics.domain.model.dashboard.*
-import com.telematics.domain.repository.DashboardRepo
-import com.telematics.domain.repository.SessionRepo
+import com.telematics.domain.model.statistics.*
+import com.telematics.domain.repository.StatisticRepo
+import com.telematics.domain.repository.UserRepo
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -15,8 +15,8 @@ import javax.inject.Inject
 class DashboardRepoImpl @Inject constructor(
     private val driveCoinsApi: DriveCoinsApi,
     private val userStatisticsApi: UserStatisticsApi,
-    private val sessionRepo: SessionRepo
-) : DashboardRepo {
+    private val userRepo: UserRepo
+) : StatisticRepo {
 
     override suspend fun getDriveCoins(): DriveCoins {
 
@@ -61,16 +61,16 @@ class DashboardRepoImpl @Inject constructor(
         val startDate = format.format(calendar.time)
 
         val response =
-            userStatisticsApi.getScoreData(sessionRepo.getSession().deviceToken, startDate, endDate)
+            userStatisticsApi.getScoreData(userRepo.getDeviceToken(), startDate, endDate)
         return response.result?.toUserStatisticsScoreData() ?: UserStatisticsScoreData()
     }
 
-    override suspend fun getMainEcoScoring(): DashboardEcoScoringMain {
+    override suspend fun getMainEcoScoring(): StatisticEcoScoringMain {
         return userStatisticsApi.getMainEcoScoring().result?.toDashboardEcoScoringMain()
-            ?: DashboardEcoScoringMain()
+            ?: StatisticEcoScoringMain()
     }
 
-    override suspend fun getEcoScoringStatisticsData(type: Int): DashboardEcoScoringTabData {
+    override suspend fun getEcoScoringStatisticsData(type: Int): StatisticEcoScoringTabData {
 
         val amount = when (type) {
             Calendar.DAY_OF_WEEK -> -7
@@ -88,7 +88,7 @@ class DashboardRepoImpl @Inject constructor(
         return userStatisticsApi.getIndividualData(
             startDate,
             endDate
-        ).result?.toDashboardEcoScoringTabData() ?: DashboardEcoScoringTabData()
+        ).result?.toDashboardEcoScoringTabData() ?: StatisticEcoScoringTabData()
     }
 
     override suspend fun getLastTrip() {

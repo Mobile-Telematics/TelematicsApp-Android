@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAuthScreenBg"
@@ -112,6 +113,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verifyInput" />
+
+
+    <ProgressBar
+        android:id="@+id/verifyProgress"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:elevation="4dp"
+        android:progress="20"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/verifySend"
+        app:layout_constraintEnd_toEndOf="@id/verifySend"
+        app:layout_constraintStart_toStartOf="@id/verifySend"
+        app:layout_constraintTop_toTopOf="@id/verifySend"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/verifyByAnotherType"

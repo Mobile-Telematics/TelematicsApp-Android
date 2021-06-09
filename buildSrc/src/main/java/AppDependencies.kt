@@ -47,7 +47,7 @@ object AppDependencies {
     const val retrofitUrlManager = "me.jessyan:retrofit-url-manager:1.4.0"
 
     //okhttp
-    const val okHttp3 = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    //const val okHttp3 = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val okHttp3Logging = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpLogging}"
 
     // Gson
@@ -89,7 +89,7 @@ object AppDependencies {
         retrofitRxJava2Adapter,
         retrofitRxJava3Adapter,
         retrofitUrlManager,
-        okHttp3,
+        //okHttp3,
         okHttp3Logging,
         gson
     )

@@ -105,5 +105,7 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.4.0-alpha02")
     implementation("androidx.fragment:fragment:1.4.0-alpha02")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.3")
+
+    implementation(AppDependencies.trackingApi)
 }

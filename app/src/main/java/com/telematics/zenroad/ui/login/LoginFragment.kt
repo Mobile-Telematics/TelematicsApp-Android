@@ -1,6 +1,5 @@
 package com.telematics.zenroad.ui.login
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,23 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.telematics.authentication.data.Authentication
-import com.telematics.authentication.extention.observeOnce
-import com.telematics.domain.error.ErrorCode
+import com.telematics.authentication.exception.AuthErrorCode
+import com.telematics.authentication.exception.AuthException
 import com.telematics.domain.model.LoginType
-import com.telematics.domain.model.SessionData
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.LoginActivityBinding
 import com.telematics.zenroad.extention.isValidEmail
 import com.telematics.zenroad.extention.setVisible
-import com.telematics.zenroad.ui.login.verification_code.LoginVerifyCodeFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -144,13 +139,6 @@ class LoginFragment : Fragment() {
         binding.loginUseEmailOrPhone.animate().alpha(1f).setDuration(duration + durationK * 2)
             .start()
         binding.loginChangeButton.animate().alpha(1f).setDuration(duration + durationK * 5).start()
-
-        //binding.loginJoinVia.alpha = 0f
-        //binding.loginJoinVia.animate().alpha(1f).setDuration(duration + durationK * 4).start()
-        //binding.loginSend.alpha = 0f
-        //binding.loginSend.animate().alpha(1f).setDuration(duration + durationK * 3).start()
-        //binding.loginCommonLogo.alpha = 0f
-        //binding.loginCommonLogo.animate().alpha(1f).setDuration(duration + durationK * 3).start()
     }
 
     private fun showProgress() {
@@ -206,7 +194,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun showLoginFailedMessage(message: String) {
-        Log.d("LoginActivity", "message: $message")
+        Log.d(TAG, "message: $message")
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
@@ -225,59 +213,86 @@ class LoginFragment : Fragment() {
     private fun getPasswordField(): String {
         return binding.loginInputPassword.text.toString()
     }
+    /** ↑ UI ↑ */
 
+    /**↓login*/
     private fun login() {
 
         showProgress()
 
         if (!validFields()) return
 
-
-        if (loginType == LoginType.PHONE)
-            loginViewModel.isNeedPhoneVerify().observeOnce(viewLifecycleOwner) { result ->
-                result.onSuccess { needPhoneVerification ->
-                    if (needPhoneVerification) {
-                        startVerifyCodeFragment()
-                    }
+        when (loginType) {
+            LoginType.PHONE -> startVerifyCodeFragment()
+            LoginType.EMAIL -> loginViewModel.authorize(
+                getLoginField(),
+                getPasswordField()
+            ).observe(viewLifecycleOwner) { result ->
+                result.onSuccess { isAuthorize ->
+                    Log.d(TAG, "login: $isAuthorize")
+                    if (isAuthorize)
+                        loginSuccess()
+                    else loginFailure()
                 }
-            }
-
-        val loginObserve = loginViewModel.login(
-            getLoginField(),
-            getPasswordField(),
-            loginType,
-            requireActivity()
-        )
-        loginObserve.observe(viewLifecycleOwner) { result ->
-            result?.onSuccess {
-                onLoginSuccess(it)
-            }
-            result?.onFailure {
-                onLoginFailure(it as Authentication.AuthException)
+                result.onFailure {
+                    loginFailure(it)
+                }
             }
         }
     }
 
-    private fun onLoginSuccess(sessionData: SessionData) {
-        Log.d(TAG, "login: onSuccess")
+    /**registration*/
+    private fun registration() {
+
+        loginViewModel.registration(
+            getLoginField(),
+            getPasswordField(),
+            loginType
+        ).observe(viewLifecycleOwner) { result ->
+            result.onSuccess { isAuthorize ->
+                Log.d(TAG, "registration: $isAuthorize")
+                if (isAuthorize)
+                    loginSuccess()
+                else loginFailure()
+            }
+            result.onFailure {
+                loginFailure(it)
+            }
+        }
+    }
+
+    /**login handlers*/
+    private fun loginSuccess() {
+
+        Log.d(TAG, "login: loginSuccess")
         hideProgress()
+
+        startMainScreen()
     }
 
-    private fun startVerifyCodeFragment() {
+    private fun loginFailure(throwable: Throwable? = null) {
 
-        val bundle = bundleOf("phone" to getLoginField())
-        findNavController().navigate(R.id.action_loginFragment_to_loginVerifyCodeFragment, bundle)
+        if (throwable is AuthException) {
+            Log.d(TAG, "login: AuthException ${throwable.errorCode}")
+        }
+
+        hideProgress()
+
+        if (throwable is AuthException) {
+            when (throwable.errorCode) {
+                AuthErrorCode.NONE -> showLoginFailedMessage("Unknown error")
+                AuthErrorCode.USER_NOT_EXIST -> showRegistrationDialog()
+                AuthErrorCode.EMPTY_DEVICE_TOKEN -> showRegistrationDialog()
+                AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage("Invalid email or password")
+                AuthErrorCode.NEED_VERIFY_CODE -> startVerifyCodeFragment()
+                else -> showLoginFailedMessage("Unknown error")
+            }
+        } else {
+
+        }
     }
 
-    private fun onLoginFailure(error: Authentication.AuthException) {
-        Log.d(TAG, "login: onFailure ${error.errorCode}")
-        if (error.errorCode != ErrorCode.EMPTY_SESSION || error.errorCode != ErrorCode.NONE)
-            hideProgress()
-
-        if (error.errorCode == ErrorCode.USER_NOT_EXIST)
-            showRegistrationDialog()
-    }
-
+    /**navigation*/
     private fun showRegistrationDialog() {
 
         AlertDialog.Builder(requireContext())
@@ -293,20 +308,22 @@ class LoginFragment : Fragment() {
             .show()
     }
 
-    private fun registration() {
+    private fun startMainScreen() {
 
-        loginViewModel.registration(
-            getLoginField(),
-            getPasswordField(),
-            loginType
-        )
+        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+    }
+
+    private fun startVerifyCodeFragment() {
+
+        val bundle = bundleOf("phone" to getLoginField())
+        findNavController().navigate(R.id.action_loginFragment_to_loginVerifyCodeFragment, bundle)
     }
 
     private fun mockFields() {
 
         // FIXME: remove
         binding.loginInputPhone.setText("+79009057055")
-        binding.loginInputEmail.setText("android_06@dev.com")
+        binding.loginInputEmail.setText("android_01@dev.com")
         binding.loginInputPassword.setText("123456")
     }
 }

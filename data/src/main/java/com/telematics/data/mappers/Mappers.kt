@@ -5,17 +5,26 @@ import com.telematics.data.model.dashboard.EcoScoringRest
 import com.telematics.data.model.dashboard.UserStatisticsIndividualRest
 import com.telematics.data.model.dashboard.UserStatisticsScoreRest
 import com.telematics.data.model.rest.ApiResult
+import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
-import com.telematics.domain.model.dashboard.*
+import com.telematics.domain.model.statistics.*
 import java.util.*
 import kotlin.math.roundToInt
 
-fun ApiResult.toSessionData(): SessionData {
+fun ApiResult?.toSessionData(): SessionData {
     return SessionData(
-        this.deviceToken,
-        this.accessToken.token,
-        this.refreshToken,
-        Date().time + this.accessToken.expiresIn
+        this?.accessToken?.token ?: "",
+        this?.refreshToken ?: "",
+        this?.accessToken?.expiresIn?.let { Date().time + it } ?: Date().time
+    )
+}
+
+fun ApiResult?.toRegistrationApiData(): RegistrationApiData {
+    return RegistrationApiData(
+        this?.deviceToken ?: "",
+        this?.accessToken?.token ?: "",
+        this?.refreshToken ?: "",
+        this?.accessToken?.expiresIn?.let { Date().time + it } ?: Date().time
     )
 }
 
@@ -133,9 +142,9 @@ fun List<DrivingDetailsData>.toScoreTypeModelList(): List<ScoreTypeModel> {
     return res
 }
 
-fun EcoScoringRest.toDashboardEcoScoringMain(): DashboardEcoScoringMain {
+fun EcoScoringRest.toDashboardEcoScoringMain(): StatisticEcoScoringMain {
     val response = this
-    return DashboardEcoScoringMain(
+    return StatisticEcoScoringMain(
         score = response?.score?.toInt() ?: 0,
         fuel = response?.fuel?.toInt() ?: 0,
         brakes = response?.brakes?.toInt() ?: 0,
@@ -144,12 +153,12 @@ fun EcoScoringRest.toDashboardEcoScoringMain(): DashboardEcoScoringMain {
     )
 }
 
-fun UserStatisticsIndividualRest.toDashboardEcoScoringTabData(): DashboardEcoScoringTabData {
+fun UserStatisticsIndividualRest.toDashboardEcoScoringTabData(): StatisticEcoScoringTabData {
     val response = this
     val averageTripDistance = if (response == null && response?.tripsCount == .0) .0 else {
         ((response?.mileageKm ?: .0) / (response?.tripsCount ?: 1.0))
     }
-    return DashboardEcoScoringTabData(
+    return StatisticEcoScoringTabData(
         response?.averageSpeedKmh ?: .0,
         response?.maxSpeedKmh ?: .0,
         averageTripDistance

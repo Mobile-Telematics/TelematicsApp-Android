@@ -2,7 +2,7 @@ object Versions {
 
     const val kotlin = "1.4.32"
 
-    const val trackingApi = "2.2.250"
+    const val trackingApi = "2.2.251"
     //libs
     const val coreKtx = "1.2.0"
     const val appcompat = "1.2.0"
@@ -17,7 +17,7 @@ object Versions {
     const val retrofit = "2.8.1"
     const val retrofitRxAdapter = "2.9.0"
     const val okHttp = "4.8.1"
-    const val okHttpLogging = "4.9.1"
+    const val okHttpLogging = "3.12.1"
     const val gson = "2.8.4"
     const val lifecycle = "2.3.1"
 

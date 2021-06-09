@@ -4,8 +4,8 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.telematics.dashboard.R
-import com.telematics.domain.model.dashboard.ScoreType
-import com.telematics.domain.model.dashboard.ScoreTypeModel
+import com.telematics.domain.model.statistics.ScoreType
+import com.telematics.domain.model.statistics.ScoreTypeModel
 import kotlinx.android.extensions.LayoutContainer
 
 

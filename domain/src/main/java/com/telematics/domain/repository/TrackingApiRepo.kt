@@ -1,9 +1,19 @@
 package com.telematics.domain.repository
 
 import android.app.Activity
+import android.content.Context
+import kotlinx.coroutines.flow.Flow
 
 interface TrackingApiRepo {
+
+    fun setContext(context: Context)
     fun setDeviceToken(deviceId: String)
+
+    fun checkPermissions(): Flow<Boolean>
     fun checkPermissionAndStartWizard(activity: Activity)
-    fun onActivityResult(requestCode: Int, resultCode: Int)
+
+    fun startTracking()
+    fun setEnableTrackingSDK(enable: Boolean)
+
+    fun logout()
 }

@@ -61,10 +61,12 @@ dependencies {
     implementation(project(Modules.data))
     implementation(project(Modules.content))
 
-    implementation(AppDependencies.daggerHiltLibraries)
+    implementation("androidx.fragment:fragment-ktx:1.4.0-alpha02")
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
+
+    implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
 }

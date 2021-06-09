@@ -1,10 +1,13 @@
 package com.telematics.data.repository
 
+import android.util.Log
 import com.telematics.data.BuildConfig
 import com.telematics.data.api.LoginApi
+import com.telematics.data.mappers.toRegistrationApiData
 import com.telematics.data.mappers.toSessionData
 import com.telematics.data.model.login.*
 import com.telematics.domain.model.LoginType
+import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.repository.UserServicesRepo
 import javax.inject.Inject
@@ -20,7 +23,7 @@ class AuthRepoImpl @Inject constructor(
         }
         val body = LoginBody(loginFields, password)
         val response = api.login(body)
-        return response.result!!.toSessionData()
+        return response.result.toSessionData()
     }
 
     override suspend fun logout() {
@@ -32,19 +35,16 @@ class AuthRepoImpl @Inject constructor(
         val loginFieldsWithDeviceToken = LoginFieldsWithDeviceToken(deviceToken)
         val body = LoginWithDeviceTokenBody(loginFieldsWithDeviceToken, BuildConfig.INSTANCE_KEY)
         val response = api.loginWithDeviceToken(body)
-        return response.result!!.toSessionData()
+        return response.result.toSessionData()
     }
 
 
-    override suspend fun registrationWithEmail(email: String): SessionData {
-        val registrationBody = RegistrationBody(email = email)
+    override suspend fun registration(): RegistrationApiData {
+        val registrationBody = RegistrationBody()
         val response = api.registration(registrationBody)
-        return response.result!!.toSessionData()
-    }
-
-    override suspend fun registrationWithPhone(phone: String): SessionData {
-        val registrationBody = RegistrationBody(phone = phone)
-        val response = api.registration(registrationBody)
-        return response.result!!.toSessionData()
+        Log.d("API_API", "registration: response${response}")
+        val r = response.result.toRegistrationApiData()
+        Log.d("API_API", "registration: toRegistrationApiData ${r}")
+        return r
     }
 }

@@ -5,26 +5,36 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
+import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.domain.model.authentication.User
 import com.telematics.features.account.use_case.LoginUseCase
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
-import kotlin.math.log
 
 class AccountViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val trackingUseCase: TrackingUseCase
 ) : ViewModel() {
 
-    fun logout() {
-        flow {
-            loginUseCase.logout()
-            emit(Unit)
-        }.launchIn(viewModelScope)
+    fun logout(): LiveData<Result<Boolean>> {
+
+        val logoutState = MutableLiveData<Result<Boolean>>()
+        loginUseCase.logout()
+            .setLiveDataForResult(logoutState)
+            .launchIn(viewModelScope)
+
+        trackingUseCase.logout()
+
+        return logoutState
     }
 
-    fun getUser(): LiveData<Result<User>>{
+    fun getUser(): LiveData<Result<User>> {
 
-        return loginUseCase.getUser()
+        val userState = MutableLiveData<Result<User>>()
+        loginUseCase.getUser()
+            .setLiveDataForResult(userState)
+            .launchIn(viewModelScope)
+        return userState
     }
 }

@@ -1,26 +1,45 @@
 package com.telematics.domain.repository
 
 import android.app.Activity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
-import com.telematics.domain.model.authentication.User
-import kotlinx.coroutines.flow.Flow
+import com.telematics.domain.model.authentication.IUser
+import com.telematics.domain.model.authentication.PhoneAuthCallback
+import com.telematics.domain.model.authentication.PhoneAuthCred
 
 interface AuthenticationRepo {
 
-    fun needPhoneVerification(): LiveData<Result<Boolean>>
+    suspend fun getCurrentUserID(): String?
 
-    suspend fun signInEmailPassword(email: String, password: String)
-    suspend fun signInPhone(phone: String, activity: Activity?)
-    suspend fun login()
+    /** api */
+    suspend fun registrationCreateAPI(): RegistrationApiData
+    suspend fun loginAPI(deviceToken: String): SessionData
 
-    fun getSessionData(): MutableLiveData<Result<SessionData>>
+    /** sign in FirebaseAuth*/
+    suspend fun signInWithEmailAndPasswordFirebase(email: String, password: String): IUser?
+    suspend fun signInWithPhoneFirebase(
+        phone: String,
+        activity: Activity,
+        callback: PhoneAuthCallback
+    )
 
-    suspend fun checkPhoneVerificationCode(code: String)
-    suspend fun registrationUser(phone: String, password: String?)
-    suspend fun logout()
-    suspend fun updateUser(user: User)
+    suspend fun signInWithPhoneAuthCredential(credential: PhoneAuthCred<*>): IUser?
+    suspend fun sendVerificationCode(
+        phone: String,
+        code: String,
+        verificationId: String
+    ): PhoneAuthCred<*>
 
-    fun getUser(): MutableLiveData<Result<User>>
+    /** create in FirebaseAuth*/
+    suspend fun createUserWithEmailAndPasswordInFirebase(email: String, password: String): IUser?
+
+    /** create in FirebaseDatabase*/
+    suspend fun createUserInFirebaseDatabase(user: IUser)
+    suspend fun getDeviceTokenInFirebaseDatabase(userId: String): String?
+
+    /** update user in FirebaseDatabase */
+    suspend fun updateUserInFirebaseDatabase(user: IUser)
+
+    /** logout*/
+    suspend fun logout(): Boolean
 }

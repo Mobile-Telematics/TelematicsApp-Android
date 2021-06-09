@@ -719,4 +719,13 @@
 
     <string name="dashboard_settings_troubleshooting">Troubleshooting</string>
 
+    <string name="template_km">%1$s km</string>
+    <string name="template_km_h">%1$s km/h</string>
+    <string name="template_l_km">%1$s l/km</string>
+    <string name="template_min">%1$s m</string>
+    <string name="template_percent">%</string>
+    <string name="common_time_in_hm_format">%1$dh %2$02dm</string>
+    <string name="template_mi_h">%1$s mi/h</string>
+    <string name="template_mi">%1$s mi</string>
+
 </resources>

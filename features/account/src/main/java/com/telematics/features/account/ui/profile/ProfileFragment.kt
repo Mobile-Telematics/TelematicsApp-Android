@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.domain.model.authentication.User
 import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentProfileBinding
 import com.telematics.features.account.model.DatePickerDialog
-import com.telematics.features.account.use_case.LoginUseCase
+import com.telematics.features.account.ui.account.AccountFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -40,9 +43,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setListeners() {
-
-        val l = parentFragmentManager.backStackEntryCount
-        Log.d("profileFragment", "setListeners: $l")
 
         binding.accountWizardSaveBtn.setOnClickListener {
             saveUser()
@@ -125,7 +125,7 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.updateUser(newUser)
 
-        finish()
+        finish(newUser)
     }
 
     private fun showErrorMessage(@StringRes id: Int) {
@@ -136,9 +136,10 @@ class ProfileFragment : Fragment() {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun finish() {
+    private fun finish(newUser: User) {
 
-        parentFragmentManager.popBackStackImmediate()
-        //parentFragmentManager.popBackStack()
+        val bundle = bundleOf(AccountFragment.ACCOUNT_USER_BUNDLE_KEY to newUser)
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(AccountFragment.ACCOUNT_USER_KEY, bundle)
+        findNavController().popBackStack()
     }
 }

@@ -5,10 +5,10 @@ import com.telematics.data.mappers.toSessionData
 import com.telematics.data.model.refresh_token.RefreshRequest
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.repository.SessionRepo
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import javax.inject.Inject
 
@@ -31,9 +31,9 @@ class MainInterceptor @Inject constructor(
     override fun authenticate(route: Route?, response: Response): Request {
         synchronized(monitor) {
             return runBlocking {
-                val request = response.request
+                val request = response.request()
                 val sessionData = sessionRepository.getSession()
-                if (response.request.header("Authorization") != sessionData.accessToken) {
+                if (response.request().header("Authorization") != sessionData.accessToken) {
                     request.newBuilder().removeHeader("Authorization")
                         .addHeader("Authorization", "Bearer ${sessionData.accessToken}").build()
                 } else {
@@ -48,7 +48,6 @@ class MainInterceptor @Inject constructor(
                                 ).result!!.toSessionData()
                             )
                         }.catch {
-                            //throw LogoutException("Unable to refresh loken")
                         }.first()
                     sessionRepository.saveSession(newSession)
                     request.newBuilder().removeHeader("Authorization")

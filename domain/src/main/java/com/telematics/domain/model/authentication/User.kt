@@ -1,10 +1,20 @@
 package com.telematics.domain.model.authentication
 
+import java.io.Serializable
+
+abstract class IUser(
+    val id: String,
+    val token: String
+) {
+    fun isEmpty(): Boolean {
+        return id.isNullOrBlank()
+    }
+}
+
 data class User(
     var email: String? = null,
     var password: String? = null,
     var deviceToken: String? = null,
-    var accessToken: String? = null,
     var userId: String? = null,
 
     var firstName: String? = null,
@@ -14,20 +24,29 @@ data class User(
     var address: String? = null,
     var clientId: String? = null
     //var image: String? = null,
-) {
+) : IUser(id = userId ?: "", token = deviceToken ?: ""), Serializable {
 
     fun isCompleted(): Boolean {
         return true
     }
 
-    fun setNotNullUserField(newUser: User) {
+    fun getNewUpdatedUser(newUser: User): User {
 
-        this.email = newUser.email ?: this.email
-        this.firstName = newUser.firstName ?: this.firstName
-        this.lastName = newUser.lastName ?: this.lastName
-        this.phone = newUser.phone ?: this.phone
-        this.birthday = newUser.birthday ?: this.birthday
-        this.address = newUser.address ?: this.address
-        this.clientId = newUser.clientId ?: this.clientId
+        return User().apply {
+            this.deviceToken = this@User.deviceToken
+            this.userId = this@User.userId
+
+            this.email = newUser.email ?: this.email
+            this.firstName = newUser.firstName ?: this.firstName
+            this.lastName = newUser.lastName ?: this.lastName
+            this.phone = newUser.phone ?: this.phone
+            this.birthday = newUser.birthday ?: this.birthday
+            this.address = newUser.address ?: this.address
+            this.clientId = newUser.clientId ?: this.clientId
+        }
     }
 }
+
+data class FirebaseUser(
+    var userId: String? = null,
+) : IUser(id = userId ?: "", token = "")

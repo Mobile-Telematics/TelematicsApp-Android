@@ -7,23 +7,23 @@ import com.telematics.data.extentions.setLiveData
 import com.telematics.data.mappers.toScoreTypeModelList
 import com.telematics.data.utils.Resource
 import com.telematics.domain.model.SessionData
-import com.telematics.domain.model.dashboard.*
-import com.telematics.domain.repository.DashboardRepo
+import com.telematics.domain.model.statistics.*
+import com.telematics.domain.repository.StatisticRepo
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import java.util.*
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
-    private val dashboardRepo: DashboardRepo
+    private val dashboardRepo: StatisticRepo
 ) : ViewModel() {
 
     private val sessionData = MutableLiveData<Resource<SessionData>>()
     val driveCoinsData = MutableLiveData<Resource<DriveCoins>>()
     val userIndividualStatisticsData = MutableLiveData<Resource<UserStatisticsIndividualData>>()
-    val scoreLiveData = MutableLiveData<Resource<DashboardScoringData>>()
-    val mainEcoScoringLiveData = MutableLiveData<Resource<DashboardEcoScoringMain>>()
-    val tableEcoScoringLiveData = MutableLiveData<Resource<DashboardEcoScoringTabsData>>()
+    val scoreLiveData = MutableLiveData<Resource<StatisticScoringData>>()
+    val mainEcoScoringLiveData = MutableLiveData<Resource<StatisticEcoScoringMain>>()
+    val tableEcoScoringLiveData = MutableLiveData<Resource<StatisticEcoScoringTabsData>>()
 
     fun getDriveCoins() {
 
@@ -51,7 +51,7 @@ class DashboardViewModel @Inject constructor(
             val userStatisticsScoreData = dashboardRepo.getUserStatisticsScoreData()
             val scoreTypeModelChart = list.toScoreTypeModelList()
             val scoreTypeModelNumbers = userStatisticsScoreData.toScoreTypeModelList()
-            val scoreData = DashboardScoringData(
+            val scoreData = StatisticScoringData(
                 scoreTypeModelChart,
                 userStatisticsIndividualData,
                 scoreTypeModelNumbers
@@ -79,7 +79,7 @@ class DashboardViewModel @Inject constructor(
             val weekData = dashboardRepo.getEcoScoringStatisticsData(Calendar.DAY_OF_WEEK)
             val monthData = dashboardRepo.getEcoScoringStatisticsData(Calendar.MONTH)
             val yearData = dashboardRepo.getEcoScoringStatisticsData(Calendar.YEAR)
-            emit(DashboardEcoScoringTabsData(weekData, monthData, yearData))
+            emit(StatisticEcoScoringTabsData(weekData, monthData, yearData))
         }
             .setLiveData(tableEcoScoringLiveData)
             .launchIn(viewModelScope)

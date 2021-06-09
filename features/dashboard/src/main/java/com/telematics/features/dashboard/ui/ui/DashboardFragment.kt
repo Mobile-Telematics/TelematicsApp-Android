@@ -23,7 +23,7 @@ import com.telematics.data.extentions.format
 import com.telematics.data.extentions.getColorByScore
 import com.telematics.data.extentions.setProgressWithColor
 import com.telematics.data.utils.Resource
-import com.telematics.domain.model.dashboard.*
+import com.telematics.domain.model.statistics.*
 import com.telematics.features.dashboard.ui.ui.chart.DashboardTypePagerAdapter
 import com.telematics.features.dashboard.ui.ui.ecoscoring.DashboardEcoScoringTabAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -238,10 +238,10 @@ class DashboardFragment : Fragment() {
         )
 
 
-        val outputData = DashboardEcoScoringTabsData(
-            DashboardEcoScoringTabData(-1.0, -1.0, -1.0),
-            DashboardEcoScoringTabData(-1.0, -1.0, -1.0),
-            DashboardEcoScoringTabData(-1.0, -1.0, -1.0)
+        val outputData = StatisticEcoScoringTabsData(
+            StatisticEcoScoringTabData(-1.0, -1.0, -1.0),
+            StatisticEcoScoringTabData(-1.0, -1.0, -1.0),
+            StatisticEcoScoringTabData(-1.0, -1.0, -1.0)
         )
         //todo outputData toMiles
         binding.include4.pager.adapter = DashboardEcoScoringTabAdapter(
@@ -342,7 +342,7 @@ class DashboardFragment : Fragment() {
 
     private fun observeDrivingDetails() {
 
-        fun showContent(dashboardData: DashboardScoringData) {
+        fun showContent(dashboardData: StatisticScoringData) {
             fillData(
                 dashboardData.drivingDetailsData,
                 dashboardData.userStatisticsScoreData
@@ -361,7 +361,7 @@ class DashboardFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    val dashboardData = it.data ?: DashboardScoringData()
+                    val dashboardData = it.data ?: StatisticScoringData()
                     showContent(dashboardData)
                 }
 
@@ -380,7 +380,7 @@ class DashboardFragment : Fragment() {
 
     private fun initMainEcoScoring() {
 
-        fun showMainEcoScoring(data: DashboardEcoScoringMain) {
+        fun showMainEcoScoring(data: StatisticEcoScoringMain) {
             val ecoScoring = binding.include4
             ecoScoring.layoutItemEcoScoringFuel.itemEcoScoringProgress.setProgressWithColor(data.fuel)
             ecoScoring.layoutItemEcoScoringTires.itemEcoScoringProgress.setProgressWithColor(data.tires)
@@ -430,7 +430,7 @@ class DashboardFragment : Fragment() {
 
                 }
                 is Resource.Success -> {
-                    showMainEcoScoring(it.data ?: DashboardEcoScoringMain())
+                    showMainEcoScoring(it.data ?: StatisticEcoScoringMain())
                 }
             }
         })
@@ -439,7 +439,7 @@ class DashboardFragment : Fragment() {
 
     private fun initEcoScoringTable() {
 
-        fun showContent(data: DashboardEcoScoringTabsData?) {
+        fun showContent(data: StatisticEcoScoringTabsData?) {
 
             //todo add toMiles
 //            if (settingsInteractor.getDistanceMeasure() == DistanceMeasure.MI)

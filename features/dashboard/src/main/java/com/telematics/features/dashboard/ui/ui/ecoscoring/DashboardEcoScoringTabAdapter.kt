@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.telematics.dashboard.R
-import com.telematics.domain.model.dashboard.DashboardEcoScoringTabsData
+import com.telematics.domain.model.statistics.StatisticEcoScoringTabsData
 
 class DashboardEcoScoringTabAdapter(
     fm: FragmentManager,
-    val data: DashboardEcoScoringTabsData?,
+    val data: StatisticEcoScoringTabsData?,
     private val context: Context
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
