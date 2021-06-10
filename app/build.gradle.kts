@@ -41,16 +41,16 @@ android {
 
     signingConfigs {
         getByName("debug") {
-            keyAlias = "raxelcore"
-            keyPassword = "123456"
-            storeFile = file("keystore/raxel.jks")
-            storePassword = "123456"
+            keyAlias = "key0"
+            keyPassword = "******"
+            storeFile = file("path_to_file/keystore.jks")
+            storePassword = "******"
         }
         create("release") {
-            keyAlias = "raxelcore"
-            keyPassword = "123456"
-            storeFile = file("keystore/raxel.jks")
-            storePassword = "123456"
+            keyAlias = "key0"
+            keyPassword = "******"
+            storeFile = file("path_to_file/keystore.jks")
+            storePassword = "******"
         }
     }
 //    flavorDimensions(AppConfig.dimension)
