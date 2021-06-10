@@ -40,7 +40,7 @@
         android:id="@+id/loginUseEmailOrPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_screen_use_email"
+        android:text="@string/sign_in"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryText"
         android:textSize="16sp"
@@ -48,6 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginCommonLogo"
+        app:layout_constraintVertical_bias="0.3"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <!-- Input and button -->
@@ -172,15 +173,16 @@
             android:hint="@string/login_screen_hint_password"
             android:textColor="@color/colorPrimaryText"
             android:visibility="visible"
-            app:hintTextAppearance="@style/TextLabel">
+            app:hintTextAppearance="@style/TextLabel"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginInputPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:background="@drawable/dr_login_email_rect"
                 android:imeOptions="actionGo"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:paddingStart="8dp"
                 android:paddingEnd="0dp"
                 android:textColor="@color/colorPrimaryText"
@@ -199,7 +201,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginBottom="18dp"
         android:enabled="true"
-        android:text="@string/login_screen_join"
+        android:text="@string/login_screen_sigh_in"
         android:textAllCaps="true"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/loginPolicyLayout"
@@ -220,6 +222,21 @@
         app:layout_constraintTop_toTopOf="@id/loginSend"
         tools:visibility="visible" />
 
+    <Button
+        android:id="@+id/loginRegistration"
+        style="@style/ButtonOrange"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="18dp"
+        android:enabled="true"
+        android:text="@string/login_screen_sigh_up"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginSend" />
+
     <TextView
         android:id="@+id/loginJoinVia"
         android:layout_width="wrap_content"
@@ -230,7 +247,7 @@
         app:layout_constraintEnd_toStartOf="@id/loginChangeButton"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginSend"
+        app:layout_constraintTop_toBottomOf="@id/loginRegistration"
         app:layout_constraintVertical_bias="0.3" />
 
     <TextView
@@ -248,7 +265,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/loginJoinVia"
         app:layout_constraintTop_toTopOf="@id/loginJoinVia" />
-
 
     <LinearLayout
         android:id="@+id/loginPolicyLayout"

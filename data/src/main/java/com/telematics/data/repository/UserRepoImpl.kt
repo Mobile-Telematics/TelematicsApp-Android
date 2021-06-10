@@ -1,6 +1,7 @@
 package com.telematics.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.telematics.domain.model.authentication.User
 import com.telematics.domain.repository.UserRepo
 import javax.inject.Inject
@@ -12,35 +13,46 @@ class UserRepoImpl @Inject constructor(
     private val deviceTokenKey = "device_token"
     private val userIdKey = "user_id"
 
-    override fun saveDeviceToken(deviceToken: String) {
+    override suspend fun saveDeviceToken(deviceToken: String?) {
+        Log.d("UserRepoImpl", "setDeviceToken: deviceId $deviceToken")
         sharedPreferences.edit()
             .putString(deviceTokenKey, deviceToken)
             .apply()
     }
 
-    override fun getDeviceToken(): String {
-        return sharedPreferences.getString(deviceTokenKey, "") ?: ""
+    override suspend fun getDeviceToken(): String {
+        val deviceToken = sharedPreferences.getString(deviceTokenKey, "") ?: ""
+        Log.d("UserRepoImpl", "getDeviceToken: deviceId $deviceToken")
+        return deviceToken
     }
 
-    override fun saveUserId(uId: String) {
+    override suspend fun saveUserId(uId: String?) {
         sharedPreferences.edit()
             .putString(userIdKey, uId)
             .apply()
     }
 
-    override fun getUserId(): String? {
+    override suspend fun getUserId(): String? {
         return sharedPreferences.getString(userIdKey, null)
     }
 
     override suspend fun clear() {
         sharedPreferences.edit()
+            .remove("email")
+            .remove("deviceToken")
+            .remove("userId")
+            .remove("firstName")
+            .remove("lastName")
+            .remove("phone")
+            .remove("birthday")
+            .remove("address")
+            .remove("clientId")
             .remove(deviceTokenKey)
             .remove(userIdKey)
             .apply()
     }
 
-    override fun getUser(): User {
-
+    override suspend fun getUser(): User {
         val user = User()
         user.email = sharedPreferences.getString("email", null)
         user.deviceToken = sharedPreferences.getString("deviceToken", null)
@@ -51,10 +63,13 @@ class UserRepoImpl @Inject constructor(
         user.birthday = sharedPreferences.getString("birthday", null)
         user.address = sharedPreferences.getString("address", null)
         user.clientId = sharedPreferences.getString("clientId", null)
+
+        Log.d("UserRepoImpl", "getUser: email:${user.email}, phone:${user.phone} $user")
         return user
     }
 
-    override fun saveUser(user: User) {
+    override suspend fun saveUser(user: User) {
+        Log.d("UserRepoImpl", "saveUser: email:${user.email}, phone:${user.phone} $user")
         sharedPreferences.edit()
             .putString("email", user.email)
             .putString("deviceToken", user.deviceToken)

@@ -1,4 +1,4 @@
-package com.telematics.data.model.dashboard
+package com.telematics.data.model.statistics
 
 import com.google.gson.annotations.SerializedName
 

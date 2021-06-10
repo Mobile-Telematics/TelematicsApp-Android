@@ -1,6 +1,6 @@
 package com.telematics.data.api
 
-import com.telematics.data.model.dashboard.DriveCoinsRest
+import com.telematics.data.model.statistics.DriveCoinsRest
 import com.telematics.data.model.rest.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -79,6 +79,8 @@ class MainFragment : Fragment() {
                 startWizard()
             }
         }
+
+        mainFragmentViewModel.setDeviceTokenForTrackingApi()
     }
 
     private fun startWizard() {

@@ -7,12 +7,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.data.tracking.TrackingUseCase
+import com.telematics.domain.repository.UserRepo
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
 class MainFragmentViewModel @Inject constructor(
-    private val trackingUseCase: TrackingUseCase
+    private val trackingUseCase: TrackingUseCase,
+    private val userRepo: UserRepo
 ) : ViewModel() {
+
+    fun setDeviceTokenForTrackingApi() {
+        flow {
+            val deviceToken = userRepo.getDeviceToken()
+            val value = trackingUseCase.setDeviceToken(deviceToken)
+            emit(value)
+        }.launchIn(viewModelScope)
+    }
 
     fun checkPermissions(): LiveData<Result<Boolean>> {
         val permissionsState = MutableLiveData<Result<Boolean>>()

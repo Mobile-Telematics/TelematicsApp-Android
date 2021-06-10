@@ -15,17 +15,15 @@ import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.ActivityVerifyCodeBinding
+import com.telematics.zenroad.ui.login.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginVerifyCodeFragment : Fragment() {
 
     private val TAG = "LoginVerifyCodeFragment"
-
-    companion object {
-        const val RESULT_CODE_KEY = "CODE_KEY"
-    }
 
     @Inject
     lateinit var viewModel: LoginVerifyCodeViewModel
@@ -47,7 +45,7 @@ class LoginVerifyCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        phone = arguments?.getString("phone") ?: ""
+        phone = arguments?.getString(LoginFragment.BUNDLE_LOGIN_KEY) ?: ""
         bindTitle(phone)
 
         authorise()
@@ -65,7 +63,7 @@ class LoginVerifyCodeFragment : Fragment() {
             sendCode(binding.verifyInputCode.text.toString())
         }
 
-        binding.verifyInputCode.setOnEditorActionListener { v, actionId, event ->
+        binding.verifyInputCode.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 sendCode(binding.verifyInputCode.text.toString())
             }
@@ -166,8 +164,6 @@ class LoginVerifyCodeFragment : Fragment() {
                 AuthErrorCode.INVALID_VERIFICATION_CODE -> showErrorMessage("Invalid verification code")
                 else -> showErrorMessage("Unknown error")
             }
-        } else {
-
         }
     }
 
@@ -194,7 +190,10 @@ class LoginVerifyCodeFragment : Fragment() {
 
     private fun showErrorMessage(msg: String) {
 
-        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
+        try {
+            Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
+        } catch (e: IOException) {
+        }
     }
 
     private fun startMainScreen() {

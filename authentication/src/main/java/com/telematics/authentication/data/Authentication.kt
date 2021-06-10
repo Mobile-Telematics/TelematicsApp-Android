@@ -34,7 +34,8 @@ class Authentication constructor(
     private val firebaseDatabase = Firebase.database.reference
 
     override suspend fun getCurrentUserID(): String? {
-        val userId = userRepo.getUserId()
+        val userId = firebaseAuth.currentUser?.uid
+        //val userId = userRepo.getUserId()
         Log.d(TAG, "getCurrentUserID: $userId")
         return userId
     }
@@ -126,25 +127,24 @@ class Authentication constructor(
 
     override suspend fun createUserInFirebaseDatabase(user: IUser) {
 
-        Log.d(TAG, "createUserInFirebaseDatabase ${user}")
-
         user as User
 
-        Log.d(TAG, "createUserInFirebaseDatabase ${user}")
+        Log.d(TAG, "createUserInFirebaseDatabase $user")
 
         val userDatabase = UserDatabase()
         userDatabase.deviceToken = user.deviceToken
         userDatabase.email = user.email
-        Log.d(TAG, "createUserInFirebaseDatabase userDatabase ${userDatabase}")
+        userDatabase.phone = user.phone
+        Log.d(TAG, "createUserInFirebaseDatabase userDatabase $userDatabase")
         firebaseDatabase.child("users").child(user.userId!!).setValue(userDatabase).await()
     }
 
-    override suspend fun getDeviceTokenInFirebaseDatabase(userId: String): String? {
+    override suspend fun getUserInFirebaseDatabase(userId: String): User? {
 
         val user = firebaseDatabase.child("users").child(userId).await<User>()
-        userRepo.saveUser(user)
         Log.d(TAG, "getDeviceTokenInFirebaseDatabase: $user")
-        return user.deviceToken
+        userRepo.saveUser(user)
+        return user
     }
 
     override suspend fun updateUserInFirebaseDatabase(user: IUser) {

@@ -86,6 +86,8 @@
     <!-- Login Screen -->
     <string name="login_screen_login">Log In</string>
     <string name="login_screen_join">Join</string>
+    <string name="login_screen_sigh_in">SIGN IN</string>
+    <string name="login_screen_sigh_up">SIGN UP</string>
     <string name="login_screen_login_error">This field must be filled.</string>
     <string name="login_screen_password_error">The password is missing.</string>
     <string name="login_screen_hint_email">Email Address</string>
@@ -93,7 +95,8 @@
     <string name="login_screen_hint_phone">Phone</string>
     <string name="login_screen_hint_password">Password</string>
     <string name="login_screen_forgot_password">Forgot password?</string>
-    <string name="login_screen_use_email">Use your E-mail</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
     <string name="login_screen_use_phone">Use your phone number</string>
     <string name="login_screen_change_reg_type_email">Email Address</string>
     <string name="login_screen_change_reg_type_phone_number">Phone Number</string>

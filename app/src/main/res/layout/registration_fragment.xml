@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registrationContent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAuthScreenBg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:ignore="MissingPrefix">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@drawable/ic_wizard_logo_back"
+        android:translationX="20dp"
+        android:translationY="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/registrationCommonLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_auth_logo"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/registrationContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/registrationContent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <!-- Description for Login -->
+    <TextView
+        android:id="@+id/registrationUseEmailOrPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/registrationInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registrationCommonLogo"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- Input and button -->
+    <LinearLayout
+        android:id="@+id/registrationInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/registrationSend"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationUseEmailOrPhone">
+
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registrationInputEmailTill"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="bottom"
+            android:hint="@string/login_screen_hint_email"
+            android:textColor="@color/colorPrimaryText"
+            android:visibility="visible"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registrationInputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@drawable/dr_login_email_rect"
+                android:imeOptions="actionGo"
+                android:inputType="textEmailAddress"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorPrimaryText"
+                android:theme="@style/EditText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Phone -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registrationInputPhoneTill"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="bottom"
+            android:hint="@string/login_screen_hint_phone"
+            android:textColor="@color/colorPrimaryText"
+            android:visibility="gone"
+            app:hintTextAppearance="@style/TextLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registrationInputPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_login_email_rect"
+                android:imeOptions="actionGo"
+                android:inputType="phone"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorPrimaryText"
+                android:theme="@style/EditText" />
+
+            <!--</LinearLayout>-->
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/registrationEmailError"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@string/change_pass_length_validate"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+
+        <!-- Password -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registrationInputPasswordTill"
+            style="@style/TextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="bottom"
+            android:hint="@string/login_screen_hint_password"
+            android:textColor="@color/colorPrimaryText"
+            android:visibility="visible"
+            app:hintTextAppearance="@style/TextLabel"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registrationInputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@drawable/dr_login_email_rect"
+                android:imeOptions="actionGo"
+                android:inputType="textPassword"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/colorPrimaryText"
+                android:theme="@style/EditText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- Send -->
+    <Button
+        android:id="@+id/registrationSend"
+        style="@style/Button"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:enabled="true"
+        android:text="@string/login_screen_join"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/registrationPolicyLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationInput" />
+
+    <ProgressBar
+        android:id="@+id/registrationProgress"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:elevation="4dp"
+        android:progress="20"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/registrationSend"
+        app:layout_constraintEnd_toEndOf="@id/registrationSend"
+        app:layout_constraintStart_toStartOf="@id/registrationSend"
+        app:layout_constraintTop_toTopOf="@id/registrationSend"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/registrationSighIn"
+        style="@style/ButtonOrange"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="18dp"
+        android:enabled="true"
+        android:text="@string/login_screen_sigh_in"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationSend" />
+
+    <TextView
+        android:id="@+id/registrationJoinVia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join via"
+        android:textColor="@color/colorPrimaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/registrationChangeButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registrationSighIn"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/registrationChangeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:drawablePadding="4dp"
+        android:drawableTint="@color/colorDefButton"
+        android:gravity="center_vertical"
+        android:text="@string/login_screen_hint_email"
+        android:textColor="@color/colorDefButton"
+        app:drawableStartCompat="@drawable/ic_login_email"
+        app:layout_constraintBottom_toBottomOf="@id/registrationJoinVia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/registrationJoinVia"
+        app:layout_constraintTop_toTopOf="@id/registrationJoinVia" />
+
+
+    <LinearLayout
+        android:id="@+id/registrationPolicyLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registrationChangeButton">
+
+        <CheckBox
+            android:id="@+id/registration_policy_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:button="@drawable/ic_rect_checkbox"
+            android:buttonTint="@color/colorDefButton"
+            android:checked="true" />
+
+        <!-- Policy -->
+        <TextView
+            android:id="@+id/registrationPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_screen_policy"
+            android:textAlignment="center"
+            android:textColor="@color/colorDefButton"
+            android:textColorLink="@color/colorDefButton"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

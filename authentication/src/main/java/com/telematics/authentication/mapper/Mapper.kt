@@ -34,6 +34,7 @@ class Mapper {
                 "ERROR_USER_NOT_FOUND" -> AuthErrorCode.USER_NOT_EXIST
                 "ERROR_WRONG_PASSWORD" -> AuthErrorCode.INVALID_PASSWORD
                 "ERROR_INVALID_VERIFICATION_CODE" -> AuthErrorCode.INVALID_VERIFICATION_CODE
+                "ERROR_EMAIL_ALREADY_IN_USE" -> AuthErrorCode.EMAIL_ALREADY_IN_USE
                 /*api status*/
                 "422" -> AuthErrorCode.INVALID_PASSWORD
                 else -> AuthErrorCode.NONE
