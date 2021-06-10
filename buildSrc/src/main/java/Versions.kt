@@ -20,6 +20,8 @@ object Versions {
     const val okHttpLogging = "3.12.1"
     const val gson = "2.8.4"
     const val lifecycle = "2.3.1"
+    const val navigationFragmentKtx = "2.3.5"
+    const val navigationUI = "1.0.0"
 
 }
 

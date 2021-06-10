@@ -88,13 +88,10 @@ dependencies {
     implementation(AppDependencies.appLibraries)
 
     implementation(AppDependencies.daggerHiltLibraries)
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(AppDependencies.daggerHiltCompiler)
     implementation(AppDependencies.retrofitLibraries)
     implementation(AppDependencies.lifecycleKtx)
+    implementation(AppDependencies.navigateLibraries)
 
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
@@ -102,10 +99,6 @@ dependencies {
     implementation(project(Modules.account))
     implementation(project(Modules.authentication))
     implementation(project(Modules.content))
-
-    implementation("androidx.fragment:fragment-ktx:1.4.0-alpha02")
-    implementation("androidx.fragment:fragment:1.4.0-alpha02")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.3")
 
     implementation(AppDependencies.trackingApi)
 }

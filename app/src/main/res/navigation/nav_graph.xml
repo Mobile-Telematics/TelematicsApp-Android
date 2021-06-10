@@ -31,7 +31,8 @@
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment"
-            app:popUpTo="@id/splashFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_loginFragment_to_loginVerifyCodeFragment"
@@ -39,12 +40,6 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.telematics.zenroad.ui.main.MainFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/main_fragment" />
-
     <fragment
         android:id="@+id/loginVerifyCodeFragment"
         android:name="com.telematics.zenroad.ui.login.verification_code.LoginVerifyCodeFragment"
@@ -56,11 +51,25 @@
         <action
             android:id="@+id/action_loginVerifyCodeFragment_to_mainFragment"
             app:destination="@id/mainFragment"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_enter_anim"
             app:popExitAnim="@anim/nav_default_exit_anim"
-            app:popUpTo="@id/splashFragment"
+            app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.telematics.zenroad.ui.main.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_splashFragment"
+            app:destination="@id/splashFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 
     <include
         app:graph="@navigation/nav_graph_account"

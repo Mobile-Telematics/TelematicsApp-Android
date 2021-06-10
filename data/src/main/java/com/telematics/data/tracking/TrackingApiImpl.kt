@@ -57,5 +57,6 @@ class TrackingApiImpl : TrackingApiRepo {
     override fun logout() {
         trackingApi.setEnableSdk(false)
         trackingApi.clearDeviceID()
+        trackingApi.setEnableSdk(false)
     }
 }

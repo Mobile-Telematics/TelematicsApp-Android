@@ -26,6 +26,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+    companion object{
+        val logoutRes = R.id.action_mainFragment_to_splashFragment
+    }
+
     private val TAG = "LoginFragment"
 
     @Inject

@@ -59,6 +59,14 @@ object AppDependencies {
         "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
     )
 
+    //navigation
+    const val navigationFragmentKtx =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragmentKtx}}"
+    const val navigationUiKtx =
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationFragmentKtx}}"
+    const val navigationUi =
+        "android.arch.navigation:navigation-ui-ktx:${Versions.navigationUI}}"
+
 
     val appLibraries = arrayListOf(
         kotlinStdLib,
@@ -89,9 +97,14 @@ object AppDependencies {
         retrofitRxJava2Adapter,
         retrofitRxJava3Adapter,
         retrofitUrlManager,
-        //okHttp3,
         okHttp3Logging,
         gson
+    )
+
+    val navigateLibraries = arrayListOf(
+        navigationFragmentKtx,
+        navigationUiKtx,
+        navigationUi
     )
 }
 
