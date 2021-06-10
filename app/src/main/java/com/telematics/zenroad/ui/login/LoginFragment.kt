@@ -57,7 +57,6 @@ class LoginFragment : Fragment() {
 
         setListeners()
         initScreen()
-        mockFields()
     }
 
     private fun setListeners() {
@@ -321,13 +320,5 @@ class LoginFragment : Fragment() {
 
         val bundle = bundleOf("phone" to getLoginField())
         findNavController().navigate(R.id.action_loginFragment_to_loginVerifyCodeFragment, bundle)
-    }
-
-    private fun mockFields() {
-
-        // FIXME: remove
-        binding.loginInputPhone.setText("+79009057055")
-        binding.loginInputEmail.setText("android_01@dev.com")
-        binding.loginInputPassword.setText("123456")
     }
 }
