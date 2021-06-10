@@ -19,3 +19,5 @@ To set application label change app_name in strings.xml in content module:
 
 To set application icon, find the content module icon in resource folders (res/mipmap, res/mipmap-hdpi, etc.) and replace it. And for change background icon color set ic_launcher_background in color.xml:
 <color name="ic_launcher_background">#your_color</color>
+
+To connect your Firebase you need to add the google-services.json file to project_directory\app. Final file path: project_directory\app\google-services.json
