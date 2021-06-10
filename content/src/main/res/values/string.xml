@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Zenroad</string>
+    <string name="app_name">YOUR_LABEL</string>
 
     <!-- Notification channels -->
     <string name="notification_service_channel_name">Services</string>
