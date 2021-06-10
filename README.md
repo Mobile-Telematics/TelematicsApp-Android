@@ -29,10 +29,13 @@ Step 3: For ease of integration, at the next step, we recommend deactivating the
 Click "Create project".
 
 Step 4: Now you need to create a configuration for your Android app. Click on the "Android" as it us shown on the picture below:
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/4.png)
 
 Step 5: Enter your Android Package Name. Enter the SHA1 key, this identifier must be used in your application in Android Studio. Click "Register app" then.
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/5.png)
 
 Step 6: To connect your Firebase you need to add the google-services.json file to project_directory\app. Final file path: project_directory\app\google-services.json
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/6.png)
 
 Step 7: You can skip the "Add Firebase SDK" & "Add initialization code" steps below, because we already did it for you in our Telematics App:) Finish the setup and click on "Continue to console".
 ![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f07.png)
