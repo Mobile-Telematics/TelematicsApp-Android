@@ -4,3 +4,18 @@ This Telematics App is created by DATA MOTION PTE. LTD. and is distributed free 
 
 Initial app setup & credentials
 For commercial use, you need to create a sandbox account https://userdatahub.com/user/registration and get InstanceId andInstanceKey auth keys to work with our API
+
+In file AppConfig.kt you can specify the basic settings for your app.
+To use your unique applicationId for your application, change applicationIdPrefix and name:
+const val applicationIdPrefix = "com.your_application_prefix"
+private const val name = "your_application_name"
+
+To work with our API use InstanceId and InstanceKey from https://userdatahub.com/user/registration :
+const val INSTANCE_ID_PROD = "\"YOUR_INSTANCE_ID\"" 
+const val INSTANCE_KEY_PROD = "\"YOUR_INSTANCE_KEY\"" 
+
+To set application label change app_name in strings.xml in content module:
+<string name="app_name">YOUR_LABEL</string>
+
+To set application icon, find the content module icon in resource folders (res/mipmap, res/mipmap-hdpi, etc.) and replace it. And for change background icon color set ic_launcher_background in color.xml:
+<color name="ic_launcher_background">#your_color</color>
