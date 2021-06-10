@@ -72,7 +72,7 @@ class Authentication constructor(
             .setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                 override fun onCodeAutoRetrievalTimeOut(p0: String) {
                     Log.d(TAG, "signInWithPhoneFirebase: onCodeAutoRetrievalTimeOut")
-                    callback.onTimeout()
+                    //callback.onTimeout()
                 }
 
                 override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
@@ -168,7 +168,9 @@ class Authentication constructor(
             //this.image = newUser.image ?: user.image
         }
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
-        firebaseDatabase.child("users").child(user.userId!!).setValue(userDatabase).await()
+        user.userId?.let { userId ->
+            firebaseDatabase.child("users").child(userId).setValue(userDatabase).await()
+        }
     }
 
     override suspend fun logout(): Boolean {

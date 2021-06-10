@@ -29,6 +29,7 @@ class LoginUseCase @Inject constructor(
                 authenticationRepo.getUserInFirebaseDatabase(currentUid)
                     ?.let { iUser ->
                         val user = iUser as User
+                        user.userId = currentUid
                         val deviceToken = user.deviceToken
                         if (!deviceToken.isNullOrEmpty()) {
                             val sessionData = authenticationRepo.loginAPI(deviceToken)
@@ -132,9 +133,9 @@ class LoginUseCase @Inject constructor(
         var result = false
 
         authenticationRepo.signInWithEmailAndPasswordFirebase(email, password)?.let { iUser ->
-            val iUserDatabase =
+            val userDatabase =
                 authenticationRepo.getUserInFirebaseDatabase(iUser.id) as User?
-            val deviceToken = iUserDatabase?.deviceToken
+            val deviceToken = userDatabase?.deviceToken
             val sessionData = if (deviceToken.isNullOrEmpty()) {
                 val user = User(email = email, password = password, userId = iUser.id)
                 registerUser(user)
@@ -142,7 +143,7 @@ class LoginUseCase @Inject constructor(
                 authenticationRepo.loginAPI(deviceToken)
             }
             if (!sessionData.isEmpty()) {
-                saveUser(User(email = email, deviceToken = deviceToken, userId = iUser.id))
+                saveUser(userDatabase)
                 result = true
             }
         }
@@ -171,18 +172,19 @@ class LoginUseCase @Inject constructor(
     ): Boolean {
         var result = false
         authenticationRepo.signInWithPhoneAuthCredential(credential)?.let { iUser ->
-            val user = User(phone = phone, userId = iUser.id)
-            val iUserDatabase =
-                authenticationRepo.getUserInFirebaseDatabase(iUser.id) as User?
-            val deviceToken = iUserDatabase?.deviceToken
+            val userDatabase =
+                (authenticationRepo.getUserInFirebaseDatabase(iUser.id) as User?)
+            val deviceToken = userDatabase?.deviceToken
+            userDatabase?.userId = iUser.id
             val sessionData = if (deviceToken.isNullOrEmpty()) {
+                val user = User(phone = phone, userId = iUser.id)
                 registerUser(user)
             } else {
                 authenticationRepo.loginAPI(deviceToken)
             }
 
             if (!sessionData.isEmpty()) {
-                saveUser(user)
+                saveUser(userDatabase)
                 result = true
             }
         }
@@ -190,10 +192,10 @@ class LoginUseCase @Inject constructor(
         return result
     }
 
-    private suspend fun saveUser(user: User) {
+    private suspend fun saveUser(user: User?) {
         Log.d(TAG, "saveUser: user:$user")
-        userRepo.saveUserId(user.userId)
-        userRepo.saveDeviceToken(user.deviceToken)
+        userRepo.saveUserId(user?.userId)
+        userRepo.saveDeviceToken(user?.deviceToken)
     }
 
     fun getUser(): Flow<User> {

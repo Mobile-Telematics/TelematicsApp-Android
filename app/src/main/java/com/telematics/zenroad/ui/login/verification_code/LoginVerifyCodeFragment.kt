@@ -17,7 +17,6 @@ import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.ActivityVerifyCodeBinding
 import com.telematics.zenroad.ui.login.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -190,10 +189,7 @@ class LoginVerifyCodeFragment : Fragment() {
 
     private fun showErrorMessage(msg: String) {
 
-        try {
-            Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
-        } catch (e: IOException) {
-        }
+        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun startMainScreen() {
