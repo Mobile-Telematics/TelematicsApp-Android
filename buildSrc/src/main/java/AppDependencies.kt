@@ -60,12 +60,12 @@ object AppDependencies {
     )
 
     //navigation
-    const val navigationFragmentKtx =
-        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragmentKtx}}"
-    const val navigationUiKtx =
-        "androidx.navigation:navigation-ui-ktx:${Versions.navigationFragmentKtx}}"
-    const val navigationUi =
-        "android.arch.navigation:navigation-ui-ktx:${Versions.navigationUI}}"
+    private const val navigationFragmentKtx =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragmentKtx}"
+    private const val navigationUiKtx =
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationFragmentKtx}"
+    private const val navigationUi =
+        "android.arch.navigation:navigation-ui-ktx:${Versions.navigationUI}"
 
 
     val appLibraries = arrayListOf(

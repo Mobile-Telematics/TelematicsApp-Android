@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.telematics.domain.model.authentication.User
 import com.telematics.features.account.R
@@ -119,7 +123,29 @@ class AccountFragment : Fragment() {
     }
 
     private fun openSplashFragment() {
-        val uri = Uri.parse("telematics://splashFragment")
-        findNavController().navigate(uri)
+        //val uri = Uri.parse("telematics://splashFragment")
+        //findNavController().navigate(uri)
+        popToRoot(findNavController())
+    }
+
+    private fun popToRoot(navController: NavController) {
+
+        val mBackStackField by lazy {
+            val field = NavController::class.java.getDeclaredField("mBackStack")
+            field.isAccessible = true
+            field
+        }
+
+        val arrayDeque =
+            mBackStackField.get(navController) as java.util.ArrayDeque<NavBackStackEntry>
+        val graph = arrayDeque.first.destination as NavGraph
+        val rootDestinationId = graph.startDestination
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(rootDestinationId, true)
+            .setLaunchSingleTop(true)
+            .build()
+
+        navController.navigate(rootDestinationId, null, navOptions)
     }
 }
