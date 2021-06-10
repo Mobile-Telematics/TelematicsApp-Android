@@ -9,7 +9,9 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.telematics.authentication.exception.AuthException
 import com.telematics.authentication.extention.await
+import com.telematics.authentication.mapper.Mapper
 import com.telematics.authentication.model.UserDatabase
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
@@ -88,7 +90,8 @@ class Authentication constructor(
 
                 override fun onVerificationFailed(p0: FirebaseException) {
                     Log.d(TAG, "onVerificationFailed: ${p0.message}")
-                    callback.onFailure(p0)
+                    val exception = Mapper.getErrorCodeByException(p0)
+                    callback.onFailure(AuthException(exception))
                 }
             })
             .build()

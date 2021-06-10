@@ -32,10 +32,9 @@ suspend fun <T> Task<T>.await(): T = suspendCoroutine { continuation ->
         if (task.isSuccessful) {
             continuation.resume(task.result as T)
         } else {
-            val error = task.exception as FirebaseAuthException
+            val error = task.exception
             val errorCode = Mapper.getErrorCodeByException(error)
-            val authException = AuthException(errorCode)
-            continuation.resumeWithException(authException)
+            continuation.resumeWithException(AuthException(errorCode))
         }
     }
 }

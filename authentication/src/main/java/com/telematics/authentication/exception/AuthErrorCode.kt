@@ -11,5 +11,6 @@ enum class AuthErrorCode {
     NONE,
     EMPTY,
     NEED_VERIFY_CODE,
-    EMAIL_ALREADY_IN_USE
+    EMAIL_ALREADY_IN_USE,
+    NETWORK_EXCEPTION
 }

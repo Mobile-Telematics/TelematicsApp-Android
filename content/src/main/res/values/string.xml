@@ -731,4 +731,16 @@
     <string name="template_mi_h">%1$s mi/h</string>
     <string name="template_mi">%1$s mi</string>
 
+    <!--authorization errors message-->
+    <string name="auth_error_unknown">Unknown error</string>
+    <string name="auth_error_invalid_email_password">Invalid email or password</string>
+    <string name="auth_error_network">Check your network connection</string>
+    <string name="auth_error_empty_email">Email field must be filled</string>
+    <string name="auth_error_incorrect_email">Email address isn’t correct</string>
+    <string name="auth_error_empty_password">Password field must be filled</string>
+    <string name="auth_error_empty_phone">Phone field must be filled</string>
+    <string name="auth_error_short_password">Password must be at least %d characters</string>
+    <string name="auth_error_empty_verification_code">The code must be filled</string>
+    <string name="auth_error_incorrect_verification_code">Invalid verification code</string>
+    <string name="auth_error_email_already_in_use">The email address is already in use by another account</string>
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -184,33 +185,42 @@ class RegistrationFragment : Fragment() {
         if (loginType == LoginType.EMAIL) {
 
             if (emailField.isBlank()) {
-                showLoginFailedMessage("Email field must be filled.")
+                showLoginFailedMessage(R.string.auth_error_empty_email)
                 return false
             } else {
                 if (!emailField.isValidEmail()) {
-                    showLoginFailedMessage("Email address isn’t correct.")
+                    showLoginFailedMessage(R.string.auth_error_incorrect_email)
                     return false
                 }
             }
 
             if (passwordField.isBlank()) {
-                showLoginFailedMessage("Password field must be filled.")
+                showLoginFailedMessage(R.string.auth_error_empty_password)
                 return false
             }
 
             if (passwordField.length <= PASSWORD_MIN_LENGTH) {
-                showLoginFailedMessage("password must be at least $PASSWORD_MIN_LENGTH characters")
+                showLoginFailedMessage(
+                    getString(
+                        R.string.auth_error_short_password,
+                        PASSWORD_MIN_LENGTH
+                    )
+                )
                 return false
             }
         }
 
         if (loginType == LoginType.PHONE)
             if (phoneField.isBlank()) {
-                showLoginFailedMessage("Phone field must be filled.")
+                showLoginFailedMessage(R.string.auth_error_empty_phone)
                 return false
             }
 
         return true
+    }
+
+    private fun showLoginFailedMessage(@StringRes id: Int) {
+        showLoginFailedMessage(getString(id))
     }
 
     private fun showLoginFailedMessage(message: String) {
@@ -280,9 +290,10 @@ class RegistrationFragment : Fragment() {
 
         if (throwable is AuthException) {
             when (throwable.errorCode) {
-                AuthErrorCode.EMAIL_ALREADY_IN_USE -> showLoginFailedMessage("The email address is already in use by another account")
-                AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage("Invalid email or password")
-                else -> showLoginFailedMessage("Unknown error")
+                AuthErrorCode.EMAIL_ALREADY_IN_USE -> showLoginFailedMessage(R.string.auth_error_email_already_in_use)
+                AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage(R.string.auth_error_invalid_email_password)
+                AuthErrorCode.NETWORK_EXCEPTION -> showLoginFailedMessage(R.string.auth_error_network)
+                else -> showLoginFailedMessage(R.string.auth_error_unknown)
             }
         }
     }
@@ -290,7 +301,7 @@ class RegistrationFragment : Fragment() {
     /** navigation */
     private fun startVerifyCodeFragment() {
 
-        val bundle = bundleOf("phone" to getLoginField())
+        val bundle = bundleOf(LoginFragment.BUNDLE_LOGIN_KEY to getLoginField())
         findNavController().navigate(
             R.id.action_registrationFragment_to_loginVerifyCodeFragment,
             bundle

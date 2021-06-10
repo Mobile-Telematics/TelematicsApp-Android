@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -170,33 +171,42 @@ class LoginFragment : Fragment() {
         if (loginType == LoginType.EMAIL) {
 
             if (emailField.isBlank()) {
-                showLoginFailedMessage("Email field must be filled.")
+                showLoginFailedMessage(R.string.auth_error_empty_email)
                 return false
             } else {
                 if (!emailField.isValidEmail()) {
-                    showLoginFailedMessage("Email address isn’t correct.")
+                    showLoginFailedMessage(R.string.auth_error_incorrect_email)
                     return false
                 }
             }
 
             if (passwordField.isBlank()) {
-                showLoginFailedMessage("Password field must be filled.")
+                showLoginFailedMessage(R.string.auth_error_empty_password)
                 return false
             }
 
             if (passwordField.length <= PASSWORD_MIN_LENGTH) {
-                showLoginFailedMessage("password must be at least $PASSWORD_MIN_LENGTH characters")
+                showLoginFailedMessage(
+                    getString(
+                        R.string.auth_error_short_password,
+                        PASSWORD_MIN_LENGTH
+                    )
+                )
                 return false
             }
         }
 
         if (loginType == LoginType.PHONE)
             if (phoneField.isBlank()) {
-                showLoginFailedMessage("Phone field must be filled.")
+                showLoginFailedMessage(R.string.auth_error_empty_phone)
                 return false
             }
 
         return true
+    }
+
+    private fun showLoginFailedMessage(@StringRes id: Int) {
+        showLoginFailedMessage(getString(id))
     }
 
     private fun showLoginFailedMessage(message: String) {
@@ -266,11 +276,11 @@ class LoginFragment : Fragment() {
 
         if (throwable is AuthException) {
             when (throwable.errorCode) {
-                AuthErrorCode.NONE -> showLoginFailedMessage("Unknown error")
                 AuthErrorCode.USER_NOT_EXIST -> showRegistrationDialog()
                 AuthErrorCode.EMPTY_DEVICE_TOKEN -> showRegistrationDialog()
-                AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage("Invalid email or password")
-                else -> showLoginFailedMessage("Unknown error")
+                AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage(R.string.auth_error_invalid_email_password)
+                AuthErrorCode.NETWORK_EXCEPTION -> showLoginFailedMessage(R.string.auth_error_network)
+                else -> showLoginFailedMessage(R.string.auth_error_unknown)
             }
         }
     }
@@ -315,8 +325,8 @@ class LoginFragment : Fragment() {
     private fun mockFields() {
 
         // FIXME: remove
-        //binding.loginInputPhone.setText("+79009057055")
-        //binding.loginInputEmail.setText("android@dev.com")
-        //binding.loginInputPassword.setText("123456")
+        binding.loginInputPhone.setText("+79009057055")
+        binding.loginInputEmail.setText("android@dev.com")
+        binding.loginInputPassword.setText("123456")
     }
 }
