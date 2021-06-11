@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Zenroad</string>
+    <string name="app_name">YOUR_LABEL</string>
     <string name="login_screen_policy">I agree with <a href="https://www.telematicssdk.com/privacy-policy/">Privacy Policy</a></string>
 
     <string name="nav_item_feed">Feed</string>

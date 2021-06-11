@@ -59,7 +59,6 @@ class LoginFragment : Fragment() {
 
         setListeners()
         initScreen()
-        mockFields()
     }
 
     private fun setListeners() {
@@ -331,13 +330,5 @@ class LoginFragment : Fragment() {
             BUNDLE_LOGIN_TYPE_KEY to loginType
         )
         findNavController().navigate(R.id.action_loginFragment_to_registrationFragment, bundle)
-    }
-
-    private fun mockFields() {
-
-        // FIXME: remove
-//        binding.loginInputPhone.setText("+79009057055")
-//        binding.loginInputEmail.setText("android@dev.com")
-//        binding.loginInputPassword.setText("123456")
     }
 }

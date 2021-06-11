@@ -25,8 +25,8 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "APP_ID", AppConfig.APP_ID)
-            buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID_PROD)
-            buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY_PROD)
+            buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
+            buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY)
             buildConfigField("int", "DASHBOARD_DISTANCE_LIMIT", AppConfig.DASHBOARD_DISTANCE_LIMIT)
             buildConfigField("String", "userServiceUrl", AppConfig.USER_SERVICE_URL)
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL)
@@ -36,8 +36,8 @@ android {
             isMinifyEnabled = false
             debuggable(true)
             buildConfigField("String", "APP_ID", AppConfig.APP_ID)
-            buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID_PROD)
-            buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY_PROD)
+            buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
+            buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY)
             buildConfigField("int", "DASHBOARD_DISTANCE_LIMIT", AppConfig.DASHBOARD_DISTANCE_LIMIT)
             buildConfigField("String", "userServiceUrl", AppConfig.USER_SERVICE_URL_DEV)
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL_DEV)
