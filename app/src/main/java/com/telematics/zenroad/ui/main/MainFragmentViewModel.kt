@@ -1,6 +1,7 @@
 package com.telematics.zenroad.ui.main
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,5 +40,10 @@ class MainFragmentViewModel @Inject constructor(
 
     fun enableTracking() {
         trackingUseCase.enableTracking()
+    }
+
+    fun setIntentForNotification(intent: Intent) {
+
+        trackingUseCase.setIntentForNotification(intent)
     }
 }

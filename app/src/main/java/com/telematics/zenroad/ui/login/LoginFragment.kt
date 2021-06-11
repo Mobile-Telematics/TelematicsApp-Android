@@ -1,6 +1,7 @@
 package com.telematics.zenroad.ui.login
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -74,6 +75,18 @@ class LoginFragment : Fragment() {
         binding.loginRegistration.setOnClickListener {
             startRegistrationFragment()
         }
+
+        binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
+        binding.loginPolicy.movementMethod = LinkMovementMethod.getInstance()
+        binding.loginPolicy.setOnClickListener {
+            binding.loginPolicyCheck.isChecked = !binding.loginPolicyCheck.isChecked
+            binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
+            binding.loginRegistration.isEnabled = binding.loginPolicyCheck.isChecked
+        }
+        binding.loginPolicyCheck.setOnClickListener {
+            binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
+            binding.loginRegistration.isEnabled = binding.loginPolicyCheck.isChecked
+        }
     }
 
     private fun changeInputLoginType() {
@@ -91,7 +104,6 @@ class LoginFragment : Fragment() {
                 binding.loginInputEmailTill.setVisible(true)
                 binding.loginInputPhoneTill.setVisible(null)
                 binding.loginInputPasswordTill.setVisible(true)
-                binding.loginUseEmailOrPhone.text = getString(R.string.sign_in)
                 binding.loginChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_phone_number)
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_login_phone)
@@ -109,7 +121,6 @@ class LoginFragment : Fragment() {
                 binding.loginInputPhoneTill.setVisible(true)
                 binding.loginInputEmailTill.setVisible(null)
                 binding.loginInputPasswordTill.setVisible(null)
-                binding.loginUseEmailOrPhone.text = getString(R.string.login_screen_use_phone)
                 binding.loginChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_email)
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_login_email)
@@ -133,7 +144,7 @@ class LoginFragment : Fragment() {
         binding.loginInputEmailTill.alpha = 0f
         binding.loginInputPhoneTill.alpha = 0f
         binding.loginChangeButton.alpha = 0f
-        binding.loginUseEmailOrPhone.alpha = 0f
+        binding.loginTitle.alpha = 0f
 
         binding.loginChangeButton.alpha = 0f
 
@@ -142,7 +153,7 @@ class LoginFragment : Fragment() {
         binding.loginInputPhoneTill.animate().alpha(1f).setDuration(duration + durationK * 1)
             .start()
         binding.loginChangeButton.animate().alpha(1f).setDuration(duration + durationK * 2).start()
-        binding.loginUseEmailOrPhone.animate().alpha(1f).setDuration(duration + durationK * 2)
+        binding.loginTitle.animate().alpha(1f).setDuration(duration + durationK * 2)
             .start()
         binding.loginChangeButton.animate().alpha(1f).setDuration(duration + durationK * 5).start()
     }
@@ -325,8 +336,8 @@ class LoginFragment : Fragment() {
     private fun mockFields() {
 
         // FIXME: remove
-        binding.loginInputPhone.setText("+79009057055")
-        binding.loginInputEmail.setText("android@dev.com")
-        binding.loginInputPassword.setText("123456")
+//        binding.loginInputPhone.setText("+79009057055")
+//        binding.loginInputEmail.setText("android@dev.com")
+//        binding.loginInputPassword.setText("123456")
     }
 }

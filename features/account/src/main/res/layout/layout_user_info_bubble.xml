@@ -65,16 +65,6 @@
                         android:textSize="@dimen/acc_wizard_document_label_text_size"
                         tools:text="@string/account_user_card_birthday" />
 
-                    <!-- Verified icon -->
-                    <!--                    <ImageView-->
-                    <!--                        android:id="@+id/accountDocumentVerifiedIcon"-->
-                    <!--                        android:src="@drawable/ic_wizard_verified"-->
-                    <!--                        android:layout_width="@dimen/acc_wizard_document_verified_icon_size"-->
-                    <!--                        android:layout_height="@dimen/acc_wizard_document_verified_icon_size"-->
-                    <!--                        android:layout_marginStart="5dp"-->
-                    <!--                        android:layout_gravity="center_vertical"-->
-                    <!--                        />-->
-
                 </LinearLayout>
 
                 <!-- Doc Number -->
@@ -88,27 +78,6 @@
                     android:textColor="@color/colorPrimaryLightText"
                     android:textSize="@dimen/acc_wizard_document_number_text_size"
                     tools:text="@string/account_user_card_address" />
-
-            </LinearLayout>
-
-            <!-- Upload Document image area -->
-            <LinearLayout
-                android:id="@+id/accountDocumentUpload"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/acc_wizard_document_info_margin_start"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/accountDocumentUploadLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/account_wizard_passport_upload"
-                    android:textAlignment="textStart"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/acc_wizard_document_upload_text_size" />
 
             </LinearLayout>
 

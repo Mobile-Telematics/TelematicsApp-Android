@@ -1,6 +1,7 @@
 package com.telematics.zenroad.ui.registration
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -74,6 +75,18 @@ class RegistrationFragment : Fragment() {
         binding.registrationChangeButton.setOnClickListener {
             changeInputLoginType()
         }
+
+        binding.registrationSend.isEnabled = binding.registrationPolicyCheck.isChecked
+        binding.registrationPolicy.movementMethod = LinkMovementMethod.getInstance()
+        binding.registrationPolicy.setOnClickListener {
+            binding.registrationPolicyCheck.isChecked = !binding.registrationPolicyCheck.isChecked
+            binding.registrationSend.isEnabled = binding.registrationPolicyCheck.isChecked
+            binding.registrationSighIn.isEnabled = binding.registrationPolicyCheck.isChecked
+        }
+        binding.registrationPolicyCheck.setOnClickListener {
+            binding.registrationSend.isEnabled = binding.registrationPolicyCheck.isChecked
+            binding.registrationSighIn.isEnabled = binding.registrationPolicyCheck.isChecked
+        }
     }
 
     private fun initScreen() {
@@ -86,7 +99,6 @@ class RegistrationFragment : Fragment() {
                 binding.registrationInputEmailTill.setVisible(true)
                 binding.registrationInputPhoneTill.setVisible(null)
                 binding.registrationInputPasswordTill.setVisible(true)
-                binding.registrationUseEmailOrPhone.text = getString(R.string.sign_up)
                 binding.registrationChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_phone_number)
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_login_phone)
@@ -103,8 +115,6 @@ class RegistrationFragment : Fragment() {
                 binding.registrationInputPhoneTill.setVisible(true)
                 binding.registrationInputEmailTill.setVisible(null)
                 binding.registrationInputPasswordTill.setVisible(null)
-                binding.registrationUseEmailOrPhone.text =
-                    getString(R.string.login_screen_use_phone)
                 binding.registrationChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_email)
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_login_email)
@@ -128,7 +138,7 @@ class RegistrationFragment : Fragment() {
         binding.registrationInputEmailTill.alpha = 0f
         binding.registrationInputPhoneTill.alpha = 0f
         binding.registrationChangeButton.alpha = 0f
-        binding.registrationUseEmailOrPhone.alpha = 0f
+        binding.registrationTitle.alpha = 0f
 
         binding.registrationChangeButton.alpha = 0f
 
@@ -138,7 +148,7 @@ class RegistrationFragment : Fragment() {
             .start()
         binding.registrationChangeButton.animate().alpha(1f).setDuration(duration + durationK * 2)
             .start()
-        binding.registrationUseEmailOrPhone.animate().alpha(1f)
+        binding.registrationTitle.animate().alpha(1f)
             .setDuration(duration + durationK * 2)
             .start()
         binding.registrationChangeButton.animate().alpha(1f).setDuration(duration + durationK * 5)

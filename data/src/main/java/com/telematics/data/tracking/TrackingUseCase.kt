@@ -2,6 +2,7 @@ package com.telematics.data.tracking
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import com.telematics.domain.repository.TrackingApiRepo
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -38,7 +39,14 @@ class TrackingUseCase
         trackingApiRepo.setEnableTrackingSDK(false)
     }
 
+    fun setIntentForNotification(intent: Intent){
+
+        trackingApiRepo.setIntentForNotification(intent)
+    }
+
     fun logout() {
         trackingApiRepo.logout()
     }
+
+
 }

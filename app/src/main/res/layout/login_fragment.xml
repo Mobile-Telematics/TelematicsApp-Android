@@ -37,7 +37,7 @@
 
     <!-- Description for Login -->
     <TextView
-        android:id="@+id/loginUseEmailOrPhone"
+        android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_in"
@@ -62,7 +62,7 @@
         app:layout_constraintBottom_toTopOf="@+id/loginSend"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginUseEmailOrPhone">
+        app:layout_constraintTop_toBottomOf="@+id/loginTitle">
 
         <!-- Email -->
         <com.google.android.material.textfield.TextInputLayout
@@ -155,7 +155,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:text="@string/change_pass_length_validate"
             android:textColor="@android:color/holo_red_dark"
             android:visibility="gone" />
 

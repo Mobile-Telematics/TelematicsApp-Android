@@ -2,6 +2,7 @@ package com.telematics.domain.repository
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import kotlinx.coroutines.flow.Flow
 
 interface TrackingApiRepo {
@@ -14,6 +15,8 @@ interface TrackingApiRepo {
 
     fun startTracking()
     fun setEnableTrackingSDK(enable: Boolean)
+
+    fun setIntentForNotification(intent: Intent)
 
     fun logout()
 }
