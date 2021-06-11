@@ -59,15 +59,12 @@ dependencies {
 
     implementation(project(Modules.domain))
     implementation(project(Modules.data))
-    //implementation(project(Modules.tracking))
 
     implementation(AppDependencies.lifecycleKtx)
     implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
 
-    // TODO: need to refactor
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("me.relex:circleindicator:2.1.4")
 }
