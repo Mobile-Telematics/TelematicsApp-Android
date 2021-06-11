@@ -137,7 +137,10 @@ class ProfileFragment : Fragment() {
     private fun finish(newUser: User) {
 
         val bundle = bundleOf(AccountFragment.ACCOUNT_USER_BUNDLE_KEY to newUser)
-        findNavController().previousBackStackEntry?.savedStateHandle?.set(AccountFragment.ACCOUNT_USER_KEY, bundle)
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+            AccountFragment.ACCOUNT_USER_KEY,
+            bundle
+        )
         findNavController().popBackStack()
     }
 }

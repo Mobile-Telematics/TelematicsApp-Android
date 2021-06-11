@@ -27,17 +27,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
-            //signingConfig = signingConfigs.release
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            //signingConfig = signingConfigs.debug
         }
     }
-
-    //val keystorePropertiesFile = rootProject.file("keystore/key.properties")
 
     signingConfigs {
         getByName("debug") {
@@ -53,17 +48,6 @@ android {
             storePassword = "******"
         }
     }
-//    flavorDimensions(AppConfig.dimension)
-//    productFlavors {
-//        create("prod") {
-//            dimension(AppConfig.dimension)
-//        }
-//
-//        create("dev") {
-//            applicationIdSuffix = ".dev"
-//            dimension(AppConfig.dimension)
-//        }
-//    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

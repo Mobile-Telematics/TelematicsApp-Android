@@ -10,5 +10,7 @@ enum class AuthErrorCode {
     EMPTY_DEVICE_TOKEN,
     NONE,
     EMPTY,
-    NEED_VERIFY_CODE
+    NEED_VERIFY_CODE,
+    EMAIL_ALREADY_IN_USE,
+    NETWORK_EXCEPTION
 }

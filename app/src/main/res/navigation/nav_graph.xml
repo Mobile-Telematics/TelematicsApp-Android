@@ -27,7 +27,7 @@
         android:id="@+id/loginFragment"
         android:name="com.telematics.zenroad.ui.login.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/login_activity">
+        tools:layout="@layout/login_fragment">
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment"
@@ -35,10 +35,15 @@
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
         <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
             android:id="@+id/action_loginFragment_to_loginVerifyCodeFragment"
             app:destination="@id/loginVerifyCodeFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/loginVerifyCodeFragment"
@@ -66,6 +71,28 @@
             android:id="@+id/action_mainFragment_to_splashFragment"
             app:destination="@id/splashFragment"
             app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.telematics.zenroad.ui.registration.RegistrationFragment"
+        android:label="RegistrationFragment"
+        tools:layout="@layout/registration_fragment">
+        <action
+            android:id="@+id/action_registrationFragment_to_loginVerifyCodeFragment"
+            app:destination="@id/loginVerifyCodeFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registrationFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in"
+            app:launchSingleTop="true"
+            app:popExitAnim="@anim/slide_out"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>

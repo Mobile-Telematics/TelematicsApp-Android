@@ -9,7 +9,9 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.telematics.authentication.exception.AuthException
 import com.telematics.authentication.extention.await
+import com.telematics.authentication.mapper.Mapper
 import com.telematics.authentication.model.UserDatabase
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
@@ -34,7 +36,8 @@ class Authentication constructor(
     private val firebaseDatabase = Firebase.database.reference
 
     override suspend fun getCurrentUserID(): String? {
-        val userId = userRepo.getUserId()
+        val userId = firebaseAuth.currentUser?.uid
+        //val userId = userRepo.getUserId()
         Log.d(TAG, "getCurrentUserID: $userId")
         return userId
     }
@@ -71,7 +74,7 @@ class Authentication constructor(
             .setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                 override fun onCodeAutoRetrievalTimeOut(p0: String) {
                     Log.d(TAG, "signInWithPhoneFirebase: onCodeAutoRetrievalTimeOut")
-                    callback.onTimeout()
+                    //callback.onTimeout()
                 }
 
                 override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
@@ -87,7 +90,8 @@ class Authentication constructor(
 
                 override fun onVerificationFailed(p0: FirebaseException) {
                     Log.d(TAG, "onVerificationFailed: ${p0.message}")
-                    callback.onFailure(p0)
+                    val exception = Mapper.getErrorCodeByException(p0)
+                    callback.onFailure(AuthException(exception))
                 }
             })
             .build()
@@ -126,25 +130,24 @@ class Authentication constructor(
 
     override suspend fun createUserInFirebaseDatabase(user: IUser) {
 
-        Log.d(TAG, "createUserInFirebaseDatabase ${user}")
-
         user as User
 
-        Log.d(TAG, "createUserInFirebaseDatabase ${user}")
+        Log.d(TAG, "createUserInFirebaseDatabase $user")
 
         val userDatabase = UserDatabase()
         userDatabase.deviceToken = user.deviceToken
         userDatabase.email = user.email
-        Log.d(TAG, "createUserInFirebaseDatabase userDatabase ${userDatabase}")
+        userDatabase.phone = user.phone
+        Log.d(TAG, "createUserInFirebaseDatabase userDatabase $userDatabase")
         firebaseDatabase.child("users").child(user.userId!!).setValue(userDatabase).await()
     }
 
-    override suspend fun getDeviceTokenInFirebaseDatabase(userId: String): String? {
+    override suspend fun getUserInFirebaseDatabase(userId: String): User? {
 
         val user = firebaseDatabase.child("users").child(userId).await<User>()
-        userRepo.saveUser(user)
         Log.d(TAG, "getDeviceTokenInFirebaseDatabase: $user")
-        return user.deviceToken
+        userRepo.saveUser(user)
+        return user
     }
 
     override suspend fun updateUserInFirebaseDatabase(user: IUser) {
@@ -168,7 +171,9 @@ class Authentication constructor(
             //this.image = newUser.image ?: user.image
         }
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
-        firebaseDatabase.child("users").child(user.userId!!).setValue(userDatabase).await()
+        user.userId?.let { userId ->
+            firebaseDatabase.child("users").child(userId).setValue(userDatabase).await()
+        }
     }
 
     override suspend fun logout(): Boolean {

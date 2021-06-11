@@ -182,7 +182,7 @@
             android:layout_marginTop="@dimen/acc_wizard_btn_margin_top"
             android:layout_marginBottom="@dimen/acc_wizard_btn_margin_top"
             android:enabled="true"
-            android:text="@string/dashboard_settings_logout"
+            android:text="@string/logout"
             android:textAllCaps="true" />
 
     </LinearLayout>

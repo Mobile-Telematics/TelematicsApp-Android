@@ -44,9 +44,9 @@
     <color name="colorRedButton">#e32626</color>
     <color name="colorOrangeButton">#FF8400</color>
 
-    <color name="colorDefButton">#8801C2</color>
+    <color name="colorDefButton">#54c751</color>
     <color name="colorDefButtonDisabled">#a7a7a7</color>
-    <color name="colorDefButtonStroke">#8801C2</color>
+    <color name="colorDefButtonStroke">#54c751</color>
 
     <color name="colorTripButton">#e5f7e4</color>
     <color name="colorTripButtonDisabled">#80C5C5C5</color>

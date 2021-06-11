@@ -101,7 +101,7 @@
     <Button
         android:id="@+id/verifySend"
         style="@style/Button"
-        android:layout_width="@dimen/login_button_width"
+        android:layout_width="150dp"
         android:layout_height="@dimen/login_button_height"
         android:layout_marginTop="@dimen/login_button_margin_vertical"
         android:layout_marginBottom="@dimen/login_button_margin_vertical"

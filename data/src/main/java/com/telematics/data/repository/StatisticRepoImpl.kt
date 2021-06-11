@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class DashboardRepoImpl @Inject constructor(
+class StatisticRepoImpl @Inject constructor(
     private val driveCoinsApi: DriveCoinsApi,
     private val userStatisticsApi: UserStatisticsApi,
     private val userRepo: UserRepo

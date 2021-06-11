@@ -1,11 +1,13 @@
 package com.telematics.zenroad.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.telematics.authentication.extention.observeOnce
+import com.telematics.zenroad.MainActivity
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.MainFragmentBinding
 import com.telematics.zenroad.ui.bottom_menu.ViewPagerFragmentStateAdapter
@@ -79,10 +81,20 @@ class MainFragment : Fragment() {
                 startWizard()
             }
         }
+
+        mainFragmentViewModel.setDeviceTokenForTrackingApi()
+        setIntentForNotification()
     }
 
     private fun startWizard() {
 
         mainFragmentViewModel.startWizard(requireActivity())
+    }
+
+    private fun setIntentForNotification() {
+
+        val intent = Intent(context, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        mainFragmentViewModel.setIntentForNotification(intent)
     }
 }

@@ -35,7 +35,9 @@ interface AuthenticationRepo {
 
     /** create in FirebaseDatabase*/
     suspend fun createUserInFirebaseDatabase(user: IUser)
-    suspend fun getDeviceTokenInFirebaseDatabase(userId: String): String?
+
+    /** get FirebaseDatabase*/
+    suspend fun getUserInFirebaseDatabase(userId: String): IUser?
 
     /** update user in FirebaseDatabase */
     suspend fun updateUserInFirebaseDatabase(user: IUser)

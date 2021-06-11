@@ -4,14 +4,14 @@ import com.telematics.domain.model.authentication.User
 
 interface UserRepo {
 
-    fun saveDeviceToken(deviceToken: String)
-    fun getDeviceToken(): String
+    suspend fun saveDeviceToken(deviceToken: String?)
+    suspend fun getDeviceToken(): String
 
-    fun saveUserId(uId: String)
-    fun getUserId(): String?
+    suspend fun saveUserId(uId: String?)
+    suspend fun getUserId(): String?
 
-    fun getUser(): User
-    fun saveUser(user: User)
+    suspend fun getUser(): User
+    suspend fun saveUser(user: User)
 
     suspend fun clear()
 }

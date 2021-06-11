@@ -2,6 +2,7 @@ package com.telematics.features.account.use_case
 
 import android.app.Activity
 import android.util.Log
+import com.telematics.domain.model.LoginType
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
@@ -25,12 +26,16 @@ class LoginUseCase @Inject constructor(
         return flow {
             var result = false
             authenticationRepo.getCurrentUserID()?.let { currentUid ->
-                authenticationRepo.getDeviceTokenInFirebaseDatabase(currentUid)
-                    ?.let { deviceToken ->
-                        if (deviceToken.isNotEmpty()) {
+                authenticationRepo.getUserInFirebaseDatabase(currentUid)
+                    ?.let { iUser ->
+                        val user = iUser as User
+                        user.userId = currentUid
+                        val deviceToken = user.deviceToken
+                        if (!deviceToken.isNullOrEmpty()) {
                             val sessionData = authenticationRepo.loginAPI(deviceToken)
-                            if (!sessionData.isEmpty())
-                                saveUser(User(userId = currentUid, deviceToken = deviceToken))
+                            if (!sessionData.isEmpty()) {
+                                saveUser(user)
+                            }
                             result = !sessionData.isEmpty()
                         }
                     }
@@ -80,16 +85,21 @@ class LoginUseCase @Inject constructor(
         }
     }
 
-    fun registration(login: String, password: String): Flow<Boolean> {
+    fun registration(login: String, password: String, loginType: LoginType): Flow<Boolean> {
         Log.d(TAG, "registration")
 
         return flow {
             var result = false
             authenticationRepo.createUserWithEmailAndPasswordInFirebase(login, password)
                 ?.let { firebaseUser ->
-                    val user = User(email = login, userId = firebaseUser.id)
-                    val sessionData = registrationUser(user)
-                    result = !sessionData.isEmpty()
+                    val user = when (loginType) {
+                        LoginType.EMAIL -> User(email = login, userId = firebaseUser.id)
+                        LoginType.PHONE -> User(phone = login, userId = firebaseUser.id)
+                    }
+                    val sessionData = registerUser(user)
+                    if (!sessionData.isEmpty()) {
+                        result = true
+                    }
                 }
             if (!result)
                 logout()
@@ -123,23 +133,25 @@ class LoginUseCase @Inject constructor(
         var result = false
 
         authenticationRepo.signInWithEmailAndPasswordFirebase(email, password)?.let { iUser ->
-            val deviceToken = authenticationRepo.getDeviceTokenInFirebaseDatabase(iUser.id)
-            result = if (deviceToken.isNullOrEmpty()) {
-                val user = User(email, password, userId = iUser.id)
-                val sessionData = registrationUser(user)
-                !sessionData.isEmpty()
+            val userDatabase =
+                authenticationRepo.getUserInFirebaseDatabase(iUser.id) as User?
+            val deviceToken = userDatabase?.deviceToken
+            val sessionData = if (deviceToken.isNullOrEmpty()) {
+                val user = User(email = email, password = password, userId = iUser.id)
+                registerUser(user)
             } else {
-                val sessionData = authenticationRepo.loginAPI(deviceToken)
-                if (!sessionData.isEmpty())
-                    saveUser(User(deviceToken = deviceToken, userId = iUser.id))
-                !sessionData.isEmpty()
+                authenticationRepo.loginAPI(deviceToken)
+            }
+            if (!sessionData.isEmpty()) {
+                saveUser(userDatabase)
+                result = true
             }
         }
 
         return result
     }
 
-    private suspend fun registrationUser(user: User): SessionData {
+    private suspend fun registerUser(user: User): SessionData {
         Log.d(TAG, "registrationUser")
 
         val registrationApiData = authenticationRepo.registrationCreateAPI()
@@ -149,6 +161,7 @@ class LoginUseCase @Inject constructor(
         val sessionData = authenticationRepo.loginAPI(deviceToken)
         if (!sessionData.isEmpty()) {
             saveUser(user)
+            userRepo.saveUser(user)
         }
         return sessionData
     }
@@ -159,28 +172,30 @@ class LoginUseCase @Inject constructor(
     ): Boolean {
         var result = false
         authenticationRepo.signInWithPhoneAuthCredential(credential)?.let { iUser ->
-            val deviceToken = authenticationRepo.getDeviceTokenInFirebaseDatabase(iUser.id)
-            result = if (deviceToken.isNullOrEmpty()) {
-                val user = User(phone, userId = iUser.id)
-                val sessionData = registrationUser(user)
-                !sessionData.isEmpty()
+            val userDatabase =
+                (authenticationRepo.getUserInFirebaseDatabase(iUser.id) as User?)
+            val deviceToken = userDatabase?.deviceToken
+            userDatabase?.userId = iUser.id
+            val sessionData = if (deviceToken.isNullOrEmpty()) {
+                val user = User(phone = phone, userId = iUser.id)
+                registerUser(user)
             } else {
-                val sessionData = authenticationRepo.loginAPI(deviceToken)
-                if (!sessionData.isEmpty())
-                    saveUser(User(deviceToken = deviceToken, userId = iUser.id))
-                !sessionData.isEmpty()
+                authenticationRepo.loginAPI(deviceToken)
+            }
+
+            if (!sessionData.isEmpty()) {
+                saveUser(userDatabase)
+                result = true
             }
         }
 
         return result
     }
 
-    private fun saveUser(user: User) {
-
-        Log.d(TAG, "saveUser: userid: ${user.userId}")
-
-        userRepo.saveUserId(user.id)
-        userRepo.saveDeviceToken(user.token)
+    private suspend fun saveUser(user: User?) {
+        Log.d(TAG, "saveUser: user:$user")
+        userRepo.saveUserId(user?.userId)
+        userRepo.saveDeviceToken(user?.deviceToken)
     }
 
     fun getUser(): Flow<User> {
@@ -192,6 +207,7 @@ class LoginUseCase @Inject constructor(
 
     fun updateUser(user: User): Flow<Unit> {
         return flow {
+
             val oldUser = userRepo.getUser()
             val newUser = oldUser.getNewUpdatedUser(user)
             val userId = userRepo.getUserId()

@@ -1,9 +1,9 @@
 package com.telematics.data.api
 
-import com.telematics.data.model.dashboard.DrivingDetailsRest
-import com.telematics.data.model.dashboard.EcoScoringRest
-import com.telematics.data.model.dashboard.UserStatisticsIndividualRest
-import com.telematics.data.model.dashboard.UserStatisticsScoreRest
+import com.telematics.data.model.statistics.DrivingDetailsRest
+import com.telematics.data.model.statistics.EcoScoringRest
+import com.telematics.data.model.statistics.UserStatisticsIndividualRest
+import com.telematics.data.model.statistics.UserStatisticsScoreRest
 import com.telematics.data.model.rest.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Header

@@ -2,6 +2,7 @@ package com.telematics.authentication.mapper
 
 import android.util.Log
 import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthException
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
@@ -16,13 +17,18 @@ class Mapper {
             var error = ""
 
             if (exception is FirebaseException) {
-                Log.d("getErrorCode", "getErrorCode: 1 ${exception.message}")
+                Log.d("getErrorCode", "getErrorCode: FirebaseException ${exception.message}")
                 error = exception.message ?: ""
             }
 
             if (exception is FirebaseAuthException) {
-                Log.d("getErrorCode", "getErrorCode: 2 ${exception.errorCode}")
+                Log.d("getErrorCode", "getErrorCode: FirebaseAuthException ${exception.errorCode}")
                 error = exception.errorCode
+            }
+
+            if (exception is FirebaseNetworkException) {
+                Log.d("getErrorCode", "getErrorCode: FirebaseNetworkException")
+                error = "NETWORK_EXCEPTION"
             }
 
             if (exception is AuthException) {
@@ -34,6 +40,8 @@ class Mapper {
                 "ERROR_USER_NOT_FOUND" -> AuthErrorCode.USER_NOT_EXIST
                 "ERROR_WRONG_PASSWORD" -> AuthErrorCode.INVALID_PASSWORD
                 "ERROR_INVALID_VERIFICATION_CODE" -> AuthErrorCode.INVALID_VERIFICATION_CODE
+                "ERROR_EMAIL_ALREADY_IN_USE" -> AuthErrorCode.EMAIL_ALREADY_IN_USE
+                "NETWORK_EXCEPTION" -> AuthErrorCode.NETWORK_EXCEPTION
                 /*api status*/
                 "422" -> AuthErrorCode.INVALID_PASSWORD
                 else -> AuthErrorCode.NONE

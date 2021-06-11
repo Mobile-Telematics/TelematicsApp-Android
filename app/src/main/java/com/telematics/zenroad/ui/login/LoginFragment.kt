@@ -1,12 +1,12 @@
 package com.telematics.zenroad.ui.login
 
-import android.content.Intent
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -17,7 +17,7 @@ import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.domain.model.LoginType
 import com.telematics.zenroad.R
-import com.telematics.zenroad.databinding.LoginActivityBinding
+import com.telematics.zenroad.databinding.LoginFragmentBinding
 import com.telematics.zenroad.extention.isValidEmail
 import com.telematics.zenroad.extention.setVisible
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,21 +26,23 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-    companion object{
-        val logoutRes = R.id.action_mainFragment_to_splashFragment
-    }
-
     private val TAG = "LoginFragment"
+
+    companion object {
+
+        const val PASSWORD_MIN_LENGTH = 4
+
+        const val BUNDLE_LOGIN_KEY = "login_key"
+        const val BUNDLE_PASSWORD_KEY = "password_key"
+        const val BUNDLE_LOGIN_TYPE_KEY = "login_type_key"
+    }
 
     @Inject
     lateinit var loginViewModel: LoginViewModel
 
-    private lateinit var binding: LoginActivityBinding
+    private lateinit var binding: LoginFragmentBinding
 
     private var loginType = LoginType.EMAIL
-    private val PASSWORD_LIMIT = 4
-
-    private lateinit var verifyCodeActivityResult: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +50,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = LoginActivityBinding.inflate(inflater, container, false)
+        binding = LoginFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -68,6 +70,22 @@ class LoginFragment : Fragment() {
         binding.loginChangeButton.setOnClickListener {
             changeInputLoginType()
         }
+
+        binding.loginRegistration.setOnClickListener {
+            startRegistrationFragment()
+        }
+
+        binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
+        binding.loginPolicy.movementMethod = LinkMovementMethod.getInstance()
+        binding.loginPolicy.setOnClickListener {
+            binding.loginPolicyCheck.isChecked = !binding.loginPolicyCheck.isChecked
+            binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
+            binding.loginRegistration.isEnabled = binding.loginPolicyCheck.isChecked
+        }
+        binding.loginPolicyCheck.setOnClickListener {
+            binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
+            binding.loginRegistration.isEnabled = binding.loginPolicyCheck.isChecked
+        }
     }
 
     private fun changeInputLoginType() {
@@ -85,7 +103,6 @@ class LoginFragment : Fragment() {
                 binding.loginInputEmailTill.setVisible(true)
                 binding.loginInputPhoneTill.setVisible(null)
                 binding.loginInputPasswordTill.setVisible(true)
-                binding.loginUseEmailOrPhone.text = getString(R.string.login_screen_use_email)
                 binding.loginChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_phone_number)
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_login_phone)
@@ -103,10 +120,6 @@ class LoginFragment : Fragment() {
                 binding.loginInputPhoneTill.setVisible(true)
                 binding.loginInputEmailTill.setVisible(null)
                 binding.loginInputPasswordTill.setVisible(null)
-                binding.loginUseEmailOrPhone.text = getString(R.string.login_screen_use_phone)
-                //binding.loginInputPhoneCCP.registerCarrierNumberEditText(loginInputPhone)
-                //val typeFace = Typeface.createFromAsset(context!!.assets,getString(R.string.font_main_semibold))
-                //binding.loginInputPhoneCCP.setTypeFace(typeFace)
                 binding.loginChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_email)
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_login_email)
@@ -130,7 +143,7 @@ class LoginFragment : Fragment() {
         binding.loginInputEmailTill.alpha = 0f
         binding.loginInputPhoneTill.alpha = 0f
         binding.loginChangeButton.alpha = 0f
-        binding.loginUseEmailOrPhone.alpha = 0f
+        binding.loginTitle.alpha = 0f
 
         binding.loginChangeButton.alpha = 0f
 
@@ -139,7 +152,7 @@ class LoginFragment : Fragment() {
         binding.loginInputPhoneTill.animate().alpha(1f).setDuration(duration + durationK * 1)
             .start()
         binding.loginChangeButton.animate().alpha(1f).setDuration(duration + durationK * 2).start()
-        binding.loginUseEmailOrPhone.animate().alpha(1f).setDuration(duration + durationK * 2)
+        binding.loginTitle.animate().alpha(1f).setDuration(duration + durationK * 2)
             .start()
         binding.loginChangeButton.animate().alpha(1f).setDuration(duration + durationK * 5).start()
     }
@@ -165,35 +178,45 @@ class LoginFragment : Fragment() {
         val emailField = binding.loginInputEmail.text.toString()
         val phoneField = binding.loginInputPhone.text.toString()
 
-        var valid = true
-
         if (loginType == LoginType.EMAIL) {
 
             if (emailField.isBlank()) {
-                showLoginFailedMessage("Email field must be filled.")
-                valid = false
+                showLoginFailedMessage(R.string.auth_error_empty_email)
+                return false
             } else {
                 if (!emailField.isValidEmail()) {
-                    showLoginFailedMessage("Email address isn’t correct.")
-                    valid = false
+                    showLoginFailedMessage(R.string.auth_error_incorrect_email)
+                    return false
                 }
+            }
+
+            if (passwordField.isBlank()) {
+                showLoginFailedMessage(R.string.auth_error_empty_password)
+                return false
+            }
+
+            if (passwordField.length <= PASSWORD_MIN_LENGTH) {
+                showLoginFailedMessage(
+                    getString(
+                        R.string.auth_error_short_password,
+                        PASSWORD_MIN_LENGTH
+                    )
+                )
+                return false
             }
         }
 
         if (loginType == LoginType.PHONE)
             if (phoneField.isBlank()) {
-                showLoginFailedMessage("Phone field must be filled.")
-                valid = false
+                showLoginFailedMessage(R.string.auth_error_empty_phone)
+                return false
             }
 
-        if (passwordField.isBlank() && passwordField.length >= PASSWORD_LIMIT) {
-            showLoginFailedMessage("Password field must be filled.")
-            valid = false
-        }
+        return true
+    }
 
-        if (!valid) hideProgress()
-
-        return valid
+    private fun showLoginFailedMessage(@StringRes id: Int) {
+        showLoginFailedMessage(getString(id))
     }
 
     private fun showLoginFailedMessage(message: String) {
@@ -221,9 +244,9 @@ class LoginFragment : Fragment() {
     /**↓login*/
     private fun login() {
 
-        showProgress()
-
         if (!validFields()) return
+
+        showProgress()
 
         when (loginType) {
             LoginType.PHONE -> startVerifyCodeFragment()
@@ -240,26 +263,6 @@ class LoginFragment : Fragment() {
                 result.onFailure {
                     loginFailure(it)
                 }
-            }
-        }
-    }
-
-    /**registration*/
-    private fun registration() {
-
-        loginViewModel.registration(
-            getLoginField(),
-            getPasswordField(),
-            loginType
-        ).observe(viewLifecycleOwner) { result ->
-            result.onSuccess { isAuthorize ->
-                Log.d(TAG, "registration: $isAuthorize")
-                if (isAuthorize)
-                    loginSuccess()
-                else loginFailure()
-            }
-            result.onFailure {
-                loginFailure(it)
             }
         }
     }
@@ -283,15 +286,12 @@ class LoginFragment : Fragment() {
 
         if (throwable is AuthException) {
             when (throwable.errorCode) {
-                AuthErrorCode.NONE -> showLoginFailedMessage("Unknown error")
                 AuthErrorCode.USER_NOT_EXIST -> showRegistrationDialog()
                 AuthErrorCode.EMPTY_DEVICE_TOKEN -> showRegistrationDialog()
-                AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage("Invalid email or password")
-                AuthErrorCode.NEED_VERIFY_CODE -> startVerifyCodeFragment()
-                else -> showLoginFailedMessage("Unknown error")
+                AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage(R.string.auth_error_invalid_email_password)
+                AuthErrorCode.NETWORK_EXCEPTION -> showLoginFailedMessage(R.string.auth_error_network)
+                else -> showLoginFailedMessage(R.string.auth_error_unknown)
             }
-        } else {
-
         }
     }
 
@@ -301,7 +301,7 @@ class LoginFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.dialog_registration_confirm_proceed)
             .setPositiveButton(R.string.dialog_confirm) { d, _ ->
-                registration()
+                startRegistrationFragment()
                 d.cancel()
             }
             .setNegativeButton(R.string.dialog_cancel) { d, _ ->
@@ -318,7 +318,17 @@ class LoginFragment : Fragment() {
 
     private fun startVerifyCodeFragment() {
 
-        val bundle = bundleOf("phone" to getLoginField())
+        val bundle = bundleOf(BUNDLE_LOGIN_KEY to getLoginField())
         findNavController().navigate(R.id.action_loginFragment_to_loginVerifyCodeFragment, bundle)
+    }
+
+    private fun startRegistrationFragment() {
+
+        val bundle = bundleOf(
+            BUNDLE_LOGIN_KEY to getLoginField(),
+            BUNDLE_PASSWORD_KEY to getPasswordField(),
+            BUNDLE_LOGIN_TYPE_KEY to loginType
+        )
+        findNavController().navigate(R.id.action_loginFragment_to_registrationFragment, bundle)
     }
 }

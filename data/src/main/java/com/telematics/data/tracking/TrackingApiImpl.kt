@@ -3,6 +3,8 @@ package com.telematics.data.tracking
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import com.raxeltelematics.v2.sdk.TrackingApi
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
 import com.telematics.domain.repository.TrackingApiRepo
@@ -12,6 +14,8 @@ import kotlinx.coroutines.flow.flow
 @SuppressLint("MissingPermission")
 class TrackingApiImpl : TrackingApiRepo {
 
+    private val TAG = "TrackingApiImpl"
+
     private val trackingApi = TrackingApi.getInstance()
 
     override fun setContext(context: Context) {
@@ -19,6 +23,7 @@ class TrackingApiImpl : TrackingApiRepo {
     }
 
     override fun setDeviceToken(deviceId: String) {
+        Log.d(TAG, "setDeviceToken: deviceId $deviceId")
         trackingApi.setDeviceID(deviceId)
     }
 
@@ -54,9 +59,16 @@ class TrackingApiImpl : TrackingApiRepo {
         trackingApi.setEnableSdk(enable)
     }
 
+    override fun setIntentForNotification(intent: Intent) {
+
+        TrackingApi.getInstance().setIntentForNotification(intent)
+    }
+
     override fun logout() {
         trackingApi.setEnableSdk(false)
         trackingApi.clearDeviceID()
         trackingApi.setEnableSdk(false)
     }
+
+
 }

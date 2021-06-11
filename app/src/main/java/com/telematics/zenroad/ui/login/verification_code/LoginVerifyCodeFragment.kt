@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -15,6 +16,7 @@ import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.ActivityVerifyCodeBinding
+import com.telematics.zenroad.ui.login.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,10 +24,6 @@ import javax.inject.Inject
 class LoginVerifyCodeFragment : Fragment() {
 
     private val TAG = "LoginVerifyCodeFragment"
-
-    companion object {
-        const val RESULT_CODE_KEY = "CODE_KEY"
-    }
 
     @Inject
     lateinit var viewModel: LoginVerifyCodeViewModel
@@ -47,12 +45,11 @@ class LoginVerifyCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        phone = arguments?.getString("phone") ?: ""
+        phone = arguments?.getString(LoginFragment.BUNDLE_LOGIN_KEY) ?: ""
         bindTitle(phone)
 
-        authorise()
-
         setListeners()
+        authorise()
     }
 
     private fun setListeners() {
@@ -65,7 +62,7 @@ class LoginVerifyCodeFragment : Fragment() {
             sendCode(binding.verifyInputCode.text.toString())
         }
 
-        binding.verifyInputCode.setOnEditorActionListener { v, actionId, event ->
+        binding.verifyInputCode.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 sendCode(binding.verifyInputCode.text.toString())
             }
@@ -96,6 +93,10 @@ class LoginVerifyCodeFragment : Fragment() {
     /** authentication */
     private fun authorise() {
 
+        if (phone.isEmpty()) {
+            return
+        }
+
         viewModel.authorise(
             phone,
             requireActivity(),
@@ -110,14 +111,9 @@ class LoginVerifyCodeFragment : Fragment() {
                     viewModel.authoriseWithCred(result)
                 }
 
-                override fun onTimeout() {
-                    Log.d(TAG, "authorise onTimeout")
-                    loginTimeout()
-                }
-
                 override fun onFailure(e: Exception) {
                     Log.d(TAG, "authorise onFailure ${e.message}")
-                    showErrorMessage(e.message!!)
+                    loginFailure(e)
                 }
             }
         )
@@ -162,18 +158,17 @@ class LoginVerifyCodeFragment : Fragment() {
 
         if (throwable is AuthException) {
             when (throwable.errorCode) {
-                AuthErrorCode.NONE -> showErrorMessage("Unknown error")
-                AuthErrorCode.INVALID_VERIFICATION_CODE -> showErrorMessage("Invalid verification code")
-                else -> showErrorMessage("Unknown error")
+                AuthErrorCode.INVALID_VERIFICATION_CODE -> showErrorMessage(R.string.auth_error_incorrect_verification_code)
+                AuthErrorCode.NETWORK_EXCEPTION -> {
+                    showErrorMessage(R.string.auth_error_network)
+                    disableInputCode()
+                }
+                else -> showErrorMessage(R.string.auth_error_unknown)
             }
-        } else {
-
         }
     }
 
-    private fun loginTimeout() {
-
-        showErrorMessage("Time out for confirm code")
+    private fun disableInputCode() {
 
         binding.verifyInputCode.isEnabled = false
         binding.verifyInputCode.setText("")
@@ -186,10 +181,14 @@ class LoginVerifyCodeFragment : Fragment() {
         val code = binding.verifyInputCode.text.toString()
         if (code.isBlank()) {
             valid = false
-            showErrorMessage("The code must be filled")
+            showErrorMessage(R.string.auth_error_empty_verification_code)
         }
 
         return valid
+    }
+
+    private fun showErrorMessage(@StringRes id: Int) {
+        showErrorMessage(getString(id))
     }
 
     private fun showErrorMessage(msg: String) {

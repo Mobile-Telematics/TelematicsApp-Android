@@ -16,7 +16,7 @@ import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
 import com.telematics.data.interceptor.MainInterceptor
 import com.telematics.data.repository.AuthRepoImpl
-import com.telematics.data.repository.DashboardRepoImpl
+import com.telematics.data.repository.StatisticRepoImpl
 import com.telematics.data.repository.SessionRepoImpl
 import com.telematics.data.repository.UserRepoImpl
 import com.telematics.data.tracking.TrackingApiImpl
@@ -212,7 +212,7 @@ object AppModule {
         driveCoinsApi: DriveCoinsApi,
         userStatisticsApi: UserStatisticsApi,
         userRepo: UserRepo
-    ): StatisticRepo = DashboardRepoImpl(driveCoinsApi, userStatisticsApi, userRepo)
+    ): StatisticRepo = StatisticRepoImpl(driveCoinsApi, userStatisticsApi, userRepo)
 
     @Provides
     @Singleton

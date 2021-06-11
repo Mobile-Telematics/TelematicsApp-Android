@@ -1,9 +1,9 @@
 package com.telematics.data.mappers
 
-import com.telematics.data.model.dashboard.DrivingDetailsRest
-import com.telematics.data.model.dashboard.EcoScoringRest
-import com.telematics.data.model.dashboard.UserStatisticsIndividualRest
-import com.telematics.data.model.dashboard.UserStatisticsScoreRest
+import com.telematics.data.model.statistics.DrivingDetailsRest
+import com.telematics.data.model.statistics.EcoScoringRest
+import com.telematics.data.model.statistics.UserStatisticsIndividualRest
+import com.telematics.data.model.statistics.UserStatisticsScoreRest
 import com.telematics.data.model.rest.ApiResult
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
