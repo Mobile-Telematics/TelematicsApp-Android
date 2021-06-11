@@ -1,5 +1,5 @@
 # TelematicsApp-Android with Firebase© integration
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/mainlogo.jpg)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/telematicsapp.jpeg)
 
 ## Description
 This Telematics App is created by DATA MOTION PTE. LTD. and is distributed free of charge to all customers & users and can be used to create your own application for iOS in a few steps.
@@ -16,15 +16,15 @@ Step 1: After creating your Firebase© account, open your console: https://conso
 
 Click "Create a project" button.
 
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f01.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/1.png)
 
 Step 2: Enter the name of your future Project. Click "Continue" button.
 
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f02.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/2.png)
 
 Step 3: For ease of integration, at the next step, we recommend deactivating the "Enable Google Analytics" checkbox.
 
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f03.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/3.png)
 
 Click "Create project".
 
@@ -38,30 +38,30 @@ Step 6: To connect your Firebase you need to add the `google-services.json` file
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/6.png)
 
 Step 7: You can skip the "Add Firebase SDK" & "Add initialization code" steps below, because we already did it for you in our Telematics App:) Finish the setup and click on "Continue to console".
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f07.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/7.png)
 
 Step 8: Important. In order for your users to create accounts to log into your app, you need to go to "Authentication" section on the left side of the menu.
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f08.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/8.png)
 
 Step 9: In the "Sign-in method" tab, click on the Provider's "Email/Password" on the right "pencil" (Edit configuration hint) as in the picture below. If you need to perform authorization using the "Phone" Provider - select the setting of this item.
 
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f09.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/9.png)
 
 Step 10: Switch to "Enable" and click "Save" button. Now your users can login to the app.
 
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f10.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/10.png)
 
 Step 11: We need to activate Firebase© Realtime Database. This will allow you to store the data of all your users in this simple web interface. Go to the Realtime Database section on the left side of the menu and click on the "Create Database" button.
 
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f11.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/11.png)
 
 Step 12: Choose any Realtime Database location value.
 
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f12.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/12.png)
 
 Step 13: Select "Start a locked mode" and click the "Enable" button.
 
-![](https://github.com/Mobile-Telematics/TelematicsAppFirebase-iOS/raw/master/img_readme/f13.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/13.png)
 
 Step 14: Open our TelematicsApp in Android Studio, make sure to transfer the `google-services.json` file to project_directory\app (See Step 5 above) and Enjoy! 
 
