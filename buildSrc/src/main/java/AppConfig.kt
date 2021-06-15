@@ -1,6 +1,6 @@
 object AppConfig {
-    const val applicationIdPrefix = "com.telematics"
-    private const val name = "zenroad"
+    const val applicationIdPrefix = "com.your_application_prefix"
+    private const val name = "your_application_name"
 
     const val applicationId = "$applicationIdPrefix.$name"
     const val compileSdk = 30
