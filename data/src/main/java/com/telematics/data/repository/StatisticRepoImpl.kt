@@ -90,8 +90,4 @@ class StatisticRepoImpl @Inject constructor(
             endDate
         ).result?.toDashboardEcoScoringTabData() ?: StatisticEcoScoringTabData()
     }
-
-    override suspend fun getLastTrip() {
-
-    }
 }

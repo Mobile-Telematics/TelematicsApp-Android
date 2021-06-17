@@ -8,7 +8,8 @@ import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.domain.model.authentication.User
 import com.telematics.features.account.use_case.LoginUseCase
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
@@ -21,6 +22,7 @@ class AccountViewModel @Inject constructor(
 
         val logoutState = MutableLiveData<Result<Boolean>>()
         loginUseCase.logout()
+            .flowOn(Dispatchers.IO)
             .setLiveDataForResult(logoutState)
             .launchIn(viewModelScope)
 
@@ -33,6 +35,7 @@ class AccountViewModel @Inject constructor(
 
         val userState = MutableLiveData<Result<User>>()
         loginUseCase.getUser()
+            .flowOn(Dispatchers.IO)
             .setLiveDataForResult(userState)
             .launchIn(viewModelScope)
         return userState

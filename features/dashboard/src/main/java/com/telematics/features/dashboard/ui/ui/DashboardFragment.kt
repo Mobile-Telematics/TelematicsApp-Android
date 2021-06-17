@@ -1,12 +1,15 @@
 package com.telematics.features.dashboard.ui.ui
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -28,11 +31,15 @@ import com.telematics.features.dashboard.ui.ui.chart.DashboardTypePagerAdapter
 import com.telematics.features.dashboard.ui.ui.ecoscoring.DashboardEcoScoringTabAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_eco_scoring_dashboard.*
+import kotlinx.android.synthetic.main.layout_last_trip_dashboard.view.*
+import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
+
+    private val TAG = "DashboardFragment"
 
     private val DISTANCE_LIMIT = BuildConfig.DASHBOARD_DISTANCE_LIMIT
 
@@ -94,6 +101,10 @@ class DashboardFragment : Fragment() {
         binding.drivingScoresPager.offscreenPageLimit = 6
         binding.drivingScoresPager.adapter = scoringAdapter
         binding.progressIndicator.setViewPager(binding.drivingScoresPager)
+
+        binding.dashboardEmptyLastTrip.dashboardEmptyLastTripPermissions.setOnClickListener {
+            openLinkTelematicsLink()
+        }
         scoringAdapter.registerAdapterDataObserver(binding.progressIndicator.adapterDataObserver)
 
         init()
@@ -112,7 +123,7 @@ class DashboardFragment : Fragment() {
         }
 
         dashboardViewModel.driveCoinsData.removeObservers(this)
-        dashboardViewModel.driveCoinsData.observe(this, {
+        dashboardViewModel.driveCoinsData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Failure -> {
                     showDriveCoins(0)
@@ -134,6 +145,7 @@ class DashboardFragment : Fragment() {
             if ((data?.mileageKm ?: .0) >= DISTANCE_LIMIT) {
                 binding.dashboardEmpty.visibility = View.GONE
                 observeDrivingDetails()
+                observeLastTrip()
                 initEcoScoring()
             } else {
                 showEmptyDashboard(data)
@@ -141,12 +153,13 @@ class DashboardFragment : Fragment() {
         }
 
         dashboardViewModel.userIndividualStatisticsData.removeObservers(this)
-        dashboardViewModel.userIndividualStatisticsData.observe(this, {
+        dashboardViewModel.userIndividualStatisticsData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Failure -> {
                     showEmptyDashboard(null)
                 }
                 is Resource.Loading -> {
+
                 }
                 is Resource.Success -> {
                     showUserIndividualStatistics(it.data)
@@ -352,7 +365,7 @@ class DashboardFragment : Fragment() {
         }
 
         dashboardViewModel.scoreLiveData.removeObservers(this)
-        dashboardViewModel.scoreLiveData.observe(this, {
+        dashboardViewModel.scoreLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Failure -> {
                     showEmptyDashboard(null)
@@ -371,6 +384,53 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.getStatistics()
     }
 
+    private fun observeLastTrip() {
+
+        dashboardViewModel.getLastTrip().observe(viewLifecycleOwner) { result ->
+            result.onFailure {
+
+            }
+            result.onSuccess { tripData ->
+
+                if (tripData == null)
+                    return@onSuccess
+                binding.dashboardEmptyLastTrip.dashboardEmptyLastTripParent.visibility = View.GONE
+                binding.include3.lastTripParent.visibility = View.VISIBLE
+
+                binding.include3.eventTripDateStart.text = tripData.timeStart
+                binding.include3.eventTripDateFinish.text = tripData.timeEnd
+                binding.include3.eventTripOverallScore.text =
+                    tripData.rating.roundToInt().toString()
+                binding.include3.eventTripOverallScore.eventTripOverallScore.setTextColor(
+                    when (tripData.rating.roundToInt()) {
+                        in 0..40 -> resources.getColor(R.color.colorRedText)
+                        in 41..60 -> resources.getColor(R.color.colorOrangeText)
+                        in 61..80 -> resources.getColor(R.color.colorYellowText)
+                        in 80..100 -> resources.getColor(R.color.colorGreenText)
+                        else -> resources.getColor(R.color.colorGreenText)
+                    }
+                )
+                binding.include3.eventTripMileage.text = DecimalFormat("0.0").format(tripData.dist)
+                binding.include3.mileageMeasureText.text = getString(R.string.dashboard_new_km)
+
+                getLastTripImage(tripData.id)
+            }
+        }
+    }
+
+    private fun getLastTripImage(token: String?) {
+
+        token ?: return
+
+        dashboardViewModel.getLastTripImage(token).observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                binding.include3.lastTripImage.setImageBitmap(it)
+            }
+            result.onFailure {
+
+            }
+        }
+    }
 
     private fun initEcoScoring() {
 
@@ -392,7 +452,7 @@ class DashboardFragment : Fragment() {
                 ColorStateList.valueOf(ContextCompat.getColor(this.requireContext(), color))
             ecoScoringMainScore.text = data.score.toString()
 
-            //todo add rotation for array
+            //todo add rotation for arrow
 /*            if (oldScore != null && score < oldScore.oldScore) {
                 scoScoringArrow.rotation = 180f
                 scoScoringArrow.imageTintList = ColorStateList.valueOf(
@@ -422,7 +482,7 @@ class DashboardFragment : Fragment() {
 
         dashboardViewModel.mainEcoScoringLiveData.removeObservers(this)
         dashboardViewModel.mainEcoScoringLiveData.removeObservers(viewLifecycleOwner)
-        dashboardViewModel.mainEcoScoringLiveData.observe(this, {
+        dashboardViewModel.mainEcoScoringLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Failure -> {
                 }
@@ -441,9 +501,6 @@ class DashboardFragment : Fragment() {
 
         fun showContent(data: StatisticEcoScoringTabsData?) {
 
-            //todo add toMiles
-//            if (settingsInteractor.getDistanceMeasure() == DistanceMeasure.MI)
-//                data?.toMiles()
             val pagerAdapter = DashboardEcoScoringTabAdapter(
                 this.childFragmentManager,
                 data,
@@ -454,7 +511,7 @@ class DashboardFragment : Fragment() {
         }
 
         dashboardViewModel.tableEcoScoringLiveData.removeObservers(this)
-        dashboardViewModel.tableEcoScoringLiveData.observe(this, {
+        dashboardViewModel.tableEcoScoringLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Failure -> {
 
@@ -469,5 +526,19 @@ class DashboardFragment : Fragment() {
         })
 
         dashboardViewModel.getEcoScoringTable()
+    }
+
+    private fun openLinkTelematicsLink() {
+
+        val link = dashboardViewModel.getTelematicsLink(requireContext())
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                when {
+                    URLUtil.isValidUrl(link) -> Uri.parse(link)
+                    else -> Uri.parse(link)
+                }
+            )
+        )
     }
 }

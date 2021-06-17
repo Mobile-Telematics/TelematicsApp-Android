@@ -9,7 +9,6 @@
     <string name="nav_item_settings">Settings</string>
     <string name="nav_item_profile">Profile</string>
 
-
     <!-- Login Screen -->
     <string name="login_screen_join">JOIN</string>
     <string name="login_screen_sigh_in">SIGN IN</string>
@@ -19,7 +18,6 @@
     <string name="login_screen_hint_password">Password</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
-
     <string name="dialog_registration_confirm_proceed">This Login is not registered. Do you want to proceed registration with this Login?</string>
     <string name="dialog_cancel">CANCEL</string>
     <string name="dialog_confirm">OK</string>
@@ -49,7 +47,6 @@
         <item>YEAR</item>
     </string-array>
 
-
     <!-- Change pass Screen -->
     <string name="change_pass_length_validate">Password must be at least 6 characters.</string>
 
@@ -70,18 +67,13 @@
     <string name="account_not_specified">Not specified</string>
     <string name="account_user_card_birthday">Birthday:\n%1$s</string>
     <string name="account_user_card_address">Address:\n%1$s</string>
-
-
     <string name="retry">Retry</string>
-
-
     <string name="dashboard_new_overall_score">Overall Score</string>
     <string name="dashboard_new_acceleration_score">Acceleration Score</string>
     <string name="dashboard_new_braking_score">Braking Score</string>
     <string name="dashboard_new_phone_dist_score">Phone Distraction Score</string>
     <string name="dashboard_new_speeding_score">Speeding Score</string>
     <string name="dashboard_new_cornering_score">Cornering Score</string>
-
     <string name="dashboard_new_quantity">quantity</string>
     <string name="dashboard_new_points">points</string>
     <string name="dashboard_new_latest_trip_score">Latest Scored Trip</string>
@@ -96,7 +88,6 @@
     <string name="dashboard_new_complete_with_your_friends">Complete with your friends</string>
     <string name="dashboard_new_grow_your_safe_driving_score">Grow your Safe Driving Score</string>
     <string name="dashboard_new_let_s_go">Let\'s go!</string>
-
     <string name="dashboard_new_template_progress_km">%1$s km / %2$s km</string>
     <string name="dashboard_new_template_progress_mi">%1$s mi / %2$s mi</string>
     <string name="dashboard_new_just_press_start">To get full experience of our product, pass test drive and get your personal driving style analysis. \n Just press <b>Start</b></string>

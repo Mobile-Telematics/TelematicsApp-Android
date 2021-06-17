@@ -15,11 +15,11 @@ import com.telematics.data.interceptor.AppIDInterceptor
 import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
 import com.telematics.data.interceptor.MainInterceptor
-import com.telematics.data.repository.AuthRepoImpl
-import com.telematics.data.repository.StatisticRepoImpl
-import com.telematics.data.repository.SessionRepoImpl
-import com.telematics.data.repository.UserRepoImpl
+import com.telematics.data.model.tracking.DateFormatter
+import com.telematics.data.model.tracking.TripsMapper
+import com.telematics.data.repository.*
 import com.telematics.data.tracking.TrackingApiImpl
+import com.telematics.data.utils.ImageLoader
 import com.telematics.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -226,7 +226,35 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTrackingRepo(): TrackingApiRepo {
-        return TrackingApiImpl()
+    fun provideDateFormatter(): DateFormatter {
+        return DateFormatterImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTripsMapper(
+        dateFormatter: DateFormatter
+    ): TripsMapper {
+        return TripsMapper(dateFormatter)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTrackingRepo(
+        tripsMapper: TripsMapper
+    ): TrackingApiRepo {
+        return TrackingApiImpl(tripsMapper)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingsRepo(): SettingsRepo {
+        return SettingsRepoImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideImageLoader(): ImageLoader {
+        return ImageLoader()
     }
 }

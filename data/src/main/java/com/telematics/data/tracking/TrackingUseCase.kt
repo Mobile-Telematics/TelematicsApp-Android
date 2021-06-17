@@ -3,14 +3,19 @@ package com.telematics.data.tracking
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import com.telematics.data.utils.ImageLoader
+import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.repository.TrackingApiRepo
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class TrackingUseCase
 @Inject constructor(
     context: Context,
-    private val trackingApiRepo: TrackingApiRepo
+    private val trackingApiRepo: TrackingApiRepo,
+    private val imageLoader: ImageLoader
 ) {
 
     init {
@@ -39,7 +44,7 @@ class TrackingUseCase
         trackingApiRepo.setEnableTrackingSDK(false)
     }
 
-    fun setIntentForNotification(intent: Intent){
+    fun setIntentForNotification(intent: Intent) {
 
         trackingApiRepo.setIntentForNotification(intent)
     }
@@ -49,4 +54,20 @@ class TrackingUseCase
     }
 
 
+    fun getLastTrip(): Flow<TripData?> {
+
+        return flow {
+            val data = trackingApiRepo.getLastTrack()
+            emit(data)
+        }
+    }
+
+    fun getTripImage(token: String): Flow<Bitmap?> {
+
+        return flow {
+            val data = trackingApiRepo.getTrackImageHolder(token) ?: return@flow emit(null)
+            val bitmap = imageLoader.loadImage(data.url, data.r, token)
+            emit(bitmap)
+        }
+    }
 }
