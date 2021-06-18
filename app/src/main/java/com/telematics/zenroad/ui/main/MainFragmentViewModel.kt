@@ -44,7 +44,7 @@ class MainFragmentViewModel @Inject constructor(
     }
 
     fun enableTracking() {
-        trackingUseCase.enableTracking()
+        trackingUseCase.enableTrackingSDK()
     }
 
     fun setIntentForNotification(intent: Intent) {

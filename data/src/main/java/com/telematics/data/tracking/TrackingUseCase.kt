@@ -36,8 +36,8 @@ class TrackingUseCase
         trackingApiRepo.checkPermissionAndStartWizard(activity)
     }
 
-    fun enableTracking() {
-        trackingApiRepo.startTracking()
+    fun enableTrackingSDK() {
+        trackingApiRepo.setEnableTrackingSDK(true)
     }
 
     fun disableTrackingSDK() {

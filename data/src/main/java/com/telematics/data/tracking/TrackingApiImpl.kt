@@ -59,7 +59,6 @@ class TrackingApiImpl @Inject constructor(
     override fun startTracking() {
 
         trackingApi.setEnableSdk(true)
-        trackingApi.startTracking()
     }
 
     override fun setEnableTrackingSDK(enable: Boolean) {

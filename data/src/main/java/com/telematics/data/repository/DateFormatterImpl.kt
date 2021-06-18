@@ -1,6 +1,5 @@
 package com.telematics.data.repository
 
-import android.util.Log
 import com.telematics.data.model.tracking.DateFormatter
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -29,11 +28,10 @@ class DateFormatterImpl : DateFormatter {
     }
 
     override fun parseDate(date: String): Date? {
-        try {
-            return fullDate.parse(date)
+        return try {
+            fullDate.parse(date)
         } catch (e: ParseException) {
-            Log.d("TAG", "ParseException " + e.message)
-            return null
+            null
         }
     }
 
