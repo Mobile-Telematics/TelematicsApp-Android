@@ -47,7 +47,9 @@ class Authentication constructor(
     }
 
     override suspend fun loginAPI(deviceToken: String): SessionData {
-        return authRepo.loginWithDeviceToken(deviceToken)
+        val data =  authRepo.loginWithDeviceToken(deviceToken)
+        sessionRepo.saveSession(data)
+        return data
     }
 
     override suspend fun signInWithEmailAndPasswordFirebase(
@@ -183,5 +185,11 @@ class Authentication constructor(
         authRepo.logout()
         userRepo.clear()
         return true
+    }
+
+    override suspend fun loginWithDeviceToken(deviceToken: String): SessionData {
+        val data =  authRepo.loginWithDeviceToken(deviceToken)
+        sessionRepo.saveSession(data)
+        return data
     }
 }

@@ -44,4 +44,8 @@ interface AuthenticationRepo {
 
     /** logout*/
     suspend fun logout(): Boolean
+
+
+    /** test login*/
+    suspend fun loginWithDeviceToken(deviceToken: String): SessionData
 }

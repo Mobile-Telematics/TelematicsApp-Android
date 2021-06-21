@@ -9,6 +9,8 @@ import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
 import com.telematics.features.account.use_case.LoginUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
@@ -20,6 +22,7 @@ class LoginVerifyCodeViewModel @Inject constructor(
     fun authorise(phone: String, activity: Activity, callback: PhoneAuthCallback) {
 
         loginUseCase.authorize(phone, activity, callback)
+            .flowOn(Dispatchers.IO)
             .launchIn(viewModelScope)
     }
 
@@ -31,6 +34,7 @@ class LoginVerifyCodeViewModel @Inject constructor(
 
         val sendCodeState = MutableLiveData<Result<Boolean>>()
         loginUseCase.sendVerifyCode(phone, code, verificationId)
+            .flowOn(Dispatchers.IO)
             .setLiveDataForResult(sendCodeState)
             .launchIn(viewModelScope)
         return sendCodeState

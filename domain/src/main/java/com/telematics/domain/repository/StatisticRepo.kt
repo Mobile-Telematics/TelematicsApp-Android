@@ -9,5 +9,4 @@ interface StatisticRepo {
     suspend fun getUserStatisticsScoreData(): UserStatisticsScoreData
     suspend fun getMainEcoScoring(): StatisticEcoScoringMain
     suspend fun getEcoScoringStatisticsData(type: Int): StatisticEcoScoringTabData
-    suspend fun getLastTrip()
 }
