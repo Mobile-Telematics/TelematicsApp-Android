@@ -2,7 +2,7 @@
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/telematicsapp.jpeg)
 
 ## Description
-This Telematics App is created by DATA MOTION PTE. LTD. and is distributed free of charge to all customers & users and can be used to create your own application for iOS in a few steps.
+This Telematics App is created by DATA MOTION PTE. LTD. and is distributed free of charge to all customers & users and can be used to create your own application for Android in a few steps.
 
 ## Basic Concepts & Credentials
 For commercial use, you need to create a sandbox account https://userdatahub.com/user/registration and get `InstanceID` and`InstanceKEY` auth keys to work with our API
