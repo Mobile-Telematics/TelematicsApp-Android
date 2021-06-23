@@ -1,10 +1,7 @@
 package com.telematics.data.mappers
 
-import com.telematics.data.model.statistics.DrivingDetailsRest
-import com.telematics.data.model.statistics.EcoScoringRest
-import com.telematics.data.model.statistics.UserStatisticsIndividualRest
-import com.telematics.data.model.statistics.UserStatisticsScoreRest
 import com.telematics.data.model.rest.ApiResult
+import com.telematics.data.model.statistics.*
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.statistics.*
@@ -174,4 +171,32 @@ fun UserStatisticsScoreData.toScoreTypeModelList(): List<ScoreTypeModel> {
         ScoreTypeModel(ScoreType.SPEEDING, speedingScore),
         ScoreTypeModel(ScoreType.CORNERING, corneringScore)
     )
+}
+
+fun LeaderboardResponse.toLeaderboardData(type: LeaderboardType): List<LeaderboardMemberData> {
+
+    val listLeaderboardMemberRest = this.users
+
+    if (listLeaderboardMemberRest.isNullOrEmpty()) return emptyList()
+
+    val listFriendsMembersData = ArrayList<LeaderboardMemberData>(listLeaderboardMemberRest.size)
+    listLeaderboardMemberRest.indices.mapTo(listFriendsMembersData) {
+        val user = listLeaderboardMemberRest[it]
+        LeaderboardMemberData(
+            user.deviceToken ?: "",
+            user.firstName ?: "",
+            user.lastName ?: "",
+            user.place ?: 1,
+            user.trips ?: 0,
+            user.image ?: "",
+            user.isCurrentUser ?: false,
+            type,
+            user.nickname ?: "",
+            user.distance ?: 0.0,
+            user.duration ?: 0.0,
+            user.value ?: 0.0,
+            user.valuePerc ?: 0.0
+        )
+    }
+    return listFriendsMembersData
 }

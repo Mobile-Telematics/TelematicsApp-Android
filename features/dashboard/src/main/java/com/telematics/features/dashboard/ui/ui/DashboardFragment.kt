@@ -5,6 +5,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +33,7 @@ import com.telematics.domain.model.statistics.*
 import com.telematics.features.dashboard.ui.ui.chart.DashboardTypePagerAdapter
 import com.telematics.features.dashboard.ui.ui.ecoscoring.DashboardEcoScoringTabAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_new_dashboard_rank.*
 import kotlinx.android.synthetic.main.layout_eco_scoring_dashboard.*
 import kotlinx.android.synthetic.main.layout_last_trip_dashboard.view.*
 import java.text.DecimalFormat
@@ -114,6 +118,7 @@ class DashboardFragment : Fragment() {
 
         observeUserIndividualStatistics()
         observeDriveCoins()
+        observeRank()
     }
 
     private fun observeDriveCoins() {
@@ -137,6 +142,40 @@ class DashboardFragment : Fragment() {
             }
         })
         dashboardViewModel.getDriveCoins()
+    }
+
+    private fun observeRank() {
+
+        Log.d(TAG, "observeRank: start")
+
+        fun setRank(rank: String) {
+            Log.d(TAG, "setRank: rank $rank")
+
+            val spannable = SpannableString(rank)
+            spannable.setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorGreenText
+                    )
+                ),
+                rank.indexOf("#"), rank.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            rankValue.text = spannable
+        }
+
+        dashboardViewModel.getRank().observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                Log.d(TAG, "observeRank: onSuccess r: $it")
+                val s = resources.getString(R.string.dashboard_new_rank) + " #${it}"
+                setRank(s)
+            }
+            result.onFailure {
+                Log.d(TAG, "observeRank: onFailure e: ${it.printStackTrace()}")
+                val s = resources.getString(R.string.dashboard_new_rank) + " #—"
+                setRank(s)
+            }
+        }
     }
 
     private fun observeUserIndividualStatistics() {
@@ -284,7 +323,6 @@ class DashboardFragment : Fragment() {
 
         val chart = binding.chart
 
-        Log.i("MMMMM Advanced", "initializeChart")
         chart.clear()
         val entries = mutableListOf<Entry>()
         xAxisValues.clear()

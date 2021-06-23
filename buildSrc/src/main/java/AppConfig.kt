@@ -25,5 +25,8 @@ object AppConfig {
     const val USER_STATISTICS = "\"https://api.telematicssdk.com/\""
     const val USER_STATISTICS_DEV = "\"https://api.telematicssdk.com/\""
 
+    const val LEADERBOARD_URL = "\"http://leaderboard.telematicssdk.com/\""
+    const val LEADERBOARD_URL_DEV = "\"http://leaderboard.telematicssdk.com/\""
+
     const val HERE_API_KEY = "\"-8eOQzD_cifdELVCMsrzndOpNzgsZANRSL_leLQHC-w\""
 }

@@ -31,6 +31,7 @@ android {
             buildConfigField("String", "userServiceUrl", AppConfig.USER_SERVICE_URL)
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL)
             buildConfigField("String", "userStatisticsUrl", AppConfig.USER_STATISTICS)
+            buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL)
             buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
         }
         getByName("debug") {
@@ -43,6 +44,7 @@ android {
             buildConfigField("String", "userServiceUrl", AppConfig.USER_SERVICE_URL_DEV)
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL_DEV)
             buildConfigField("String", "userStatisticsUrl", AppConfig.USER_STATISTICS_DEV)
+            buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL_DEV)
             buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
         }
     }

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.raxeltelematics.v2.sdk.Settings
 import com.raxeltelematics.v2.sdk.TrackingApi
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
 import com.telematics.data.model.tracking.TripsMapper
@@ -27,7 +28,8 @@ class TrackingApiImpl @Inject constructor(
     private var tripData: TripData? = null
 
     override fun setContext(context: Context) {
-        TrackingApi.getInstance().initialize(context)
+        val setting = Settings(true, Settings.stopTrackingTimeHigh, 150, true, true, true)
+        TrackingApi.getInstance().initialize(context, setting)
     }
 
     override fun setDeviceToken(deviceId: String) {

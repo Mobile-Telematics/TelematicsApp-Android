@@ -24,7 +24,7 @@ import java.util.*
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
-    private val dashboardRepo: StatisticRepo,
+    private val statisticRepo: StatisticRepo,
     private val trackingUseCase: TrackingUseCase,
     private val settingsRepo: SettingsRepo,
 ) : ViewModel() {
@@ -41,7 +41,7 @@ class DashboardViewModel @Inject constructor(
     fun getDriveCoins() {
 
         flow {
-            emit(dashboardRepo.getDriveCoins())
+            emit(statisticRepo.getDriveCoins())
         }
             .flowOn(Dispatchers.IO)
             .setLiveData(driveCoinsData)
@@ -51,7 +51,7 @@ class DashboardViewModel @Inject constructor(
     fun getUserIndividualStatistics() {
 
         flow {
-            val data = dashboardRepo.getUserStatisticsIndividualData()
+            val data = statisticRepo.getUserStatisticsIndividualData()
             emit(data)
         }
             .flowOn(Dispatchers.IO)
@@ -62,9 +62,9 @@ class DashboardViewModel @Inject constructor(
     fun getStatistics() {
 
         flow {
-            val list = dashboardRepo.getDrivingDetails()
-            val userStatisticsIndividualData = dashboardRepo.getUserStatisticsIndividualData()
-            val userStatisticsScoreData = dashboardRepo.getUserStatisticsScoreData()
+            val list = statisticRepo.getDrivingDetails()
+            val userStatisticsIndividualData = statisticRepo.getUserStatisticsIndividualData()
+            val userStatisticsScoreData = statisticRepo.getUserStatisticsScoreData()
             val scoreTypeModelChart = list.toScoreTypeModelList()
             val scoreTypeModelNumbers = userStatisticsScoreData.toScoreTypeModelList()
             val scoreData = StatisticScoringData(
@@ -84,7 +84,7 @@ class DashboardViewModel @Inject constructor(
     fun getMainEcoScoring() {
 
         flow {
-            emit(dashboardRepo.getMainEcoScoring())
+            emit(statisticRepo.getMainEcoScoring())
         }
             .flowOn(Dispatchers.IO)
             .setLiveData(mainEcoScoringLiveData)
@@ -94,9 +94,9 @@ class DashboardViewModel @Inject constructor(
     fun getEcoScoringTable() {
 
         flow {
-            val weekData = dashboardRepo.getEcoScoringStatisticsData(Calendar.DAY_OF_WEEK)
-            val monthData = dashboardRepo.getEcoScoringStatisticsData(Calendar.MONTH)
-            val yearData = dashboardRepo.getEcoScoringStatisticsData(Calendar.YEAR)
+            val weekData = statisticRepo.getEcoScoringStatisticsData(Calendar.DAY_OF_WEEK)
+            val monthData = statisticRepo.getEcoScoringStatisticsData(Calendar.MONTH)
+            val yearData = statisticRepo.getEcoScoringStatisticsData(Calendar.YEAR)
             emit(StatisticEcoScoringTabsData(weekData, monthData, yearData))
         }
             .flowOn(Dispatchers.IO)
@@ -127,5 +127,20 @@ class DashboardViewModel @Inject constructor(
 
     fun getTelematicsLink(context: Context): String {
         return settingsRepo.getTelematicsLink(context)
+    }
+
+    fun getRank(): LiveData<Result<Int>> {
+
+        val rankState = MutableLiveData<Result<Int>>()
+        flow {
+            val data =
+                statisticRepo.getLeaderboard(LeaderboardType.Rate)
+                    ?.find { it.isCurrentUser }?.rank ?: 1
+            emit(data)
+        }
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(rankState)
+            .launchIn(viewModelScope)
+        return rankState
     }
 }
