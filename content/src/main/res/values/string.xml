@@ -1,6 +1,6 @@
 <resources>
     <!--TODO: #preprod -->
-    <string name="app_name">Zenroad</string>
+    <string name="app_name">YOUR_LABEL</string>
     <string name="login_screen_policy">I agree with <a href="https://www.telematicssdk.com/privacy-policy/">Privacy Policy</a></string>
 
     <string name="nav_item_feed">Feed</string>
@@ -143,4 +143,9 @@
     <string name="auth_error_empty_verification_code">The code must be filled</string>
     <string name="auth_error_incorrect_verification_code">Invalid verification code</string>
     <string name="auth_error_email_already_in_use">The email address is already in use by another account</string>
+
+    <string name="dashboard_eco_fuel">Fuel</string>
+    <string name="dashboard_eco_tyres">Tyres</string>
+    <string name="dashboard_eco_brakes">Brakes</string>
+    <string name="dashboard_eco_cost">Cost of ownership</string>
 </resources>
