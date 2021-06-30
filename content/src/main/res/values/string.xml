@@ -33,6 +33,13 @@
 
     <string name="logout">Logout</string>
 
+    <string name="settings_view_set_image_dialog_msg">To upload the image(s) you can capture it with Camera or choose from the device Gallery</string>
+    <string name="settings_view_take_a_picture">Camera</string>
+    <string name="settings_view_from_gallery">Gallery</string>
+
+    <string name="crop_screen_title">Crop Image</string>
+    <string name="crop_screen_done">DONE</string>
+
     <!--Verify code Screen-->
     <string name="verify_code_screen_message">Message with a code was sent to %1s\nEnter it in the field below</string>
     <string name="verify_code_screen_enter_code">Enter code</string>

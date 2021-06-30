@@ -1,5 +1,6 @@
 package com.telematics.features.account.ui.account
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,5 +40,25 @@ class AccountViewModel @Inject constructor(
             .setLiveDataForResult(userState)
             .launchIn(viewModelScope)
         return userState
+    }
+
+    fun uploadProfilePicture(filePath: String?): LiveData<Result<Unit>> {
+
+        val uploadProfilePictureState = MutableLiveData<Result<Unit>>()
+        loginUseCase.uploadProfilePicture(filePath)
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(uploadProfilePictureState)
+            .launchIn(viewModelScope)
+        return uploadProfilePictureState
+    }
+
+    fun getProfilePicture(): LiveData<Result<Bitmap?>> {
+
+        val profilePictureState = MutableLiveData<Result<Bitmap?>>()
+        loginUseCase.getProfilePicture()
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(profilePictureState)
+            .launchIn(viewModelScope)
+        return profilePictureState
     }
 }

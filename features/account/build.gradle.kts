@@ -65,4 +65,6 @@ dependencies {
     implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
+
+    implementation("com.isseiaoki:simplecropview:1.1.8") // for crop images
 }

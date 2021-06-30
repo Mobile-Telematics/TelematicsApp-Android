@@ -232,9 +232,10 @@ object AppModule {
     fun provideAuthentication(
         authRepo: UserServicesRepo,
         sessionRepo: SessionRepo,
-        userRepo: UserRepo
+        userRepo: UserRepo,
+        context: Context
     ): AuthenticationRepo {
-        return Authentication(authRepo, sessionRepo, userRepo)
+        return Authentication(authRepo, sessionRepo, userRepo, context)
     }
 
     @Provides

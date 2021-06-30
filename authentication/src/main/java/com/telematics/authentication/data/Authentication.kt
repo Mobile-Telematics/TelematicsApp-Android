@@ -1,6 +1,10 @@
 package com.telematics.authentication.data
 
 import android.app.Activity
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -9,6 +13,8 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storageMetadata
 import com.telematics.authentication.exception.AuthException
 import com.telematics.authentication.extention.await
 import com.telematics.authentication.mapper.Mapper
@@ -20,6 +26,8 @@ import com.telematics.domain.repository.AuthenticationRepo
 import com.telematics.domain.repository.SessionRepo
 import com.telematics.domain.repository.UserRepo
 import com.telematics.domain.repository.UserServicesRepo
+import java.io.File
+import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
 
 
@@ -27,13 +35,17 @@ import java.util.concurrent.TimeUnit
 class Authentication constructor(
     private val authRepo: UserServicesRepo,
     private val sessionRepo: SessionRepo,
-    private val userRepo: UserRepo
+    private val userRepo: UserRepo,
+    private val context: Context
 ) : AuthenticationRepo {
 
     private val TAG = "Authentication"
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = Firebase.database.reference
+    private val firebaseStorage = FirebaseStorage.getInstance()
+    private val firebaseStorageProfilePicRef = firebaseStorage.reference.child("profile_images")
+    private val firebaseStorageProfilePicFormat = ".png"
 
     override suspend fun getCurrentUserID(): String? {
         val userId = firebaseAuth.currentUser?.uid
@@ -47,7 +59,7 @@ class Authentication constructor(
     }
 
     override suspend fun loginAPI(deviceToken: String): SessionData {
-        val data =  authRepo.loginWithDeviceToken(deviceToken)
+        val data = authRepo.loginWithDeviceToken(deviceToken)
         sessionRepo.saveSession(data)
         return data
     }
@@ -76,7 +88,6 @@ class Authentication constructor(
             .setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                 override fun onCodeAutoRetrievalTimeOut(p0: String) {
                     Log.d(TAG, "signInWithPhoneFirebase: onCodeAutoRetrievalTimeOut")
-                    //callback.onTimeout()
                 }
 
                 override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
@@ -144,9 +155,10 @@ class Authentication constructor(
         firebaseDatabase.child("users").child(user.userId!!).setValue(userDatabase).await()
     }
 
-    override suspend fun getUserInFirebaseDatabase(userId: String): User? {
+    override suspend fun getUserInFirebaseDatabase(userId: String): User {
 
-        val user = firebaseDatabase.child("users").child(userId).await<User>()
+        val userDatabase = firebaseDatabase.child("users").child(userId).await<UserDatabase>()
+        val user = Mapper.userDatabaseToUser(userDatabase)
         Log.d(TAG, "getDeviceTokenInFirebaseDatabase: $user")
         userRepo.saveUser(user)
         return user
@@ -158,24 +170,73 @@ class Authentication constructor(
 
         Log.d(TAG, "updateUser user:${newUser}")
 
-        val userDatabase = UserDatabase().apply {
-            this.email = newUser.email ?: user.email
-            this.firstName = newUser.firstName ?: user.firstName
-            this.lastName = newUser.lastName ?: user.lastName
-            this.phone = newUser.phone ?: user.phone
-            this.birthday = newUser.birthday ?: user.birthday
-            this.address = newUser.address ?: user.address
-            this.clientId = newUser.clientId ?: user.clientId
-            this.userId = newUser.userId ?: user.userId
-
-            //default
-            this.deviceToken = user.deviceToken
-            //this.image = newUser.image ?: user.image
-        }
+        val userDatabase = Mapper.userToUserDatabase(newUser)
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
         user.userId?.let { userId ->
             firebaseDatabase.child("users").child(userId).setValue(userDatabase).await()
         }
+    }
+
+    override suspend fun uploadProfilePicture(filePath: String?): String? {
+
+        val userId = firebaseAuth.currentUser?.uid
+
+        Log.d(TAG, "uploadProfilePicture: filePath: $filePath")
+        Log.d(TAG, "uploadProfilePicture: userId: $userId")
+
+        userId ?: return null
+        filePath ?: return null
+
+        saveProfilePicture(filePath)
+
+        val imagesRef =
+            firebaseStorageProfilePicRef.child("$userId$firebaseStorageProfilePicFormat")
+
+        val metadata = storageMetadata {
+            contentType = "application/octet-stream"
+        }
+        val fileUri = Uri.fromFile(File(filePath))
+        imagesRef.putFile(fileUri, metadata).await()
+        val uri = imagesRef.downloadUrl.await()
+
+        Log.d(TAG, "uploadProfilePicture: image url ${uri}")
+
+        return uri.toString()
+    }
+
+    override suspend fun downloadProfilePicture(): Bitmap? {
+
+        val userId = firebaseAuth.currentUser?.uid
+        userId ?: return null
+
+        val imagesRef =
+            firebaseStorageProfilePicRef.child("$userId$firebaseStorageProfilePicFormat")
+        val tempFile = File(context.filesDir, "$userId")
+        tempFile.createNewFile()
+        imagesRef.getFile(tempFile).await()
+        return BitmapFactory.decodeFile(tempFile.path)
+    }
+
+    override suspend fun getProfilePictureFromCache(): Bitmap? {
+
+        val userId = firebaseAuth.currentUser?.uid
+        userId ?: return null
+        val tempFile = File(context.filesDir, "$userId")
+        return BitmapFactory.decodeFile(tempFile.path)
+    }
+
+    private fun saveProfilePicture(filePath: String?) {
+
+        val userId = firebaseAuth.currentUser?.uid
+        userId ?: return
+
+        val file = File(context.filesDir, "$userId")
+        file.mkdir()
+        val fOut = FileOutputStream(file)
+        val bmp = BitmapFactory.decodeFile(filePath)
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, fOut)
+        fOut.flush()
+        fOut.close()
     }
 
     override suspend fun logout(): Boolean {
@@ -188,7 +249,7 @@ class Authentication constructor(
     }
 
     override suspend fun loginWithDeviceToken(deviceToken: String): SessionData {
-        val data =  authRepo.loginWithDeviceToken(deviceToken)
+        val data = authRepo.loginWithDeviceToken(deviceToken)
         sessionRepo.saveSession(data)
         return data
     }

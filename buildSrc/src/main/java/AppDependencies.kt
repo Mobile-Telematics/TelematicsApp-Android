@@ -67,6 +67,15 @@ object AppDependencies {
     private const val navigationUi =
         "android.arch.navigation:navigation-ui-ktx:${Versions.navigationUI}"
 
+    //firebase
+    private const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
+    private const val googlePlayServices =
+        "com.google.android.gms:play-services-auth:${Versions.googlePlayServices}"
+    private const val firebaseDatabaseKtx =
+        "com.google.firebase:firebase-database-ktx:${Versions.firebaseDatabaseKtx}"
+    private const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
+    private const val firebaseStorage =
+        "com.google.firebase:firebase-storage-ktx:${Versions.firebaseStorage}"
 
     val appLibraries = arrayListOf(
         kotlinStdLib,
@@ -105,6 +114,14 @@ object AppDependencies {
         navigationFragmentKtx,
         navigationUiKtx,
         navigationUi
+    )
+
+    val firebase = arrayListOf(
+        firebaseBom,
+        firebaseDatabaseKtx,
+        firebaseAuth,
+        firebaseStorage,
+        googlePlayServices
     )
 }
 

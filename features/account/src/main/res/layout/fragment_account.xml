@@ -8,18 +8,6 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!--    <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,14 +42,14 @@
                     android:layout_width="@dimen/account_avatar_size"
                     android:layout_height="@dimen/account_avatar_size"
                     android:layout_gravity="center"
-                    android:innerRadius="0dp"
-                    android:shape="ring"
+                    app:cardCornerRadius="60dp"
                     tools:src="@drawable/ic_error">
 
                     <ImageView
                         android:id="@+id/accountAvatar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -85,8 +73,7 @@
                         android:text="{user.firstName}"
                         android:textAlignment="textStart"
                         android:textColor="@android:color/white"
-                        android:textSize="@dimen/account_user_name_text_size"
-                        tools:text="@string/account_user_name" />
+                        android:textSize="@dimen/account_user_name_text_size" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

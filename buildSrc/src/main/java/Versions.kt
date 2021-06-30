@@ -3,6 +3,7 @@ object Versions {
     const val kotlin = "1.4.32"
 
     const val trackingApi = "2.2.251"
+
     //libs
     const val coreKtx = "1.2.0"
     const val appcompat = "1.2.0"
@@ -23,6 +24,11 @@ object Versions {
     const val navigationFragmentKtx = "2.3.5"
     const val navigationUI = "1.0.0"
 
+    const val firebaseBom = "28.2.0"
+    const val googlePlayServices = "19.0.0"
+    const val firebaseDatabaseKtx = "20.0.0"
+    const val firebaseAuth = "21.0.1"
+    const val firebaseStorage = "20.0.0"
 }
 
 object PluginVersion {

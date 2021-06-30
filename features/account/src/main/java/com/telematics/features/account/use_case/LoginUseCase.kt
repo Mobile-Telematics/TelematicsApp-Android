@@ -1,7 +1,9 @@
 package com.telematics.features.account.use_case
 
 import android.app.Activity
+import android.graphics.Bitmap
 import android.util.Log
+import com.telematics.data.utils.ImageLoader
 import com.telematics.domain.model.LoginType
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.PhoneAuthCallback
@@ -20,8 +22,13 @@ class LoginUseCase @Inject constructor(
 
     private val TAG = "LoginUseCase"
 
+    private var isPictureUploading = false
+
     fun isSessionAvailable(): Flow<Boolean> {
         Log.d(TAG, "isSessionAvailable")
+
+        //todo: preprod #test login with device token
+        //return testLogin("292b4a0c-8bca-42ae-be0e-568a76175605")
 
         return flow {
             var result = false
@@ -207,14 +214,57 @@ class LoginUseCase @Inject constructor(
 
     fun updateUser(user: User): Flow<Unit> {
         return flow {
-
             val oldUser = userRepo.getUser()
             val newUser = oldUser.getNewUpdatedUser(user)
             val userId = userRepo.getUserId()
             newUser.userId = userId
             userRepo.saveUser(newUser)
-            val unit = authenticationRepo.updateUserInFirebaseDatabase(newUser)
-            emit(unit)
+            authenticationRepo.updateUserInFirebaseDatabase(newUser)
+            emit(Unit)
+        }
+    }
+
+    fun uploadProfilePicture(filePath: String?): Flow<Unit> {
+
+        isPictureUploading = true
+        return flow {
+            val profilePictureUrl = authenticationRepo.uploadProfilePicture(filePath)
+            val newUser = userRepo.getUser()
+            newUser.profilePictureUrl = profilePictureUrl
+            newUser.userId = userRepo.getUserId()
+            userRepo.saveUser(newUser)
+            authenticationRepo.updateUserInFirebaseDatabase(newUser)
+            Log.d(TAG, "uploadProfilePicture: profilePictureUrl $profilePictureUrl")
+            isPictureUploading = false
+            emit(Unit)
+        }
+    }
+
+    fun getProfilePicture(): Flow<Bitmap?> {
+        return flow {
+            val pictureUrl = userRepo.getUser().profilePictureUrl
+            Log.d(TAG, "getProfilePicture: pictureUrl $pictureUrl")
+            val bitmapCache = authenticationRepo.getProfilePictureFromCache()
+            emit(bitmapCache)
+            if (isPictureUploading) {
+                return@flow
+            }
+            val bitmap = authenticationRepo.downloadProfilePicture()
+            emit(bitmap)
+        }
+    }
+
+    //todo: preprod #test login with device token
+    fun testLogin(deviceToken: String): Flow<Boolean> {
+
+        return flow {
+            val sessionData =
+                authenticationRepo.loginWithDeviceToken(deviceToken)
+            val user = User()
+            user.firstName = "Test user name"
+            user.deviceToken = deviceToken
+            saveUser(user)
+            emit(!sessionData.isEmpty())
         }
     }
 }

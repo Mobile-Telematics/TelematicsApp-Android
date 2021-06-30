@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/accountWizardView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorTelematicsWizardBackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <TextView
+        android:id="@+id/permissionsWizardPagerStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:text="STEP 1/4"
+        android:textColor="@color/colorTelematicsWizardSteps"
+        android:textStyle="bold" />
+
+    <!-- Wizard Page Content area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Pager for Wizard -->
+        <com.raxeltelematics.v2.sdk.utils.permissions.NoScrollViewPager
+            android:id="@+id/permissionsWizardPager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent" />
+
+    </LinearLayout>
+
+    <!-- Bottom bar -->
+    <LinearLayout
+        android:id="@+id/permissionsWizardBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <!--Show btn -->
+        <Button
+            android:id="@+id/permissionsWizardShowBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/selector_telematics_wiz_btn"
+            android:enabled="true"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="@string/wizard_telematics_show_request"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTelematicsWizardButtonText"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

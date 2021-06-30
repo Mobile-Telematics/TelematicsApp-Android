@@ -22,8 +22,12 @@ data class User(
     var phone: String? = null,
     var birthday: String? = null,
     var address: String? = null,
-    var clientId: String? = null
-    //var image: String? = null,
+    var clientId: String? = null,
+    var profilePictureUrl: String? = null,
+
+    var gender: String? = null,
+    var maritalStatus: String? = null,
+    var childrenCount: Int? = null
 ) : IUser(id = userId ?: "", token = deviceToken ?: ""), Serializable {
 
     fun isCompleted(): Boolean {
@@ -37,12 +41,16 @@ data class User(
             this.userId = this@User.userId
 
             this.email = newUser.email ?: this.email
-            this.firstName = newUser.firstName ?: this.firstName
-            this.lastName = newUser.lastName ?: this.lastName
-            this.phone = newUser.phone ?: this.phone
-            this.birthday = newUser.birthday ?: this.birthday
-            this.address = newUser.address ?: this.address
-            this.clientId = newUser.clientId ?: this.clientId
+            this.firstName = newUser.firstName ?: this.firstName ?: ""
+            this.lastName = newUser.lastName ?: this.lastName ?: ""
+            this.phone = newUser.phone ?: this.phone ?: ""
+            this.birthday = newUser.birthday ?: this.birthday ?: ""
+            this.address = newUser.address ?: this.address ?: ""
+            this.clientId = newUser.clientId ?: this.clientId ?: ""
+            this.profilePictureUrl = newUser.profilePictureUrl ?: this.profilePictureUrl ?: ""
+            this.gender = newUser.gender ?: this.gender ?: ""
+            this.maritalStatus = newUser.maritalStatus ?: this.maritalStatus ?: ""
+            this.childrenCount = newUser.childrenCount ?: this.childrenCount ?: 0
         }
     }
 }
