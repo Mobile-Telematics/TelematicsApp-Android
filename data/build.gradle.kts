@@ -73,5 +73,5 @@ dependencies {
     implementation(project(Modules.content))
 
     implementation(AppDependencies.trackingApi)
-    implementation("com.google.guava:guava:27.0.1-android")
+    implementation(AppDependencies.googleGuava)
 }

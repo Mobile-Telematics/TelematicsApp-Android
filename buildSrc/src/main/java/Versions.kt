@@ -23,12 +23,19 @@ object Versions {
     const val lifecycle = "2.3.1"
     const val navigationFragmentKtx = "2.3.5"
     const val navigationUI = "1.0.0"
+    const val androidxActivity = "1.2.0"
+    const val androidxFragment = "1.3.0"
+    const val cropView = "1.1.8"
+    const val chartView = "v3.1.0"
+    const val circleIndicatorView = "2.1.4"
 
     const val firebaseBom = "28.2.0"
-    const val googlePlayServices = "19.0.0"
     const val firebaseDatabaseKtx = "20.0.0"
     const val firebaseAuth = "21.0.1"
     const val firebaseStorage = "20.0.0"
+
+    const val googlePlayServices = "19.0.0"
+    const val googleGuava = "27.0.1-android"
 }
 
 object PluginVersion {

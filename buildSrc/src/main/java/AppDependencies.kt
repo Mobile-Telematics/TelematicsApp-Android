@@ -13,6 +13,11 @@ object AppDependencies {
     private const val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     private const val material = "com.google.android.material:material:${Versions.material}"
+    private const val androidxActivity = "androidx.activity:activity:${Versions.androidxActivity}"
+    private const val androidxFragment = "androidx.fragment:fragment:${Versions.androidxFragment}"
+    const val cropView = "com.isseiaoki:simplecropview:${Versions.cropView}"
+    const val chartView = "com.github.PhilJay:MPAndroidChart:${Versions.chartView}"
+    const val circleIndicatorView = "me.relex:circleindicator:${Versions.circleIndicatorView}"
 
     //di hilt
     const val daggerHiltCompiler =
@@ -69,13 +74,17 @@ object AppDependencies {
 
     //firebase
     private const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
-    private const val googlePlayServices =
-        "com.google.android.gms:play-services-auth:${Versions.googlePlayServices}"
     private const val firebaseDatabaseKtx =
         "com.google.firebase:firebase-database-ktx:${Versions.firebaseDatabaseKtx}"
     private const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
     private const val firebaseStorage =
         "com.google.firebase:firebase-storage-ktx:${Versions.firebaseStorage}"
+
+    //google
+    private const val googlePlayServices =
+        "com.google.android.gms:play-services-auth:${Versions.googlePlayServices}"
+    const val googleGuava = "com.google.guava:guava:${Versions.googleGuava}"
+
 
     val appLibraries = arrayListOf(
         kotlinStdLib,
@@ -85,7 +94,9 @@ object AppDependencies {
         material,
         encryptedSharedPref,
         coroutines,
-        coroutinesAndroid
+        coroutinesAndroid,
+        androidxActivity,
+        androidxFragment
     )
 
     val daggerHiltLibraries = arrayListOf(
