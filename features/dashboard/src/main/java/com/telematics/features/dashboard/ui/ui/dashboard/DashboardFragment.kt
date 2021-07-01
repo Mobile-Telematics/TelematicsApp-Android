@@ -1,4 +1,4 @@
-package com.telematics.features.dashboard.ui.ui
+package com.telematics.features.dashboard.ui.ui.dashboard
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -33,6 +33,7 @@ import com.telematics.domain.model.statistics.*
 import com.telematics.features.dashboard.ui.ui.chart.DashboardTypePagerAdapter
 import com.telematics.features.dashboard.ui.ui.ecoscoring.DashboardEcoScoringTabAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import kotlinx.android.synthetic.main.fragment_new_dashboard_rank.*
 import kotlinx.android.synthetic.main.layout_eco_scoring_dashboard.*
 import kotlinx.android.synthetic.main.layout_last_trip_dashboard.view.*
@@ -91,6 +92,21 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.getInt("position")
 
+        binding.drivingScoresPager.offscreenPageLimit = 6
+        binding.drivingScoresPager.adapter = scoringAdapter
+        binding.progressIndicator.setViewPager(binding.drivingScoresPager)
+
+        binding.dashboardEmptyLastTrip.dashboardEmptyLastTripPermissions.setOnClickListener {
+            openLinkTelematicsLink()
+        }
+        scoringAdapter.registerAdapterDataObserver(binding.progressIndicator.adapterDataObserver)
+
+        setListener()
+        init()
+    }
+
+    private fun setListener() {
+
         binding.leftArrow.setOnClickListener {
             val position =
                 if (binding.drivingScoresPager.currentItem == 0) scoringAdapter.itemCount - 1 else binding.drivingScoresPager.currentItem - 1
@@ -101,24 +117,13 @@ class DashboardFragment : Fragment() {
                 if (binding.drivingScoresPager.currentItem == scoringAdapter.itemCount - 1) 0 else binding.drivingScoresPager.currentItem + 1
             binding.drivingScoresPager.setCurrentItem(position, true)
         }
-
-        binding.drivingScoresPager.offscreenPageLimit = 6
-        binding.drivingScoresPager.adapter = scoringAdapter
-        binding.progressIndicator.setViewPager(binding.drivingScoresPager)
-
-        binding.dashboardEmptyLastTrip.dashboardEmptyLastTripPermissions.setOnClickListener {
-            openLinkTelematicsLink()
-        }
-        scoringAdapter.registerAdapterDataObserver(binding.progressIndicator.adapterDataObserver)
-
-        init()
     }
 
     private fun init() {
 
-        observeUserIndividualStatistics()
         observeDriveCoins()
         observeRank()
+        observeUserIndividualStatistics()
     }
 
     private fun observeDriveCoins() {

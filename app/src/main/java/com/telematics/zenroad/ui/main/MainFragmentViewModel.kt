@@ -1,13 +1,16 @@
 package com.telematics.zenroad.ui.main
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.data.tracking.TrackingUseCase
+import com.telematics.domain.model.authentication.User
 import com.telematics.domain.repository.UserRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -50,5 +53,32 @@ class MainFragmentViewModel @Inject constructor(
     fun setIntentForNotification(intent: Intent) {
 
         trackingUseCase.setIntentForNotification(intent)
+    }
+
+    fun getUser(): LiveData<Result<User>> {
+
+        val userState = MutableLiveData<Result<User>>()
+        flow {
+            val user = userRepo.getUser()
+            emit(user)
+        }
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(userState)
+            .launchIn(viewModelScope)
+        return userState
+    }
+
+    fun getProfilePicture(context: Context): LiveData<Result<Bitmap?>> {
+
+        val profilePictureState = MutableLiveData<Result<Bitmap?>>()
+        flow {
+            val bitmapCache = userRepo.getUserPicture(context)
+            emit(bitmapCache)
+        }
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(profilePictureState)
+            .launchIn(viewModelScope)
+
+        return profilePictureState
     }
 }

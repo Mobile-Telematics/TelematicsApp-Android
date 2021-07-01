@@ -1,4 +1,4 @@
-package com.telematics.features.dashboard.ui.ui
+package com.telematics.features.dashboard.ui.ui.dashboard
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -26,7 +26,7 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     private val statisticRepo: StatisticRepo,
     private val trackingUseCase: TrackingUseCase,
-    private val settingsRepo: SettingsRepo,
+    private val settingsRepo: SettingsRepo
 ) : ViewModel() {
 
     private val TAG = "DashboardViewModel"

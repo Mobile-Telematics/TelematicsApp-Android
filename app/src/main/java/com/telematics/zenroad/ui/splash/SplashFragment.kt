@@ -50,13 +50,13 @@ class SplashFragment : Fragment() {
 
     private fun goToLogin() {
 
-        requireActivity().findNavController(R.id.nav_host)
+        requireActivity().findNavController(R.id.main_nav_host)
             .navigate(R.id.action_splash_to_loginFragment)
     }
 
     private fun goToDashboard() {
 
-        requireActivity().findNavController(R.id.nav_host)
+        requireActivity().findNavController(R.id.main_nav_host)
             .navigate(R.id.action_splash_to_mainFragment)
     }
 }

@@ -3,9 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_container"
+    android:background="@drawable/bg_onboard_first"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/mainScrollView"
@@ -16,7 +26,7 @@
         app:layout_constraintBottom_toTopOf="@id/mainBottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/mainViewPager"

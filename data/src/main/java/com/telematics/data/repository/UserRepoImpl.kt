@@ -1,9 +1,13 @@
 package com.telematics.data.repository
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import com.telematics.domain.model.authentication.User
 import com.telematics.domain.repository.UserRepo
+import java.io.File
 import javax.inject.Inject
 
 class UserRepoImpl @Inject constructor(
@@ -89,5 +93,12 @@ class UserRepoImpl @Inject constructor(
             .putString("maritalStatus", user.maritalStatus)
             .putInt("childrenCount", user.childrenCount ?: 0)
             .apply()
+    }
+
+    override suspend fun getUserPicture(context: Context): Bitmap {
+
+        val userId = getUserId()
+        val tempFile = File(context.filesDir, "$userId")
+        return BitmapFactory.decodeFile(tempFile.path)
     }
 }
