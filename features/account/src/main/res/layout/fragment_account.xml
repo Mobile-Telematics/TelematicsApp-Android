@@ -42,8 +42,7 @@
                     android:layout_width="@dimen/account_avatar_size"
                     android:layout_height="@dimen/account_avatar_size"
                     android:layout_gravity="center"
-                    app:cardCornerRadius="60dp"
-                    tools:src="@drawable/ic_error">
+                    app:cardCornerRadius="60dp">
 
                     <ImageView
                         android:id="@+id/accountAvatar"

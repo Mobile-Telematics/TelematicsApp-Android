@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.telematics.authentication.extention.observeOnce
 import com.telematics.zenroad.MainActivity
 import com.telematics.zenroad.R
@@ -88,6 +89,9 @@ class MainFragment : Fragment() {
         binding.mainToolbar.findViewById<View>(R.id.toolbar_avatar).setOnClickListener {
             binding.mainBottomNav.selectedItemId = R.id.nav_profile
         }
+        binding.mainToolbar.findViewById<View>(R.id.toolbar_settings).setOnClickListener {
+            openSettings()
+        }
     }
 
     private fun showToolbar() {
@@ -153,5 +157,10 @@ class MainFragment : Fragment() {
         val intent = Intent(context, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         mainFragmentViewModel.setIntentForNotification(intent)
+    }
+
+    private fun openSettings() {
+
+        findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
     }
 }

@@ -65,19 +65,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.telematics.zenroad.ui.main.MainFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/main_fragment">
-        <action
-            android:id="@+id/action_mainFragment_to_splashFragment"
-            app:destination="@id/splashFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/main_nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
-
-    <fragment
         android:id="@+id/registrationFragment"
         android:name="com.telematics.zenroad.ui.registration.RegistrationFragment"
         android:label="RegistrationFragment"
@@ -98,6 +85,30 @@
             app:popUpTo="@id/main_nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.telematics.zenroad.ui.main.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_splashFragment"
+            app:destination="@id/splashFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.telematics.zenroad.ui.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/settings_fragment" />
 
     <include
         app:graph="@navigation/nav_graph_account"
