@@ -6,15 +6,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
+import com.telematics.data.BuildConfig
 import com.telematics.domain.model.LoginType
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.LoginFragmentBinding
@@ -76,6 +79,9 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
+        val rawString =
+            "${getString(R.string.login_screen_i_agree)} <a href=\"${BuildConfig.PRIVACY_POLICY}\">${getString(R.string.login_screen_policy)}</a>"
+        binding.loginPolicy.text = HtmlCompat.fromHtml(rawString, HtmlCompat.FROM_HTML_MODE_LEGACY)
         binding.loginPolicy.movementMethod = LinkMovementMethod.getInstance()
         binding.loginPolicy.setOnClickListener {
             binding.loginPolicyCheck.isChecked = !binding.loginPolicyCheck.isChecked
@@ -85,6 +91,13 @@ class LoginFragment : Fragment() {
         binding.loginPolicyCheck.setOnClickListener {
             binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
             binding.loginRegistration.isEnabled = binding.loginPolicyCheck.isChecked
+        }
+
+        binding.loginInputPassword.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                login()
+            }
+            return@setOnEditorActionListener true
         }
     }
 

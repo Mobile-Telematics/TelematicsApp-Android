@@ -18,6 +18,8 @@ object AppDependencies {
     const val cropView = "com.isseiaoki:simplecropview:${Versions.cropView}"
     const val chartView = "com.github.PhilJay:MPAndroidChart:${Versions.chartView}"
     const val circleIndicatorView = "me.relex:circleindicator:${Versions.circleIndicatorView}"
+    const val swipeToRefresh =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeToRefresh}"
 
     //di hilt
     const val daggerHiltCompiler =

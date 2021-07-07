@@ -23,6 +23,9 @@
     <string name="dialog_cancel">CANCEL</string>
     <string name="dialog_confirm">OK</string>
 
+    <string name="login_screen_i_agree">I agree with</string>
+    <string name="login_screen_policy">Privacy Policy</string>
+
     <!--profile-->
     <string name="login_screen_change_reg_type_email">Email Address</string>
     <string name="login_screen_change_reg_type_phone_number">Phone Number</string>
@@ -155,4 +158,29 @@
     <string name="dashboard_eco_tyres">Tyres</string>
     <string name="dashboard_eco_brakes">Brakes</string>
     <string name="dashboard_eco_cost">Cost of ownership</string>
+
+    <!--FEED-->
+    <string name="progress_trip_type_driver">Driver</string>
+    <string name="progress_trip_type_passenger">Passenger</string>
+    <string name="progress_trip_type_bus">Bus</string>
+    <string name="progress_trip_type_motorcycle">Motorcycle</string>
+    <string name="progress_trip_type_train">Train</string>
+    <string name="progress_trip_type_taxi">Taxi</string>
+    <string name="progress_trip_type_bicycle">Bicycle</string>
+    <string name="progress_trip_type_other">Other</string>
+    <string name="progress_trip">Trip</string>
+    <string name="dialog_events_hide_trip">Delete this trip?</string>
+    <string name="dialog_yes">YES</string>
+    <string name="dialog_no">NO</string>
+    <string name="progress_event_trip">Trip</string>
+
+    <!--SETTINGS-->
+    <string name="dashboard_settings_my_profile">My Profile</string>
+    <string name="dashboard_settings_privacy">Privacy Policy</string>
+    <string name="dashboard_settings_terms">Terms of Use</string>
+    <string name="nav_logout_question">Logout?</string>
+    <string name="nav_logout_yes">logout</string>
+    <string name="nav_logout_no">no</string>
+
+
 </resources>

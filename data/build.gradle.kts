@@ -25,6 +25,8 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "APP_ID", AppConfig.APP_ID)
+            buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
+            buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
             buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY)
             buildConfigField("int", "DASHBOARD_DISTANCE_LIMIT", AppConfig.DASHBOARD_DISTANCE_LIMIT)
@@ -38,6 +40,8 @@ android {
             isMinifyEnabled = false
             debuggable(true)
             buildConfigField("String", "APP_ID", AppConfig.APP_ID)
+            buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
+            buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
             buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY)
             buildConfigField("int", "DASHBOARD_DISTANCE_LIMIT", AppConfig.DASHBOARD_DISTANCE_LIMIT)

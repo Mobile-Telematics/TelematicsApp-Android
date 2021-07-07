@@ -3,7 +3,6 @@ package com.telematics.features.account.use_case
 import android.app.Activity
 import android.graphics.Bitmap
 import android.util.Log
-import com.telematics.data.utils.ImageLoader
 import com.telematics.domain.model.LoginType
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.PhoneAuthCallback
@@ -28,7 +27,7 @@ class LoginUseCase @Inject constructor(
         Log.d(TAG, "isSessionAvailable")
 
         //todo: preprod #test login with device token
-        //return testLogin("292b4a0c-8bca-42ae-be0e-568a76175605")
+        //return testLogin("")
 
         return flow {
             var result = false

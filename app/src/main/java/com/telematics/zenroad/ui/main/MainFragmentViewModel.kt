@@ -1,17 +1,14 @@
 package com.telematics.zenroad.ui.main
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.domain.model.authentication.User
 import com.telematics.domain.repository.UserRepo
+import com.telematics.features.account.use_case.LoginUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -20,7 +17,8 @@ import javax.inject.Inject
 
 class MainFragmentViewModel @Inject constructor(
     private val trackingUseCase: TrackingUseCase,
-    private val userRepo: UserRepo
+    private val userRepo: UserRepo,
+    private val loginUseCase: LoginUseCase
 ) : ViewModel() {
 
     fun setDeviceTokenForTrackingApi() {
@@ -68,13 +66,10 @@ class MainFragmentViewModel @Inject constructor(
         return userState
     }
 
-    fun getProfilePicture(context: Context): LiveData<Result<Bitmap?>> {
+    fun getProfilePicture(): LiveData<Result<Bitmap?>> {
 
         val profilePictureState = MutableLiveData<Result<Bitmap?>>()
-        flow {
-            val bitmapCache = userRepo.getUserPicture(context)
-            emit(bitmapCache)
-        }
+        loginUseCase.getProfilePicture()
             .flowOn(Dispatchers.IO)
             .setLiveDataForResult(profilePictureState)
             .launchIn(viewModelScope)

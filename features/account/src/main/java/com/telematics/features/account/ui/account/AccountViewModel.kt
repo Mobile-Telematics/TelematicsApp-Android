@@ -15,22 +15,8 @@ import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
 class AccountViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase,
-    private val trackingUseCase: TrackingUseCase
+    private val loginUseCase: LoginUseCase
 ) : ViewModel() {
-
-    fun logout(): LiveData<Result<Boolean>> {
-
-        val logoutState = MutableLiveData<Result<Boolean>>()
-        loginUseCase.logout()
-            .flowOn(Dispatchers.IO)
-            .setLiveDataForResult(logoutState)
-            .launchIn(viewModelScope)
-
-        trackingUseCase.logout()
-
-        return logoutState
-    }
 
     fun getUser(): LiveData<Result<User>> {
 

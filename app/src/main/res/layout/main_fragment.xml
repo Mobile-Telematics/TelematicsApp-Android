@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_container"
-    android:background="@drawable/bg_onboard_first"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_onboard_first"
     tools:context=".MainActivity">
 
     <include
@@ -21,7 +21,6 @@
         android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@id/mainBottomNav"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +40,7 @@
         android:layout_height="wrap_content"
         app:backgroundTint="#464646"
         app:itemIconTint="@color/menu_icon_color_sel"
+        app:itemRippleColor="@android:color/transparent"
         app:itemTextColor="@color/bottom_menu_item_text_sel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

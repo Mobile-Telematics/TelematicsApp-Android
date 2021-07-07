@@ -28,6 +28,7 @@ object Versions {
     const val cropView = "1.1.8"
     const val chartView = "v3.1.0"
     const val circleIndicatorView = "2.1.4"
+    const val swipeToRefresh = "1.1.0"
 
     const val firebaseBom = "28.2.0"
     const val firebaseDatabaseKtx = "20.0.0"

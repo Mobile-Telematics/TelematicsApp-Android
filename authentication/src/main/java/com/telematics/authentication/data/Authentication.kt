@@ -239,12 +239,22 @@ class Authentication constructor(
         fOut.close()
     }
 
+    private fun deleteProfilePicture() {
+
+        val userId = firebaseAuth.currentUser?.uid
+        userId ?: return
+
+        val file = File(context.filesDir, "$userId")
+        file.deleteOnExit()
+    }
+
     override suspend fun logout(): Boolean {
 
         firebaseAuth.signOut()
         sessionRepo.clearSession()
         authRepo.logout()
         userRepo.clear()
+        deleteProfilePicture()
         return true
     }
 

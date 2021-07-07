@@ -72,10 +72,6 @@ class AccountFragment : Fragment() {
             openProfileFragment()
         }
 
-        binding.accountLogout.setOnClickListener {
-            logout()
-        }
-
         binding.accountAvatar.setOnClickListener {
             askPermissions()
         }
@@ -220,22 +216,7 @@ class AccountFragment : Fragment() {
         findNavController().navigate(R.id.action_accountFragment_to_cropFragment, bundle)
     }
 
-    private fun logout() {
-
-        accountViewModel.logout().observe(viewLifecycleOwner) { result ->
-            result.onSuccess {
-                openSplashFragment()
-            }
-            result.onFailure { }
-        }
-    }
-
     private fun openProfileFragment() {
         findNavController().navigate(R.id.action_accountFragment_to_profileFragment)
-    }
-
-    private fun openSplashFragment() {
-        val uri = Uri.parse("telematics://splashFragment")
-        findNavController().navigate(uri)
     }
 }

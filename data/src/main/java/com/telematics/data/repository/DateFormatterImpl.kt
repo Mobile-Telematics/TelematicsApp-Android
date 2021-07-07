@@ -1,5 +1,6 @@
 package com.telematics.data.repository
 
+import android.util.Log
 import com.telematics.data.model.tracking.DateFormatter
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -13,6 +14,8 @@ class DateFormatterImpl : DateFormatter {
         SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
     private val hh_mm = SimpleDateFormat("HH:mm", Locale.ENGLISH)
     private val MMMM_d_yyyy = SimpleDateFormat("MMMM d yyyy", Locale.ENGLISH)
+    private val dd_MM = SimpleDateFormat("dd.MM", Locale.ENGLISH)
+    private val MM_dd = SimpleDateFormat("MM.dd", Locale.ENGLISH)
 
 
     override fun getFullNewDate(date: Date?): String {
@@ -44,6 +47,22 @@ class DateFormatterImpl : DateFormatter {
     override fun getDateYearTime(date: Date?): String {
         if (date == null) return ""
         val d = MMMM_d_yyyy.format(date)
+        val t = hh_mm.format(date)
+        return "$d, $t"
+    }
+
+    override fun parseFullNewDate(date: String): Date? {
+        return try {
+            fullNewDate.parse(date)
+        } catch (e: ParseException) {
+            Log.d("TAG", "ParseException " + e.message)
+            null
+        }
+    }
+
+    override fun getDateWithTime(date: Date?): String {
+        if (date == null) return ""
+        val d = dd_MM.format(date)
         val t = hh_mm.format(date)
         return "$d, $t"
     }

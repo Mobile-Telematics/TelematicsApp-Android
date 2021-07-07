@@ -59,9 +59,13 @@ dependencies {
 
     implementation(project(Modules.domain))
     implementation(project(Modules.data))
+    implementation(project(Modules.content))
 
-    implementation(AppDependencies.lifecycleKtx)
+    implementation(AppDependencies.navigateLibraries)
+
     implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
+
+    implementation(AppDependencies.swipeToRefresh)
 }

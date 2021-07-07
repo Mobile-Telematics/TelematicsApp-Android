@@ -10,4 +10,7 @@ interface DateFormatter {
     fun parseDate(date: String): Date?
     fun getTime(date: Date?): String
     fun getDateYearTime(date: Date?): String
+
+    fun parseFullNewDate(date:String):Date?
+    fun getDateWithTime(date: Date?): String
 }
