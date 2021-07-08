@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     android:fillViewport="true"
+    android:orientation="horizontal"
     android:scrollbars="none"
     tools:ignore="MissingPrefix">
 
@@ -74,8 +75,7 @@
                                 android:fontFamily="@font/open_sans_bold"
                                 android:gravity="start"
                                 android:text="@string/progress_trip_type_driver"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -98,8 +98,7 @@
                                 android:text="237"
                                 android:textAlignment="gravity"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="22sp"
-                                android:textStyle="bold" />
+                                android:textSize="22sp" />
 
                             <!-- Mileage km -->
                             <TextView
@@ -115,8 +114,7 @@
                                 android:maxLines="1"
                                 android:text="km"
                                 android:textColor="@color/colorEventTripGrayText"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
+                                android:textSize="10sp" />
 
 
                             <!-- Overall Score -->
@@ -130,8 +128,7 @@
                                 android:text="237"
                                 android:textAlignment="gravity"
                                 android:textColor="@color/colorGreenText"
-                                android:textSize="22sp"
-                                android:textStyle="bold" />
+                                android:textSize="22sp" />
 
                             <!-- Overall Score points -->
                             <TextView
@@ -146,8 +143,7 @@
                                 android:maxLines="1"
                                 android:text="@string/dashboard_new_points"
                                 android:textColor="@color/colorEventTripGrayText"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
+                                android:textSize="10sp" />
 
                         </LinearLayout>
 
@@ -190,8 +186,7 @@
                                 android:text="13.02, 10:50"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorPrimaryText"
-                                android:textSize="@dimen/feed_event_trip_info_text_text_size"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/feed_event_trip_info_text_text_size" />
 
                             <!-- Start City -->
                             <TextView
@@ -235,8 +230,7 @@
                                 android:text="13.02, 12:20"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorPrimaryText"
-                                android:textSize="@dimen/feed_event_trip_info_text_text_size"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/feed_event_trip_info_text_text_size" />
 
                             <!-- City End -->
                             <TextView
@@ -304,8 +298,7 @@
                 android:textAlignment="textEnd"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/feed_event_bubble_label_text_size"
-                android:textStyle="bold" />
+                android:textSize="@dimen/feed_event_bubble_label_text_size" />
 
         </RelativeLayout>
 
