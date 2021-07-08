@@ -18,6 +18,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
 
+    private val TAG = "FeedFragment"
+
     lateinit var binding: FragmentFeedBinding
 
     @Inject
@@ -54,6 +56,14 @@ class FeedFragment : Fragment() {
         scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 getNextPage(totalItemsCount)
+            }
+
+            override fun onScroll() {
+                //fix issue at bottom of recyclerView list
+                val scrollPos = layoutManager.findFirstVisibleItemPosition()
+                val isEnable = scrollPos == 0
+                if (isEnable != binding.swipeToRefreshEvents.isEnabled)
+                    binding.swipeToRefreshEvents.isEnabled = isEnable
             }
         }
         recyclerView.addOnScrollListener(scrollListener)

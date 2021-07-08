@@ -71,6 +71,7 @@ abstract class EndlessRecyclerViewScrollListener(layoutManager: LinearLayoutMana
             onLoadMore(currentPage, totalItemCount, view)
             loading = true
         }
+        onScroll()
     }
 
     // Call this method whenever performing new searches
@@ -82,4 +83,5 @@ abstract class EndlessRecyclerViewScrollListener(layoutManager: LinearLayoutMana
 
     // Defines the process for actually loading more data based on page
     abstract fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?)
+    abstract fun onScroll()
 }
