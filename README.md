@@ -63,7 +63,11 @@ Step 13: Select "Start a locked mode" and click the "Enable" button.
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/13.png)
 
-Step 14: Open our TelematicsApp in Android Studio, make sure to transfer the `google-services.json` file to project_directory\app (See Step 5 above) and Enjoy! 
+Step 14: Now you need to change rules for your Realtime Database. You need to go to “Realtime Database” section on the left side of the menu. In the “Rules” tab change read and write fields to “auth.uid != null”.
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/14.png)
+
+Step 15: Open our TelematicsApp in Android Studio, make sure to transfer the `google-services.json` file to project_directory\app (See Step 5 above) and Enjoy! 
 
 Build & Run!
 
