@@ -10,8 +10,8 @@ object AppConfig {
     const val versionCode = 1
     const val dimension = name
 
-    const val PRIVACY_POLICY = "\"https://www.telematicssdk.com/privacy-policy/\""
-    const val TERMS_OF_USE = "\"https://www.telematicssdk.com/privacy-policy/\""
+    const val PRIVACY_POLICY = "YOUR_PRIVACY_POLICY_LINK" //for example "\"https://www.telematicssdk.com/privacy-policy/\""
+    const val TERMS_OF_USE = "YOUR_TERMS_OF_USE_LINK" //for example"\"https://www.telematicssdk.com/privacy-policy/\""
 
     const val DASHBOARD_DISTANCE_LIMIT = "10" //in km
 
