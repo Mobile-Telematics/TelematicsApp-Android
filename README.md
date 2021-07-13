@@ -74,16 +74,23 @@ Build & Run!
 
 ## Setup TelematicsApp Configuration
 In file AppConfig.kt you can specify the basic settings for your app.
-To use your unique applicationId for your application, change applicationIdPrefix and name:
-const val applicationIdPrefix = "com.your_application_prefix"
+To use your unique applicationId for your application, change applicationIdPrefix and name:<br/>
+const val applicationIdPrefix = "com.your_application_prefix"<br/>
 private const val name = "your_application_name"
 
-To work with our API use InstanceId and InstanceKey from https://userdatahub.com/user/registration :
-const val INSTANCE_ID_PROD = "\"YOUR_INSTANCE_ID\"" 
-const val INSTANCE_KEY_PROD = "\"YOUR_INSTANCE_KEY\"" 
+To work with our API use InstanceId and InstanceKey from https://userdatahub.com/user/registration :<br/>
+const val INSTANCE_ID_PROD = "YOUR_INSTANCE_ID"<br/>
+const val INSTANCE_KEY_PROD = "YOUR_INSTANCE_KEY" 
 
-To set application label change app_name in strings.xml in content module:
+To set application label change app_name in strings.xml in content module:<br/>
 <string name="app_name">YOUR_LABEL</string>
+
+To set Privacy Policy change PRIVACY_POLICY in AppConfig.kt file :<br/>
+const val PRIVACY_POLICY = "YOUR_PRIVACY_POLICY_LINK" //for example "https://www.telematicssdk.com/privacy-policy/"
+
+To set Terms Of Use change PRIVACY_POLICY in AppConfig.kt file : <br/>
+const val TERMS_OF_USE = "YOUR_TERMS_OF_USE_LINK" //for example"https://www.telematicssdk.com/privacy-policy/"
+
 
 To set application icon, find the content module icon in resource folders (res/mipmap, res/mipmap-hdpi, etc.) and replace it. And for change background icon color set ic_launcher_background in color.xml:
 <color name="ic_launcher_background">#your_color</color>
