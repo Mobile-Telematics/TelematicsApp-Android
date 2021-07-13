@@ -147,4 +147,8 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="MapProgressBarTheme" parent="AppTheme">
+        <item name="colorAccent">@color/colorGreenText</item>
+    </style>
+
 </resources>

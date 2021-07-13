@@ -53,7 +53,7 @@
                             android:layout_height="wrap_content"
                             android:background="#fff"
                             android:gravity="center_vertical"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">

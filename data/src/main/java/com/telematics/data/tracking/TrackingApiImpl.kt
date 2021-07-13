@@ -43,7 +43,7 @@ class TrackingApiImpl @Inject constructor(
             activity.startActivityForResult(
                 PermissionsWizardActivity.getStartWizardIntent(
                     activity,
-                    enableAggressivePermissionsWizard = false,
+                    enableAggressivePermissionsWizard = true,
                     enableAggressivePermissionsWizardPage = true
                 ), PermissionsWizardActivity.WIZARD_PERMISSIONS_CODE
             )

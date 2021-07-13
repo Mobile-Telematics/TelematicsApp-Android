@@ -101,6 +101,16 @@ class DashboardFragment : Fragment() {
         }
         scoringAdapter.registerAdapterDataObserver(binding.progressIndicator.adapterDataObserver)
 
+        binding.include4.layoutItemEcoScoringFuel.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_fuel)
+        binding.include4.layoutItemEcoScoringBrakes.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_brakes)
+        binding.include4.layoutItemEcoScoringTires.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_tyres)
+        binding.include4.layoutItemEcoScoringCost.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_depreciation)
+
+        binding.include4.layoutItemEcoScoringFuel.itemEcoScoringText.setText(R.string.dashboard_eco_fuel)
+        binding.include4.layoutItemEcoScoringBrakes.itemEcoScoringText.setText(R.string.dashboard_eco_brakes)
+        binding.include4.layoutItemEcoScoringTires.itemEcoScoringText.setText(R.string.dashboard_eco_tyres)
+        binding.include4.layoutItemEcoScoringCost.itemEcoScoringText.setText(R.string.dashboard_eco_cost)
+
         setListener()
         init()
     }
@@ -476,16 +486,6 @@ class DashboardFragment : Fragment() {
     }
 
     private fun observeEcoScoring() {
-
-        binding.include4.layoutItemEcoScoringFuel.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_fuel)
-        binding.include4.layoutItemEcoScoringBrakes.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_brakes)
-        binding.include4.layoutItemEcoScoringTires.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_tyres)
-        binding.include4.layoutItemEcoScoringCost.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_depreciation)
-
-        binding.include4.layoutItemEcoScoringFuel.itemEcoScoringText.setText(R.string.dashboard_eco_fuel)
-        binding.include4.layoutItemEcoScoringBrakes.itemEcoScoringText.setText(R.string.dashboard_eco_brakes)
-        binding.include4.layoutItemEcoScoringTires.itemEcoScoringText.setText(R.string.dashboard_eco_tyres)
-        binding.include4.layoutItemEcoScoringCost.itemEcoScoringText.setText(R.string.dashboard_eco_cost)
 
         observeMainEcoScoring()
         initEcoScoringTable()

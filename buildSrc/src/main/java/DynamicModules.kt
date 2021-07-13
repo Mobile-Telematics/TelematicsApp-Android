@@ -8,6 +8,7 @@ object Modules {
     const val account = ":features:account"
     const val dashboard = ":features:dashboard"
     const val feed = ":features:feed"
+    const val HERE_SDK = ":HERE-sdk"
 }
 
 object DynamicModules {

@@ -59,6 +59,7 @@ dependencies {
 
     implementation(project(Modules.domain))
     implementation(project(Modules.data))
+    implementation(project(Modules.content))
 
     implementation(AppDependencies.lifecycleKtx)
     implementation(AppDependencies.daggerHiltLibraries)

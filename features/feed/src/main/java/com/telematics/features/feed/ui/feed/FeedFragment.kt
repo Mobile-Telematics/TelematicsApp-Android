@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.telematics.content.utils.TryOpenLink
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.features.feed.model.EndlessRecyclerViewScrollListener
+import com.telematics.feed.R
 import com.telematics.feed.databinding.FragmentFeedBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,7 +23,7 @@ class FeedFragment : Fragment() {
 
     private val TAG = "FeedFragment"
 
-    lateinit var binding: FragmentFeedBinding
+    private lateinit var binding: FragmentFeedBinding
 
     @Inject
     lateinit var feedViewModel: FeedViewModel
@@ -55,7 +58,7 @@ class FeedFragment : Fragment() {
 
         scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                getNextPage(totalItemsCount)
+                getListNextPage(totalItemsCount)
             }
 
             override fun onScroll() {
@@ -81,17 +84,21 @@ class FeedFragment : Fragment() {
             tryOpenLink()
         }
 
-
+        feedListAdapter.setOnClickListener(object : FeedListAdapter.ClickListeners {
+            override fun onItemClick(tripData: TripData, listItemPosition: Int) {
+                openTripDetail(tripData, listItemPosition)
+            }
+        })
     }
 
     private fun observeTripList() {
 
         showRefresh(true)
         scrollListener.resetState()
-        getNextPage(0)
+        getListNextPage(0)
     }
 
-    private fun getNextPage(offset: Int) {
+    private fun getListNextPage(offset: Int) {
 
         val isFirstPage = offset == 0
 
@@ -131,5 +138,10 @@ class FeedFragment : Fragment() {
 
         val link = feedViewModel.getTelematicsLink(requireContext())
         TryOpenLink(requireContext()).open(link)
+    }
+
+    private fun openTripDetail(tripData: TripData, listItemPosition: Int) {
+
+
     }
 }

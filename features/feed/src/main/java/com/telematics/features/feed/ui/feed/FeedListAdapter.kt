@@ -23,6 +23,12 @@ class FeedListAdapter(
     private var dataSet: MutableList<TripData> = mutableListOf()
     private var lastPosition = -1
     private val animationList = mutableListOf<ValueAnimator>()
+    private var clickListener: ClickListeners? = null
+
+
+    fun setOnClickListener(listeners: ClickListeners) {
+        this.clickListener = listeners
+    }
 
     fun addData(data: List<TripData>) {
 
@@ -78,9 +84,13 @@ class FeedListAdapter(
         }
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(
+        view: View
+    ) : RecyclerView.ViewHolder(view) {
 
-        fun bind(tripItem: TripData) {
+        fun bind(
+            tripItem: TripData
+        ) {
 
             val context = itemView.context
 
@@ -107,7 +117,7 @@ class FeedListAdapter(
             )
 
             itemView.eventTripDetailsClickArea.setOnClickListener {
-                //clickListener.invoke(tripItem, this.adapterPosition, SHOW_TRIP_DETAILS)
+                this@FeedListAdapter.clickListener?.onItemClick(tripItem, this.adapterPosition)
             }
 
             itemView.item_event_type_layout.setOnClickListener { }
@@ -176,6 +186,10 @@ class FeedListAdapter(
                 itemView.context
             )
         }
+    }
+
+    interface ClickListeners {
+        fun onItemClick(tripData: TripData, listItemPosition: Int)
     }
 
     companion object {

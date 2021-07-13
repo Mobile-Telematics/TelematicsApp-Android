@@ -10,14 +10,24 @@ object AppConfig {
     const val versionCode = 1
     const val dimension = name
 
-    const val PRIVACY_POLICY = "YOUR_PRIVACY_POLICY_LINK" //for example "\"https://www.telematicssdk.com/privacy-policy/\""
-    const val TERMS_OF_USE = "YOUR_TERMS_OF_USE_LINK" //for example"\"https://www.telematicssdk.com/privacy-policy/\""
+    const val PRIVACY_POLICY = "\"YOUR_PRIVACY_POLICY_LINK\"" //for example "\"https://www.telematicssdk.com/privacy-policy/\""
+    const val TERMS_OF_USE = "\"YOUR_TERMS_OF_USE_LINK\"" //for example"\"https://www.telematicssdk.com/privacy-policy/\""
 
     const val DASHBOARD_DISTANCE_LIMIT = "10" //in km
 
     const val APP_ID = "\"YOUR_APP_ID\""
     const val INSTANCE_ID = "\"YOUR_INSTANCE_ID\""
     const val INSTANCE_KEY = "\"YOUR_INSTANCE_KEY\""
+
+    const val HERE_API_KEY = "\"YOUR_HERE_API_KEY\""
+
+    const val HERE_LICENCE_KEY_RELEASE = "\"YOUR_HERE_LICENCE_KEY_RELEASE\""
+    const val HERE_APP_ID_RELEASE = "\"YOUR_HERE_APP_ID_RELEASE\""
+    const val HERE_APP_TOKEN_RELEASE = "\"YOUR_HERE_APP_TOKEN_RELEASE\""
+
+    const val HERE_LICENCE_KEY_DEBUG = "\"YOUR_HERE_LICENCE_KEY_DEBUG\""
+    const val HERE_APP_ID_DEBUG = "\"YOUR_HERE_APP_ID_DEBUG\""
+    const val HERE_APP_TOKEN_DEBUG = "\"YOUR_HERE_APP_TOKEN_DEBUG\""
 
     const val USER_SERVICE_URL = "\"https://user.telematicssdk.com/\""
     const val USER_SERVICE_URL_DEV = "\"https://user.telematicssdk.com/\""
@@ -30,6 +40,4 @@ object AppConfig {
 
     const val LEADERBOARD_URL = "\"http://leaderboard.telematicssdk.com/\""
     const val LEADERBOARD_URL_DEV = "\"http://leaderboard.telematicssdk.com/\""
-
-    const val HERE_API_KEY = "\"-8eOQzD_cifdELVCMsrzndOpNzgsZANRSL_leLQHC-w\""
 }
