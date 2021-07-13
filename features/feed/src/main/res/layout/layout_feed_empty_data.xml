@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/feed_event_bubble_layout_margin_side"
+            android:paddingTop="@dimen/feed_event_bubble_margin_top"
+            android:paddingEnd="@dimen/feed_event_bubble_layout_margin_side"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/eventTripBubbleContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/feed_event_bubble_margin_top"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ic_event_trip_bubble_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_empty_dashboard_last_trip"
+                    android:tint="@color/colorDefButton" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:alpha="0.8"
+                    android:text="Make your first trip"
+                    android:textColor="@color/colorDefButton"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Do not see your trips?"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/feed_empty_list_permissions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_empty_dashboard_last_trip_warning"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/colorRedText"
+                    android:text="Check App Permissions"
+                    android:textColor="@color/colorRedText"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
+                    android:src="@drawable/ib_feed_blur_trip" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="33dp"
+                    android:background="@drawable/ic_event_trip_label_bg_green"
+                    android:paddingStart="24dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/progress_trip"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
+                    android:src="@drawable/ib_feed_blur_trip" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="33dp"
+                    android:background="@drawable/ic_event_trip_label_bg_green"
+                    android:paddingStart="24dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/progress_trip"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
+                    android:src="@drawable/ib_feed_blur_trip" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="33dp"
+                    android:background="@drawable/ic_event_trip_label_bg_green"
+                    android:paddingStart="24dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/progress_trip"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
+                    android:src="@drawable/ib_feed_blur_trip" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="33dp"
+                    android:background="@drawable/ic_event_trip_label_bg_green"
+                    android:paddingStart="24dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/progress_trip"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

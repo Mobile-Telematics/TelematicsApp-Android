@@ -1,21 +1,26 @@
 package com.telematics.features.account.ui.account
 
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
-import androidx.navigation.NavGraph
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.telematics.data.utils.PermissionUtils
+import com.telematics.data.utils.PhotoUtils
 import com.telematics.domain.model.authentication.User
 import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentAccountBinding
+import com.telematics.features.account.ui.crop.CropFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
@@ -25,12 +30,25 @@ class AccountFragment : Fragment() {
     companion object {
         const val ACCOUNT_USER_KEY = "account_user_key"
         const val ACCOUNT_USER_BUNDLE_KEY = "account_user_bundle_key"
+
+        const val CROP_KEY = "crop_key"
+        const val CROP_FILE_PATH_KEY = "crop_file_path_key"
     }
 
     @Inject
     lateinit var accountViewModel: AccountViewModel
 
+    private val permissionUtils = PermissionUtils()
+
     private lateinit var binding: FragmentAccountBinding
+
+    private val profilePictureName = "profilePicture.png"
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        permissionUtils.registerContract(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +63,7 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         setListeners()
+        observeUser()
     }
 
     private fun setListeners() {
@@ -53,9 +72,24 @@ class AccountFragment : Fragment() {
             openProfileFragment()
         }
 
-        binding.accountLogout.setOnClickListener {
-            logout()
+        binding.accountAvatar.setOnClickListener {
+            askPermissions()
         }
+
+        //listener for update picture
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>(
+            CROP_KEY
+        )?.observe(
+            viewLifecycleOwner
+        ) { result ->
+            val filePath = result.getString(CROP_FILE_PATH_KEY)
+            filePath?.let {
+                uploadProfilePic(filePath)
+            }
+        }
+    }
+
+    private fun observeUser() {
 
         accountViewModel.getUser().observe(viewLifecycleOwner) { result ->
             result.onSuccess { user ->
@@ -64,16 +98,6 @@ class AccountFragment : Fragment() {
             result.onFailure {
                 bindUser(User())
             }
-        }
-
-        //get user after update
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>(
-            ACCOUNT_USER_KEY
-        )?.observe(
-            viewLifecycleOwner
-        ) { result ->
-            val user = result.getSerializable(ACCOUNT_USER_BUNDLE_KEY) as User
-            bindUser(user)
         }
     }
 
@@ -105,47 +129,94 @@ class AccountFragment : Fragment() {
         val addressStr =
             if (user.address.isNullOrEmpty()) resources.getString(R.string.account_not_specified) else user.address
         binding.userInfoCard.address.text = addressStr
+
+        observeProfilePicture()
     }
 
-    private fun logout() {
+    private fun uploadProfilePic(filePath: String?) {
 
-        accountViewModel.logout().observe(viewLifecycleOwner) { result ->
+        Log.d(TAG, "updateProfilePic: file path ${filePath}")
+        accountViewModel.uploadProfilePicture(filePath).observe(viewLifecycleOwner) { result ->
             result.onSuccess {
-                openSplashFragment()
+                Log.d(TAG, "updateProfilePic: success")
+                observeProfilePicture()
             }
-            result.onFailure { }
+            result.onFailure {
+                Log.d(TAG, "updateProfilePic: error ${it.printStackTrace()}")
+            }
         }
+    }
+
+    private fun observeProfilePicture() {
+
+        accountViewModel.getProfilePicture().observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                Log.d(TAG, "bindUser: profile picture onSuccess")
+                binding.accountAvatar.setImageBitmap(it)
+            }
+            result.onFailure {
+                Log.d(TAG, "bindUser: profile picture ${it.printStackTrace()}")
+            }
+        }
+    }
+
+    private fun askPermissions() {
+
+        permissionUtils.setPermissionListener { allIsGranted ->
+            showPickupDialog()
+        }
+
+        permissionUtils.askPermissions(requireActivity())
+    }
+
+    private fun showPickupDialog() {
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.app_name)
+            .setMessage(R.string.settings_view_set_image_dialog_msg)
+            .setPositiveButton(R.string.settings_view_take_a_picture) { _, _ -> showCamera() }
+            .setNegativeButton(R.string.settings_view_from_gallery) { _, _ -> showGallery() }
+            .setOnCancelListener { d ->
+                d.dismiss()
+            }
+            .show()
+    }
+
+    private fun showCamera() {
+
+        PhotoUtils.setCallback(object : PhotoUtils.Callback {
+            override fun openCropScreen(fileFrom: String?, fileTo: String?) {
+                openCrop(fileFrom, fileTo)
+            }
+        })
+        PhotoUtils.openCamera(this, profilePictureName)
+    }
+
+    private fun showGallery() {
+
+        PhotoUtils.setCallback(object : PhotoUtils.Callback {
+            override fun openCropScreen(fileFrom: String?, fileTo: String?) {
+                openCrop(fileFrom, fileTo)
+            }
+        })
+        PhotoUtils.openGallery(this, profilePictureName)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        PhotoUtils.onActivityResult(this, requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun openCrop(fileFrom: String?, fileTo: String?) {
+
+        val bundle = bundleOf(
+            CropFragment.CROP_INPUT_FILE_KEY to fileFrom,
+            CropFragment.CROP_RESULT_FILE_KEY to fileTo
+        )
+        findNavController().navigate(R.id.action_accountFragment_to_cropFragment, bundle)
     }
 
     private fun openProfileFragment() {
-        val uri = Uri.parse("telematics://profileFragment")
-        findNavController().navigate(uri)
-    }
-
-    private fun openSplashFragment() {
-        //val uri = Uri.parse("telematics://splashFragment")
-        //findNavController().navigate(uri)
-        popToRoot(findNavController())
-    }
-
-    private fun popToRoot(navController: NavController) {
-
-        val mBackStackField by lazy {
-            val field = NavController::class.java.getDeclaredField("mBackStack")
-            field.isAccessible = true
-            field
-        }
-
-        val arrayDeque =
-            mBackStackField.get(navController) as java.util.ArrayDeque<NavBackStackEntry>
-        val graph = arrayDeque.first.destination as NavGraph
-        val rootDestinationId = graph.startDestination
-
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(rootDestinationId, true)
-            .setLaunchSingleTop(true)
-            .build()
-
-        navController.navigate(rootDestinationId, null, navOptions)
+        findNavController().navigate(R.id.action_accountFragment_to_profileFragment)
     }
 }

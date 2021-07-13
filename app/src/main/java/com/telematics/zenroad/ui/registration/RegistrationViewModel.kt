@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.domain.model.LoginType
 import com.telematics.features.account.use_case.LoginUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
@@ -22,6 +24,7 @@ class RegistrationViewModel @Inject constructor(
 
         val registrationState = MutableLiveData<Result<Boolean>>()
         loginUseCase.registration(login, password, loginType)
+            .flowOn(Dispatchers.IO)
             .setLiveDataForResult(registrationState)
             .launchIn(viewModelScope)
         return registrationState

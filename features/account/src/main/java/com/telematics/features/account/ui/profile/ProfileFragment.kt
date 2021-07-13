@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.domain.model.authentication.User
+import com.telematics.features.account.BaseFragment
 import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentProfileBinding
 import com.telematics.features.account.model.DatePickerDialog
@@ -19,7 +19,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     @Inject
     lateinit var profileViewModel: ProfileViewModel
@@ -37,6 +37,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        setBackPressedCallback()
         setListeners()
     }
 

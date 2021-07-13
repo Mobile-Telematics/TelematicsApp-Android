@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/settingsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_settings_toolbar_height"
+        android:background="@color/colorMenuBackground"
+        app:navigationIcon="@drawable/ic_sett_back">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/nav_item_settings"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/app_settings_toolbar_text_size" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Items  -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_settings_menu_items_margin_top">
+
+        <!-- Menu items -->
+        <LinearLayout
+            android:id="@+id/settingsMenuContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Profile -->
+            <TextView
+                android:id="@+id/settingsProfile"
+                style="@style/SettingsMenuItemText"
+                android:drawableStart="@drawable/ic_sett_profile"
+                android:drawableEnd="@drawable/ic_dash_arrow_right_gray"
+                android:text="@string/dashboard_settings_my_profile" />
+
+            <View style="@style/SettingsViewLine" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <View style="@style/SettingsViewLine" />
+
+            <!-- Logout -->
+            <TextView
+                android:id="@+id/settingsLogout"
+                style="@style/SettingsMenuItemText"
+                android:text="@string/logout"
+                android:textColor="@color/colorRedButton" />
+
+            <View style="@style/SettingsViewLine" />
+
+            <!-- Privacy Policy -->
+            <TextView
+                android:id="@+id/settingsPrivacy"
+                style="@style/SettingsMenuItemText"
+                android:drawableEnd="@drawable/ic_dash_arrow_right_gray"
+                android:text="@string/dashboard_settings_privacy" />
+
+            <View style="@style/SettingsViewLine" />
+
+            <!-- Terms -->
+            <TextView
+                android:id="@+id/settingsTerms"
+                style="@style/SettingsMenuItemText"
+                android:drawableEnd="@drawable/ic_dash_arrow_right_gray"
+                android:text="@string/dashboard_settings_terms" />
+
+            <View style="@style/SettingsViewLine" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>

@@ -6,7 +6,6 @@ import com.telematics.data.model.login.RegistrationBody
 import com.telematics.data.model.rest.ApiResponse
 import com.telematics.data.model.rest.ApiResult
 import com.telematics.data.model.user_exists.UserExists
-import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -19,7 +18,7 @@ interface LoginApi {
         @Query("Phone") phone: String? = null,
         @Query("Email") email: String? = null,
         @Query("ClientId") clientId: String? = null
-    ): Single<ApiResponse<UserExists>>
+    ): ApiResponse<UserExists>
 
     @POST("v1/Auth/Login")
     suspend fun login(@Body loginBody: LoginBody): ApiResponse<ApiResult>

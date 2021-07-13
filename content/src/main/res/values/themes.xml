@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ZenroadAppBundle" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.AppBundle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="android:fontFamily">@font/open_sans_regular</item>
     </style>
@@ -21,6 +21,7 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:forceDarkAllowed">false</item>
         <item name="android:fontFamily">@font/open_sans_regular</item>
+        <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -109,6 +110,41 @@
         <item name="android:layout_marginEnd">24dp</item>
         <item name="android:layout_marginBottom">6dp</item>
         <item name="android:background">@color/profile_view_line_color</item>
+    </style>
+
+    <style name="SettingsMenuItemText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/app_settings_menu_item_padding_side</item>
+        <item name="android:paddingEnd">@dimen/app_settings_menu_item_padding_side</item>
+        <item name="android:paddingTop">@dimen/app_settings_menu_item_padding_top</item>
+        <item name="android:paddingBottom">@dimen/app_settings_menu_item_padding_bottom</item>
+        <item name="android:background">@drawable/selector_primary_color</item>
+        <item name="android:drawablePadding">@dimen/app_settings_menu_item_padding_drawable</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">@dimen/app_settings_menu_item_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="SettingsViewLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginStart">@dimen/app_settings_menu_item_padding_side</item>
+        <item name="android:layout_marginEnd">@dimen/app_settings_menu_item_padding_side</item>
+        <item name="android:background">@color/colorPrimaryLightText</item>
+    </style>
+
+    <style name="bottom_normal_text">
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="bottom_selected_text">
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

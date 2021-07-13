@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/lastTripParent"
     android:layout_height="290dp"
-    tools:ignore="MissingPrefix">
+    android:visibility="invisible"
+    tools:ignore="MissingPrefix"
+    tools:visibility="visible">
 
     <View
         android:layout_width="wrap_content"
@@ -15,10 +18,10 @@
 
     <TextView
         android:id="@+id/lastTripHeader"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="@string/dashboard_new_latest_trip_score"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,12 +81,12 @@
             <!-- Date A -->
             <TextView
                 android:id="@+id/eventTripDateStart"
-                android:fontFamily="@font/open_sans_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/open_sans_bold"
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryText"
@@ -109,12 +112,12 @@
             <!-- Date B -->
             <TextView
                 android:id="@+id/eventTripDateFinish"
-                android:fontFamily="@font/open_sans_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/open_sans_bold"
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryText"
@@ -141,9 +144,9 @@
         <!-- Mileage -->
         <TextView
             android:id="@+id/eventTripMileage"
-            android:fontFamily="@font/open_sans_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
             android:gravity="center"
             android:textAlignment="gravity"
             android:textColor="@color/colorPrimary"
@@ -154,13 +157,13 @@
         <!-- Mileage km -->
         <TextView
             android:id="@+id/mileage_measure_text"
-            android:fontFamily="@font/open_sans_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="2dp"
             android:layout_marginBottom="3dp"
             android:ellipsize="end"
+            android:fontFamily="@font/open_sans_bold"
             android:gravity="bottom"
             android:textAlignment="center"
             android:textColor="@color/colorEventTripGrayText"
@@ -170,10 +173,10 @@
         <!-- Overall Score -->
         <TextView
             android:id="@+id/eventTripOverallScore"
-            android:fontFamily="@font/open_sans_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
+            android:fontFamily="@font/open_sans_bold"
             android:gravity="center"
             android:textAlignment="gravity"
             android:textColor="@color/colorGreenText"
@@ -183,13 +186,13 @@
 
         <!-- Overall Score points -->
         <TextView
-            android:fontFamily="@font/open_sans_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="2dp"
             android:layout_marginBottom="3dp"
             android:ellipsize="end"
+            android:fontFamily="@font/open_sans_bold"
             android:gravity="bottom"
             android:text="@string/dashboard_new_points"
             android:textAlignment="center"

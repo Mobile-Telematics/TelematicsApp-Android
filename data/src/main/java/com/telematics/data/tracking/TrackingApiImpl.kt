@@ -5,21 +5,31 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.raxeltelematics.v2.sdk.Settings
 import com.raxeltelematics.v2.sdk.TrackingApi
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
+import com.telematics.data.model.tracking.TripsMapper
+import com.telematics.domain.model.tracking.TripData
+import com.telematics.domain.model.tracking.TripImageHolder
 import com.telematics.domain.repository.TrackingApiRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 @SuppressLint("MissingPermission")
-class TrackingApiImpl : TrackingApiRepo {
+class TrackingApiImpl @Inject constructor(
+    private val tripsMapper: TripsMapper
+) : TrackingApiRepo {
 
     private val TAG = "TrackingApiImpl"
 
     private val trackingApi = TrackingApi.getInstance()
 
+    private var tripData: TripData? = null
+
     override fun setContext(context: Context) {
-        TrackingApi.getInstance().initialize(context)
+        val setting = Settings(true, Settings.stopTrackingTimeHigh, 150, true, true, true)
+        TrackingApi.getInstance().initialize(context, setting)
     }
 
     override fun setDeviceToken(deviceId: String) {
@@ -51,7 +61,6 @@ class TrackingApiImpl : TrackingApiRepo {
     override fun startTracking() {
 
         trackingApi.setEnableSdk(true)
-        trackingApi.startTracking()
     }
 
     override fun setEnableTrackingSDK(enable: Boolean) {
@@ -70,5 +79,49 @@ class TrackingApiImpl : TrackingApiRepo {
         trackingApi.setEnableSdk(false)
     }
 
+    override suspend fun getLastTrack(): TripData? {
 
+        tripData = null
+        val arrayOfTracks = trackingApi.getTracks(
+            com.raxeltelematics.v2.sdk.server.model.Locale.EN,
+            null,
+            null,
+            0,
+            20
+        )
+        val listTripData =
+            tripsMapper.transformTripsList(arrayOfTracks.asList()).filter { !it.isDeleted }
+        tripsMapper.sort(listTripData, tripData)
+        if (listTripData.isNotEmpty()) {
+            tripData = listTripData[0]
+        }
+        return listTripData.firstOrNull()
+    }
+
+    override suspend fun getTrackImageHolder(trackId: String): TripImageHolder? {
+        val trackDetails =
+            trackingApi.getTrackDetails(trackId, com.raxeltelematics.v2.sdk.server.model.Locale.EN)
+        return tripsMapper.transformTripDetails(trackDetails)?.let {
+            tripsMapper.transform(it)
+        }
+    }
+
+    override suspend fun getTrips(offset: Int, limit: Int): List<TripData> {
+
+        if (offset == 0) tripData = null
+        val arrayOfTracks = trackingApi.getTracks(
+            com.raxeltelematics.v2.sdk.server.model.Locale.EN,
+            null,
+            null,
+            offset,
+            limit
+        )
+        val listTripData =
+            tripsMapper.transformTripsList(arrayOfTracks.asList()).filter { !it.isDeleted }
+        tripsMapper.sort(listTripData, tripData)
+        if (listTripData.isNotEmpty()) {
+            tripData = listTripData[0]
+        }
+        return listTripData
+    }
 }

@@ -7,19 +7,16 @@ import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
 import com.telematics.authentication.data.Authentication
 import com.telematics.data.BuildConfig
-import com.telematics.data.api.DriveCoinsApi
-import com.telematics.data.api.LoginApi
-import com.telematics.data.api.RefreshApi
-import com.telematics.data.api.UserStatisticsApi
+import com.telematics.data.api.*
 import com.telematics.data.interceptor.AppIDInterceptor
 import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
 import com.telematics.data.interceptor.MainInterceptor
-import com.telematics.data.repository.AuthRepoImpl
-import com.telematics.data.repository.StatisticRepoImpl
-import com.telematics.data.repository.SessionRepoImpl
-import com.telematics.data.repository.UserRepoImpl
+import com.telematics.data.model.tracking.DateFormatter
+import com.telematics.data.model.tracking.TripsMapper
+import com.telematics.data.repository.*
 import com.telematics.data.tracking.TrackingApiImpl
+import com.telematics.data.utils.ImageLoader
 import com.telematics.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -176,6 +173,21 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideLeaderboardApi(
+        client: OkHttpClient,
+        converterFactory: Converter.Factory
+    ): LeaderboardApi {
+        val retrofit = Retrofit
+            .Builder()
+            .client(client)
+            .baseUrl(BuildConfig.leaderboardUrl)
+            .addConverterFactory(converterFactory)
+            .build()
+        return retrofit.create(LeaderboardApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideRefreshApi(
         loggingInterceptor: HttpLoggingInterceptor,
         converterFactory: Converter.Factory,
@@ -211,22 +223,52 @@ object AppModule {
     fun provideDashboardRepo(
         driveCoinsApi: DriveCoinsApi,
         userStatisticsApi: UserStatisticsApi,
+        leaderboardApi: LeaderboardApi,
         userRepo: UserRepo
-    ): StatisticRepo = StatisticRepoImpl(driveCoinsApi, userStatisticsApi, userRepo)
+    ): StatisticRepo = StatisticRepoImpl(driveCoinsApi, userStatisticsApi, leaderboardApi, userRepo)
 
     @Provides
     @Singleton
     fun provideAuthentication(
         authRepo: UserServicesRepo,
         sessionRepo: SessionRepo,
-        userRepo: UserRepo
+        userRepo: UserRepo,
+        context: Context
     ): AuthenticationRepo {
-        return Authentication(authRepo, sessionRepo, userRepo)
+        return Authentication(authRepo, sessionRepo, userRepo, context)
     }
 
     @Provides
     @Singleton
-    fun provideTrackingRepo(): TrackingApiRepo {
-        return TrackingApiImpl()
+    fun provideDateFormatter(): DateFormatter {
+        return DateFormatterImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTripsMapper(
+        dateFormatter: DateFormatter
+    ): TripsMapper {
+        return TripsMapper(dateFormatter)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTrackingRepo(
+        tripsMapper: TripsMapper
+    ): TrackingApiRepo {
+        return TrackingApiImpl(tripsMapper)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingsRepo(): SettingsRepo {
+        return SettingsRepoImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideImageLoader(): ImageLoader {
+        return ImageLoader()
     }
 }

@@ -6,8 +6,10 @@ import com.telematics.data.extentions.DateFormatString.FORMAT_DAY_MONTH_FULL_YEA
 import com.telematics.data.extentions.DateFormatString.FORMAT_DISPLAYABLE
 import com.telematics.data.extentions.DateFormatString.FORMAT_FULL_MONTH_YEAR
 import com.telematics.data.extentions.DateFormatString.FORMAT_ISO8601
+import com.telematics.data.extentions.DateFormatString.FORMAT_ISO8601_JUST_SECONDS
 import com.telematics.data.extentions.DateFormatString.FORMAT_MONTH_ABBREVIATION
 import com.telematics.data.extentions.DateFormatString.FORMAT_TIME
+import com.telematics.data.extentions.DateFormatString.FORMAT_TIME_FULL_RAXEL_SDK_TRACKS
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,12 +22,14 @@ import java.util.*
 object DateFormatString {
     internal const val FORMAT_FOR_FILE_NAME = "yyyyMMdd_HHmmss"
     internal const val FORMAT_ISO8601 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
     //this `XXX` pattern should be used in Android eg:"yyyy-MM-dd'T'HH:mm:ssXXX"
-    internal const val FORMAT_ISO8601_JUST_SECONDS  = "yyyy-MM-dd'T'HH:mm:ssZ"
-    internal const val FORMAT_ISO8601_JUST_SECONDS_Z  = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-    internal const val FORMAT_ISO8601_JUST_SECONDS_DECIMAL  = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+    internal const val FORMAT_ISO8601_JUST_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ"
+    internal const val FORMAT_ISO8601_JUST_SECONDS_Z = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    internal const val FORMAT_ISO8601_JUST_SECONDS_DECIMAL = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
     internal const val FORMAT_ISO_ZONED_DATE_TIME = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-    internal const val FORMAT_ISO8601_ZONED_DATE_TIME = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ" // 2018-10-15T11:09:01.577513+11:00
+    internal const val FORMAT_ISO8601_ZONED_DATE_TIME =
+        "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ" // 2018-10-15T11:09:01.577513+11:00
     internal const val FORMAT_MONTH_ABBREVIATION = "dd MMM yyyy"
     internal const val FORMAT_DAY_MONTH_FULL_YEAR = "dd MMMM yyyy"
     internal const val FORMAT_DISPLAYABLE = "dd/MM/yyyy"
@@ -47,7 +51,7 @@ sealed class DateFormat(val format: String) {
     class DateDisplayFormat : DateFormat(FORMAT_DISPLAYABLE)
     class TimeFormat : DateFormat(FORMAT_TIME)
     class ServerFormat : DateFormat(FORMAT_DATE_FROM_SERVER)
-    class DayMonthFullYear: DateFormat(FORMAT_DAY_MONTH_FULL_YEAR)
+    class DayMonthFullYear : DateFormat(FORMAT_DAY_MONTH_FULL_YEAR)
 }
 
 /**
@@ -70,7 +74,7 @@ fun Date.toStringWithFormat(stringFormat: String): String {
 
 fun Date.toStringWithFormatLocalTimeZone(stringFormat: String): String {
     val format = SimpleDateFormat(stringFormat, Locale.getDefault())
-        format.timeZone = TimeZone.getDefault()
+    format.timeZone = TimeZone.getDefault()
     return try {
         format.format(this)
     } catch (e: ParseException) {
@@ -111,16 +115,18 @@ fun String.toDateWithFormat(stringFormat: String, locale: Locale? = Locale.getDe
     val format = SimpleDateFormat(stringFormat, locale)
     return format.parse(this)
 }
+
 fun String.toDateWithFormatUtc(stringFormat: String): Date {
     val format = SimpleDateFormat(stringFormat, Locale.getDefault())
     format.timeZone = TimeZone.getTimeZone("UTC")
     return format.parse(this)
 }
-fun String.toStringDateSafe(dateInStringFormat: String, dateOutStringFormat: String): String{
+
+fun String.toStringDateSafe(dateInStringFormat: String, dateOutStringFormat: String): String {
     return try {
         this.toDateWithFormat(dateInStringFormat)
-                .toStringWithFormat(dateOutStringFormat)
-    }catch (e:Exception){
+            .toStringWithFormat(dateOutStringFormat)
+    } catch (e: Exception) {
         this
     }
 }
@@ -128,6 +134,22 @@ fun String.toStringDateSafe(dateInStringFormat: String, dateOutStringFormat: Str
 fun String.toCalendarWithFormat(stringFormat: String): Calendar {
     val date = toDateWithFormat(stringFormat).time
     return Calendar.getInstance().apply { timeInMillis = date }
+}
+
+fun String.iso8601InSecondsToLong(): Long? {
+    var result: Long? = 0L
+    val format = SimpleDateFormat(FORMAT_ISO8601_JUST_SECONDS, Locale.getDefault())
+    format.timeZone = TimeZone.getTimeZone("GMT")
+    result = format.parse(this).time
+    return result
+}
+
+
+fun Long.timeMillsToIso8601InSeconds(): String {
+    return SimpleDateFormat(
+        FORMAT_TIME_FULL_RAXEL_SDK_TRACKS,
+        Locale.getDefault()
+    ).format(Date(this))
 }
 
 fun Date.plusYears(years: Int = 0): Date {
@@ -164,13 +186,18 @@ fun Long.timeMillsToDisplayableString(dateFormat: DateFormat = DateFormat.DateDi
 }
 
 fun Long.timeMillsToIso8601(): String {
-    return SimpleDateFormat(DateFormat.Iso8601DateTime().format, Locale.getDefault()).format(Date(this))
+    return SimpleDateFormat(DateFormat.Iso8601DateTime().format, Locale.getDefault()).format(
+        Date(
+            this
+        )
+    )
 }
 
 fun String.iso8601TimeToLong(): Long? {
     var result: Long? = null
     if (!this.isEmpty()) {
-        val simpleDateFormat = SimpleDateFormat(DateFormat.Iso8601DateTime().format, Locale.getDefault())
+        val simpleDateFormat =
+            SimpleDateFormat(DateFormat.Iso8601DateTime().format, Locale.getDefault())
         simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
         try {
             result = simpleDateFormat.parse(this).time
@@ -202,7 +229,7 @@ fun String.stringDateToTimeInMillis(dateFormat: DateFormat = DateFormat.ServerFo
  * @return returns string representation of long date
  */
 fun Long.stringWithFormat(format: String) =
-        Date(this).toStringWithFormat(format)
+    Date(this).toStringWithFormat(format)
 
 // MARK: - ================== Common formats ==================
 
@@ -211,27 +238,28 @@ fun Long.stringWithFormat(format: String) =
  * @return returns string representation of long date in 'YYYY-MM-dd'T'HH:mm:ss.SSSZ' format
  */
 fun Long?.toDateLongWithIso8601DateTimeFormat() =
-        toStringWithFormat(this, DateFormat.Iso8601DateTime())
+    toStringWithFormat(this, DateFormat.Iso8601DateTime())
 
 /**
  * Returns a string representation in the format specified of the long date
  * @return returns string representation of long date in 'dd/MM/YY' format
  */
 fun Long?.toStringWithDisplayFormat(dateFormat: DateFormat = DateFormat.DateDisplayFormat()) =
-        toStringWithFormat(this, dateFormat)
+    toStringWithFormat(this, dateFormat)
 
 /**
  * Returns a string representation in the format specified of the long date
  * @return returns string representation of long date in 'dd/MM/YY' format
  */
 fun Long?.toStringWithTimeFormat() =
-        toStringWithFormat(this, DateFormat.TimeFormat())
+    toStringWithFormat(this, DateFormat.TimeFormat())
 
 
-private fun toStringWithFormat(value: Long?, dateFormat: DateFormat) = if (value != null) Date(value).toStringWithFormat(dateFormat.format) else ""
+private fun toStringWithFormat(value: Long?, dateFormat: DateFormat) =
+    if (value != null) Date(value).toStringWithFormat(dateFormat.format) else ""
 
 fun Date?.toStringWithFormat(dateFormat: DateFormat) = this?.toStringWithFormat(dateFormat.format)
-        ?: ""
+    ?: ""
 
 fun Date.toCalendar(): Calendar {
     val calendar = Calendar.getInstance()

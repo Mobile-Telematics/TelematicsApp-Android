@@ -65,4 +65,6 @@ dependencies {
     implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
+
+    implementation(AppDependencies.cropView)
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#e32626</color>
+
+    <color name="colorToolbarStartColor">#6669cb</color>
+    <color name="colorToolbarCenterColor">#595cb6</color>
+    <color name="colorToolbarEndColor">#494ca5</color>
+
+    <color name="colorMenuBackground">#464646</color>
+    <color name="colorMenuBackgroundAlpha">#8C000000</color>
+
+    <!-- Dashboard -->
+    <color name="colorDashGreyText">#99464646</color>
+
+    <color name="colorDashTabBackground">#f2f2f2</color>
+    <color name="colorDasBoardCoinsBackground">#F1F1F1</color>
+    <color name="colorDasBoardCoinsTextColor">#464646</color>
+    <color name="colorDashTabText">#a8a8a8</color>
+
+
+    <color name="colorAuthScreenBg">#fff</color>
+
+    <color name="colorPrimaryText">#494949</color>
+    <color name="colorPrimaryLightText">#80464646</color>
+    <color name="colorEventTripMileageText">#696969</color>
+    <color name="colorEventTripDatesText">#a7a7a7</color>
+    <color name="colorEventTripGrayText">#AFAFAF</color>
+    <color name="colorEventTripRightButtonDivider">#b7b7b7</color>
+
+    <color name="colorEventGreenLabelBg">#54c751</color>
+    <color name="colorEventBlueLabelBg">#448ccb</color>
+    <color name="colorEventGreyLabelBg">#acacac</color>
+    <color name="colorEventOrangeLabelBg">#ff8400</color>
+
+    <color name="colorAlfaWhiteText">#80ffffff</color>
+
+    <color name="colorNavSeparator">#0f000000</color>
+    <color name="colorNavItemSelected">#f2f4f6</color>
+    <color name="colorNavItemTextSelected">#000</color>
+
+    <color name="colorDotUnchecked">#e9eaeb</color>
+    <color name="colorRedButton">#e32626</color>
+    <color name="colorOrangeButton">#FF8400</color>
+
+    <color name="colorDefButton">#54c751</color>
+    <color name="colorDefButtonDisabled">#a7a7a7</color>
+    <color name="colorDefButtonStroke">#54c751</color>
+
+    <color name="colorTripButton">#e5f7e4</color>
+    <color name="colorTripButtonDisabled">#80C5C5C5</color>
+
+    <color name="colorBlueText">#6391ff</color>
+    <color name="colorBlueDarkText">#6266c6</color>
+    <color name="colorRedText">#e32626</color>
+    <color name="colorOrangeText">#ff7e00</color>
+    <color name="colorPurpleText">#b681d2</color>
+    <color name="colorYellowText">#fedb41</color>
+    <color name="colorGreenText">#54c751</color>
+    <color name="colorGrayText">#cccccc</color>
+
+    <color name="colorScoreDivider">#e3e7ec</color>
+
+    <color name="colorLeaderboardItemText">#263238</color>
+
+    <!-- Map -->
+    <color name="colorMapBackground">#cccccc</color>
+
+    <!-- Route map colors-->
+    <color name="colorSpeedTypeNormal">#54c751</color>
+    <color name="colorSpeedTypeMid">#ffd42d</color>
+    <color name="colorSpeedTypeMid2">#ff7e00</color>
+    <color name="colorSpeedTypeHigh">#FF0C0C</color>
+
+    <color name="ic_launcher_background">#FFFFFF</color>
+
+    <color name="colorLeadHighlightStartColor">#4054C751</color>
+    <color name="colorLeadHighlightEndColor">#fff</color>
+
+    <color name="colorPhoneUsage">#0000FF</color>
+
+    <!-- Overrided SDK resources -->
+    <color name="odb_alert_color">#e35959</color>
+
+    <color name="elm_selected">#3350c75d</color>
+    <color name="elm_connected_text_color">#464646</color>
+
+    <color name="colorTelematicsWizardButtonPressed">@color/colorDefButtonDisabled</color>
+
+    <color name="colorTelematicsWizardButtonNorm">@color/colorDefButton</color>
+
+    <color name="profile_view_line_color">#F2F2F6</color>
+</resources>

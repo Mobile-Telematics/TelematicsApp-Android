@@ -1,6 +1,5 @@
 package com.telematics.data.repository
 
-import android.util.Log
 import com.telematics.data.BuildConfig
 import com.telematics.data.api.LoginApi
 import com.telematics.data.mappers.toRegistrationApiData
@@ -42,9 +41,6 @@ class AuthRepoImpl @Inject constructor(
     override suspend fun registration(): RegistrationApiData {
         val registrationBody = RegistrationBody()
         val response = api.registration(registrationBody)
-        Log.d("API_API", "registration: response${response}")
-        val r = response.result.toRegistrationApiData()
-        Log.d("API_API", "registration: toRegistrationApiData ${r}")
-        return r
+        return response.result.toRegistrationApiData()
     }
 }

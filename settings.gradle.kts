@@ -5,6 +5,7 @@ include(
     ":content",
     ":authentication",
     ":features:account",
-    ":features:dashboard"
+    ":features:dashboard",
+    ":features:feed"
 )
 rootProject.name = "Zenroad"

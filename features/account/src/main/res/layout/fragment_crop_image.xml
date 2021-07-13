@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/cropToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_settings_toolbar_height"
+        android:background="@color/colorMenuBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back_24dp">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/crop_screen_title"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/app_settings_toolbar_text_size" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/app_settings_toolbar_height"
+        android:background="#000"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.isseiaoki.simplecropview.CropImageView xmlns:custom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cropImageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="20dp"
+            custom:layout_constraintBottom_toTopOf="@id/cropReady"
+            custom:layout_constraintEnd_toEndOf="parent"
+            custom:layout_constraintStart_toStartOf="parent"
+            custom:layout_constraintTop_toTopOf="parent"
+            custom:scv_background_color="#000000"
+            custom:scv_crop_enabled="true"
+            custom:scv_frame_stroke_weight="2dp"
+            custom:scv_guide_color="#BBFFFFFF"
+            custom:scv_guide_show_mode="not_show"
+            custom:scv_handle_show_mode="show_always"
+            custom:scv_handle_size="8dp"
+            custom:scv_overlay_color="#66000000"
+            custom:scv_touch_padding="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/cropRotateRight"
+                style="@style/Button"
+                android:layout_width="70dp"
+                android:layout_margin="8dp"
+                app:srcCompat="@drawable/ic_rotate_right_white_24dp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/cropReady"
+                style="@style/Button"
+                android:layout_width="132dp"
+                android:layout_margin="8dp"
+                android:text="@string/crop_screen_done" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/cropRotateLeft"
+                style="@style/Button"
+                android:layout_width="70dp"
+                android:layout_margin="8dp"
+                app:srcCompat="@drawable/ic_rotate_left_white_24dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

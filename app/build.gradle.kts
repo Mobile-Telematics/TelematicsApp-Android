@@ -27,43 +27,27 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
-            //signingConfig = signingConfigs.release
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            //signingConfig = signingConfigs.debug
         }
     }
-
-    //val keystorePropertiesFile = rootProject.file("keystore/key.properties")
 
     signingConfigs {
         getByName("debug") {
-            keyAlias = "raxelcore"
-            keyPassword = "123456"
-            storeFile = file("keystore/raxel.jks")
-            storePassword = "123456"
+            keyAlias = "key0"
+            keyPassword = "******"
+            storeFile = file("path_to_file/keystore.jks")
+            storePassword = "******"
         }
         create("release") {
-            keyAlias = "raxelcore"
-            keyPassword = "123456"
-            storeFile = file("keystore/raxel.jks")
-            storePassword = "123456"
+            keyAlias = "key0"
+            keyPassword = "******"
+            storeFile = file("path_to_file/keystore.jks")
+            storePassword = "******"
         }
     }
-//    flavorDimensions(AppConfig.dimension)
-//    productFlavors {
-//        create("prod") {
-//            dimension(AppConfig.dimension)
-//        }
-//
-//        create("dev") {
-//            applicationIdSuffix = ".dev"
-//            dimension(AppConfig.dimension)
-//        }
-//    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -95,10 +79,11 @@ dependencies {
 
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
+    implementation(project(Modules.content))
+    implementation(project(Modules.authentication))
+    implementation(project(Modules.feed))
     implementation(project(Modules.dashboard))
     implementation(project(Modules.account))
-    implementation(project(Modules.authentication))
-    implementation(project(Modules.content))
 
     implementation(AppDependencies.trackingApi)
 }

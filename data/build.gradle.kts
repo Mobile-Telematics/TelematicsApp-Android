@@ -25,23 +25,31 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "APP_ID", AppConfig.APP_ID)
+            buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
+            buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
             buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY)
             buildConfigField("int", "DASHBOARD_DISTANCE_LIMIT", AppConfig.DASHBOARD_DISTANCE_LIMIT)
             buildConfigField("String", "userServiceUrl", AppConfig.USER_SERVICE_URL)
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL)
             buildConfigField("String", "userStatisticsUrl", AppConfig.USER_STATISTICS)
+            buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL)
+            buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
             buildConfigField("String", "APP_ID", AppConfig.APP_ID)
+            buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
+            buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
             buildConfigField("String", "INSTANCE_KEY", AppConfig.INSTANCE_KEY)
             buildConfigField("int", "DASHBOARD_DISTANCE_LIMIT", AppConfig.DASHBOARD_DISTANCE_LIMIT)
             buildConfigField("String", "userServiceUrl", AppConfig.USER_SERVICE_URL_DEV)
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL_DEV)
             buildConfigField("String", "userStatisticsUrl", AppConfig.USER_STATISTICS_DEV)
+            buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL_DEV)
+            buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
         }
     }
 
@@ -69,5 +77,5 @@ dependencies {
     implementation(project(Modules.content))
 
     implementation(AppDependencies.trackingApi)
-    implementation("com.google.guava:guava:27.0.1-android")
+    implementation(AppDependencies.googleGuava)
 }

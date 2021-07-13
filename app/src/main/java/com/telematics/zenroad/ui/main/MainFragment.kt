@@ -2,15 +2,20 @@ package com.telematics.zenroad.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.telematics.authentication.extention.observeOnce
 import com.telematics.zenroad.MainActivity
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.MainFragmentBinding
 import com.telematics.zenroad.ui.bottom_menu.ViewPagerFragmentStateAdapter
+import com.telematics.zenroad.ui.settings.SettingsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -34,37 +39,123 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initBottomMenu()
+        val navTo = arguments?.getString(SettingsFragment.NAV_TO_KEY)
+
         initTrackingApi()
+        initToolbar()
+        initBottomMenu(navTo)
     }
 
-    private fun initBottomMenu() {
+    private fun initBottomMenu(navTo: String?) {
 
-        val viewPager = binding.mainViewPager
         val bottomNavigationView = binding.mainBottomNav
+        bottomNavigationView.itemTextAppearanceActive = R.style.bottom_selected_text
+        bottomNavigationView.itemTextAppearanceInactive = R.style.bottom_normal_text
 
-        viewPager.apply {
+        binding.mainViewPager.apply {
             isUserInputEnabled = false
             //offscreenPageLimit = 4
         }
-        viewPager.adapter = ViewPagerFragmentStateAdapter(requireActivity())
+        binding.mainViewPager.adapter = ViewPagerFragmentStateAdapter(requireActivity())
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
+                R.id.nav_feed -> {
+                    navToFeed()
+                    return@setOnNavigationItemSelectedListener true
+                }
                 R.id.nav_dashboard -> {
-                    viewPager.setCurrentItem(0, false)
+                    navToDashboard()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_profile -> {
-                    viewPager.setCurrentItem(1, false)
+                    navToAccount()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> {
-                    viewPager.setCurrentItem(0, false)
+                    navToDashboard()
                     return@setOnNavigationItemSelectedListener true
                 }
             }
         }
+
+        //first state
+        navTo?.let {
+            when (it) {
+                SettingsFragment.NAV_TO_ACCOUNT ->
+                    bottomNavigationView.selectedItemId = R.id.nav_profile
+            }
+        } ?: run {
+            bottomNavigationView.selectedItemId = R.id.nav_dashboard
+        }
+    }
+
+    private fun navToFeed() {
+
+        showToolbar()
+        binding.mainViewPager.setCurrentItem(0, false)
+    }
+
+    private fun navToDashboard() {
+
+        showToolbar()
+        observeUser()
+        binding.mainViewPager.setCurrentItem(1, false)
+    }
+
+    private fun navToAccount() {
+
+        hideToolbar()
+        binding.mainViewPager.setCurrentItem(2, false)
+    }
+
+    private fun initToolbar() {
+
+        observeUser()
+
+        binding.mainToolbar.findViewById<View>(R.id.toolbar_user_name).setOnClickListener {
+            binding.mainBottomNav.selectedItemId = R.id.nav_profile
+        }
+        binding.mainToolbar.findViewById<View>(R.id.toolbar_avatar).setOnClickListener {
+            binding.mainBottomNav.selectedItemId = R.id.nav_profile
+        }
+        binding.mainToolbar.findViewById<View>(R.id.toolbar_settings).setOnClickListener {
+            openSettings()
+        }
+    }
+
+    private fun showToolbar() {
+        binding.mainToolbar.visibility = View.VISIBLE
+    }
+
+    private fun hideToolbar() {
+        binding.mainToolbar.visibility = View.GONE
+    }
+
+    private fun observeUser() {
+
+        mainFragmentViewModel.getUser().observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                binding.mainToolbar.findViewById<TextView>(com.telematics.dashboard.R.id.toolbar_user_name)
+                    .apply {
+                        val name = "${it.firstName} ${it.lastName}"
+                        text = name
+                    }
+            }
+        }
+
+        mainFragmentViewModel.getProfilePicture()
+            .observe(viewLifecycleOwner) { result ->
+                result.onSuccess {
+                    binding.mainToolbar.findViewById<ImageView>(com.telematics.dashboard.R.id.toolbar_avatar)
+                        .apply {
+                            setImageBitmap(it)
+                        }
+                }
+                result.onFailure {
+                    Log.d("MainFragment", "observeUser: ${it.printStackTrace()}")
+                }
+            }
     }
 
     private fun initTrackingApi() {
@@ -96,5 +187,10 @@ class MainFragment : Fragment() {
         val intent = Intent(context, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         mainFragmentViewModel.setIntentForNotification(intent)
+    }
+
+    private fun openSettings() {
+
+        findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
     }
 }
