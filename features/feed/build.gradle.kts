@@ -26,14 +26,26 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", true)))
-            //signingConfig = signingConfigs.release
+            manifestPlaceholders(
+                mapOf(
+                    "crashlyticsCollectionEnabled" to true,
+                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY_RELEASE,
+                    "hereMapsAppID" to AppConfig.HERE_APP_ID_RELEASE,
+                    "hereMapsAppToken" to AppConfig.HERE_APP_TOKEN_RELEASE
+                )
+            )
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", false)))
-            //signingConfig = signingConfigs.debug
+            manifestPlaceholders(
+                mapOf(
+                    "crashlyticsCollectionEnabled" to false,
+                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY_DEBUG,
+                    "hereMapsAppID" to AppConfig.HERE_APP_ID_DEBUG,
+                    "hereMapsAppToken" to AppConfig.HERE_APP_TOKEN_DEBUG
+                )
+            )
         }
     }
 
@@ -68,4 +80,5 @@ dependencies {
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
 
     implementation(AppDependencies.swipeToRefresh)
+    implementation(project(Modules.HERE_SDK))
 }

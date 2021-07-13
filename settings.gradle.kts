@@ -3,6 +3,7 @@ include(
     ":data",
     ":domain",
     ":content",
+    ":HERE-sdk",
     ":authentication",
     ":features:account",
     ":features:dashboard",

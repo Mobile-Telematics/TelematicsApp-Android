@@ -1,6 +1,6 @@
 <resources>
     <!--TODO: #preprod -->
-    <string name="app_name">Zenroad</string>
+    <string name="app_name">YOUR_LABEL</string>
 
     <string name="nav_item_feed">Feed</string>
     <string name="nav_item_networks">Network</string>
