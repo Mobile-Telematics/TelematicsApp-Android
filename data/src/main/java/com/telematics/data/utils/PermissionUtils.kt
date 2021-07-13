@@ -1,6 +1,5 @@
 package com.telematics.data.utils
 
-import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.activity.result.ActivityResultLauncher
@@ -12,11 +11,7 @@ class PermissionUtils {
 
     private val TAG = "PermissionUtils"
 
-    private val permissions = arrayOf(
-        Manifest.permission.CAMERA,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE
-    )
+    private var permissions = emptyArray<String>()
 
     private lateinit var requestMultiplePermissionsContract: ActivityResultContracts.RequestMultiplePermissions
     private var multiplePermissionActivityResultLauncher: ActivityResultLauncher<Array<String>>? =
@@ -39,7 +34,9 @@ class PermissionUtils {
     }
 
 
-    fun askPermissions(context: Context) {
+    fun askPermissions(context: Context, permissions: Array<String>) {
+
+        this.permissions = permissions
 
         if (!hasPermissions(context)) {
             multiplePermissionActivityResultLauncher!!.launch(permissions)

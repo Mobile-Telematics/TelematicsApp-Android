@@ -138,7 +138,7 @@ class MainFragment : Fragment() {
             result.onSuccess {
                 binding.mainToolbar.findViewById<TextView>(com.telematics.dashboard.R.id.toolbar_user_name)
                     .apply {
-                        val name = "${it.firstName} ${it.lastName}"
+                        val name = "${it.firstName.orEmpty()} ${it.lastName.orEmpty()}"
                         text = name
                     }
             }

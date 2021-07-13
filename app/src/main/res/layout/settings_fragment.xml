@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_settings_toolbar_height"
         android:background="@color/colorMenuBackground"
-        app:navigationIcon="@drawable/ic_sett_back">
+        app:navigationIcon="@drawable/ic_back">
 
         <TextView
             android:id="@+id/toolbar_title"

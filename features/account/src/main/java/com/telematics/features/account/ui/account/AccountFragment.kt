@@ -1,8 +1,8 @@
 package com.telematics.features.account.ui.account
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -166,7 +166,13 @@ class AccountFragment : Fragment() {
             showPickupDialog()
         }
 
-        permissionUtils.askPermissions(requireActivity())
+        val permissions = arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+
+        permissionUtils.askPermissions(requireActivity(), permissions)
     }
 
     private fun showPickupDialog() {
