@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.raxeltelematics.v2.sdk.Settings
 import com.raxeltelematics.v2.sdk.TrackingApi
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
 import com.telematics.data.model.tracking.TripsMapper
@@ -27,7 +28,8 @@ class TrackingApiImpl @Inject constructor(
     private var tripData: TripData? = null
 
     override fun setContext(context: Context) {
-        TrackingApi.getInstance().initialize(context)
+        val setting = Settings(true, Settings.stopTrackingTimeHigh, 150, true, true, true)
+        TrackingApi.getInstance().initialize(context, setting)
     }
 
     override fun setDeviceToken(deviceId: String) {
@@ -41,7 +43,7 @@ class TrackingApiImpl @Inject constructor(
             activity.startActivityForResult(
                 PermissionsWizardActivity.getStartWizardIntent(
                     activity,
-                    enableAggressivePermissionsWizard = false,
+                    enableAggressivePermissionsWizard = true,
                     enableAggressivePermissionsWizardPage = true
                 ), PermissionsWizardActivity.WIZARD_PERMISSIONS_CODE
             )
@@ -97,10 +99,29 @@ class TrackingApiImpl @Inject constructor(
     }
 
     override suspend fun getTrackImageHolder(trackId: String): TripImageHolder? {
-        val i =
+        val trackDetails =
             trackingApi.getTrackDetails(trackId, com.raxeltelematics.v2.sdk.server.model.Locale.EN)
-        return tripsMapper.transformTripDetails(i)?.let {
+        return tripsMapper.transformTripDetails(trackDetails)?.let {
             tripsMapper.transform(it)
         }
+    }
+
+    override suspend fun getTrips(offset: Int, limit: Int): List<TripData> {
+
+        if (offset == 0) tripData = null
+        val arrayOfTracks = trackingApi.getTracks(
+            com.raxeltelematics.v2.sdk.server.model.Locale.EN,
+            null,
+            null,
+            offset,
+            limit
+        )
+        val listTripData =
+            tripsMapper.transformTripsList(arrayOfTracks.asList()).filter { !it.isDeleted }
+        tripsMapper.sort(listTripData, tripData)
+        if (listTripData.isNotEmpty()) {
+            tripData = listTripData[0]
+        }
+        return listTripData
     }
 }

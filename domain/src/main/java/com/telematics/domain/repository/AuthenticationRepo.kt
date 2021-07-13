@@ -1,6 +1,7 @@
 package com.telematics.domain.repository
 
 import android.app.Activity
+import android.graphics.Bitmap
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.IUser
@@ -41,6 +42,11 @@ interface AuthenticationRepo {
 
     /** update user in FirebaseDatabase */
     suspend fun updateUserInFirebaseDatabase(user: IUser)
+
+    /** user profile picture*/
+    suspend fun uploadProfilePicture(filePath: String?): String? //return picture url
+    suspend fun downloadProfilePicture(): Bitmap?
+    suspend fun getProfilePictureFromCache(): Bitmap?
 
     /** logout*/
     suspend fun logout(): Boolean

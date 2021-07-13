@@ -606,4 +606,6 @@
     <dimen name="medium_dimen">16dp</dimen>
     <dimen name="big_dimen">32dp</dimen>
     <dimen name="large_dimen">64dp</dimen>
+
+    <dimen name="margin_for_toolbar">80dp</dimen>
 </resources>

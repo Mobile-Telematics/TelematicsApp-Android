@@ -70,4 +70,13 @@ class TrackingUseCase
             emit(bitmap)
         }
     }
+
+    fun getTrips(offset: Int, limit: Int): Flow<List<TripData>> {
+
+        return flow {
+            val data = trackingApiRepo.getTrips(offset, limit)
+            emit(data)
+        }
+    }
+
 }

@@ -5,10 +5,10 @@ object Modules {
     const val domain = ":domain"
     const val authentication = ":authentication"
     const val content = ":content"
-    const val tracking = ":tracking_api"
     const val account = ":features:account"
     const val dashboard = ":features:dashboard"
-    const val settings = ":features:settings"
+    const val feed = ":features:feed"
+    const val HERE_SDK = ":HERE-sdk"
 }
 
 object DynamicModules {

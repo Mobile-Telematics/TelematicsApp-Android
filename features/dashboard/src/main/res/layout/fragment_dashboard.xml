@@ -1,196 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/margin_for_toolbar">
 
-    <LinearLayout
-        android:id="@+id/dashboard_empty"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fff">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="19dp"
-            android:fontFamily="@font/open_sans_bold"
-            android:text="Complete your First Trip to Unlock Scoring"
-            android:textColor="@color/colorDashGreyText"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/dashboard_distanceValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="21dp"
-            android:fontFamily="@font/open_sans_bold"
-            android:text="1.5 km/10 km"
-            android:textColor="@android:color/black"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <ProgressBar
-            android:id="@+id/progressValue"
-            style="?android:attr/progressBarStyleHorizontal"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="43dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="43dp"
-            android:indeterminate="false"
-            android:max="10"
-            android:progress="9"
-            android:progressTint="@color/colorGreenText" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/bottomText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="30dp"
-            android:alpha="0.5"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/dashboard_new_drive_as_you_do_normally"
-            android:textColor="@color/colorDashGreyText"
-            android:textSize="16sp" />
+            <LinearLayout
+                android:id="@+id/dashboard_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="19dp"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:text="Complete your First Trip to Unlock Scoring"
+                    android:textColor="@color/colorDashGreyText"
+                    android:textSize="14sp" />
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/fragment_new_dashboard_rank"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_empty" />
+                <TextView
+                    android:id="@+id/dashboard_distanceValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="21dp"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:text="1.5 km/10 km"
+                    android:textColor="@android:color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/progressValue"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="43dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="43dp"
+                    android:indeterminate="false"
+                    android:max="10"
+                    android:progress="9"
+                    android:progressTint="@color/colorGreenText" />
+
+                <TextView
+                    android:id="@+id/bottomText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginBottom="30dp"
+                    android:alpha="0.5"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/dashboard_new_drive_as_you_do_normally"
+                    android:textColor="@color/colorDashGreyText"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/fragment_new_dashboard_rank"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dashboard_empty" />
 
 
-    <ImageView
-        android:id="@+id/leftArrow"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/drivingScoresPager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/drivingScoresPager"
-        app:layout_constraintVertical_bias="0.4"
-        app:srcCompat="@drawable/ic_back" />
+            <ImageView
+                android:id="@+id/leftArrow"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/drivingScoresPager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/drivingScoresPager"
+                app:layout_constraintVertical_bias="0.4"
+                app:srcCompat="@drawable/ic_back" />
 
-    <ImageView
-        android:id="@+id/rightArrow"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/drivingScoresPager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/drivingScoresPager"
-        app:layout_constraintVertical_bias="0.4"
-        app:srcCompat="@drawable/ic_next" />
+            <ImageView
+                android:id="@+id/rightArrow"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/drivingScoresPager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/drivingScoresPager"
+                app:layout_constraintVertical_bias="0.4"
+                app:srcCompat="@drawable/ic_next" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/drivingScoresPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintEnd_toStartOf="@+id/rightArrow"
-        app:layout_constraintStart_toEndOf="@+id/leftArrow"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/drivingScoresPager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintEnd_toStartOf="@+id/rightArrow"
+                app:layout_constraintStart_toEndOf="@+id/leftArrow"
+                app:layout_constraintTop_toBottomOf="@+id/include" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/drivingScoresPager" />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/drivingScoresPager" />
 
-    <me.relex.circleindicator.CircleIndicator3
-        android:id="@+id/progressIndicator"
-        android:layout_width="0dp"
-        android:layout_height="10dp"
-        app:ci_drawable="@drawable/ic_slide_dot_checked"
-        app:ci_drawable_unselected="@drawable/ic_slide_dot_unchecked"
-        app:layout_constraintBottom_toTopOf="@id/chart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/progressIndicator"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                app:ci_drawable="@drawable/ic_slide_dot_checked"
+                app:ci_drawable_unselected="@drawable/ic_slide_dot_unchecked"
+                app:layout_constraintBottom_toTopOf="@id/chart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/fragment_new_dashboard_cards"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart" />
+            <include
+                android:id="@+id/include2"
+                layout="@layout/fragment_new_dashboard_cards"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
 
-    <include
-        android:id="@+id/include3"
-        layout="@layout/layout_last_trip_dashboard"
-        android:layout_width="0dp"
-        android:layout_height="290dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+            <include
+                android:id="@+id/include3"
+                layout="@layout/layout_last_trip_dashboard"
+                android:layout_width="0dp"
+                android:layout_height="290dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include2" />
 
-    <include
-        android:id="@+id/dashboard_empty_last_trip"
-        layout="@layout/layout_in_dashboard_empty_last_trip"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/include3"
-        app:layout_constraintEnd_toEndOf="@id/include3"
-        app:layout_constraintStart_toStartOf="@id/include3"
-        app:layout_constraintTop_toTopOf="@id/include3" />
+            <include
+                android:id="@+id/dashboard_empty_last_trip"
+                layout="@layout/layout_in_dashboard_empty_last_trip"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/include3"
+                app:layout_constraintEnd_toEndOf="@id/include3"
+                app:layout_constraintStart_toStartOf="@id/include3"
+                app:layout_constraintTop_toTopOf="@id/include3" />
 
-    <include
-        android:id="@+id/include4"
-        layout="@layout/layout_eco_scoring_dashboard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include3" />
+            <include
+                android:id="@+id/include4"
+                layout="@layout/layout_eco_scoring_dashboard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/include3" />
 
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/drivingScoresPager"
-        app:layout_constraintEnd_toStartOf="@+id/rightArrow"
-        app:layout_constraintStart_toStartOf="@+id/drivingScoresPager"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/drivingScoresPager"
+                app:layout_constraintEnd_toStartOf="@+id/rightArrow"
+                app:layout_constraintStart_toStartOf="@+id/drivingScoresPager"
+                app:layout_constraintTop_toBottomOf="@+id/include" />
 
-    <!--    <include-->
-    <!--        android:id="@+id/zero"-->
-    <!--        layout="@layout/layout_zero"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="400dp"-->
-    <!--        android:visibility="gone"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+            <!--    <include-->
+            <!--        android:id="@+id/zero"-->
+            <!--        layout="@layout/layout_zero"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="400dp"-->
+            <!--        android:visibility="gone"-->
+            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--        app:layout_constraintStart_toStartOf="parent"-->
+            <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="left" />
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="left" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

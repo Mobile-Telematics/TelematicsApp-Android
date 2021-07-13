@@ -1,6 +1,6 @@
 <resources>
+    <!--TODO: #preprod -->
     <string name="app_name">YOUR_LABEL</string>
-    <string name="login_screen_policy">I agree with <a href="https://www.telematicssdk.com/privacy-policy/">Privacy Policy</a></string>
 
     <string name="nav_item_feed">Feed</string>
     <string name="nav_item_networks">Network</string>
@@ -22,6 +22,9 @@
     <string name="dialog_cancel">CANCEL</string>
     <string name="dialog_confirm">OK</string>
 
+    <string name="login_screen_i_agree">I agree with</string>
+    <string name="login_screen_policy">Privacy Policy</string>
+
     <!--profile-->
     <string name="login_screen_change_reg_type_email">Email Address</string>
     <string name="login_screen_change_reg_type_phone_number">Phone Number</string>
@@ -31,6 +34,13 @@
     <string name="login_screen_phone_invalid">Phone number isn\'t correct.</string>
 
     <string name="logout">Logout</string>
+
+    <string name="settings_view_set_image_dialog_msg">To upload the image(s) you can capture it with Camera or choose from the device Gallery</string>
+    <string name="settings_view_take_a_picture">Camera</string>
+    <string name="settings_view_from_gallery">Gallery</string>
+
+    <string name="crop_screen_title">Crop Image</string>
+    <string name="crop_screen_done">DONE</string>
 
     <!--Verify code Screen-->
     <string name="verify_code_screen_message">Message with a code was sent to %1s\nEnter it in the field below</string>
@@ -142,4 +152,51 @@
     <string name="auth_error_empty_verification_code">The code must be filled</string>
     <string name="auth_error_incorrect_verification_code">Invalid verification code</string>
     <string name="auth_error_email_already_in_use">The email address is already in use by another account</string>
+
+    <string name="dashboard_eco_fuel">Fuel</string>
+    <string name="dashboard_eco_tyres">Tyres</string>
+    <string name="dashboard_eco_brakes">Brakes</string>
+    <string name="dashboard_eco_cost">Cost of ownership</string>
+
+    <!--FEED-->
+    <string name="progress_trip_type_driver">Driver</string>
+    <string name="progress_trip_type_passenger">Passenger</string>
+    <string name="progress_trip_type_bus">Bus</string>
+    <string name="progress_trip_type_motorcycle">Motorcycle</string>
+    <string name="progress_trip_type_train">Train</string>
+    <string name="progress_trip_type_taxi">Taxi</string>
+    <string name="progress_trip_type_bicycle">Bicycle</string>
+    <string name="progress_trip_type_other">Other</string>
+    <string name="progress_trip">Trip</string>
+    <string name="dialog_events_hide_trip">Delete this trip?</string>
+    <string name="dialog_yes">YES</string>
+    <string name="dialog_no">NO</string>
+    <string name="progress_event_trip">Trip</string>
+
+    <!--SETTINGS-->
+    <string name="dashboard_settings_my_profile">My Profile</string>
+    <string name="dashboard_settings_privacy">Privacy Policy</string>
+    <string name="dashboard_settings_terms">Terms of Use</string>
+    <string name="nav_logout_question">Logout?</string>
+    <string name="nav_logout_yes">logout</string>
+    <string name="nav_logout_no">no</string>
+
+    <!--TRIP DETAILS-->
+    <string name="trip_details_title">Trip Details</string>
+    <string name="trip_details_swipe_up_for_details">Swipe up for details</string>
+    <string name="trip_details_point_a">A</string>
+    <string name="trip_details_point_b">B</string>
+    <string name="trip_details_acceleration_score">Acceleration Score</string>
+    <string name="trip_details_braking_score">Braking Score</string>
+    <string name="trip_details_phone_dist_score">Phone Distraction Score</string>
+    <string name="trip_details_speeding_score">Speeding Score</string>
+    <string name="trip_details_cornering_score">Cornering Score</string>
+    <string name="trip_details_km_h">Speed: %1$s km/h</string>
+    <string name="trip_details_mi_h">Speed: %1$s mi/h</string>
+    <string name="trip_details_max_force">Max Force: %1$s m/s/s</string>
+    <string name="trip_details_braking">Braking</string>
+    <string name="trip_details_acceleration">Acceleration</string>
+    <string name="trip_details_cornering">Cornering</string>
+    <string name="trip_details_phone_usage">Phone Usage</string>
+
 </resources>

@@ -5,13 +5,22 @@
     android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_onboard_first"
     tools:context=".MainActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
         android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@id/mainBottomNav"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mainBottomNav"
@@ -31,6 +40,7 @@
         android:layout_height="wrap_content"
         app:backgroundTint="#464646"
         app:itemIconTint="@color/menu_icon_color_sel"
+        app:itemRippleColor="@android:color/transparent"
         app:itemTextColor="@color/bottom_menu_item_text_sel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

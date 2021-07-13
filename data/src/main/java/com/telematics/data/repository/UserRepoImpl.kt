@@ -1,9 +1,13 @@
 package com.telematics.data.repository
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import com.telematics.domain.model.authentication.User
 import com.telematics.domain.repository.UserRepo
+import java.io.File
 import javax.inject.Inject
 
 class UserRepoImpl @Inject constructor(
@@ -63,6 +67,10 @@ class UserRepoImpl @Inject constructor(
         user.birthday = sharedPreferences.getString("birthday", null)
         user.address = sharedPreferences.getString("address", null)
         user.clientId = sharedPreferences.getString("clientId", null)
+        user.profilePictureUrl = sharedPreferences.getString("profilePictureUrl", null)
+        user.gender = sharedPreferences.getString("gender", null)
+        user.maritalStatus = sharedPreferences.getString("maritalStatus", null)
+        user.childrenCount = sharedPreferences.getInt("childrenCount", 0)
 
         Log.d("UserRepoImpl", "getUser: email:${user.email}, phone:${user.phone} $user")
         return user
@@ -80,6 +88,17 @@ class UserRepoImpl @Inject constructor(
             .putString("birthday", user.birthday)
             .putString("address", user.address)
             .putString("clientId", user.clientId)
+            .putString("profilePictureUrl", user.profilePictureUrl)
+            .putString("gender", user.gender)
+            .putString("maritalStatus", user.maritalStatus)
+            .putInt("childrenCount", user.childrenCount ?: 0)
             .apply()
+    }
+
+    override suspend fun getUserPicture(context: Context): Bitmap {
+
+        val userId = getUserId()
+        val tempFile = File(context.filesDir, "$userId")
+        return BitmapFactory.decodeFile(tempFile.path)
     }
 }

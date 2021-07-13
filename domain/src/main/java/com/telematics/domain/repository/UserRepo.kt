@@ -1,5 +1,7 @@
 package com.telematics.domain.repository
 
+import android.content.Context
+import android.graphics.Bitmap
 import com.telematics.domain.model.authentication.User
 
 interface UserRepo {
@@ -12,6 +14,8 @@ interface UserRepo {
 
     suspend fun getUser(): User
     suspend fun saveUser(user: User)
+
+    suspend fun getUserPicture(context: Context): Bitmap
 
     suspend fun clear()
 }

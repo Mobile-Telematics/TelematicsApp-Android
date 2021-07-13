@@ -26,4 +26,5 @@ interface TrackingApiRepo {
     /** handle tracks */
     suspend fun getLastTrack(): TripData?
     suspend fun getTrackImageHolder(trackId: String): TripImageHolder?
+    suspend fun getTrips(offset: Int, limit: Int): List<TripData>
 }

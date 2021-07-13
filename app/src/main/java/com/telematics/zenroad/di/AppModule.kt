@@ -7,10 +7,7 @@ import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
 import com.telematics.authentication.data.Authentication
 import com.telematics.data.BuildConfig
-import com.telematics.data.api.DriveCoinsApi
-import com.telematics.data.api.LoginApi
-import com.telematics.data.api.RefreshApi
-import com.telematics.data.api.UserStatisticsApi
+import com.telematics.data.api.*
 import com.telematics.data.interceptor.AppIDInterceptor
 import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
@@ -176,6 +173,21 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideLeaderboardApi(
+        client: OkHttpClient,
+        converterFactory: Converter.Factory
+    ): LeaderboardApi {
+        val retrofit = Retrofit
+            .Builder()
+            .client(client)
+            .baseUrl(BuildConfig.leaderboardUrl)
+            .addConverterFactory(converterFactory)
+            .build()
+        return retrofit.create(LeaderboardApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideRefreshApi(
         loggingInterceptor: HttpLoggingInterceptor,
         converterFactory: Converter.Factory,
@@ -211,17 +223,19 @@ object AppModule {
     fun provideDashboardRepo(
         driveCoinsApi: DriveCoinsApi,
         userStatisticsApi: UserStatisticsApi,
+        leaderboardApi: LeaderboardApi,
         userRepo: UserRepo
-    ): StatisticRepo = StatisticRepoImpl(driveCoinsApi, userStatisticsApi, userRepo)
+    ): StatisticRepo = StatisticRepoImpl(driveCoinsApi, userStatisticsApi, leaderboardApi, userRepo)
 
     @Provides
     @Singleton
     fun provideAuthentication(
         authRepo: UserServicesRepo,
         sessionRepo: SessionRepo,
-        userRepo: UserRepo
+        userRepo: UserRepo,
+        context: Context
     ): AuthenticationRepo {
-        return Authentication(authRepo, sessionRepo, userRepo)
+        return Authentication(authRepo, sessionRepo, userRepo, context)
     }
 
     @Provides

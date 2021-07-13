@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="external_files" path="." />
+    <external-path name="temp_track_external_path" path="TrackingApp/CompressedTracks/" />
+    <files-path name="temp_track_files_path" path="TrackingApp/CompressedTracks/" />
+    <external-files-path name="temp_track_ext_files_path" path="TrackingApp/CompressedTracks/" />
+
+    <external-path name="temp_raxel_logs_external_path" path="raxel_test_logs/" />
+    <files-path name="temp_raxel_logs_files_path" path="files/raxel_test_logs/" />
+    <external-files-path name="temp_raxel_logs_ext_files_path" path="raxel_test_logs/" />
+</paths>

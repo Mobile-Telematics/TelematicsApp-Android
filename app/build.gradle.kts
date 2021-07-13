@@ -79,10 +79,11 @@ dependencies {
 
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
+    implementation(project(Modules.content))
+    implementation(project(Modules.authentication))
+    implementation(project(Modules.feed))
     implementation(project(Modules.dashboard))
     implementation(project(Modules.account))
-    implementation(project(Modules.authentication))
-    implementation(project(Modules.content))
 
     implementation(AppDependencies.trackingApi)
 }

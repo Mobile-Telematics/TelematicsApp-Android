@@ -59,12 +59,13 @@ dependencies {
 
     implementation(project(Modules.domain))
     implementation(project(Modules.data))
+    implementation(project(Modules.content))
 
     implementation(AppDependencies.lifecycleKtx)
     implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
 
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("me.relex:circleindicator:2.1.4")
+    implementation(AppDependencies.chartView)
+    implementation(AppDependencies.circleIndicatorView)
 }

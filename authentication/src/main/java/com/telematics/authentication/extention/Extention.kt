@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
@@ -46,8 +45,7 @@ suspend fun <T> DatabaseReference.await(): T = suspendCoroutine { continuation -
             val userDatabase = snapshot.getValue(UserDatabase::class.java)
             userDatabase?.deviceToken?.let { deviceToken ->
                 Log.d("FIREBASE Database await", "onDataChange deviceToken:${deviceToken}")
-                val user = Mapper.userDatabaseToUser(userDatabase)
-                continuation.resume(user as T)
+                continuation.resume(userDatabase as T)
             } ?: run {
                 Log.d("FIREBASE Database await", "onDataChange deviceToken null")
 //                continuation.resumeWithException(AuthException(AuthErrorCode.EMPTY_DEVICE_TOKEN))

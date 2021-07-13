@@ -1,6 +1,7 @@
 package com.telematics.data.repository
 
 import com.telematics.data.api.DriveCoinsApi
+import com.telematics.data.api.LeaderboardApi
 import com.telematics.data.api.UserStatisticsApi
 import com.telematics.data.extentions.DateFormat
 import com.telematics.data.extentions.timeMillsToDisplayableString
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class StatisticRepoImpl @Inject constructor(
     private val driveCoinsApi: DriveCoinsApi,
     private val userStatisticsApi: UserStatisticsApi,
+    private val leaderboardApi: LeaderboardApi,
     private val userRepo: UserRepo
 ) : StatisticRepo {
 
@@ -89,5 +91,12 @@ class StatisticRepoImpl @Inject constructor(
             startDate,
             endDate
         ).result?.toDashboardEcoScoringTabData() ?: StatisticEcoScoringTabData()
+    }
+
+    override suspend fun getLeaderboard(type: LeaderboardType): List<LeaderboardMemberData>? {
+
+        val deviceToken = userRepo.getDeviceToken()
+        val data = leaderboardApi.getLeaderBoard(deviceToken, 10, 2, 6)
+        return data.result?.toLeaderboardData(type)
     }
 }

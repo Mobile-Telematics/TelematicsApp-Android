@@ -8,6 +8,7 @@ import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.authentication.model.UserDatabase
 import com.telematics.data.api.errors.ApiError
+import com.telematics.data.extentions.*
 import com.telematics.domain.model.authentication.User
 
 class Mapper {
@@ -61,6 +62,16 @@ class Mapper {
 
         fun userDatabaseToUser(userDatabase: UserDatabase): User {
 
+            val birthdayInString =
+                try {
+                    userDatabase.birthday
+                        ?.iso8601InSecondsToLong()
+                        ?.timeMillsToDisplayableString(DateFormat.DayMonthFullYear())
+                } catch (e: Exception) {
+                    Log.d("Mapper", "userDatabaseToUser: ${e.printStackTrace()}")
+                    ""
+                }
+
             return User().apply {
                 email = userDatabase.email
                 deviceToken = userDatabase.deviceToken
@@ -68,9 +79,40 @@ class Mapper {
                 firstName = userDatabase.firstName
                 lastName = userDatabase.lastName
                 phone = userDatabase.phone
-                birthday = userDatabase.birthday
+                birthday = birthdayInString
                 address = userDatabase.address
                 clientId = userDatabase.clientId
+                profilePictureUrl = userDatabase.profilePictureLink
+                gender = userDatabase.gender
+                maritalStatus = userDatabase.maritalStatus
+                childrenCount = userDatabase.childrenCount
+            }
+        }
+
+        fun userToUserDatabase(user: User): UserDatabase {
+
+            val birthdayInStr = (user.birthday ?: user.birthday)?.let {
+                if (it.isNotEmpty()) {
+                    it.stringDateToTimeInMillis(DateFormat.DayMonthFullYear())
+                        .timeMillsToIso8601InSeconds()
+                } else ""
+            }
+
+            return UserDatabase().apply {
+                email = user.email ?: user.email
+                firstName = user.firstName ?: user.firstName
+                lastName = user.lastName ?: user.lastName
+                phone = user.phone ?: user.phone
+                birthday = birthdayInStr
+                address = user.address ?: user.address
+                clientId = user.clientId ?: user.clientId
+                userId = user.userId ?: user.userId
+                profilePictureLink = user.profilePictureUrl ?: user.profilePictureUrl
+                gender = user.gender ?: user.gender ?: ""
+                maritalStatus = user.maritalStatus ?: user.maritalStatus ?: ""
+                childrenCount = user.childrenCount ?: user.childrenCount ?: 0
+                //default
+                deviceToken = user.deviceToken
             }
         }
     }
