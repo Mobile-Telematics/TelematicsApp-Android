@@ -80,5 +80,4 @@ dependencies {
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
 
     implementation(AppDependencies.swipeToRefresh)
-    implementation(project(Modules.HERE_SDK))
 }

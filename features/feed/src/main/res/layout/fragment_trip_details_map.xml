@@ -14,7 +14,6 @@
         <!-- Map fragment -->
         <fragment
             android:id="@+id/tripDetailsMap"
-            class="com.here.android.mpa.mapping.AndroidXMapFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
