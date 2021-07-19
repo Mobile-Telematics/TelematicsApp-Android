@@ -188,6 +188,26 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideTripEventTypeApi(
+        loggingInterceptor: HttpLoggingInterceptor,
+        converterFactory: Converter.Factory
+    ): TripEventTypeApi {
+
+        val okHttpClient = OkHttpClient.Builder().apply {
+            addInterceptor(loggingInterceptor)
+        }.build()
+
+        val retrofit = Retrofit
+            .Builder()
+            .client(okHttpClient)
+            .baseUrl(BuildConfig.tripEventTypeUrl)
+            .addConverterFactory(converterFactory)
+            .build()
+        return retrofit.create(TripEventTypeApi::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideRefreshApi(
         loggingInterceptor: HttpLoggingInterceptor,
         converterFactory: Converter.Factory,
@@ -255,9 +275,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideTrackingRepo(
-        tripsMapper: TripsMapper
+        tripsMapper: TripsMapper,
+        tripEventTypeApi: TripEventTypeApi
     ): TrackingApiRepo {
-        return TrackingApiImpl(tripsMapper)
+        return TrackingApiImpl(tripsMapper, tripEventTypeApi)
     }
 
     @Provides

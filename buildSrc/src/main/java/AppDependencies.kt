@@ -20,6 +20,7 @@ object AppDependencies {
     const val circleIndicatorView = "me.relex:circleindicator:${Versions.circleIndicatorView}"
     const val swipeToRefresh =
         "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeToRefresh}"
+    const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
 
     //di hilt
     const val daggerHiltCompiler =

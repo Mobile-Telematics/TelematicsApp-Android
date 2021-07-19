@@ -23,14 +23,17 @@ class TripsMapper @Inject constructor(
 
         val tripDetailsData = TripDetailsData()
 
+        tripDetailsData.id = trip.trackId
         tripDetailsData.addressStartParts = trip.addressStartParts?.let { convertAdressesParts(it) }
-        tripDetailsData.addressFinishParts = trip.addressFinishParts?.let { convertAdressesParts(it) }
+        tripDetailsData.addressFinishParts =
+            trip.addressFinishParts?.let { convertAdressesParts(it) }
         tripDetailsData.cityStart = trip.cityStart
         tripDetailsData.cityFinish = trip.cityFinish
         tripDetailsData.startAddress = trip.addressStart
         tripDetailsData.endAddress = trip.addressEnd
 
-        tripDetailsData.startDate = trip.startDate?.let { formatter.getTime(formatter.parseDate(it)) }
+        tripDetailsData.startDate =
+            trip.startDate?.let { formatter.getTime(formatter.parseDate(it)) }
         tripDetailsData.endDate = trip.endDate?.let { formatter.getTime(formatter.parseDate(it)) }
 
         tripDetailsData.time = (trip.duration * 60).roundToInt() // in seconds     //32.35
@@ -45,7 +48,8 @@ class TripsMapper @Inject constructor(
         tripDetailsData.ratingCornering = trip.ratingCornering100.roundToInt()
 
         tripDetailsData.accelerationCount = trip.accelerationCount
-        tripDetailsData.speedCount = ((trip.highOverSpeedMileage + trip.midOverSpeedMileage).toFloat())
+        tripDetailsData.speedCount =
+            ((trip.highOverSpeedMileage + trip.midOverSpeedMileage).toFloat())
         tripDetailsData.brakingCount = trip.decelerationCount
         tripDetailsData.phoneCount = trip.phoneUsage.toFloat()
 
@@ -81,7 +85,9 @@ class TripsMapper @Inject constructor(
         val tripPointsDataList = ArrayList<TripPointData>(pointsListRest.size)
         pointsListRest.forEachIndexed { i, _ ->
             val tripPointData = convertPoint(pointsListRest[i])
-            if (tripPointData != null) { tripPointsDataList.add(tripPointData) }
+            if (tripPointData != null) {
+                tripPointsDataList.add(tripPointData)
+            }
         }
         return tripPointsDataList
     }
@@ -102,7 +108,7 @@ class TripsMapper @Inject constructor(
         tripPointData.fullDate = tripPoint.pointDate!!
         val d = formatter.parseDate(tripPoint.pointDate!!)
         tripPointData.date = formatter.getDateYearTime(d)
-        if(tripPoint.cornering) tripPointData.alertType = "turn"
+        if (tripPoint.cornering) tripPointData.alertType = "turn"
         return tripPointData
     }
 

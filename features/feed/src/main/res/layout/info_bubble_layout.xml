@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_info_bubble"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/info_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_background"
+        tools:srcCompat="@drawable/ic_gray___acceleration" />
+
+    <TextView
+        android:id="@+id/info_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_bold"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="Braking" />
+
+    <TextView
+        android:id="@+id/info_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        tools:text="03/26 12:58 AM" />
+
+    <TextView
+        android:id="@+id/info_speed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="12sp"
+        tools:text="Speed: 26 m/h" />
+
+    <TextView
+        android:id="@+id/info_max_force"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        tools:text="Max Force: -3.2 m/s/s" />
+
+    <Button
+        android:id="@+id/info_not_event_button"
+        style="@style/ButtonOrange"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/trip_details_review" />
+</LinearLayout>

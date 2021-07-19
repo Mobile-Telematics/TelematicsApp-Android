@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/change_driver_type_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    tools:ignore="MissingPrefix">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/ic_custom_dialog_bubble"
+        android:backgroundTint="#fff"
+        android:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.8">
+
+        <TextView
+            android:id="@+id/popupSelectTripTypeTitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/trip_type_dialog_title"
+            android:textColor="#464646"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/popupSelectTripTypeTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trip_type_dialog_header"
+            android:textColor="#464646"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeTitle1" />
+
+        <ImageView
+            android:id="@+id/popupSelectTripTypeDriver"
+            style="@style/BubbleTypeUnSelect"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/ic_event_trip_bubble_driver"
+            app:layout_constraintBottom_toTopOf="@id/popupSelectTripTypeMotorcycle"
+            app:layout_constraintEnd_toStartOf="@id/popupSelectTripTypePassenger"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popupSelectTripTypeTitle2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/progress_trip_type_driver"
+            android:textColor="#464646"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/popupSelectTripTypeDriver"
+            app:layout_constraintStart_toStartOf="@id/popupSelectTripTypeDriver"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeDriver" />
+
+        <ImageView
+            android:id="@+id/popupSelectTripTypePassenger"
+            style="@style/BubbleTypeUnSelect"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_event_trip_bubble_passenger"
+            app:layout_constraintEnd_toStartOf="@id/popupSelectTripTypeBus"
+            app:layout_constraintStart_toEndOf="@id/popupSelectTripTypeDriver"
+            app:layout_constraintTop_toTopOf="@id/popupSelectTripTypeDriver" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/progress_trip_type_passenger"
+            android:textColor="#464646"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/popupSelectTripTypePassenger"
+            app:layout_constraintStart_toStartOf="@id/popupSelectTripTypePassenger"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypePassenger" />
+
+        <ImageView
+            android:id="@+id/popupSelectTripTypeBus"
+            style="@style/BubbleTypeUnSelect"
+            android:layout_marginEnd="32dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_event_trip_bubble_bus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/popupSelectTripTypePassenger"
+            app:layout_constraintTop_toBottomOf="@+id/popupSelectTripTypeTitle2"
+            app:layout_constraintTop_toTopOf="@id/popupSelectTripTypeDriver" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/progress_trip_type_bus"
+            android:textColor="#464646"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/popupSelectTripTypeBus"
+            app:layout_constraintStart_toStartOf="@id/popupSelectTripTypeBus"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeBus" />
+
+        <ImageView
+            android:id="@+id/popupSelectTripTypeMotorcycle"
+            style="@style/BubbleTypeUnSelect"
+            android:layout_marginTop="40dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_event_trip_bubble_motorcycle"
+            app:layout_constraintBottom_toTopOf="@id/popupSelectTripTypeBicycle"
+            app:layout_constraintEnd_toStartOf="@id/popupSelectTripTypeTrain"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeDriver" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/progress_trip_type_motorcycle"
+            android:textColor="#464646"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/popupSelectTripTypeMotorcycle"
+            app:layout_constraintStart_toStartOf="@id/popupSelectTripTypeMotorcycle"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeMotorcycle" />
+
+        <ImageView
+            android:id="@+id/popupSelectTripTypeTrain"
+            style="@style/BubbleTypeUnSelect"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_event_trip_bubble_train"
+            app:layout_constraintEnd_toStartOf="@id/popupSelectTripTypeTaxi"
+            app:layout_constraintStart_toEndOf="@id/popupSelectTripTypeMotorcycle"
+            app:layout_constraintTop_toTopOf="@id/popupSelectTripTypeMotorcycle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/progress_trip_type_train"
+            android:textColor="#464646"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/popupSelectTripTypeTrain"
+            app:layout_constraintStart_toStartOf="@id/popupSelectTripTypeTrain"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeTrain" />
+
+        <ImageView
+            android:id="@+id/popupSelectTripTypeTaxi"
+            style="@style/BubbleTypeUnSelect"
+            android:elevation="6dp"
+            android:src="@drawable/ic_event_trip_bubble_taxi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/popupSelectTripTypeTrain"
+            app:layout_constraintTop_toTopOf="@id/popupSelectTripTypeMotorcycle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/progress_trip_type_taxi"
+            android:textColor="#464646"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/popupSelectTripTypeTaxi"
+            app:layout_constraintStart_toStartOf="@id/popupSelectTripTypeTaxi"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeTaxi" />
+
+        <ImageView
+            android:id="@+id/popupSelectTripTypeBicycle"
+            style="@style/BubbleTypeUnSelect"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="48dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_event_trip_bubble_bicycle"
+            app:layout_constraintBottom_toTopOf="@id/popupSelectTripTypeCancel"
+            app:layout_constraintEnd_toStartOf="@id/popupSelectTripTypeOther"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeMotorcycle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/progress_trip_type_bicycle"
+            android:textColor="#464646"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/popupSelectTripTypeBicycle"
+            app:layout_constraintStart_toStartOf="@id/popupSelectTripTypeBicycle"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeBicycle" />
+
+        <ImageView
+            android:id="@+id/popupSelectTripTypeOther"
+            style="@style/BubbleTypeUnSelect"
+            android:layout_marginStart="12dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_event_trip_bubble_other"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/popupSelectTripTypeBicycle"
+            app:layout_constraintTop_toTopOf="@id/popupSelectTripTypeBicycle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/progress_trip_type_other"
+            android:textColor="#464646"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/popupSelectTripTypeOther"
+            app:layout_constraintStart_toStartOf="@id/popupSelectTripTypeOther"
+            app:layout_constraintTop_toBottomOf="@id/popupSelectTripTypeOther" />
+
+
+        <Button
+            android:id="@+id/popupSelectTripTypeCancel"
+            style="@style/Button"
+            android:layout_width="100dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/cancel_background"
+            android:text="@string/dialog_cancel"
+            android:textAllCaps="true"
+            android:textColor="@color/colorEventTripGrayText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/popupSelectTripTypeConfirm"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/popupSelectTripTypeConfirm"
+            style="@style/Button"
+            android:layout_width="100dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
+            android:text="@string/dialog_confirm"
+            android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/popupSelectTripTypeCancel"
+            app:layout_constraintTop_toTopOf="@id/popupSelectTripTypeCancel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

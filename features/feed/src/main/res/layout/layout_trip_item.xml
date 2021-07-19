@@ -53,7 +53,7 @@
                             android:layout_height="wrap_content"
                             android:background="#fff"
                             android:gravity="center_vertical"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -69,11 +69,11 @@
                             <TextView
                                 android:id="@+id/item_event_type_name"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginStart="8dp"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/open_sans_bold"
-                                android:gravity="start"
+                                android:gravity="start|center"
                                 android:text="@string/progress_trip_type_driver"
                                 android:textSize="16sp" />
 
@@ -273,7 +273,7 @@
                         android:layout_width="@dimen/feed_event_bubble_details_arrow_size"
                         android:layout_height="@dimen/feed_event_bubble_details_arrow_size"
                         android:layout_gravity="center"
-                        android:src="@drawable/arrow_double_back"
+                        android:src="@drawable/ic_arrow_double_back"
                         android:visibility="gone" />
 
                 </FrameLayout>

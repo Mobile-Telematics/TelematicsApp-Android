@@ -19,19 +19,25 @@ class ErrorInterceptor @Inject constructor(
 
         val code = response.code()
 
-        Log.d("ErrorInterceptor", "code: $code")
+        Log.d(
+            "ErrorInterceptor",
+            "code: $code url: ${request.url().uri()} msg: ${response.message()}"
+        )
 
         if (code != 200) {
-            throw RuntimeException(ApiError(code, response.message()))
+            //throw RuntimeException(ApiError(code, response.message()))
         }
 
-        val p = JSONObject(bodyString)
-        val status = p.getInt("Status")
+        if (!bodyString.isNullOrEmpty()) {
 
-        Log.d("ErrorInterceptor", "apiResponse.status: ${status}")
+            val p = JSONObject(bodyString)
+            val status = p.getInt("Status")
 
-        if (status != 200) {
-            throw ApiError(status)
+            Log.d("ErrorInterceptor", "apiResponse.status: ${status}")
+
+            if (status != 200) {
+                throw ApiError(status)
+            }
         }
 
         return response.newBuilder()

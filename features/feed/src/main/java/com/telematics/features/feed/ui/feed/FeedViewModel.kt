@@ -13,6 +13,7 @@ import com.telematics.domain.repository.SettingsRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
@@ -28,18 +29,38 @@ class FeedViewModel @Inject constructor(
             return dateFormatter
         }
 
+    private val currentTripIdList = mutableListOf<String>()
+
     fun getTripList(offset: Int = 0): LiveData<Result<List<TripData>>> {
 
-        val firstDataState = MutableLiveData<Result<List<TripData>>>()
+        val tripDataState = MutableLiveData<Result<List<TripData>>>()
         trackingUseCase.getTrips(offset, LOADING_COUNT)
             .flowOn(Dispatchers.IO)
-            .setLiveDataForResult(firstDataState)
+            .setLiveDataForResult(tripDataState)
+            .map { tripList ->
+                val tripIds = tripList.mapNotNull { it.id }
+                addTripsToCurrentList(tripIds)
+            }
             .launchIn(viewModelScope)
-        return firstDataState
+        return tripDataState
     }
 
-    fun getTelematicsLink(context: Context): String {
+    fun getPermissionLink(context: Context): String {
 
         return settingsRepo.getTelematicsLink(context)
+    }
+
+    private fun addTripsToCurrentList(tripIds: List<String>) {
+        currentTripIdList.addAll(tripIds)
+    }
+
+    fun changeTripTypeTo(tripId: String, tripType: TripData.TripType): LiveData<Result<Boolean>> {
+
+        val changeState = MutableLiveData<Result<Boolean>>()
+        trackingUseCase.changeTripType(tripId, tripType)
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(changeState)
+            .launchIn(viewModelScope)
+        return changeState
     }
 }

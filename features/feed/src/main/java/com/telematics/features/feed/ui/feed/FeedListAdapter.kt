@@ -40,17 +40,17 @@ class FeedListAdapter(
         notifyDataSetChanged()
     }
 
-    fun addData(data: TripData) {
-
-        dataSet.add(data)
-        notifyDataSetChanged()
-    }
-
     fun clearAllData() {
 
         lastPosition = -1
         dataSet.clear()
         notifyDataSetChanged()
+    }
+
+    fun updateItemByPos(newType: TripData.TripType, position: Int) {
+
+        dataSet[position].type = newType
+        notifyItemChanged(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -120,7 +120,12 @@ class FeedListAdapter(
                 this@FeedListAdapter.clickListener?.onItemClick(tripItem, this.adapterPosition)
             }
 
-            itemView.item_event_type_layout.setOnClickListener { }
+            itemView.item_event_type_layout.setOnClickListener {
+                this@FeedListAdapter.clickListener?.onItemChangeTypeClick(
+                    tripItem,
+                    this.adapterPosition
+                )
+            }
 
             // check radio btn
             val updateViews = {
@@ -175,10 +180,6 @@ class FeedListAdapter(
 
             updateViews()
 
-            itemView.item_event_type_layout.setOnClickListener {
-
-            }
-
             itemView.eventTripLabel.text =
                 itemView.resources.getString(R.string.progress_event_trip)
             itemView.eventTripLabel.background = itemView.resources.drawable(
@@ -190,12 +191,6 @@ class FeedListAdapter(
 
     interface ClickListeners {
         fun onItemClick(tripData: TripData, listItemPosition: Int)
-    }
-
-    companion object {
-        const val CONFIRM_HIDE_TRACK = "confirm_hide_track"
-        const val CONFIRM_SHARE_TRACK = "confirm_share_track"
-        const val CHANGE_TRIP_ORIGIN_TYPE = "change_trip_origin_type"
-        const val SHOW_TRIP_DETAILS = "show_trip_details"
+        fun onItemChangeTypeClick(tripData: TripData, listItemPosition: Int)
     }
 }

@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.telematics.content.utils.TryOpenLink
 import com.telematics.domain.model.tracking.TripData
+import com.telematics.features.feed.model.ChangeDriverTypeDialog
 import com.telematics.features.feed.model.EndlessRecyclerViewScrollListener
+import com.telematics.features.feed.ui.trip_detail.TripDetailFragment
 import com.telematics.feed.R
 import com.telematics.feed.databinding.FragmentFeedBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,13 +26,13 @@ class FeedFragment : Fragment() {
 
     private val TAG = "FeedFragment"
 
-    private lateinit var binding: FragmentFeedBinding
-
     @Inject
     lateinit var feedViewModel: FeedViewModel
 
+    private lateinit var binding: FragmentFeedBinding
     lateinit var feedListAdapter: FeedListAdapter
     lateinit var scrollListener: EndlessRecyclerViewScrollListener
+    private lateinit var changeDriverTypeDialog: ChangeDriverTypeDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,16 +47,28 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
-        observeTripList()
+        observeTripList(true)
     }
 
+
+    /** init UIs */
     private fun initViews() {
+
+
+        initRecyclerView()
+        initChangeDriverTypeDialog()
+        setListeners()
+    }
+
+    private fun initRecyclerView(){
 
         val recyclerView = binding.feedList
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
         feedListAdapter = FeedListAdapter(feedViewModel.getDateFormatter)
+        feedListAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
         recyclerView.adapter = feedListAdapter
 
         scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
@@ -70,14 +85,17 @@ class FeedFragment : Fragment() {
             }
         }
         recyclerView.addOnScrollListener(scrollListener)
+    }
 
-        setListeners()
+    private fun initChangeDriverTypeDialog() {
+
+        changeDriverTypeDialog = ChangeDriverTypeDialog(requireContext())
     }
 
     private fun setListeners() {
 
         binding.swipeToRefreshEvents.setOnRefreshListener {
-            observeTripList()
+            observeTripList(false)
         }
 
         binding.eventsEmptyListLayout.feedEmptyListPermissions.setOnClickListener {
@@ -88,12 +106,23 @@ class FeedFragment : Fragment() {
             override fun onItemClick(tripData: TripData, listItemPosition: Int) {
                 openTripDetail(tripData, listItemPosition)
             }
+
+            override fun onItemChangeTypeClick(tripData: TripData, listItemPosition: Int) {
+                val tripType = tripData.type
+                changeDriverTypeDialog.showDialog(tripType) { type ->
+                    changeTripTypeTo(tripData, type, listItemPosition)
+                }
+            }
         })
     }
 
-    private fun observeTripList() {
+    /** observe/handle list */
+    private fun observeTripList(isCreateEvent: Boolean) {
 
-        showRefresh(true)
+        if (isCreateEvent)
+            showProgress(true)
+        else
+            showRefresh(true)
         scrollListener.resetState()
         getListNextPage(0)
     }
@@ -111,6 +140,7 @@ class FeedFragment : Fragment() {
             }
 
             showRefresh(false)
+            showProgress(false)
         }
     }
 
@@ -125,8 +155,42 @@ class FeedFragment : Fragment() {
         feedListAdapter.addData(list)
     }
 
+    /** show dialog for change trip type */
+    private fun changeTripTypeTo(
+        tripData: TripData,
+        toType: TripData.TripType,
+        listItemPosition: Int
+    ) {
+
+        val tripId = tripData.id!!
+
+        showProgress(true)
+        feedViewModel.changeTripTypeTo(tripId, toType)
+            .observe(viewLifecycleOwner) { result ->
+                result.onSuccess {
+                    if (it) {
+                        tripData.type = toType
+                    }
+                    feedListAdapter.updateItemByPos(toType, listItemPosition)
+                    //bindTripType(tripData)
+                }
+                result.onFailure {
+                    feedListAdapter.updateItemByPos(toType, listItemPosition)
+                    //bindTripType(tripData)
+                }
+                showProgress(false)
+            }
+    }
+
+
+    /** additional UI */
     private fun showRefresh(refresh: Boolean) {
         binding.swipeToRefreshEvents.isRefreshing = refresh
+    }
+
+    private fun showProgress(show: Boolean) {
+        binding.feedLoadingView.isVisible = show
+        binding.feedLoadingView.setOnClickListener { }
     }
 
     private fun showEmptyData(show: Boolean) {
@@ -136,12 +200,17 @@ class FeedFragment : Fragment() {
 
     private fun tryOpenLink() {
 
-        val link = feedViewModel.getTelematicsLink(requireContext())
+        val link = feedViewModel.getPermissionLink(requireContext())
         TryOpenLink(requireContext()).open(link)
     }
 
+    /** go to tripDetails*/
     private fun openTripDetail(tripData: TripData, listItemPosition: Int) {
 
-
+        val bundle = bundleOf(
+            TripDetailFragment.TRIP_DETAILS_TRIP_DATA_KEY to tripData,
+            TripDetailFragment.TRIP_DETAILS_TRIP_POS_KEY to listItemPosition
+        )
+        findNavController().navigate(R.id.action_feedFragment_to_tripDetailFragment, bundle)
     }
 }

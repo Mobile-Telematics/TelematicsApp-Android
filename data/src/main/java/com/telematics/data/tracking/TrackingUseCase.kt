@@ -5,7 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import com.telematics.data.utils.ImageLoader
+import com.telematics.domain.model.tracking.ChangeTripEvent
 import com.telematics.domain.model.tracking.TripData
+import com.telematics.domain.model.tracking.TripDetailsData
 import com.telematics.domain.repository.TrackingApiRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -79,4 +81,31 @@ class TrackingUseCase
         }
     }
 
+    fun getTripDetailsByPos(position: Int): Flow<TripDetailsData?> {
+        return flow {
+            val tripData = trackingApiRepo.getTrips(position, 1).firstOrNull()
+            tripData?.id?.let { tripId ->
+                val data = trackingApiRepo.getTripDetails(tripId)
+                emit(data)
+            } ?: run {
+                emit(null)
+            }
+        }
+    }
+
+    fun changeTripType(tripId: String, toTripType: TripData.TripType): Flow<Boolean> {
+
+        return flow {
+            val data = trackingApiRepo.changeTripType(tripId, toTripType)
+            emit(data)
+        }
+    }
+
+    fun changeTripEvent(tripId: String, changeTripEvent: ChangeTripEvent): Flow<Boolean> {
+
+        return flow {
+            val data = trackingApiRepo.changeTripEvent(tripId, changeTripEvent)
+            emit(data)
+        }
+    }
 }
