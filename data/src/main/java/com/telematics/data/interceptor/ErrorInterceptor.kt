@@ -7,6 +7,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
 import org.json.JSONObject
+import java.io.IOException
 import javax.inject.Inject
 
 class ErrorInterceptor @Inject constructor(
@@ -28,16 +29,17 @@ class ErrorInterceptor @Inject constructor(
             //throw RuntimeException(ApiError(code, response.message()))
         }
 
-        if (!bodyString.isNullOrEmpty()) {
-
-            val p = JSONObject(bodyString)
-            val status = p.getInt("Status")
-
-            Log.d("ErrorInterceptor", "apiResponse.status: ${status}")
-
-            if (status != 200) {
-                throw ApiError(status)
+        try {
+            if (!bodyString.isNullOrEmpty()) {
+                val p = JSONObject(bodyString)
+                val status = p.getInt("Status")
+                Log.d("ErrorInterceptor", "apiResponse.status: ${status}")
+                if (status != 200) {
+                    throw ApiError(status)
+                }
             }
+        } catch (e: IOException) {
+
         }
 
         return response.newBuilder()

@@ -2,7 +2,7 @@ object Versions {
 
     const val kotlin = "1.4.32"
 
-    const val trackingApi = "2.2.251"
+    const val trackingApi = "2.2.253"
 
     //libs
     const val coreKtx = "1.2.0"
