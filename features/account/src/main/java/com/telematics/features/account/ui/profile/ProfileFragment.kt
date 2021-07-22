@@ -137,6 +137,8 @@ class ProfileFragment : BaseFragment() {
 
     private fun finish(newUser: User) {
 
+        hideKeyboard()
+
         val bundle = bundleOf(AccountFragment.ACCOUNT_USER_BUNDLE_KEY to newUser)
         findNavController().previousBackStackEntry?.savedStateHandle?.set(
             AccountFragment.ACCOUNT_USER_KEY,

@@ -179,6 +179,7 @@ class TripDetailFragment : BaseFragment() {
                     override fun onTwoFingerTapEvent(p0: PointF): Boolean = false
                 }, 0, true)
             } else {
+                Log.d(TAG, "initMap: ${error}")
                 showProgress(false)
             }
         }
@@ -288,7 +289,7 @@ class TripDetailFragment : BaseFragment() {
 
     private fun setListeners() {
 
-        binding.tripDetailsToolbar.setNavigationOnClickListener {
+        binding.tripDetailsToolbar.setOnClickListener {
             Thread.sleep(100)
             onBackPressed()
         }
@@ -318,6 +319,7 @@ class TripDetailFragment : BaseFragment() {
     /** observe trip details */
     private fun getTripDetailsByPos(position: Int) {
 
+        showMapFragment(false)
         showProgress(true)
         showPreviousArrow(position > 0)
 
@@ -325,6 +327,7 @@ class TripDetailFragment : BaseFragment() {
             .observe(viewLifecycleOwner) { result ->
                 result.onSuccess { tripDetails ->
                     tripDetails?.let {
+                        showMapFragment(true)
                         bindTrip(tripDetails)
                     } ?: run {
                         currentTripPosition = 0
@@ -701,11 +704,28 @@ class TripDetailFragment : BaseFragment() {
 
         binding.tripDetailsLoadingView.setOnClickListener { }
         binding.tripDetailsLoadingView.isVisible = show
+
+        binding.tripDetailsBottomSheet.tripBottomSheet.alpha = if (show) 0.5f else 1f
     }
 
     private fun showPreviousArrow(show: Boolean) {
 
         binding.prevArrow.isVisible = show
+    }
+
+    private fun showMapFragment(show: Boolean) {
+
+        if (show) {
+            binding.tripDetails.tripDetailsMap.isVisible = true
+            binding.tripDetails.tripDetailsMap.alpha = 0f
+            binding.tripDetails.tripDetailsMap.animate()
+                .setDuration(300)
+                .setStartDelay(100)
+                .alpha(1f)
+                .start()
+        } else {
+            binding.tripDetails.tripDetailsMap.isVisible = false
+        }
     }
 
     private fun showToast(success: Boolean) {

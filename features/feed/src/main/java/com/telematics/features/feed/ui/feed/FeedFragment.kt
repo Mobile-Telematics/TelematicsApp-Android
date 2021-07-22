@@ -47,20 +47,19 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-        observeTripList(true)
+        observeSavedTripList()
     }
 
 
     /** init UIs */
     private fun initViews() {
 
-
         initRecyclerView()
         initChangeDriverTypeDialog()
         setListeners()
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
 
         val recyclerView = binding.feedList
         val layoutManager = LinearLayoutManager(requireContext())
@@ -117,6 +116,26 @@ class FeedFragment : Fragment() {
     }
 
     /** observe/handle list */
+    private fun observeSavedTripList() {
+
+        if (feedViewModel.getSaveStateBundle.value == null) {
+            observeTripList(true)
+            return
+        }
+        feedViewModel.getSaveStateBundle.observe(viewLifecycleOwner) { bundle ->
+            val savedList = feedViewModel.getSavedListByBundle(bundle)
+
+            if (savedList.isNullOrEmpty()) {
+                observeTripList(true)
+            } else {
+                updateList(savedList, true)
+                showProgress(false)
+            }
+
+            feedViewModel.getSaveStateBundle.removeObservers(viewLifecycleOwner)
+        }
+    }
+
     private fun observeTripList(isCreateEvent: Boolean) {
 
         if (isCreateEvent)

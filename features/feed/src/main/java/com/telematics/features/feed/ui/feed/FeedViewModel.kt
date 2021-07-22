@@ -1,6 +1,8 @@
 package com.telematics.features.feed.ui.feed
 
 import android.content.Context
+import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,6 +24,8 @@ class FeedViewModel @Inject constructor(
     private val settingsRepo: SettingsRepo
 ) : ViewModel() {
 
+    private val SAVE_LIST_STATE_BUNDLE_KEY = "SAVE_LIST_STATE_BUNDLE_KEY"
+
     private val LOADING_COUNT = 20
 
     val getDateFormatter: DateFormatter
@@ -29,7 +33,12 @@ class FeedViewModel @Inject constructor(
             return dateFormatter
         }
 
-    private val currentTripIdList = mutableListOf<String>()
+    private val currentTripList = mutableListOf<TripData>()
+    private val saveStateBundle = MutableLiveData<Bundle>()
+    val getSaveStateBundle: LiveData<Bundle>
+        get() {
+            return saveStateBundle
+        }
 
     fun getTripList(offset: Int = 0): LiveData<Result<List<TripData>>> {
 
@@ -38,8 +47,7 @@ class FeedViewModel @Inject constructor(
             .flowOn(Dispatchers.IO)
             .setLiveDataForResult(tripDataState)
             .map { tripList ->
-                val tripIds = tripList.mapNotNull { it.id }
-                addTripsToCurrentList(tripIds)
+                addTripsToCurrentList(tripList)
             }
             .launchIn(viewModelScope)
         return tripDataState
@@ -50,8 +58,9 @@ class FeedViewModel @Inject constructor(
         return settingsRepo.getTelematicsLink(context)
     }
 
-    private fun addTripsToCurrentList(tripIds: List<String>) {
-        currentTripIdList.addAll(tripIds)
+    private fun addTripsToCurrentList(tripIds: List<TripData>) {
+        currentTripList.addAll(tripIds)
+        saveListState()
     }
 
     fun changeTripTypeTo(tripId: String, tripType: TripData.TripType): LiveData<Result<Boolean>> {
@@ -62,5 +71,14 @@ class FeedViewModel @Inject constructor(
             .setLiveDataForResult(changeState)
             .launchIn(viewModelScope)
         return changeState
+    }
+
+    private fun saveListState() {
+        val bundle = bundleOf(SAVE_LIST_STATE_BUNDLE_KEY to currentTripList)
+        saveStateBundle.value = bundle
+    }
+
+    fun getSavedListByBundle(bundle: Bundle): List<TripData> {
+        return bundle.get(SAVE_LIST_STATE_BUNDLE_KEY) as List<TripData>
     }
 }

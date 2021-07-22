@@ -36,33 +36,41 @@
         <include
             android:id="@+id/tripDetailsBottomSheet"
             layout="@layout/fragment_trip_details_bottom_sheet" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:id="@+id/tripDetailsToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_settings_toolbar_height"
         android:background="@color/colorMenuBackgroundAlpha"
-        app:navigationIcon="@drawable/ic_back">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/app_settings_toolbar_height"
+            android:layout_height="@dimen/app_settings_toolbar_height"
+            android:padding="12dp"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
             android:gravity="center_vertical"
             android:text="@string/trip_details_title"
             android:textColor="@android:color/white"
             android:textSize="@dimen/app_settings_toolbar_text_size" />
 
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
 
     <!-- Loading view -->
 
     <FrameLayout
         android:id="@+id/tripDetailsLoadingView"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <ProgressBar
             android:layout_width="wrap_content"
