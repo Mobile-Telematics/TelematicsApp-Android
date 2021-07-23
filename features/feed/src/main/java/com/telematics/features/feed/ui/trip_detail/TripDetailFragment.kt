@@ -328,7 +328,6 @@ class TripDetailFragment : BaseFragment() {
             .observe(viewLifecycleOwner) { result ->
                 result.onSuccess { tripDetails ->
                     tripDetails?.let {
-                        showMapFragment(true)
                         bindTrip(tripDetails)
                     } ?: run {
                         currentTripPosition = 0
@@ -403,6 +402,7 @@ class TripDetailFragment : BaseFragment() {
             tripDetailsData.ratingCornering
         )
 
+        showMapFragment(true)
         showProgress(false)
         setTranslucentForBottomSheet(false)
     }
