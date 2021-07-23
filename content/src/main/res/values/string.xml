@@ -1,5 +1,4 @@
 <resources>
-    <!--TODO: #preprod -->
     <string name="app_name">YOUR_LABEL</string>
 
     <string name="nav_item_feed">Feed</string>
