@@ -8,7 +8,6 @@ import com.google.gson.Gson
 import com.telematics.authentication.data.Authentication
 import com.telematics.data.BuildConfig
 import com.telematics.data.api.*
-import com.telematics.data.interceptor.AppIDInterceptor
 import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
 import com.telematics.data.interceptor.MainInterceptor
@@ -96,10 +95,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideAppIDInterceptor(): AppIDInterceptor = AppIDInterceptor()
-
-    @Singleton
-    @Provides
     fun provideInstanceValuesInterceptor(): InstanceValuesInterceptor = InstanceValuesInterceptor()
 
     @Singleton
@@ -111,13 +106,11 @@ object AppModule {
     fun provideOkHttpClient(
         mainInterceptor: MainInterceptor,
         loggingInterceptor: HttpLoggingInterceptor,
-        appIDInterceptor: AppIDInterceptor,
         instanceValuesInterceptor: InstanceValuesInterceptor,
         errorInterceptor: ErrorInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             addInterceptor(mainInterceptor)
-            addInterceptor(appIDInterceptor)
             addInterceptor(instanceValuesInterceptor)
             authenticator(mainInterceptor)
             //if (BuildConfig.DEBUG)

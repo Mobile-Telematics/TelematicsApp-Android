@@ -15,7 +15,6 @@ object AppConfig {
 
     const val DASHBOARD_DISTANCE_LIMIT = "10" //in km
 
-    const val APP_ID = "\"YOUR_APP_ID\""
     const val INSTANCE_ID = "\"YOUR_INSTANCE_ID\""
     const val INSTANCE_KEY = "\"YOUR_INSTANCE_KEY\""
 

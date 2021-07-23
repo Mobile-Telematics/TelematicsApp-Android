@@ -24,7 +24,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "APP_ID", AppConfig.APP_ID)
             buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
             buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
@@ -40,7 +39,6 @@ android {
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            buildConfigField("String", "APP_ID", AppConfig.APP_ID)
             buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
             buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
