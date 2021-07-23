@@ -3,6 +3,7 @@ package com.telematics.zenroad
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
 import com.telematics.zenroad.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
 
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         overridePendingTransition(0, 0)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)

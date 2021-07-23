@@ -75,7 +75,6 @@ class FeedFragment : Fragment() {
             }
 
             override fun onScroll() {
-                //fix issue at bottom of recyclerView list
                 val scrollPos = layoutManager.findFirstVisibleItemPosition()
                 val isEnable = scrollPos == 0
                 if (isEnable != binding.swipeToRefreshEvents.isEnabled)
@@ -229,7 +228,7 @@ class FeedFragment : Fragment() {
 
     private fun showEmptyData(show: Boolean) {
 
-        binding.eventsEmptyList.visibility = if (show) View.VISIBLE else View.GONE
+        binding.eventsEmptyList.alpha = if(show) 1f else 0f
     }
 
     private fun tryOpenLink() {
