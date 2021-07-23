@@ -65,6 +65,7 @@
     <string name="account_phone">Phone:</string>
     <string name="account_complete_btn">Complete Profile</string>
     <string name="acc_wizard_btn_save">Save</string>
+    <string name="account_access_permission_msg">Please allow access to camera and media</string>
 
     <!-- Account Wizard Profile -->
     <string name="acc_wizard_name">FIRST NAME</string>
