@@ -100,3 +100,60 @@ To set application icon, find the content module icon in resource folders (res/m
 Our goal is to provide your users with a user-friendly interface to get the best user experience.
 We suggest you use 2 (two) dashboards with Scoring and user Statistics data in your application. To get the first data, the user usually needs to drive a short distance. We set this parameter in the configuration file `AppConfig.kt` in parameter
 const val DASHBOARD_DISTANCE_LIMIT = "10" //measured in km
+
+## Feed features
+
+The Trips screen displays the trips users have made.
+
+## Trip Details screen
+
+>Telematics App for Android use HERE Maps to displays the user's trips on a map. You need to get your access key for view the trip details. Visit https://developer.here.com
+
+
+To set API KEY for HERE Maps change HERE_API_KEY in AppConfig.kt file. </br>
+const val HERE_API_KEY = "YOUR_HERE_API_KEY"
+
+To set LICENSE KEY for HERE Maps change HERE_LICENSE_KEY in AppConfig.kt file. </br>
+const val HERE_LICENSE_KEY = "YOUR_HERE_LICENSE_KEY"
+
+To set APP ID for HERE Maps change HERE_APP_ID in AppConfig.kt file. </br>
+const val HERE_APP_ID = "YOUR_HERE_APP_ID"
+
+To set APP CODE for HERE Maps change HERE_APP_CODE in AppConfig.kt file. </br>
+const val HERE_APP_CODE = "YOUR_HERE_APP_CODE"
+
+Having received a list of the user's trips, you can refer to your array of trips and get mode detailde information, as well as a set of points to be desplayed on the HERE Maps API.
+
+## Get HERE Maps access keys
+
+In the next few simple steps, we'll show you how easy create access keys in HERE developer console.
+
+
+Step 1: After creating your HERE account, open your project in https://developer.here.com/projects
+In REST table click "Generate App".
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_1.png)
+
+Step 2: Click "Create API KEY"
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_2.png)
+
+Step 3: Copy API KEY and paste it to HERE_API_KEY parametr in AppConfig.kt file
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_3.png)
+
+Step 4: In HERE SDK FOR ANDROID table click "Generate App ID and App Code".
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_4.png)
+
+Step 5: Input your applicationId like a "com.prefix.application_name" from AppConfig.kt file for connet your application and HERE Maps services. Then click "GENERATE".
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_5.png)
+
+Step 6: Copy LICENSE KEY from HERE developer console to HERE_LICENSE_KEY parametr in AppConfig.kt file. Also do the same for parameters: APP ID and APP CODE.
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_6.png)
+
+>Note: you do not need to Download SDK from the HERE developer console, it is already in the application project.
+
+Build & Run!
