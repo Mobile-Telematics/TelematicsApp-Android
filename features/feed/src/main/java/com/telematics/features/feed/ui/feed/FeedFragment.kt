@@ -50,7 +50,6 @@ class FeedFragment : Fragment() {
         observeSavedTripList()
     }
 
-
     /** init UIs */
     private fun initViews() {
 
@@ -123,13 +122,11 @@ class FeedFragment : Fragment() {
             return
         }
         feedViewModel.getSaveStateBundle.observe(viewLifecycleOwner) { bundle ->
-            val savedList = feedViewModel.getSavedListByBundle(bundle)
-
-            if (savedList.isNullOrEmpty()) {
+            val savedListSize = feedViewModel.bundleToListSize(bundle)
+            if (savedListSize == 0) {
                 observeTripList(true)
             } else {
-                updateList(savedList, true)
-                showProgress(false)
+                restoreList(savedListSize)
             }
 
             feedViewModel.getSaveStateBundle.removeObservers(viewLifecycleOwner)
@@ -163,6 +160,23 @@ class FeedFragment : Fragment() {
         }
     }
 
+    private fun restoreList(count: Int) {
+
+        showProgress(true)
+
+        feedViewModel.getTripList(0, count).observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                updateList(it, true)
+            }
+            result.onFailure {
+
+            }
+
+            showRefresh(false)
+            showProgress(false)
+        }
+    }
+
     private fun updateList(list: List<TripData>, isFirstData: Boolean) {
 
         if (isFirstData) {
@@ -172,6 +186,7 @@ class FeedFragment : Fragment() {
         }
 
         feedListAdapter.addData(list)
+        feedViewModel.saveCurrentListSize(feedListAdapter.itemCount)
     }
 
     /** show dialog for change trip type */

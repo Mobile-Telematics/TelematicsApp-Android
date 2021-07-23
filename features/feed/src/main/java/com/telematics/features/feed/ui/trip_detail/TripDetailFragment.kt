@@ -61,6 +61,7 @@ class TripDetailFragment : BaseFragment() {
     private var listMapObjects = ArrayList<MapObject>()
     private var selectedMarker: MapObject? = null
     private var overlay: MapOverlay? = null
+    private var isNeedUpdateFeedList = false
 
     //UI
     lateinit var binding: FragmentTripDatailBinding
@@ -290,8 +291,7 @@ class TripDetailFragment : BaseFragment() {
     private fun setListeners() {
 
         binding.tripDetailsToolbar.setOnClickListener {
-            Thread.sleep(100)
-            onBackPressed()
+            finish()
         }
 
         binding.nextArrow.setOnClickListener {
@@ -321,6 +321,7 @@ class TripDetailFragment : BaseFragment() {
 
         showMapFragment(false)
         showProgress(true)
+        setTranslucentForBottomSheet(true)
         showPreviousArrow(position > 0)
 
         tripDetailViewModel.getTripDetailsByPos(position)
@@ -403,6 +404,7 @@ class TripDetailFragment : BaseFragment() {
         )
 
         showProgress(false)
+        setTranslucentForBottomSheet(false)
     }
 
     private fun bindTripType(tripDetailsData: TripDetailsData) {
@@ -704,8 +706,6 @@ class TripDetailFragment : BaseFragment() {
 
         binding.tripDetailsLoadingView.setOnClickListener { }
         binding.tripDetailsLoadingView.isVisible = show
-
-        binding.tripDetailsBottomSheet.tripBottomSheet.alpha = if (show) 0.5f else 1f
     }
 
     private fun showPreviousArrow(show: Boolean) {
@@ -726,6 +726,10 @@ class TripDetailFragment : BaseFragment() {
         } else {
             binding.tripDetails.tripDetailsMap.isVisible = false
         }
+    }
+
+    private fun setTranslucentForBottomSheet(show: Boolean) {
+        binding.tripDetailsBottomSheet.tripBottomSheet.alpha = if (show) 0.5f else 1f
     }
 
     private fun showToast(success: Boolean) {
@@ -755,6 +759,7 @@ class TripDetailFragment : BaseFragment() {
             .observe(viewLifecycleOwner) { result ->
                 result.onSuccess {
                     if (it) {
+                        isNeedUpdateFeedList = true
                         tripDetailsData.type = toType
                     }
                     bindTripType(tripDetailsData)
@@ -810,5 +815,10 @@ class TripDetailFragment : BaseFragment() {
         val h = min / 60
         min %= 60
         return requireContext().getString(R.string.common_time_in_hm_format, h, min)
+    }
+
+
+    private fun finish() {
+        onBackPressed()
     }
 }

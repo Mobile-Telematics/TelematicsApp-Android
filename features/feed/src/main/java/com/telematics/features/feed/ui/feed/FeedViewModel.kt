@@ -15,7 +15,6 @@ import com.telematics.domain.repository.SettingsRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
@@ -33,22 +32,18 @@ class FeedViewModel @Inject constructor(
             return dateFormatter
         }
 
-    private val currentTripList = mutableListOf<TripData>()
     private val saveStateBundle = MutableLiveData<Bundle>()
     val getSaveStateBundle: LiveData<Bundle>
         get() {
             return saveStateBundle
         }
 
-    fun getTripList(offset: Int = 0): LiveData<Result<List<TripData>>> {
+    fun getTripList(offset: Int, count: Int = LOADING_COUNT): LiveData<Result<List<TripData>>> {
 
         val tripDataState = MutableLiveData<Result<List<TripData>>>()
-        trackingUseCase.getTrips(offset, LOADING_COUNT)
+        trackingUseCase.getTrips(offset, count)
             .flowOn(Dispatchers.IO)
             .setLiveDataForResult(tripDataState)
-            .map { tripList ->
-                addTripsToCurrentList(tripList)
-            }
             .launchIn(viewModelScope)
         return tripDataState
     }
@@ -56,11 +51,6 @@ class FeedViewModel @Inject constructor(
     fun getPermissionLink(context: Context): String {
 
         return settingsRepo.getTelematicsLink(context)
-    }
-
-    private fun addTripsToCurrentList(tripIds: List<TripData>) {
-        currentTripList.addAll(tripIds)
-        saveListState()
     }
 
     fun changeTripTypeTo(tripId: String, tripType: TripData.TripType): LiveData<Result<Boolean>> {
@@ -73,12 +63,14 @@ class FeedViewModel @Inject constructor(
         return changeState
     }
 
-    private fun saveListState() {
-        val bundle = bundleOf(SAVE_LIST_STATE_BUNDLE_KEY to currentTripList)
+    fun saveCurrentListSize(tripListSize: Int) {
+
+        val bundle = bundleOf(SAVE_LIST_STATE_BUNDLE_KEY to tripListSize)
         saveStateBundle.value = bundle
     }
 
-    fun getSavedListByBundle(bundle: Bundle): List<TripData> {
-        return bundle.get(SAVE_LIST_STATE_BUNDLE_KEY) as List<TripData>
+    fun bundleToListSize(bundle: Bundle): Int {
+
+        return bundle.getInt(SAVE_LIST_STATE_BUNDLE_KEY, 0)
     }
 }
