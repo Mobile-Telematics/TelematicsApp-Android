@@ -9,29 +9,29 @@ object Plugins {
     private const val daggerHilt =
         "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHilt}"
 
-    private const val googleServices = "com.google.gms:google-services:4.3.8"
+    private const val googleServices = "com.google.gms:google-services:${PluginVersion.googleServices}"
+    private const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-gradle:${PluginVersion.firebaseCrashlytics}"
 
     val classpathList = arrayListOf(
         gradle,
         kotlin_gradle,
         daggerHilt,
-        googleServices
+        googleServices,
+        firebaseCrashlytics
     )
 
     /*---*/
 
     const val application = "com.android.application"
     const val android = "android"
-    const val androidExtensions = "android.extensions"
     const val androidLibrary = "com.android.library"
-    const val javaLibrary = "java-library"
     const val kotlin = "kotlin"
     const val kotlinKapt = "kotlin-kapt"
     const val kotlinAndroid = "kotlin-android"
     const val daggerHiltPlugin = "dagger.hilt.android.plugin"
-    const val dynamicFeature = "com.android.dynamic-feature"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
     const val googlePlugins = "com.google.gms.google-services"
+    const val firebaseCrashlyticsPlugin = "com.google.firebase.crashlytics"
 }
 
 fun DependencyHandler.classpathList(list: List<String>) {

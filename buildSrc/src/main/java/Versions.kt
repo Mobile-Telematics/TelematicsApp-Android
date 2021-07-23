@@ -35,6 +35,7 @@ object Versions {
     const val firebaseDatabaseKtx = "20.0.0"
     const val firebaseAuth = "21.0.1"
     const val firebaseStorage = "20.0.0"
+    const val firebaseCrashlytics = "18.1.0"
 
     const val googlePlayServices = "19.0.0"
     const val googleGuava = "27.0.1-android"
@@ -44,4 +45,6 @@ object PluginVersion {
 
     const val gradle = "4.1.1"
     const val kotlin = "1.4.32"
+    const val googleServices = "4.3.8"
+    const val firebaseCrashlytics = "2.7.1"
 }

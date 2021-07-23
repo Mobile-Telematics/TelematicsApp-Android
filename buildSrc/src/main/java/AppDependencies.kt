@@ -82,6 +82,7 @@ object AppDependencies {
     private const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
     private const val firebaseStorage =
         "com.google.firebase:firebase-storage-ktx:${Versions.firebaseStorage}"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx:${Versions.firebaseCrashlytics}"
 
     //google
     private const val googlePlayServices =
