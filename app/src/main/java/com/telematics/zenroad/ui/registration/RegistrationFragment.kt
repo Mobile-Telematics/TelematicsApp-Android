@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.domain.model.LoginType
+import com.telematics.features.account.BaseFragment
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.RegistrationFragmentBinding
 import com.telematics.zenroad.extention.isValidEmail
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : BaseFragment() {
 
     private val TAG = "RegistrationFragment"
 
@@ -263,6 +263,7 @@ class RegistrationFragment : Fragment() {
             return
         }
 
+        hideKeyboard()
         showProgress()
 
         viewModel.registration(

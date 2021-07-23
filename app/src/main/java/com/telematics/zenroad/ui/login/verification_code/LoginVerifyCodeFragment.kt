@@ -14,6 +14,7 @@ import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
+import com.telematics.features.account.BaseFragment
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.ActivityVerifyCodeBinding
 import com.telematics.zenroad.ui.login.LoginFragment
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginVerifyCodeFragment : Fragment() {
+class LoginVerifyCodeFragment : BaseFragment() {
 
     private val TAG = "LoginVerifyCodeFragment"
 
@@ -125,6 +126,7 @@ class LoginVerifyCodeFragment : Fragment() {
             return
         }
 
+        hideKeyboard()
         showProgress()
 
         viewModel.sendCode(phone, code, verificationId).observe(viewLifecycleOwner) { result ->
