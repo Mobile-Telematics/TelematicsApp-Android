@@ -1,790 +1,774 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tripBottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="25dp"
+    android:layout_marginEnd="25dp"
+    android:background="@drawable/ic_behavior_bubble"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="105dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:ignore="MissingPrefix">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/tripBottomSheet"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/ic_behavior_bubble"
-        app:behavior_hideable="false"
-        app:behavior_peekHeight="105dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        tools:ignore="MissingPrefix">
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/tripBottomSheetScores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Overall Score -->
+            <TextView
+                android:id="@+id/tripBottomSheetOverallScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:textColor="@color/colorGreenText"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <!-- Overall Score points -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="3dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="bottom"
+                android:text="@string/dashboard_new_points"
+                android:textAlignment="center"
+                android:textColor="@color/colorEventTripGrayText"
+                android:textSize="@dimen/feed_event_trip_score_label_text_size" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Mileage -->
+            <TextView
+                android:id="@+id/tripBottomSheetMileage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <!-- Mileage km -->
+            <TextView
+                android:id="@+id/distance_measure_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="3dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="bottom"
+                android:textAlignment="center"
+                android:textColor="@color/colorEventTripGrayText"
+                android:textSize="@dimen/feed_event_trip_score_label_text_size" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Time -->
+            <TextView
+                android:id="@+id/tripBottomSheetTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <!-- Time hours -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="3dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="bottom"
+                android:text="@string/dashboard_new_hours"
+                android:textAlignment="center"
+                android:textColor="@color/colorEventTripGrayText"
+                android:textSize="@dimen/feed_event_trip_score_label_text_size" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/tripBottomSheetSwipeFrame"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetScores">
 
             <LinearLayout
-                android:id="@+id/tripBottomSheetScores"
+                android:id="@+id/tripBottomSheetSwipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tripBottomSheetSwipeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/trip_details_swipe_up_for_details"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/trip_details_point_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent" />
+
+                <ImageView
+                    android:id="@+id/tripBottomSheetArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/ic_dash_arrow_up_gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/tripBottomSheetSwipeText"
+                    app:layout_constraintStart_toEndOf="@+id/tripBottomSheetSwipeText"
+                    app:layout_constraintTop_toTopOf="@+id/tripBottomSheetSwipeText"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+            <!--set to invisible-->
+            <LinearLayout
+                android:id="@+id/tripBottomSheetButtons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:visibility="invisible">
 
                 <Space
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <!-- Overall Score -->
-                <TextView
-                    android:id="@+id/tripBottomSheetOverallScore"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:gravity="center"
-                    android:textAlignment="gravity"
-                    android:textColor="@color/colorGreenText"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-
-                <!-- Overall Score points -->
-                <TextView
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginBottom="3dp"
-                    android:ellipsize="end"
-                    android:gravity="bottom"
-                    android:text="@string/dashboard_new_points"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorEventTripGrayText"
-                    android:textSize="@dimen/feed_event_trip_score_label_text_size" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <!-- Mileage -->
-                <TextView
-                    android:id="@+id/tripBottomSheetMileage"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textAlignment="gravity"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-
-                <!-- Mileage km -->
-                <TextView
-                    android:id="@+id/distance_measure_text"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginBottom="3dp"
-                    android:ellipsize="end"
-                    android:gravity="bottom"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorEventTripGrayText"
-                    android:textSize="@dimen/feed_event_trip_score_label_text_size" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <!-- Time -->
-                <TextView
-                    android:id="@+id/tripBottomSheetTime"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textAlignment="gravity"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-
-                <!-- Time hours -->
-                <TextView
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginBottom="3dp"
-                    android:ellipsize="end"
-                    android:gravity="bottom"
-                    android:text="@string/dashboard_new_hours"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorEventTripGrayText"
-                    android:textSize="@dimen/feed_event_trip_score_label_text_size" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/tripBottomSheetSwipeFrame"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetScores">
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
-                    android:id="@+id/tripBottomSheetSwipe"
+                    android:id="@+id/trip_bottom_sheet_type_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tripBottomSheetSwipeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="@string/trip_details_swipe_up_for_details"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/trip_details_point_text_size"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="parent" />
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/trip_details_info_margin_left"
+                    android:layout_marginEnd="12dp"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:visibility="visible">
 
                     <ImageView
-                        android:id="@+id/tripBottomSheetArrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="14dp"
-                        android:layout_marginStart="6dp"
-                        android:src="@drawable/ic_dash_arrow_up_gray"
-                        app:layout_constraintBottom_toBottomOf="@+id/tripBottomSheetSwipeText"
-                        app:layout_constraintStart_toEndOf="@+id/tripBottomSheetSwipeText"
-                        app:layout_constraintTop_toTopOf="@+id/tripBottomSheetSwipeText"
-                        tools:ignore="ContentDescription" />
-
-                </LinearLayout>
-
-                <!--set to invisible-->
-                <LinearLayout
-                    android:id="@+id/tripBottomSheetButtons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="invisible">
-
-                    <Space
-                        android:layout_width="4dp"
-                        android:layout_height="match_parent" />
-
-                    <LinearLayout
-                        android:id="@+id/trip_bottom_sheet_type_layout"
-                        android:layout_width="match_parent"
+                        android:id="@+id/trip_bottom_sheet_type_img"
+                        android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginStart="@dimen/trip_details_info_margin_left"
-                        android:layout_marginEnd="12dp"
-                        android:background="#fff"
-                        android:gravity="center_vertical"
-                        android:visibility="visible">
+                        android:background="@drawable/ic_event_trip_bubble_type_bg"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_event_trip_bubble_driver" />
 
-                        <ImageView
-                            android:id="@+id/trip_bottom_sheet_type_img"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/ic_event_trip_bubble_type_bg"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_event_trip_bubble_driver" />
-
-                        <TextView
-                            android:id="@+id/trip_bottom_sheet_type_name"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="@string/progress_trip_type_driver"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:id="@+id/tripBottomSheetMessage"
-                            android:layout_width="@dimen/trip_details_round_button_icon_size"
-                            android:layout_height="@dimen/trip_details_round_button_icon_size"
-                            android:layout_gravity="center"
-                            android:background="@drawable/ic_event_trip_bubble_type_bg"
-                            android:backgroundTint="@android:color/white"
-                            android:elevation="1dp"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_event_message_round"
-                            android:tint="#464646"
-                            android:visibility="gone" />
-
-                        <ImageView
-                            android:id="@+id/tripBottomSheetTrash"
-                            android:layout_width="@dimen/trip_details_round_button_icon_size"
-                            android:layout_height="@dimen/trip_details_round_button_icon_size"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="4dp"
-                            android:background="@drawable/ic_event_trip_bubble_type_bg"
-                            android:backgroundTint="@android:color/white"
-                            android:elevation="1dp"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_event_trash"
-                            android:visibility="visible" />
-
-                    </LinearLayout>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-
-            </FrameLayout>
-
-            <!-- Start point  -->
-            <LinearLayout
-                android:id="@+id/tripBottomSheetStart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/trip_details_info_margin_left"
-                android:layout_marginTop="@dimen/trip_details_info_margin_top"
-                android:layout_marginEnd="@dimen/trip_details_info_margin_right"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetSwipeFrame">
-
-                <FrameLayout
-                    android:layout_width="@dimen/trip_details_dot_view_width"
-                    android:layout_height="match_parent">
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimaryLightText" />
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="top|center"
-                        android:background="@android:color/white" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/tripBottomSheetPointA"
+                    <TextView
+                        android:id="@+id/trip_bottom_sheet_type_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
                         android:fontFamily="@font/open_sans_bold"
-                        android:layout_width="@dimen/trip_details_point_icon_size"
-                        android:layout_height="@dimen/trip_details_point_icon_size"
+                        android:gravity="start"
+                        android:text="@string/progress_trip_type_driver"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/tripBottomSheetTrash"
+                        android:layout_width="@dimen/trip_details_round_button_icon_size"
+                        android:layout_height="@dimen/trip_details_round_button_icon_size"
                         android:layout_gravity="center"
-                        android:background="@drawable/ic_trip_circle_white"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/ic_event_trip_bubble_type_bg"
+                        android:backgroundTint="@android:color/white"
                         android:elevation="1dp"
-                        android:enabled="false"
-                        android:stateListAnimator="@animator/circle_button_elevation"
-                        android:text="@string/trip_details_point_a"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/colorGreenText"
-                        android:textSize="@dimen/trip_details_point_icon_text_size"
-                        android:translationZ="1dp" />
-
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tripBottomSheetCityStart"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="City"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorPrimaryLightText"
-                        app:autoSizeMaxTextSize="14sp"
-                        app:autoSizeMinTextSize="8sp"
-                        app:autoSizeStepGranularity="2sp"
-                        app:autoSizeTextType="uniform" />
-
-                    <TextView
-                        android:id="@+id/tripBottomSheetAddressStart"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:layout_width="wrap_content"
-
-                        android:layout_height="wrap_content"
-                        android:maxLines="2"
-                        android:text="Street"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorPrimaryText"
-                        app:autoSizeMaxTextSize="14sp"
-                        app:autoSizeMinTextSize="8sp"
-                        app:autoSizeStepGranularity="2sp"
-                        app:autoSizeTextType="uniform" />
+                        android:padding="8dp"
+                        android:src="@drawable/ic_event_trash"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tripBottomSheetTimeStart"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryLightText"
-                    android:textSize="@dimen/trip_details_point_text_size" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
+        </FrameLayout>
+
+        <!-- Start point  -->
+        <LinearLayout
+            android:id="@+id/tripBottomSheetStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/trip_details_info_margin_left"
+            android:layout_marginTop="@dimen/trip_details_info_margin_top"
+            android:layout_marginEnd="@dimen/trip_details_info_margin_right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetSwipeFrame">
+
             <FrameLayout
-                android:id="@+id/tripBottomSheetDividerTop"
                 android:layout_width="@dimen/trip_details_dot_view_width"
-                android:layout_height="15dp"
-                app:layout_constraintStart_toStartOf="@+id/tripBottomSheetStart"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetStart">
+                android:layout_height="match_parent">
 
                 <View
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center"
                     android:background="@color/colorPrimaryLightText" />
-
-            </FrameLayout>
-
-            <!-- Acceleration Score  -->
-            <LinearLayout
-                android:id="@+id/tripBottomSheetAcc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/trip_details_info_margin_left"
-                android:layout_marginEnd="@dimen/trip_details_info_margin_right"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetDividerTop">
-
-                <FrameLayout
-                    android:layout_width="@dimen/trip_details_dot_view_width"
-                    android:layout_height="30dp">
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimaryLightText" />
-
-                    <ImageView
-                        android:id="@+id/tripBottomSheetAccDot"
-                        android:layout_width="@dimen/trip_details_dot_icon_size"
-                        android:layout_height="@dimen/trip_details_dot_icon_size"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_dot_green"
-                        android:gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:fontFamily="@font/open_sans_regular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/trip_details_acceleration_score"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-                <TextView
-                    android:id="@+id/tripBottomSheetAccValue"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorGreenText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-            </LinearLayout>
-
-            <!-- Braking Score  -->
-            <LinearLayout
-                android:id="@+id/tripBottomSheetBraking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/trip_details_info_margin_left"
-                android:layout_marginEnd="@dimen/trip_details_info_margin_right"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetAcc">
-
-                <FrameLayout
-                    android:layout_width="@dimen/trip_details_dot_view_width"
-                    android:layout_height="30dp">
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimaryLightText" />
-
-                    <ImageView
-                        android:id="@+id/tripBottomSheetBrakingDot"
-                        android:layout_width="@dimen/trip_details_dot_icon_size"
-                        android:layout_height="@dimen/trip_details_dot_icon_size"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_dot_green"
-                        android:gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:fontFamily="@font/open_sans_regular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/trip_details_braking_score"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-                <TextView
-                    android:id="@+id/tripBottomSheetBrakingValue"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorGreenText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-            </LinearLayout>
-
-            <!-- Phone Score  -->
-            <LinearLayout
-                android:id="@+id/tripBottomSheetPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/trip_details_info_margin_left"
-                android:layout_marginEnd="@dimen/trip_details_info_margin_right"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetBraking">
-
-                <FrameLayout
-                    android:layout_width="@dimen/trip_details_dot_view_width"
-                    android:layout_height="30dp">
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimaryLightText" />
-
-                    <ImageView
-                        android:id="@+id/tripBottomSheetPhoneDot"
-                        android:layout_width="@dimen/trip_details_dot_icon_size"
-                        android:layout_height="@dimen/trip_details_dot_icon_size"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_dot_green"
-                        android:gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:fontFamily="@font/open_sans_regular"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/trip_details_phone_dist_score"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_trip_details_phone_hint" />
-
-                <TextView
-                    android:id="@+id/tripBottomSheetPhoneValue"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="28dp"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/colorGreenText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-            </LinearLayout>
-
-            <!-- Speeding Score  -->
-            <LinearLayout
-                android:id="@+id/tripBottomSheetSpeeding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/trip_details_info_margin_left"
-                android:layout_marginEnd="@dimen/trip_details_info_margin_right"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetPhone">
-
-                <FrameLayout
-                    android:layout_width="@dimen/trip_details_dot_view_width"
-                    android:layout_height="30dp">
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimaryLightText" />
-
-                    <ImageView
-                        android:id="@+id/tripBottomSheetSpeedingDot"
-                        android:layout_width="@dimen/trip_details_dot_icon_size"
-                        android:layout_height="@dimen/trip_details_dot_icon_size"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_dot_green"
-                        android:gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:fontFamily="@font/open_sans_regular"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/trip_details_speeding_score"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_trip_details_speed_hint" />
-
-                <TextView
-                    android:id="@+id/tripBottomSheetSpeedingValue"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="28dp"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/colorGreenText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-            </LinearLayout>
-
-            <!-- Cornering Score  -->
-            <LinearLayout
-                android:id="@+id/tripBottomSheetCornering"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/trip_details_info_margin_left"
-                android:layout_marginEnd="@dimen/trip_details_info_margin_right"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetSpeeding">
-
-                <FrameLayout
-                    android:layout_width="@dimen/trip_details_dot_view_width"
-                    android:layout_height="30dp">
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimaryLightText" />
-
-                    <ImageView
-                        android:id="@+id/tripBottomSheetCorneringDot"
-                        android:layout_width="@dimen/trip_details_dot_icon_size"
-                        android:layout_height="@dimen/trip_details_dot_icon_size"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_dot_green"
-                        android:gravity="center" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:fontFamily="@font/open_sans_regular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/trip_details_cornering_score"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-                <TextView
-                    android:id="@+id/tripBottomSheetCorneringValue"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorGreenText"
-                    android:textSize="@dimen/trip_details_score_text_size" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/tripBottomSheetDividerBottom"
-                android:layout_width="@dimen/trip_details_dot_view_width"
-                android:layout_height="15dp"
-                app:layout_constraintStart_toStartOf="@+id/tripBottomSheetCornering"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetCornering">
 
                 <View
                     android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@color/colorPrimaryLightText" />
+                    android:layout_height="25dp"
+                    android:layout_gravity="top|center"
+                    android:background="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/tripBottomSheetPointA"
+                    android:layout_width="@dimen/trip_details_point_icon_size"
+                    android:layout_height="@dimen/trip_details_point_icon_size"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_trip_circle_white"
+                    android:elevation="1dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:stateListAnimator="@animator/circle_button_elevation"
+                    android:text="@string/trip_details_point_a"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/colorGreenText"
+                    android:textSize="@dimen/trip_details_point_icon_text_size"
+                    android:translationZ="1dp" />
 
             </FrameLayout>
 
-
-            <!-- End point  -->
             <LinearLayout
-                android:id="@+id/tripBottomSheetEnd"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/trip_details_info_margin_left"
-                android:layout_marginEnd="@dimen/trip_details_info_margin_right"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetDividerBottom">
-
-                <FrameLayout
-                    android:layout_width="@dimen/trip_details_dot_view_width"
-                    android:layout_height="match_parent">
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimaryLightText" />
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="bottom|center"
-                        android:background="@android:color/white" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/tripBottomSheetPointB"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:layout_width="@dimen/trip_details_point_icon_size"
-                        android:layout_height="@dimen/trip_details_point_icon_size"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/ic_trip_circle_white"
-                        android:elevation="1dp"
-                        android:enabled="false"
-                        android:stateListAnimator="@animator/circle_button_elevation"
-                        android:text="@string/trip_details_point_b"
-                        android:textAlignment="gravity"
-                        android:textColor="@color/colorGreenText"
-                        android:textSize="@dimen/trip_details_point_icon_text_size"
-                        android:translationZ="1dp" />
-
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tripBottomSheetCityFinish"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="City"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorPrimaryLightText"
-                        app:autoSizeMaxTextSize="14sp"
-                        app:autoSizeMinTextSize="8sp"
-                        app:autoSizeStepGranularity="2sp"
-                        app:autoSizeTextType="uniform" />
-
-                    <TextView
-                        android:id="@+id/tripBottomSheetAddressFinish"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="2"
-                        android:text="Street"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorPrimaryText"
-                        app:autoSizeMaxTextSize="14sp"
-                        app:autoSizeMinTextSize="8sp"
-                        app:autoSizeStepGranularity="2sp"
-                        app:autoSizeTextType="uniform" />
-
-                </LinearLayout>
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tripBottomSheetTimeFinish"
-                    android:fontFamily="@font/open_sans_bold"
+                    android:id="@+id/tripBottomSheetCityStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="City"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryLightText"
-                    android:textSize="@dimen/trip_details_point_text_size" />
+                    app:autoSizeMaxTextSize="14sp"
+                    app:autoSizeMinTextSize="8sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/tripBottomSheetAddressStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/open_sans_bold"
+                    android:maxLines="2"
+                    android:text="Street"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryText"
+                    app:autoSizeMaxTextSize="14sp"
+                    app:autoSizeMinTextSize="8sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tripBottomSheetTimeStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryLightText"
+                android:textSize="@dimen/trip_details_point_text_size" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/tripBottomSheetDividerTop"
+            android:layout_width="@dimen/trip_details_dot_view_width"
+            android:layout_height="15dp"
+            app:layout_constraintStart_toStartOf="@+id/tripBottomSheetStart"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetStart">
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/trip_details_info_margin_bottom"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetEnd" />
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimaryLightText" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
 
-    </androidx.core.widget.NestedScrollView>
-</merge>
+        <!-- Acceleration Score  -->
+        <LinearLayout
+            android:id="@+id/tripBottomSheetAcc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/trip_details_info_margin_left"
+            android:layout_marginEnd="@dimen/trip_details_info_margin_right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetDividerTop">
+
+            <FrameLayout
+                android:layout_width="@dimen/trip_details_dot_view_width"
+                android:layout_height="30dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryLightText" />
+
+                <ImageView
+                    android:id="@+id/tripBottomSheetAccDot"
+                    android:layout_width="@dimen/trip_details_dot_icon_size"
+                    android:layout_height="@dimen/trip_details_dot_icon_size"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_dot_green"
+                    android:gravity="center" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/trip_details_acceleration_score"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+            <TextView
+                android:id="@+id/tripBottomSheetAccValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorGreenText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+        </LinearLayout>
+
+        <!-- Braking Score  -->
+        <LinearLayout
+            android:id="@+id/tripBottomSheetBraking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/trip_details_info_margin_left"
+            android:layout_marginEnd="@dimen/trip_details_info_margin_right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetAcc">
+
+            <FrameLayout
+                android:layout_width="@dimen/trip_details_dot_view_width"
+                android:layout_height="30dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryLightText" />
+
+                <ImageView
+                    android:id="@+id/tripBottomSheetBrakingDot"
+                    android:layout_width="@dimen/trip_details_dot_icon_size"
+                    android:layout_height="@dimen/trip_details_dot_icon_size"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_dot_green"
+                    android:gravity="center" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/trip_details_braking_score"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+            <TextView
+                android:id="@+id/tripBottomSheetBrakingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorGreenText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+        </LinearLayout>
+
+        <!-- Phone Score  -->
+        <LinearLayout
+            android:id="@+id/tripBottomSheetPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/trip_details_info_margin_left"
+            android:layout_marginEnd="@dimen/trip_details_info_margin_right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetBraking">
+
+            <FrameLayout
+                android:layout_width="@dimen/trip_details_dot_view_width"
+                android:layout_height="30dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryLightText" />
+
+                <ImageView
+                    android:id="@+id/tripBottomSheetPhoneDot"
+                    android:layout_width="@dimen/trip_details_dot_icon_size"
+                    android:layout_height="@dimen/trip_details_dot_icon_size"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_dot_green"
+                    android:gravity="center" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/trip_details_phone_dist_score"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_trip_details_phone_hint" />
+
+            <TextView
+                android:id="@+id/tripBottomSheetPhoneValue"
+                android:layout_width="28dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorGreenText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+        </LinearLayout>
+
+        <!-- Speeding Score  -->
+        <LinearLayout
+            android:id="@+id/tripBottomSheetSpeeding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/trip_details_info_margin_left"
+            android:layout_marginEnd="@dimen/trip_details_info_margin_right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetPhone">
+
+            <FrameLayout
+                android:layout_width="@dimen/trip_details_dot_view_width"
+                android:layout_height="30dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryLightText" />
+
+                <ImageView
+                    android:id="@+id/tripBottomSheetSpeedingDot"
+                    android:layout_width="@dimen/trip_details_dot_icon_size"
+                    android:layout_height="@dimen/trip_details_dot_icon_size"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_dot_green"
+                    android:gravity="center" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/trip_details_speeding_score"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_trip_details_speed_hint" />
+
+            <TextView
+                android:id="@+id/tripBottomSheetSpeedingValue"
+                android:layout_width="28dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorGreenText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+        </LinearLayout>
+
+        <!-- Cornering Score  -->
+        <LinearLayout
+            android:id="@+id/tripBottomSheetCornering"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/trip_details_info_margin_left"
+            android:layout_marginEnd="@dimen/trip_details_info_margin_right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetSpeeding">
+
+            <FrameLayout
+                android:layout_width="@dimen/trip_details_dot_view_width"
+                android:layout_height="30dp">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryLightText" />
+
+                <ImageView
+                    android:id="@+id/tripBottomSheetCorneringDot"
+                    android:layout_width="@dimen/trip_details_dot_icon_size"
+                    android:layout_height="@dimen/trip_details_dot_icon_size"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_dot_green"
+                    android:gravity="center" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/trip_details_cornering_score"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+            <TextView
+                android:id="@+id/tripBottomSheetCorneringValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorGreenText"
+                android:textSize="@dimen/trip_details_score_text_size" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/tripBottomSheetDividerBottom"
+            android:layout_width="@dimen/trip_details_dot_view_width"
+            android:layout_height="15dp"
+            app:layout_constraintStart_toStartOf="@+id/tripBottomSheetCornering"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetCornering">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimaryLightText" />
+
+        </FrameLayout>
+
+
+        <!-- End point  -->
+        <LinearLayout
+            android:id="@+id/tripBottomSheetEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/trip_details_info_margin_left"
+            android:layout_marginEnd="@dimen/trip_details_info_margin_right"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetDividerBottom">
+
+            <FrameLayout
+                android:layout_width="@dimen/trip_details_dot_view_width"
+                android:layout_height="match_parent">
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryLightText" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|center"
+                    android:background="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/tripBottomSheetPointB"
+                    android:layout_width="@dimen/trip_details_point_icon_size"
+                    android:layout_height="@dimen/trip_details_point_icon_size"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/ic_trip_circle_white"
+                    android:elevation="1dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:stateListAnimator="@animator/circle_button_elevation"
+                    android:text="@string/trip_details_point_b"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/colorGreenText"
+                    android:textSize="@dimen/trip_details_point_icon_text_size"
+                    android:translationZ="1dp" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tripBottomSheetCityFinish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="City"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryLightText"
+                    app:autoSizeMaxTextSize="14sp"
+                    app:autoSizeMinTextSize="8sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/tripBottomSheetAddressFinish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:maxLines="2"
+                    android:text="Street"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryText"
+                    app:autoSizeMaxTextSize="14sp"
+                    app:autoSizeMinTextSize="8sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tripBottomSheetTimeFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryLightText"
+                android:textSize="@dimen/trip_details_point_text_size" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trip_details_info_margin_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripBottomSheetEnd" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

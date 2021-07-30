@@ -15,4 +15,8 @@ abstract class BaseFragment : Fragment() {
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
+
+    fun onBackPressed() {
+        findNavController().popBackStack()
+    }
 }

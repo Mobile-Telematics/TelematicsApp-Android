@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
+import com.telematics.features.account.BaseFragment
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.ActivityVerifyCodeBinding
 import com.telematics.zenroad.ui.login.LoginFragment
@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginVerifyCodeFragment : Fragment() {
+class LoginVerifyCodeFragment : BaseFragment() {
 
     private val TAG = "LoginVerifyCodeFragment"
 
@@ -121,9 +121,9 @@ class LoginVerifyCodeFragment : Fragment() {
 
     private fun sendCode(code: String) {
 
-        if (!validFields()) {
-            return
-        }
+        hideKeyboard()
+
+        if (!validFields()) return
 
         showProgress()
 

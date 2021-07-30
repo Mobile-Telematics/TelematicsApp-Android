@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BubbleType">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/ic_event_trip_bubble_type_bg</item>
+        <item name="android:padding">14dp</item>
+    </style>
+
+    <style name="BubbleTypeUnSelect" parent="BubbleType">
+        <item name="android:backgroundTint">@android:color/white</item>
+        <item name="elevation">2dp</item>
+        <item name="android:tint">#afafaf</item>
+    </style>
+</resources>

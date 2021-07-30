@@ -24,7 +24,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "APP_ID", AppConfig.APP_ID)
             buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
             buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
@@ -34,12 +33,12 @@ android {
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL)
             buildConfigField("String", "userStatisticsUrl", AppConfig.USER_STATISTICS)
             buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL)
+            buildConfigField("String", "tripEventTypeUrl", AppConfig.TRIP_EVENT_TYPE_URL)
             buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            buildConfigField("String", "APP_ID", AppConfig.APP_ID)
             buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
             buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
@@ -49,6 +48,7 @@ android {
             buildConfigField("String", "driveCoinUrl", AppConfig.DRIVE_COINS_URL_DEV)
             buildConfigField("String", "userStatisticsUrl", AppConfig.USER_STATISTICS_DEV)
             buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL_DEV)
+            buildConfigField("String", "tripEventTypeUrl", AppConfig.TRIP_EVENT_TYPE_URL_DEV)
             buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
         }
     }

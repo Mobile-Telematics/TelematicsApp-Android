@@ -8,8 +8,12 @@ import android.util.Log
 import com.raxeltelematics.v2.sdk.Settings
 import com.raxeltelematics.v2.sdk.TrackingApi
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
+import com.telematics.data.api.TripEventTypeApi
+import com.telematics.data.model.tracking.ChangeEventBody
 import com.telematics.data.model.tracking.TripsMapper
+import com.telematics.domain.model.tracking.ChangeTripEvent
 import com.telematics.domain.model.tracking.TripData
+import com.telematics.domain.model.tracking.TripDetailsData
 import com.telematics.domain.model.tracking.TripImageHolder
 import com.telematics.domain.repository.TrackingApiRepo
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +22,8 @@ import javax.inject.Inject
 
 @SuppressLint("MissingPermission")
 class TrackingApiImpl @Inject constructor(
-    private val tripsMapper: TripsMapper
+    private val tripsMapper: TripsMapper,
+    private val tripEventTypeApi: TripEventTypeApi
 ) : TrackingApiRepo {
 
     private val TAG = "TrackingApiImpl"
@@ -27,8 +32,15 @@ class TrackingApiImpl @Inject constructor(
 
     private var tripData: TripData? = null
 
+    private val locale = com.raxeltelematics.v2.sdk.server.model.Locale.EN
+
     override fun setContext(context: Context) {
-        val setting = Settings(true, Settings.stopTrackingTimeHigh, 150, true, true, true)
+        val setting = Settings(
+            Settings.stopTrackingTimeHigh, 150,
+            autoStartOn = true,
+            hfOn = true,
+            elmOn = true
+        )
         TrackingApi.getInstance().initialize(context, setting)
     }
 
@@ -83,7 +95,7 @@ class TrackingApiImpl @Inject constructor(
 
         tripData = null
         val arrayOfTracks = trackingApi.getTracks(
-            com.raxeltelematics.v2.sdk.server.model.Locale.EN,
+            locale,
             null,
             null,
             0,
@@ -100,7 +112,7 @@ class TrackingApiImpl @Inject constructor(
 
     override suspend fun getTrackImageHolder(trackId: String): TripImageHolder? {
         val trackDetails =
-            trackingApi.getTrackDetails(trackId, com.raxeltelematics.v2.sdk.server.model.Locale.EN)
+            trackingApi.getTrackDetails(trackId, locale)
         return tripsMapper.transformTripDetails(trackDetails)?.let {
             tripsMapper.transform(it)
         }
@@ -110,7 +122,7 @@ class TrackingApiImpl @Inject constructor(
 
         if (offset == 0) tripData = null
         val arrayOfTracks = trackingApi.getTracks(
-            com.raxeltelematics.v2.sdk.server.model.Locale.EN,
+            locale,
             null,
             null,
             offset,
@@ -123,5 +135,30 @@ class TrackingApiImpl @Inject constructor(
             tripData = listTripData[0]
         }
         return listTripData
+    }
+
+    override suspend fun getTripDetails(tripId: String): TripDetailsData? {
+
+        val trackDetails = trackingApi.getTrackDetails(tripId, locale)
+        return tripsMapper.transformTripDetails(trackDetails)
+    }
+
+    override suspend fun changeTripType(tripId: String, tripType: TripData.TripType): Boolean {
+
+        return trackingApi.changeTrackOrigin(tripId, tripType.toString())
+    }
+
+    override suspend fun changeTripEvent(tripId: String, data: ChangeTripEvent): Boolean {
+
+        val body = ChangeEventBody(
+            data.eventType,
+            data.latitude,
+            data.longitude,
+            data.pointDate,
+            data.changeTypeTo
+        )
+        val deviceToken = trackingApi.getDeviceId()!!
+        tripEventTypeApi.changeEvent(deviceToken, tripId, body)
+        return true
     }
 }
