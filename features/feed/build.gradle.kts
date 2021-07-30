@@ -29,9 +29,9 @@ android {
             manifestPlaceholders(
                 mapOf(
                     "crashlyticsCollectionEnabled" to true,
-                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY_RELEASE,
-                    "hereMapsAppID" to AppConfig.HERE_APP_ID_RELEASE,
-                    "hereMapsAppToken" to AppConfig.HERE_APP_TOKEN_RELEASE
+                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY,
+                    "hereMapsAppID" to AppConfig.HERE_APP_ID,
+                    "hereMapsAppToken" to AppConfig.HERE_APP_CODE
                 )
             )
         }
@@ -41,9 +41,9 @@ android {
             manifestPlaceholders(
                 mapOf(
                     "crashlyticsCollectionEnabled" to false,
-                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY_DEBUG,
-                    "hereMapsAppID" to AppConfig.HERE_APP_ID_DEBUG,
-                    "hereMapsAppToken" to AppConfig.HERE_APP_TOKEN_DEBUG
+                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY,
+                    "hereMapsAppID" to AppConfig.HERE_APP_ID,
+                    "hereMapsAppToken" to AppConfig.HERE_APP_CODE
                 )
             )
         }
@@ -80,4 +80,6 @@ dependencies {
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
 
     implementation(AppDependencies.swipeToRefresh)
+    implementation(AppDependencies.recyclerView)
+    implementation(project(Modules.HERE_SDK))
 }

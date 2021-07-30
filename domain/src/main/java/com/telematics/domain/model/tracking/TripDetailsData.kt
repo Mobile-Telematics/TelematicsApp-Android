@@ -2,6 +2,7 @@ package com.telematics.domain.model.tracking
 
 class TripDetailsData(
 
+    var id: String? = null,
     var addressStartParts: TripDetailsAddressesData? = null,
     var addressFinishParts: TripDetailsAddressesData? = null,
     var cityStart: String? = null,

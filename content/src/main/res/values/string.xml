@@ -1,5 +1,4 @@
 <resources>
-    <!--TODO: #preprod -->
     <string name="app_name">YOUR_LABEL</string>
 
     <string name="nav_item_feed">Feed</string>
@@ -65,6 +64,7 @@
     <string name="account_phone">Phone:</string>
     <string name="account_complete_btn">Complete Profile</string>
     <string name="acc_wizard_btn_save">Save</string>
+    <string name="account_access_permission_msg">Please allow access to camera and media</string>
 
     <!-- Account Wizard Profile -->
     <string name="acc_wizard_name">FIRST NAME</string>
@@ -136,7 +136,8 @@
     <string name="template_l_km">%1$s l/km</string>
     <string name="template_min">%1$s m</string>
     <string name="template_percent">%</string>
-    <string name="common_time_in_hm_format">%1$dh %2$02dm</string>
+    <string name="common_time_in_hm_format_split">%1$dh %2$02dm</string>
+    <string name="common_time_in_hm_format">%1$d:%2$02d</string>
     <string name="template_mi_h">%1$s mi/h</string>
     <string name="template_mi">%1$s mi</string>
 
@@ -198,5 +199,8 @@
     <string name="trip_details_acceleration">Acceleration</string>
     <string name="trip_details_cornering">Cornering</string>
     <string name="trip_details_phone_usage">Phone Usage</string>
+    <string name="trip_type_dialog_title">Trip Role</string>
+    <string name="trip_type_dialog_header">Please select your trip role</string>
+    <string name="trip_details_error_msg">Something went wrong</string>
 
 </resources>

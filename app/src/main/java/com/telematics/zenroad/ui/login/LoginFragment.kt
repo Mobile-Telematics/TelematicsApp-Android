@@ -12,22 +12,22 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
-import androidx.fragment.app.Fragment
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.data.BuildConfig
 import com.telematics.domain.model.LoginType
+import com.telematics.features.account.BaseFragment
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.LoginFragmentBinding
 import com.telematics.zenroad.extention.isValidEmail
-import com.telematics.zenroad.extention.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     private val TAG = "LoginFragment"
 
@@ -113,9 +113,9 @@ class LoginFragment : Fragment() {
         when (loginType) {
             LoginType.EMAIL -> {
                 //initInputField(loginInputEmail, regType)
-                binding.loginInputEmailTill.setVisible(true)
-                binding.loginInputPhoneTill.setVisible(null)
-                binding.loginInputPasswordTill.setVisible(true)
+                binding.loginInputEmailTill.isVisible = true
+                binding.loginInputPhoneTill.isVisible = false
+                binding.loginInputPasswordTill.isVisible = true
                 binding.loginChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_phone_number)
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_login_phone)
@@ -130,9 +130,9 @@ class LoginFragment : Fragment() {
             }
             LoginType.PHONE -> {
                 //initInputField(loginInputPhone, regType)
-                binding.loginInputPhoneTill.setVisible(true)
-                binding.loginInputEmailTill.setVisible(null)
-                binding.loginInputPasswordTill.setVisible(null)
+                binding.loginInputPhoneTill.isVisible = true
+                binding.loginInputEmailTill.isVisible = false
+                binding.loginInputPasswordTill.isVisible = false
                 binding.loginChangeButton.text =
                     getString(R.string.login_screen_change_reg_type_email)
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_login_email)
@@ -256,6 +256,8 @@ class LoginFragment : Fragment() {
 
     /**↓login*/
     private fun login() {
+
+        hideKeyboard()
 
         if (!validFields()) return
 

@@ -2,7 +2,7 @@ object Versions {
 
     const val kotlin = "1.4.32"
 
-    const val trackingApi = "2.2.251"
+    const val trackingApi = "2.2.253"
 
     //libs
     const val coreKtx = "1.2.0"
@@ -29,11 +29,13 @@ object Versions {
     const val chartView = "v3.1.0"
     const val circleIndicatorView = "2.1.4"
     const val swipeToRefresh = "1.1.0"
+    const val recyclerView = "1.2.1"
 
     const val firebaseBom = "28.2.0"
     const val firebaseDatabaseKtx = "20.0.0"
     const val firebaseAuth = "21.0.1"
     const val firebaseStorage = "20.0.0"
+    const val firebaseCrashlytics = "18.1.0"
 
     const val googlePlayServices = "19.0.0"
     const val googleGuava = "27.0.1-android"
@@ -43,4 +45,6 @@ object PluginVersion {
 
     const val gradle = "4.1.1"
     const val kotlin = "1.4.32"
+    const val googleServices = "4.3.8"
+    const val firebaseCrashlytics = "2.7.1"
 }

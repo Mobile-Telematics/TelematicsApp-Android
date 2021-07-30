@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.telematics.data.utils.PermissionUtils
 import com.telematics.data.utils.PhotoUtils
 import com.telematics.domain.model.authentication.User
@@ -163,12 +164,13 @@ class AccountFragment : Fragment() {
     private fun askPermissions() {
 
         permissionUtils.setPermissionListener { allIsGranted ->
-            showPickupDialog()
+            if (allIsGranted)
+                showPickupDialog()
+            else showPermissionError()
         }
 
         val permissions = arrayOf(
             Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
         )
 
@@ -224,5 +226,17 @@ class AccountFragment : Fragment() {
 
     private fun openProfileFragment() {
         findNavController().navigate(R.id.action_accountFragment_to_profileFragment)
+    }
+
+    private fun showPermissionError() {
+        val snackBar = Snackbar.make(
+            binding.root,
+            R.string.account_access_permission_msg,
+            Snackbar.LENGTH_LONG
+        )
+        snackBar.setAction(R.string.retry) {
+            askPermissions()
+        }
+        snackBar.show()
     }
 }

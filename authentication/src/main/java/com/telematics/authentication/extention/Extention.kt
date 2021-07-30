@@ -18,7 +18,6 @@ import com.telematics.authentication.exception.AuthException
 import com.telematics.authentication.mapper.Mapper
 import com.telematics.authentication.model.UserDatabase
 import com.telematics.domain.model.authentication.PhoneAuthResult
-import com.telematics.domain.model.authentication.User
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -49,7 +48,7 @@ suspend fun <T> DatabaseReference.await(): T = suspendCoroutine { continuation -
             } ?: run {
                 Log.d("FIREBASE Database await", "onDataChange deviceToken null")
 //                continuation.resumeWithException(AuthException(AuthErrorCode.EMPTY_DEVICE_TOKEN))
-                continuation.resume(User() as T)
+                continuation.resume(UserDatabase() as T)
             }
         }
 

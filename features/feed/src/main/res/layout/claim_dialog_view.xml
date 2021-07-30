@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_custom_dialog_bubble"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:id="@+id/claimHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/trip_details_claim"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/claimNoEventHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/trip_details_there_was_no_event_here" />
+
+        <LinearLayout
+            android:id="@+id/noEventLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/noEventImage"
+                android:layout_width="@dimen/trip_details_change_image_size"
+                android:layout_height="@dimen/trip_details_change_image_size"
+                tools:src="@drawable/ic_red_popup__accleration" />
+
+            <TextView
+                android:id="@+id/noEventText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Acceleration" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/claimChangeEventHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:text="@string/trip_details_there_was_another_event_here" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/firstLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/firstImage"
+                    android:layout_width="@dimen/trip_details_change_image_size"
+                    android:layout_height="@dimen/trip_details_change_image_size"
+                    tools:src="@drawable/ic_yellow_popup__deceleration" />
+
+                <TextView
+                    android:id="@+id/firstText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:text="Acceleration" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/secondLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/secondImage"
+                    android:layout_width="@dimen/trip_details_change_image_size"
+                    android:layout_height="@dimen/trip_details_change_image_size"
+                    tools:src="@drawable/ic_yellow_popup__distraction" />
+
+                <TextView
+                    android:id="@+id/secondText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:text="Cornering" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/thirdLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/secondLayout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/thirdImage"
+                    android:layout_width="@dimen/trip_details_change_image_size"
+                    android:layout_height="@dimen/trip_details_change_image_size"
+                    tools:src="@drawable/ic_yellow_popup__cornering" />
+
+                <TextView
+                    android:id="@+id/thirdText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:text="Phone Usage" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/cancelButton"
+            android:layout_width="@dimen/welcomeback_button_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/cancel_background"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="@string/dialog_cancel"
+            android:textAllCaps="true"
+            android:textColor="@color/colorEventTripGrayText" />
+    </LinearLayout>
+</LinearLayout>

@@ -21,8 +21,8 @@
             android:layout_height="30dp"
             android:layout_gravity="center|start"
             android:layout_marginStart="16dp"
-            android:tint="#A3A3A3"
-            app:srcCompat="@drawable/ic_back" />
+            app:srcCompat="@drawable/ic_back"
+            app:tint="#A3A3A3" />
 
         <ImageView
             android:id="@+id/nextArrow"
@@ -30,40 +30,55 @@
             android:layout_height="30dp"
             android:layout_gravity="end|center"
             android:layout_marginEnd="16dp"
-            android:tint="#A3A3A3"
-            app:srcCompat="@drawable/ic_next" />
+            app:srcCompat="@drawable/ic_next"
+            app:tint="#A3A3A3" />
 
         <include
             android:id="@+id/tripDetailsBottomSheet"
             layout="@layout/fragment_trip_details_bottom_sheet" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:id="@+id/tripDetailsToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_settings_toolbar_height"
         android:background="@color/colorMenuBackgroundAlpha"
-        app:navigationIcon="@drawable/ic_back">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/app_settings_toolbar_height"
+            android:layout_height="@dimen/app_settings_toolbar_height"
+            android:padding="12dp"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
             android:gravity="center_vertical"
             android:text="@string/trip_details_title"
             android:textColor="@android:color/white"
             android:textSize="@dimen/app_settings_toolbar_text_size" />
 
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
 
     <!-- Loading view -->
-    <include
+
+    <FrameLayout
         android:id="@+id/tripDetailsLoadingView"
-        layout="@layout/layout_loading_progress_default"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/app_settings_toolbar_height"
-        android:visibility="gone" />
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:theme="@style/MapProgressBarTheme" />
+
+    </FrameLayout>
+
 
 </FrameLayout>

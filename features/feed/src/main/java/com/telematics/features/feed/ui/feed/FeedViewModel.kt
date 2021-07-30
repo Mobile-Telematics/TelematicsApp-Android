@@ -1,6 +1,8 @@
 package com.telematics.features.feed.ui.feed
 
 import android.content.Context
+import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +23,8 @@ class FeedViewModel @Inject constructor(
     private val settingsRepo: SettingsRepo
 ) : ViewModel() {
 
+    private val SAVE_LIST_STATE_BUNDLE_KEY = "SAVE_LIST_STATE_BUNDLE_KEY"
+
     private val LOADING_COUNT = 20
 
     val getDateFormatter: DateFormatter
@@ -28,18 +32,45 @@ class FeedViewModel @Inject constructor(
             return dateFormatter
         }
 
-    fun getTripList(offset: Int = 0): LiveData<Result<List<TripData>>> {
+    private val saveStateBundle = MutableLiveData<Bundle>()
+    val getSaveStateBundle: LiveData<Bundle>
+        get() {
+            return saveStateBundle
+        }
 
-        val firstDataState = MutableLiveData<Result<List<TripData>>>()
-        trackingUseCase.getTrips(offset, LOADING_COUNT)
+    fun getTripList(offset: Int, count: Int = LOADING_COUNT): LiveData<Result<List<TripData>>> {
+
+        val tripDataState = MutableLiveData<Result<List<TripData>>>()
+        trackingUseCase.getTrips(offset, count)
             .flowOn(Dispatchers.IO)
-            .setLiveDataForResult(firstDataState)
+            .setLiveDataForResult(tripDataState)
             .launchIn(viewModelScope)
-        return firstDataState
+        return tripDataState
     }
 
-    fun getTelematicsLink(context: Context): String {
+    fun getPermissionLink(context: Context): String {
 
         return settingsRepo.getTelematicsLink(context)
+    }
+
+    fun changeTripTypeTo(tripId: String, tripType: TripData.TripType): LiveData<Result<Boolean>> {
+
+        val changeState = MutableLiveData<Result<Boolean>>()
+        trackingUseCase.changeTripType(tripId, tripType)
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(changeState)
+            .launchIn(viewModelScope)
+        return changeState
+    }
+
+    fun saveCurrentListSize(tripListSize: Int) {
+
+        val bundle = bundleOf(SAVE_LIST_STATE_BUNDLE_KEY to tripListSize)
+        saveStateBundle.value = bundle
+    }
+
+    fun bundleToListSize(bundle: Bundle): Int {
+
+        return bundle.getInt(SAVE_LIST_STATE_BUNDLE_KEY, 0)
     }
 }

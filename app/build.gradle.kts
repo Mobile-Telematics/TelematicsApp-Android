@@ -4,6 +4,7 @@ plugins {
     kotlin(Plugins.android)
     id(Plugins.kotlinKapt)
     id(Plugins.googlePlugins)
+    id(Plugins.firebaseCrashlyticsPlugin)
     id("kotlin-android")
 }
 
@@ -76,6 +77,7 @@ dependencies {
     implementation(AppDependencies.retrofitLibraries)
     implementation(AppDependencies.lifecycleKtx)
     implementation(AppDependencies.navigateLibraries)
+    implementation(AppDependencies.firebaseCrashlytics)
 
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
