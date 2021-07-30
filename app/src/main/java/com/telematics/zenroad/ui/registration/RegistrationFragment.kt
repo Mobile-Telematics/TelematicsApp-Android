@@ -256,6 +256,8 @@ class RegistrationFragment : BaseFragment() {
 
     private fun registration() {
 
+        hideKeyboard()
+
         if (!validFields()) return
 
         if (loginType == LoginType.PHONE) {
@@ -263,7 +265,6 @@ class RegistrationFragment : BaseFragment() {
             return
         }
 
-        hideKeyboard()
         showProgress()
 
         viewModel.registration(

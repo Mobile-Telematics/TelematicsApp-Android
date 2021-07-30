@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.authentication.exception.AuthErrorCode
@@ -122,11 +121,10 @@ class LoginVerifyCodeFragment : BaseFragment() {
 
     private fun sendCode(code: String) {
 
-        if (!validFields()) {
-            return
-        }
-
         hideKeyboard()
+
+        if (!validFields()) return
+
         showProgress()
 
         viewModel.sendCode(phone, code, verificationId).observe(viewLifecycleOwner) { result ->
