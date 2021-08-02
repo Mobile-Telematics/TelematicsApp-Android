@@ -5,7 +5,7 @@ plugins {
     id(Plugins.kotlinKapt)
     id(Plugins.googlePlugins)
     id(Plugins.firebaseCrashlyticsPlugin)
-    id("kotlin-android")
+    id(Plugins.kotlinAndroid)
 }
 
 android {

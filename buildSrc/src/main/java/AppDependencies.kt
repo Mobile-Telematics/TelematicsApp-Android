@@ -55,7 +55,6 @@ object AppDependencies {
     const val retrofitUrlManager = "me.jessyan:retrofit-url-manager:1.4.0"
 
     //okhttp
-    //const val okHttp3 = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val okHttp3Logging = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttpLogging}"
 
     // Gson
@@ -69,11 +68,9 @@ object AppDependencies {
 
     //navigation
     private const val navigationFragmentKtx =
-        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragmentKtx}"
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationKtx}"
     private const val navigationUiKtx =
-        "androidx.navigation:navigation-ui-ktx:${Versions.navigationFragmentKtx}"
-    private const val navigationUi =
-        "android.arch.navigation:navigation-ui-ktx:${Versions.navigationUI}"
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}"
 
     //firebase
     private const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
@@ -127,8 +124,7 @@ object AppDependencies {
 
     val navigateLibraries = arrayListOf(
         navigationFragmentKtx,
-        navigationUiKtx,
-        navigationUi
+        navigationUiKtx
     )
 
     val firebase = arrayListOf(

@@ -2,8 +2,6 @@ package com.telematics.zenroad.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
 import com.telematics.authentication.data.Authentication
 import com.telematics.data.BuildConfig
@@ -32,8 +30,7 @@ import javax.inject.Singleton
 
 
 @InstallIn(SingletonComponent::class)
-@Module(
-)
+@Module
 object AppModule {
 
     @Singleton
@@ -71,15 +68,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        val masterKey = MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-            .build()
-        return EncryptedSharedPreferences.create(
-            context,
-            "app_shared_prefs",
-            masterKey,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        val applicationLabel = context.applicationInfo.loadLabel(context.packageManager).toString()
+        return context.getSharedPreferences(
+            "${applicationLabel}_app_shared_prefs",
+            Context.MODE_PRIVATE
         )
     }
 
