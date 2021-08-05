@@ -64,6 +64,10 @@ class MainFragment : Fragment() {
                     navToFeed()
                     return@setOnNavigationItemSelectedListener true
                 }
+                R.id.nav_leaderboard -> {
+                    navToLeaderboard()
+                    return@setOnNavigationItemSelectedListener true
+                }
                 R.id.nav_dashboard -> {
                     navToDashboard()
                     return@setOnNavigationItemSelectedListener true
@@ -96,17 +100,23 @@ class MainFragment : Fragment() {
         binding.mainViewPager.setCurrentItem(0, false)
     }
 
+    private fun navToLeaderboard() {
+
+        showToolbar()
+        binding.mainViewPager.setCurrentItem(1, false)
+    }
+
     private fun navToDashboard() {
 
         showToolbar()
         observeUser()
-        binding.mainViewPager.setCurrentItem(1, false)
+        binding.mainViewPager.setCurrentItem(2, false)
     }
 
     private fun navToAccount() {
 
         hideToolbar()
-        binding.mainViewPager.setCurrentItem(2, false)
+        binding.mainViewPager.setCurrentItem(3, false)
     }
 
     private fun initToolbar() {

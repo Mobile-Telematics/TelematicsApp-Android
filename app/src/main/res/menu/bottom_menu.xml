@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/nav_feed"
+    <item
+        android:id="@+id/nav_feed"
         android:enabled="true"
         android:icon="@drawable/ic_menu_feed"
-        android:title="Feed"/>
+        android:title="Feed" />
 
-    <item android:id="@+id/nav_dashboard"
+    <item
+        android:id="@+id/nav_leaderboard"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_leaderboard"
+        android:title="Leaderboard" />
+
+    <item
+        android:id="@+id/nav_dashboard"
         android:enabled="true"
         android:icon="@drawable/ic_menu_dashboard"
-        android:title="Dashboard"/>
+        android:title="Dashboard" />
 
-    <item android:id="@+id/nav_profile"
+    <item
+        android:id="@+id/nav_profile"
         android:enabled="true"
         android:icon="@drawable/ic_menu_profile"
-        android:title="Profile"/>
+        android:title="Profile" />
 
 </menu>

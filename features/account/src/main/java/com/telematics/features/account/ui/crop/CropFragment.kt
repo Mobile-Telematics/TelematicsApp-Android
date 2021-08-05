@@ -10,7 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.isseiaoki.simplecropview.CropImageView
 import com.telematics.data.utils.PhotoUtils
-import com.telematics.features.account.BaseFragment
+import com.telematics.features.account.ui.BaseFragment
 import com.telematics.features.account.databinding.FragmentCropImageBinding
 import com.telematics.features.account.ui.account.AccountFragment
 import dagger.hilt.android.AndroidEntryPoint

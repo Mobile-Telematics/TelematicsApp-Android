@@ -1,4 +1,4 @@
-package com.telematics.features.account
+package com.telematics.features.account.ui
 
 import android.app.Activity
 import android.view.View

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/leaderboard_nav_graph"
+    app:startDestination="@id/leaderboardSummaryFragment">
+
+    <fragment
+        android:id="@+id/leaderboardSummaryFragment"
+        android:name="com.telematics.features.leaderboard.ui.leaderboard_summary.LeaderboardSummaryFragment"
+        android:label="LeaderboardSummaryFragment"
+        tools:layout="@layout/fragment_leaderboard_summary">
+        <action
+            android:id="@+id/action_leaderboardSummaryFragment_to_leaderboardDetailsFragment"
+            app:destination="@id/leaderboardDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leaderboardDetailsFragment"
+        android:name="com.telematics.features.leaderboard.ui.leaderboard_details.LeaderboardDetailsFragment"
+        android:label="LeaderboardDetailsFragment"
+        tools:layout="@layout/fragment_leaderboard_details" />
+</navigation>

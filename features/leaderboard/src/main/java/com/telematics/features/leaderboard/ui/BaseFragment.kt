@@ -1,4 +1,4 @@
-package com.telematics.features.feed.model
+package com.telematics.features.leaderboard.ui
 
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -14,9 +14,5 @@ abstract class BaseFragment : Fragment() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-    }
-
-    fun onBackPressed() {
-        findNavController().popBackStack()
     }
 }

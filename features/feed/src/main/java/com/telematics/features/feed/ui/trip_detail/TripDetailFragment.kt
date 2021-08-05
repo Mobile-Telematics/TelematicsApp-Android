@@ -30,7 +30,7 @@ import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.model.tracking.TripDetailsData
 import com.telematics.domain.model.tracking.TripPointData
 import com.telematics.features.feed.model.AlertType
-import com.telematics.features.feed.model.BaseFragment
+import com.telematics.features.feed.ui.BaseFragment
 import com.telematics.features.feed.model.ChangeDriverTypeDialog
 import com.telematics.features.feed.model.SpeedType
 import com.telematics.feed.R

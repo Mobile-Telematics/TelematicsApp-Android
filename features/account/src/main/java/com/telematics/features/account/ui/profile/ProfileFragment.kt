@@ -9,7 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.domain.model.authentication.User
-import com.telematics.features.account.BaseFragment
+import com.telematics.features.account.ui.BaseFragment
 import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentProfileBinding
 import com.telematics.features.account.model.DatePickerDialog
