@@ -8,6 +8,8 @@ import com.telematics.data.model.login.*
 import com.telematics.domain.model.LoginType
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
+import com.telematics.domain.model.authentication.IUser
+import com.telematics.domain.model.authentication.User
 import com.telematics.domain.repository.UserServicesRepo
 import javax.inject.Inject
 
@@ -42,5 +44,25 @@ class AuthRepoImpl @Inject constructor(
         val registrationBody = RegistrationBody()
         val response = api.registration(registrationBody)
         return response.result.toRegistrationApiData()
+    }
+
+    override suspend fun updateUser(user: IUser): SessionData {
+
+        val newUser = user as User
+        val userUpdateBody = UserUpdateBody(
+            email = newUser.email,
+            phone = newUser.phone,
+            address = newUser.address,
+            birthday = newUser.birthday,
+            childrenCount = newUser.childrenCount,
+            firstName = newUser.firstName,
+            lastName = newUser.lastName,
+            maritalStatus = newUser.maritalStatus,
+            imageUrl = newUser.profilePictureUrl,
+            gender = newUser.gender,
+            clientId = newUser.clientId
+        )
+        val response = api.updateUser(userUpdateBody)
+        return response.result.toSessionData()
     }
 }

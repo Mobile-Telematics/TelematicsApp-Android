@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
+import com.telematics.content.utils.BaseFragment
 import com.telematics.domain.model.LoginType
-import com.telematics.features.account.BaseFragment
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.RegistrationFragmentBinding
 import com.telematics.zenroad.extention.isValidEmail

@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.here.android.mpa.common.*
 import com.here.android.mpa.mapping.*
 import com.here.android.mpa.mapping.Map
+import com.telematics.content.utils.BaseFragment
 import com.telematics.data.extentions.color
 import com.telematics.data.extentions.convertDpToPx
 import com.telematics.data.extentions.drawable
@@ -30,7 +31,6 @@ import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.model.tracking.TripDetailsData
 import com.telematics.domain.model.tracking.TripPointData
 import com.telematics.features.feed.model.AlertType
-import com.telematics.features.feed.model.BaseFragment
 import com.telematics.features.feed.model.ChangeDriverTypeDialog
 import com.telematics.features.feed.model.SpeedType
 import com.telematics.feed.R
@@ -40,6 +40,15 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.List
+import kotlin.collections.MutableList
+import kotlin.collections.filter
+import kotlin.collections.find
+import kotlin.collections.forEach
+import kotlin.collections.indices
+import kotlin.collections.isNotEmpty
+import kotlin.collections.map
+import kotlin.collections.mutableListOf
 
 
 @AndroidEntryPoint
@@ -699,7 +708,7 @@ class TripDetailFragment : BaseFragment() {
     private fun showError(msg: String) {
 
         Log.d(TAG, "showError: $msg")
-        Snackbar.make(binding.root, R.string.trip_details_error_msg, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, R.string.something_went_wrong, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showProgress(show: Boolean) {
@@ -816,7 +825,6 @@ class TripDetailFragment : BaseFragment() {
         min %= 60
         return requireContext().getString(R.string.common_time_in_hm_format, h, min)
     }
-
 
     private fun finish() {
         onBackPressed()

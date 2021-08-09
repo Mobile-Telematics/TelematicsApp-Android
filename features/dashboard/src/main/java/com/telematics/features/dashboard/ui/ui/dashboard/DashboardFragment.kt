@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.github.mikephil.charting.components.XAxis
@@ -43,6 +44,13 @@ import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
+
+    companion object {
+        private var onNavToFeed: (() -> Unit)? = null
+        fun setOnNavigationToFeed(action: () -> Unit) {
+            onNavToFeed = action
+        }
+    }
 
     private val TAG = "DashboardFragment"
 
@@ -126,6 +134,14 @@ class DashboardFragment : Fragment() {
             val position =
                 if (binding.drivingScoresPager.currentItem == scoringAdapter.itemCount - 1) 0 else binding.drivingScoresPager.currentItem + 1
             binding.drivingScoresPager.setCurrentItem(position, true)
+        }
+
+        binding.dashboardEmptyLastTrip.dashboardEmptyLastTripLayout.setOnClickListener {
+            navToFeed()
+        }
+
+        binding.include3.lastTripParent.setOnClickListener {
+            navToFeed()
         }
     }
 
@@ -445,24 +461,22 @@ class DashboardFragment : Fragment() {
             }
             result.onSuccess { tripData ->
 
-                if (tripData == null)
-                    return@onSuccess
-                binding.dashboardEmptyLastTrip.dashboardEmptyLastTripParent.visibility = View.GONE
-                binding.include3.lastTripParent.visibility = View.VISIBLE
+                if (tripData == null) return@onSuccess
+                binding.dashboardEmptyLastTrip.dashboardEmptyLastTripParent.isVisible = false
+                binding.include3.lastTripParent.isVisible = true
 
                 binding.include3.eventTripDateStart.text = tripData.timeStart
                 binding.include3.eventTripDateFinish.text = tripData.timeEnd
                 binding.include3.eventTripOverallScore.text =
                     tripData.rating.roundToInt().toString()
-                binding.include3.eventTripOverallScore.eventTripOverallScore.setTextColor(
-                    when (tripData.rating.roundToInt()) {
-                        in 0..40 -> resources.getColor(R.color.colorRedText)
-                        in 41..60 -> resources.getColor(R.color.colorOrangeText)
-                        in 61..80 -> resources.getColor(R.color.colorYellowText)
-                        in 80..100 -> resources.getColor(R.color.colorGreenText)
-                        else -> resources.getColor(R.color.colorGreenText)
-                    }
-                )
+                val overallScoreColor = when (tripData.rating.roundToInt()) {
+                    in 0..40 -> ContextCompat.getColor(requireContext(), R.color.colorRedText)
+                    in 41..60 -> ContextCompat.getColor(requireContext(), R.color.colorOrangeText)
+                    in 61..80 -> ContextCompat.getColor(requireContext(), R.color.colorYellowText)
+                    in 80..100 -> ContextCompat.getColor(requireContext(), R.color.colorGreenText)
+                    else -> ContextCompat.getColor(requireContext(), R.color.colorGreenText)
+                }
+                binding.include3.eventTripOverallScore.eventTripOverallScore.setTextColor(overallScoreColor)
                 binding.include3.eventTripMileage.text = DecimalFormat("0.0").format(tripData.dist)
                 binding.include3.mileageMeasureText.text = getString(R.string.dashboard_new_km)
 
@@ -593,5 +607,10 @@ class DashboardFragment : Fragment() {
                 }
             )
         )
+    }
+
+    private fun navToFeed() {
+
+        onNavToFeed?.invoke()
     }
 }

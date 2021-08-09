@@ -86,6 +86,8 @@ class AccountFragment : Fragment() {
             val filePath = result.getString(CROP_FILE_PATH_KEY)
             filePath?.let {
                 uploadProfilePic(filePath)
+            } ?: run {
+                showFilePathError()
             }
         }
     }
@@ -238,5 +240,9 @@ class AccountFragment : Fragment() {
             askPermissions()
         }
         snackBar.show()
+    }
+
+    private fun showFilePathError() {
+        Snackbar.make(binding.root, R.string.something_went_wrong, Snackbar.LENGTH_SHORT).show()
     }
 }

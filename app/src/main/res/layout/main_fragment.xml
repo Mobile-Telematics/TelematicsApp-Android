@@ -36,7 +36,7 @@
             android:id="@+id/mainBottomNav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:backgroundTint="#464646"
+            app:backgroundTint="@color/navigationMenuBarOnMain"
             app:itemIconTint="@color/menu_icon_color_sel"
             app:itemRippleColor="@android:color/transparent"
             app:itemTextColor="@color/bottom_menu_item_text_sel"

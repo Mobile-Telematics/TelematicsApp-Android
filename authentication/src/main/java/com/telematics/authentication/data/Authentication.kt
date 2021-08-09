@@ -170,6 +170,9 @@ class Authentication constructor(
 
         Log.d(TAG, "updateUser user:${newUser}")
 
+        //update user in API user.telematicssdk.com
+        authRepo.updateUser(newUser)
+
         val userDatabase = Mapper.userToUserDatabase(newUser)
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
         user.userId?.let { userId ->

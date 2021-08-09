@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.telematics.authentication.extention.observeOnce
+import com.telematics.content.utils.BaseFragment
+import com.telematics.features.dashboard.ui.ui.dashboard.DashboardFragment
 import com.telematics.zenroad.MainActivity
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.MainFragmentBinding
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
 
     @Inject
     lateinit var mainFragmentViewModel: MainFragmentViewModel
@@ -38,6 +39,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setGreenNavigationBar()
 
         val navTo = arguments?.getString(SettingsFragment.NAV_TO_KEY)
 
@@ -87,6 +89,10 @@ class MainFragment : Fragment() {
             }
         } ?: run {
             bottomNavigationView.selectedItemId = R.id.nav_dashboard
+        }
+
+        DashboardFragment.setOnNavigationToFeed {
+            bottomNavigationView.selectedItemId = R.id.nav_feed
         }
     }
 

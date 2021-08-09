@@ -8,8 +8,8 @@ import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.telematics.content.utils.BaseFragment
 import com.telematics.domain.model.authentication.User
-import com.telematics.features.account.BaseFragment
 import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentProfileBinding
 import com.telematics.features.account.model.DatePickerDialog
@@ -59,6 +59,10 @@ class ProfileFragment : BaseFragment() {
             }
         }
 
+        binding.accountWizardEmailEdit.setOnClickListener {
+
+        }
+
         profileViewModel.getUser().observe(viewLifecycleOwner) { result ->
             result.onSuccess { user ->
                 bindUser(user)
@@ -96,17 +100,6 @@ class ProfileFragment : BaseFragment() {
 
         val firstName = binding.accountWizardName.text.toString()
         val lastName = binding.accountWizardFamilyName.text.toString()
-
-        //check first name field
-        if (firstName.isBlank()) {
-            showErrorMessage(R.string.account_screen_first_name_invalid)
-            return
-        }
-        //check last name field
-        if (lastName.isBlank()) {
-            showErrorMessage(R.string.account_screen_last_name_invalid)
-            return
-        }
 
         val birthday = binding.accountWizardBirthday.text.toString()
         val address = binding.accountWizardAddress.text.toString()
