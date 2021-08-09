@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.telematics.content.utils.BaseFragment
 import com.telematics.domain.model.leaderboard.LeaderboardType
-import com.telematics.features.leaderboard.ui.BaseFragment
 import com.telematics.leaderboard.databinding.FragmentLeaderboardDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 

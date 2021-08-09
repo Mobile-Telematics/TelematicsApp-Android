@@ -10,9 +10,9 @@ import androidx.annotation.StringRes
 import androidx.navigation.fragment.findNavController
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
+import com.telematics.content.utils.BaseFragment
 import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
-import com.telematics.features.account.ui.BaseFragment
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.ActivityVerifyCodeBinding
 import com.telematics.zenroad.ui.login.LoginFragment
@@ -187,7 +187,6 @@ class LoginVerifyCodeFragment : BaseFragment() {
     }
 
     private fun showErrorMessage(@StringRes id: Int) {
-
         showMessage(getString(id))
     }
 

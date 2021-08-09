@@ -3,13 +3,11 @@ package com.telematics.data.api
 import com.telematics.data.model.login.LoginBody
 import com.telematics.data.model.login.LoginWithDeviceTokenBody
 import com.telematics.data.model.login.RegistrationBody
+import com.telematics.data.model.login.UserUpdateBody
 import com.telematics.data.model.rest.ApiResponse
 import com.telematics.data.model.rest.ApiResult
 import com.telematics.data.model.user_exists.UserExists
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface LoginApi {
 
@@ -30,4 +28,7 @@ interface LoginApi {
 
     @POST("v1/Auth/Login")
     suspend fun loginWithDeviceToken(@Body loginBodyWithDeviceToken: LoginWithDeviceTokenBody): ApiResponse<ApiResult>
+
+    @PUT("v1/Management/Users")
+    suspend fun updateUser(@Body body: UserUpdateBody): ApiResponse<ApiResult>
 }

@@ -191,7 +191,7 @@
     <string name="trip_details_phone_usage">Phone Usage</string>
     <string name="trip_type_dialog_title">Trip Role</string>
     <string name="trip_type_dialog_header">Please select your trip role</string>
-    <string name="trip_details_error_msg">Something went wrong</string>
+    <string name="something_went_wrong">Something went wrong</string>
 
     <!--LEADERBOARD-->
     <string name="leaderboard_global">Global</string>

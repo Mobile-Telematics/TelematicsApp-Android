@@ -48,4 +48,5 @@ dependencies {
 
     implementation(AppDependencies.appLibraries)
     implementation(AppDependencies.moduleLibraries)
+    implementation(AppDependencies.navigateLibraries)
 }

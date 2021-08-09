@@ -10,6 +10,7 @@
         <item name="android:forceDarkAllowed">false</item>
         <item name="android:fontFamily">@font/open_sans_regular</item>
         <item name="colorControlHighlight">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/navigationMenuBarOnMain</item>
     </style>
 
     <style name="Theme.AppBundle" parent="Theme.AppCompat.Light.NoActionBar">

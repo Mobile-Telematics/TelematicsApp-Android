@@ -91,26 +91,23 @@ class Mapper {
 
         fun userToUserDatabase(user: User): UserDatabase {
 
-            val birthdayInStr = (user.birthday ?: user.birthday)?.let {
-                if (it.isNotEmpty()) {
-                    it.stringDateToTimeInMillis(DateFormat.DayMonthFullYear())
-                        .timeMillsToIso8601InSeconds()
-                } else ""
-            }
+            val birthdayInStr =
+                user.birthday?.stringDateToTimeInMillis(DateFormat.DayMonthFullYear())
+                    ?.timeMillsToIso8601InSeconds()
 
             return UserDatabase().apply {
-                email = user.email ?: user.email
-                firstName = user.firstName ?: user.firstName
-                lastName = user.lastName ?: user.lastName
-                phone = user.phone ?: user.phone
-                birthday = birthdayInStr
-                address = user.address ?: user.address
-                clientId = user.clientId ?: user.clientId
-                userId = user.userId ?: user.userId
-                profilePictureLink = user.profilePictureUrl ?: user.profilePictureUrl
-                gender = user.gender ?: user.gender ?: ""
-                maritalStatus = user.maritalStatus ?: user.maritalStatus ?: ""
-                childrenCount = user.childrenCount ?: user.childrenCount ?: 0
+                email = user.email
+                firstName = user.firstName
+                lastName = user.lastName
+                phone = user.phone
+                birthday = birthdayInStr ?: user.birthday
+                address = user.address
+                clientId = user.clientId
+                userId = user.userId
+                profilePictureLink = user.profilePictureUrl
+                gender = user.gender
+                maritalStatus = user.maritalStatus
+                childrenCount = user.childrenCount
                 //default
                 deviceToken = user.deviceToken
             }
