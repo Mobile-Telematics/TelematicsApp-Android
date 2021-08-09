@@ -1,9 +1,14 @@
 package com.telematics.data.mappers
 
+import com.telematics.data.R
 import com.telematics.data.model.rest.ApiResult
 import com.telematics.data.model.statistics.*
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
+import com.telematics.domain.model.leaderboard.LeaderboardMemberData
+import com.telematics.domain.model.leaderboard.LeaderboardType
+import com.telematics.domain.model.leaderboard.LeaderboardUser
+import com.telematics.domain.model.leaderboard.LeaderboardUserItems
 import com.telematics.domain.model.statistics.*
 import java.util.*
 import kotlin.math.roundToInt
@@ -142,22 +147,20 @@ fun List<DrivingDetailsData>.toScoreTypeModelList(): List<ScoreTypeModel> {
 fun EcoScoringRest.toDashboardEcoScoringMain(): StatisticEcoScoringMain {
     val response = this
     return StatisticEcoScoringMain(
-        score = response?.score?.toInt() ?: 0,
-        fuel = response?.fuel?.toInt() ?: 0,
-        brakes = response?.brakes?.toInt() ?: 0,
-        tires = response?.tyres?.toInt() ?: 0,
-        cost = response?.depreciation?.toInt() ?: 0
+        score = response.score.toInt(),
+        fuel = response.fuel.toInt(),
+        brakes = response.brakes.toInt(),
+        tires = response.tyres.toInt(),
+        cost = response.depreciation.toInt()
     )
 }
 
 fun UserStatisticsIndividualRest.toDashboardEcoScoringTabData(): StatisticEcoScoringTabData {
     val response = this
-    val averageTripDistance = if (response == null && response?.tripsCount == .0) .0 else {
-        ((response?.mileageKm ?: .0) / (response?.tripsCount ?: 1.0))
-    }
+    val averageTripDistance = (response.mileageKm) / (response.tripsCount)
     return StatisticEcoScoringTabData(
-        response?.averageSpeedKmh ?: .0,
-        response?.maxSpeedKmh ?: .0,
+        response.averageSpeedKmh,
+        response.maxSpeedKmh,
         averageTripDistance
     )
 }
@@ -199,4 +202,124 @@ fun LeaderboardResponse.toLeaderboardData(type: LeaderboardType): List<Leaderboa
         )
     }
     return listFriendsMembersData
+}
+
+fun LeaderboardUserResponse?.toLeadetboardUser(): LeaderboardUser {
+
+    val user = this ?: run {
+        return LeaderboardUser()
+    }
+
+    return LeaderboardUser(
+        user.accelerationPerc ?: 0.0,
+        user.accelerationPlace ?: 0,
+        user.accelerationScore ?: 0.0,
+        user.decelerationPerc ?: 0.0,
+        user.decelerationPlace ?: 0,
+        user.decelerationScore ?: 0.0,
+        user.distance ?: 0.0,
+        user.distractionPerc ?: 0.0,
+        user.distractionPlace ?: 0,
+        user.distractionScore ?: 0.0,
+        user.duration ?: 0.0,
+        user.distractionPerc ?: 0.0,
+        user.place ?: 0,
+        user.score ?: 0.0,
+        user.speedingPerc ?: 0.0,
+        user.speedingPlace ?: 0,
+        user.speedingScore ?: 0.0,
+        user.trips ?: 0,
+        user.turnPerc ?: 0.0,
+        user.turnPlace ?: 0,
+        user.turnScore ?: 0.0,
+        user.usersNumber ?: 0,
+        user.tripsPlace ?: 0,
+        user.durationPlace ?: 0,
+        user.distancePlace ?: 0
+    )
+}
+
+fun LeaderboardUser.toListofLeaderboardUserItems(): List<LeaderboardUserItems> {
+    val data = this
+    return mutableListOf(
+        LeaderboardUserItems(
+            LeaderboardType.Rate,
+            data.usersNumber - data.place.toDouble() + 1,
+            data.place,
+            data.usersNumber
+        ),
+        LeaderboardUserItems(
+            LeaderboardType.Acceleration,
+            data.usersNumber - data.accelerationPlace.toDouble() + 1,
+            data.accelerationPlace,
+            data.usersNumber
+        ),
+        LeaderboardUserItems(
+            LeaderboardType.Deceleration,
+            data.usersNumber - data.decelerationPlace.toDouble() + 1,
+            data.decelerationPlace,
+            data.usersNumber
+        ),
+        LeaderboardUserItems(
+            LeaderboardType.Speeding,
+            data.usersNumber - data.speedingPlace.toDouble() + 1,
+            data.speedingPlace,
+            data.usersNumber
+        ),
+        LeaderboardUserItems(
+            LeaderboardType.Distraction,
+            data.usersNumber - data.distractionPlace.toDouble() + 1,
+            data.distractionPlace,
+            data.usersNumber
+        ),
+        LeaderboardUserItems(
+            LeaderboardType.Turn,
+            data.usersNumber - data.turnPlace.toDouble() + 1,
+            data.turnPlace,
+            data.usersNumber
+        ),
+        LeaderboardUserItems(),
+        LeaderboardUserItems(
+            LeaderboardType.Trips,
+            data.usersNumber - data.tripsPlace.toDouble() + 1,
+            data.tripsPlace,
+            data.usersNumber
+        ),
+        LeaderboardUserItems(
+            LeaderboardType.Distance,
+            data.usersNumber - data.distancePlace.toDouble() + 1,
+            data.distancePlace,
+            data.usersNumber
+        ),
+        LeaderboardUserItems(
+            LeaderboardType.Duration,
+            data.usersNumber - data.durationPlace.toDouble() + 1,
+            data.durationPlace,
+            data.usersNumber
+        )
+    )
+}
+
+fun LeaderboardType.getIconRes(): Int = when (this) {
+    LeaderboardType.Acceleration -> R.drawable.ic_leaderboard_acceleration
+    LeaderboardType.Deceleration -> R.drawable.ic_leaderboard_deceleration
+    LeaderboardType.Distraction -> R.drawable.ic_leaderboard_phone
+    LeaderboardType.Speeding -> R.drawable.ic_leaderboard_speeding
+    LeaderboardType.Turn -> R.drawable.ic_leaderboard_cornering
+    LeaderboardType.Rate -> 0
+    LeaderboardType.Distance -> R.drawable.ic_leaderboard_mileage
+    LeaderboardType.Trips -> R.drawable.ic_leaderboard_trips
+    LeaderboardType.Duration -> R.drawable.ic_leaderboard_time
+}
+
+fun LeaderboardType.getStringRes(): Int = when (this) {
+    LeaderboardType.Acceleration -> R.string.leaderboard_acceleration
+    LeaderboardType.Deceleration -> R.string.leaderboard_deceleration
+    LeaderboardType.Distraction -> R.string.leaderboard_distraction
+    LeaderboardType.Speeding -> R.string.leaderboard_speeding
+    LeaderboardType.Turn -> R.string.leaderboard_turn
+    LeaderboardType.Rate -> R.string.leaderboard_rate
+    LeaderboardType.Distance -> R.string.leaderboard_mileage
+    LeaderboardType.Trips -> R.string.leaderboard_total_trips
+    LeaderboardType.Duration -> R.string.leaderboard_time_driven
 }

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.domain.model.authentication.PhoneAuthCallback
@@ -188,12 +187,8 @@ class LoginVerifyCodeFragment : BaseFragment() {
     }
 
     private fun showErrorMessage(@StringRes id: Int) {
-        showErrorMessage(getString(id))
-    }
 
-    private fun showErrorMessage(msg: String) {
-
-        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
+        showMessage(getString(id))
     }
 
     private fun startMainScreen() {

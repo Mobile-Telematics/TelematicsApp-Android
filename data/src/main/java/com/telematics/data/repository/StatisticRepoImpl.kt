@@ -6,6 +6,8 @@ import com.telematics.data.api.UserStatisticsApi
 import com.telematics.data.extentions.DateFormat
 import com.telematics.data.extentions.timeMillsToDisplayableString
 import com.telematics.data.mappers.*
+import com.telematics.domain.model.leaderboard.LeaderboardMemberData
+import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.statistics.*
 import com.telematics.domain.repository.StatisticRepo
 import com.telematics.domain.repository.UserRepo

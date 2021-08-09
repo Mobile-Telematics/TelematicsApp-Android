@@ -12,6 +12,7 @@ import com.telematics.data.mappers.toScoreTypeModelList
 import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.data.utils.Resource
 import com.telematics.domain.model.SessionData
+import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.statistics.*
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.repository.SettingsRepo

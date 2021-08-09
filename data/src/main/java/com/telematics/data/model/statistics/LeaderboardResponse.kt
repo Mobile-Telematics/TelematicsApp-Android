@@ -6,7 +6,7 @@ data class LeaderboardResponse(
     @SerializedName("ScoringRate")
     val scoringRate: String,
     @SerializedName("Users")
-    val users: List<LeaderboardUser>,
+    val users: List<LeaderboardUserBody>,
     @SerializedName("UsersNumber")
     val usersNumber: Int
 )

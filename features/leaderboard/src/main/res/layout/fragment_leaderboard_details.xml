@@ -4,5 +4,13 @@
     android:layout_height="match_parent"
     android:background="#160">
 
+    <TextView
+        android:textColor="@android:color/white"
+        android:id="@+id/leaderboardText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

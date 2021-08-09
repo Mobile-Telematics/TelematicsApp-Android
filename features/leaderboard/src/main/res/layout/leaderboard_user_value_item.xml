@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/leaderboard_user_item_normal_size"
+    android:layout_marginStart="@dimen/leaderboard_user_item_margin_start"
+    android:layout_marginEnd="@dimen/leaderboard_user_item_margin_start"
+    android:background="@drawable/ic_wizard_back_bubble_smallest">
+
+    <ImageView
+        android:id="@+id/propertyIcon"
+        android:layout_width="@dimen/acc_wizard_document_icon_width"
+        android:layout_height="@dimen/acc_wizard_document_icon_width"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_leaderboard_acceleration" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:max="100"
+        android:progress="1"
+        android:progressTint="@color/colorDefButton"
+        android:thumbTint="@color/colorDefButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/openArrow"
+        app:layout_constraintStart_toEndOf="@+id/propertyIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <ImageView
+        android:id="@+id/openArrow"
+        android:layout_width="@dimen/acc_wizard_document_arrow_icon_size"
+        android:layout_height="@dimen/acc_wizard_document_arrow_icon_size"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_dash_arrow_right_gray"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/propertyHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="3dp"
+        android:text="Phone Usage"
+        android:textColor="@color/colorDasBoardCoinsTextColor"
+        android:textSize="@dimen/leaderboard_user_item_type_text_normal"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintStart_toEndOf="@+id/propertyIcon"
+        app:layout_constraintStart_toStartOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/propertyPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/open_sans_bold"
+        android:textColor="@color/colorDasBoardCoinsTextColor"
+        android:textSize="@dimen/leaderboard_user_item_place_text_normal"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintEnd_toStartOf="@+id/openArrow"
+        app:layout_constraintTop_toTopOf="@+id/propertyHeader"
+        tools:text="#77" />
+
+    <View
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="1dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

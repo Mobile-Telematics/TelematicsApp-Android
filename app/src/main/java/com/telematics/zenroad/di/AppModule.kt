@@ -234,6 +234,13 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideLeaderboardRepo(
+        leaderboardApi: LeaderboardApi,
+        userRepo: UserRepo
+    ): LeaderboardRepo = LeaderboardRepoImpl(leaderboardApi, userRepo)
+
+    @Provides
+    @Singleton
     fun provideAuthentication(
         authRepo: UserServicesRepo,
         sessionRepo: SessionRepo,
