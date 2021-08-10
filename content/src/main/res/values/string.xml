@@ -209,7 +209,7 @@
     <string name="leaderboard_turn">Cornering</string>
     <string name="leaderboard_time_driven">Time Driven</string>
     <string name="leaderboard_total_trips">Total Trips</string>
-
+    <string name="leaderboard_full_name">FULL NAME</string>
 
 
 </resources>
