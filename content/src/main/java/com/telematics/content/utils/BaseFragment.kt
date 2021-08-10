@@ -49,7 +49,9 @@ abstract class BaseFragment : Fragment() {
 
     fun showMessage(msg: String) {
 
-        val view = requireActivity().findViewById<View>(android.R.id.content)
-        Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show()
+        if (isAdded) {
+            val view = requireActivity().findViewById<View>(android.R.id.content)
+            Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show()
+        }
     }
 }

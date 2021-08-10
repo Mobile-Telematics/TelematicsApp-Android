@@ -28,6 +28,7 @@ object Versions {
     const val circleIndicatorView = "2.1.4"
     const val swipeToRefresh = "1.1.0"
     const val recyclerView = "1.2.1"
+    const val glide = "4.12.0"
 
     const val firebaseBom = "28.2.0"
     const val firebaseDatabaseKtx = "20.0.0"

@@ -176,7 +176,20 @@ fun UserStatisticsScoreData.toScoreTypeModelList(): List<ScoreTypeModel> {
     )
 }
 
-fun LeaderboardResponse.toLeaderboardData(type: LeaderboardType): List<LeaderboardMemberData> {
+fun LeaderboardResponse.toLeaderboardData(type: Int): List<LeaderboardMemberData> {
+
+    val mappedType = when (type) {
+        1 -> LeaderboardType.Acceleration
+        2 -> LeaderboardType.Deceleration
+        3 -> LeaderboardType.Distraction
+        4 -> LeaderboardType.Speeding
+        5 -> LeaderboardType.Turn
+        6 -> LeaderboardType.Rate
+        7 -> LeaderboardType.Distance
+        8 -> LeaderboardType.Trips
+        9 -> LeaderboardType.Duration
+        else -> LeaderboardType.Rate
+    }
 
     val listLeaderboardMemberRest = this.users
 
@@ -193,7 +206,7 @@ fun LeaderboardResponse.toLeaderboardData(type: LeaderboardType): List<Leaderboa
             user.trips ?: 0,
             user.image ?: "",
             user.isCurrentUser ?: false,
-            type,
+            mappedType,
             user.nickname ?: "",
             user.distance ?: 0.0,
             user.duration ?: 0.0,
@@ -243,10 +256,10 @@ fun LeaderboardUser.toListofLeaderboardUserItems(): List<LeaderboardUserItems> {
     val data = this
     return mutableListOf(
         LeaderboardUserItems(
-            LeaderboardType.Rate,
-            data.usersNumber - data.place.toDouble() + 1,
-            data.place,
-            data.usersNumber
+            type = LeaderboardType.Rate,
+            progress = data.usersNumber - data.place.toDouble() + 1,
+            place = data.place,
+            progressMax = data.usersNumber
         ),
         LeaderboardUserItems(
             LeaderboardType.Acceleration,
@@ -301,25 +314,25 @@ fun LeaderboardUser.toListofLeaderboardUserItems(): List<LeaderboardUserItems> {
 }
 
 fun LeaderboardType.getIconRes(): Int = when (this) {
+    LeaderboardType.Rate -> 0
     LeaderboardType.Acceleration -> R.drawable.ic_leaderboard_acceleration
     LeaderboardType.Deceleration -> R.drawable.ic_leaderboard_deceleration
-    LeaderboardType.Distraction -> R.drawable.ic_leaderboard_phone
     LeaderboardType.Speeding -> R.drawable.ic_leaderboard_speeding
+    LeaderboardType.Distraction -> R.drawable.ic_leaderboard_phone
     LeaderboardType.Turn -> R.drawable.ic_leaderboard_cornering
-    LeaderboardType.Rate -> 0
-    LeaderboardType.Distance -> R.drawable.ic_leaderboard_mileage
     LeaderboardType.Trips -> R.drawable.ic_leaderboard_trips
+    LeaderboardType.Distance -> R.drawable.ic_leaderboard_mileage
     LeaderboardType.Duration -> R.drawable.ic_leaderboard_time
 }
 
 fun LeaderboardType.getStringRes(): Int = when (this) {
+    LeaderboardType.Rate -> R.string.leaderboard_rate
     LeaderboardType.Acceleration -> R.string.leaderboard_acceleration
     LeaderboardType.Deceleration -> R.string.leaderboard_deceleration
-    LeaderboardType.Distraction -> R.string.leaderboard_distraction
     LeaderboardType.Speeding -> R.string.leaderboard_speeding
+    LeaderboardType.Distraction -> R.string.leaderboard_distraction
     LeaderboardType.Turn -> R.string.leaderboard_turn
-    LeaderboardType.Rate -> R.string.leaderboard_rate
-    LeaderboardType.Distance -> R.string.leaderboard_mileage
     LeaderboardType.Trips -> R.string.leaderboard_total_trips
+    LeaderboardType.Distance -> R.string.leaderboard_mileage
     LeaderboardType.Duration -> R.string.leaderboard_time_driven
 }

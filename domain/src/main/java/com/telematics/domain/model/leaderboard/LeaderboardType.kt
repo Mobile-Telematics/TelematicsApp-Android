@@ -1,17 +1,16 @@
 package com.telematics.domain.model.leaderboard
 
-import com.telematics.domain.R
-
-
 enum class LeaderboardType(val index: Int) {
-    Acceleration(1),
-    Deceleration(2),
-    Distraction(3),
+    Rate(1),
+
+    Acceleration(2),
+    Deceleration(3),
     Speeding(4),
-    Turn(5),
-    Rate(6),
-    Distance(7),
-    Trips(8),
+    Distraction(5),
+    Turn(6),
+
+    Trips(7),
+    Distance(8),
     Duration(9);
 
     companion object {

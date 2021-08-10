@@ -80,4 +80,5 @@ dependencies {
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
 
     implementation(AppDependencies.swipeToRefresh)
+    implementation(AppDependencies.glide)
 }

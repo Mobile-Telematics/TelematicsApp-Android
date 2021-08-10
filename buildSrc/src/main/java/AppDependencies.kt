@@ -21,6 +21,7 @@ object AppDependencies {
     const val swipeToRefresh =
         "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeToRefresh}"
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
 
     //di hilt
     const val daggerHiltCompiler =
@@ -79,7 +80,8 @@ object AppDependencies {
     private const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
     private const val firebaseStorage =
         "com.google.firebase:firebase-storage-ktx:${Versions.firebaseStorage}"
-    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx:${Versions.firebaseCrashlytics}"
+    const val firebaseCrashlytics =
+        "com.google.firebase:firebase-crashlytics-ktx:${Versions.firebaseCrashlytics}"
 
     //google
     private const val googlePlayServices =

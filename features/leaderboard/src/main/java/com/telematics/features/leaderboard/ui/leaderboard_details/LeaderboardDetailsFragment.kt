@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager2.widget.ViewPager2
 import com.telematics.content.utils.BaseFragment
 import com.telematics.domain.model.leaderboard.LeaderboardType
+import com.telematics.leaderboard.R
 import com.telematics.leaderboard.databinding.FragmentLeaderboardDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +21,7 @@ class LeaderboardDetailsFragment : BaseFragment() {
     lateinit var leaderboardDetailsViewModel: LeaderboardDetailsViewModel
 
     private var detailsType = LeaderboardType.Acceleration
+    private lateinit var adapter: LeaderboardDetailsAdapter
 
     lateinit var binding: FragmentLeaderboardDetailsBinding
 
@@ -36,7 +39,7 @@ class LeaderboardDetailsFragment : BaseFragment() {
 
         setBackPressedCallback()
 
-        val typeIndex = arguments?.getInt(LEADERBOARD_DETAILS_TYPE_KEY, 1) ?: 1
+        val typeIndex = arguments?.getInt(LEADERBOARD_DETAILS_TYPE_KEY, 0) ?: 0
         detailsType = LeaderboardType.getFromIndex(typeIndex)
 
         initViews()
@@ -44,12 +47,85 @@ class LeaderboardDetailsFragment : BaseFragment() {
 
     private fun initViews() {
 
-        binding.leaderboardText.text = detailsType.toString()
-
+        initViewPager()
         setListeners()
+    }
+
+    private fun initViewPager() {
+
+        binding.leaderboardViewPager.apply {
+            isUserInputEnabled = true
+        }
+        adapter = LeaderboardDetailsAdapter(requireActivity())
+        binding.leaderboardViewPager.adapter = adapter
+
+        val firstPos = detailsType.index - 1
+        binding.leaderboardViewPager.setCurrentItem(firstPos, false)
+        setHeaderIconText(firstPos)
     }
 
     private fun setListeners() {
 
+        binding.leaderboardViewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                setHeaderIconText(position)
+            }
+        })
+
+        binding.nextButton.setOnClickListener {
+            nextPage()
+        }
+
+        binding.prevButton.setOnClickListener {
+            prevPage()
+        }
+    }
+
+    private fun setHeaderIconText(position: Int) {
+
+        val title = when (position) {
+            0 -> getString(R.string.leaderboard_rate)
+
+            1 -> getString(R.string.leaderboard_acceleration)
+            2 -> getString(R.string.leaderboard_deceleration)
+            3 -> getString(R.string.leaderboard_speeding)
+            4 -> getString(R.string.leaderboard_distraction)
+            5 -> getString(R.string.leaderboard_turn)
+
+            6 -> getString(R.string.leaderboard_total_trips)
+            7 -> getString(R.string.leaderboard_mileage)
+            8 -> getString(R.string.leaderboard_time_driven)
+            else -> ""
+        }
+
+        val icon = when (position) {
+            0 -> 0
+
+            1 -> R.drawable.ic_leaderboard_acceleration
+            2 -> R.drawable.ic_leaderboard_deceleration
+            3 -> R.drawable.ic_leaderboard_speeding
+            4 -> R.drawable.ic_leaderboard_phone
+            5 -> R.drawable.ic_leaderboard_cornering
+
+            6 -> R.drawable.ic_leaderboard_trips
+            7 -> R.drawable.ic_leaderboard_mileage
+            8 -> R.drawable.ic_leaderboard_time
+            else -> 0
+        }
+
+        binding.leaderboardTypeImage.setImageResource(icon)
+        binding.leaderboardTypeHeader.text = title
+    }
+
+    private fun nextPage() {
+        val nextPagePos = binding.leaderboardViewPager.currentItem + 1
+        binding.leaderboardViewPager.setCurrentItem(nextPagePos, true)
+    }
+
+    private fun prevPage() {
+        val prevPagePos = binding.leaderboardViewPager.currentItem - 1
+        binding.leaderboardViewPager.setCurrentItem(prevPagePos, true)
     }
 }

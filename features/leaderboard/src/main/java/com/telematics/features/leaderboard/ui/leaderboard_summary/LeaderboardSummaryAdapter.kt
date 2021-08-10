@@ -58,7 +58,7 @@ class LeaderboardSummaryAdapter(private val listener: ClickListener?) :
                         setImageRes(item.type.getIconRes())
                         setTextRes(item.type.getStringRes())
                         setClickListener {
-                            listener?.onClick(getItem(adapterPosition).type)
+                            listener?.onClick(item.type)
                         }
                     }
                 }
