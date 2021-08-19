@@ -47,8 +47,12 @@ class DashboardFragment : Fragment() {
 
     companion object {
         private var onNavToFeed: (() -> Unit)? = null
+        private var onRankClickListener: (() -> Unit)? = null
         fun setOnNavigationToFeed(action: () -> Unit) {
             onNavToFeed = action
+        }
+        fun setOnNavigationToLeaderboard(action: () -> Unit) {
+            onRankClickListener = action
         }
     }
 
@@ -142,6 +146,10 @@ class DashboardFragment : Fragment() {
 
         binding.include3.lastTripParent.setOnClickListener {
             navToFeed()
+        }
+
+        binding.include.rankValue.setOnClickListener {
+            navToLeaderboard()
         }
     }
 
@@ -294,7 +302,7 @@ class DashboardFragment : Fragment() {
             //todo open permissions
         }
         binding.dashboardEmptyLastTrip.root.setOnClickListener {
-            //todo go to Feed
+            navToFeed()
         }
 
         //eco_scoring
@@ -612,5 +620,10 @@ class DashboardFragment : Fragment() {
     private fun navToFeed() {
 
         onNavToFeed?.invoke()
+    }
+
+    private fun navToLeaderboard() {
+
+        onRankClickListener?.invoke()
     }
 }

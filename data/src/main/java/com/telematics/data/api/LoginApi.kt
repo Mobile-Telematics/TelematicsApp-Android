@@ -7,6 +7,7 @@ import com.telematics.data.model.login.UserUpdateBody
 import com.telematics.data.model.rest.ApiResponse
 import com.telematics.data.model.rest.ApiResult
 import com.telematics.data.model.user_exists.UserExists
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface LoginApi {
@@ -31,4 +32,8 @@ interface LoginApi {
 
     @PUT("v1/Management/Users")
     suspend fun updateUser(@Body body: UserUpdateBody): ApiResponse<ApiResult>
+
+    @Multipart
+    @POST("v1/Management/users/images/upload")
+    suspend fun uploadImage(@Part file: MultipartBody.Part): ApiResponse<String?>
 }

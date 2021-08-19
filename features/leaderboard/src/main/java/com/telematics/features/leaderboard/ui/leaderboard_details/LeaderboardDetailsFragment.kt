@@ -55,6 +55,7 @@ class LeaderboardDetailsFragment : BaseFragment() {
 
         binding.leaderboardViewPager.apply {
             isUserInputEnabled = true
+            offscreenPageLimit = 10
         }
         adapter = LeaderboardDetailsAdapter(requireActivity())
         binding.leaderboardViewPager.adapter = adapter
@@ -65,6 +66,12 @@ class LeaderboardDetailsFragment : BaseFragment() {
     }
 
     private fun setListeners() {
+
+        binding.leaderboardDetailBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        binding.leaderboardBackParent.setOnClickListener { }
 
         binding.leaderboardViewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {

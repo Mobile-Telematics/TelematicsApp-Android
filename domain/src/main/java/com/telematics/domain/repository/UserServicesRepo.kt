@@ -11,4 +11,5 @@ interface UserServicesRepo {
     suspend fun loginWithDeviceToken(deviceToken: String): SessionData
     suspend fun registration(): RegistrationApiData
     suspend fun updateUser(user: IUser): SessionData
+    suspend fun updateUserPicture(path: String)
 }

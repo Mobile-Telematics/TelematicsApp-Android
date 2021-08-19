@@ -204,6 +204,9 @@ class Authentication constructor(
 
         Log.d(TAG, "uploadProfilePicture: image url ${uri}")
 
+        //update user picture in API user.telematicssdk.com
+        authRepo.updateUserPicture(filePath)
+
         return uri.toString()
     }
 

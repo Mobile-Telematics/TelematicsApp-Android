@@ -8,17 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
 import com.telematics.authentication.extention.observeOnce
 import com.telematics.content.utils.BaseFragment
+import com.telematics.features.account.AccountFeatureHost
 import com.telematics.features.dashboard.ui.ui.dashboard.DashboardFragment
+import com.telematics.features.feed.FeedFeatureHost
+import com.telematics.features.leaderboard.LeaderboardFeatureHost
 import com.telematics.zenroad.MainActivity
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.MainFragmentBinding
-import com.telematics.zenroad.ui.bottom_menu.ViewPagerFragmentStateAdapter
 import com.telematics.zenroad.ui.settings.SettingsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
@@ -54,35 +60,33 @@ class MainFragment : BaseFragment() {
         bottomNavigationView.itemTextAppearanceActive = R.style.bottom_selected_text
         bottomNavigationView.itemTextAppearanceInactive = R.style.bottom_normal_text
 
-        binding.mainViewPager.apply {
-            isUserInputEnabled = false
-            //offscreenPageLimit = 4
-        }
-        binding.mainViewPager.adapter = ViewPagerFragmentStateAdapter(requireActivity())
+        var previousItemId = 0
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
+
+            if (previousItemId == it.itemId) {
+                return@setOnNavigationItemSelectedListener true
+            }
+            previousItemId = it.itemId
+
             when (it.itemId) {
                 R.id.nav_feed -> {
                     navToFeed()
-                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_leaderboard -> {
                     navToLeaderboard()
-                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_dashboard -> {
                     navToDashboard()
-                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_profile -> {
                     navToAccount()
-                    return@setOnNavigationItemSelectedListener true
                 }
                 else -> {
                     navToDashboard()
-                    return@setOnNavigationItemSelectedListener true
                 }
             }
+            return@setOnNavigationItemSelectedListener true
         }
 
         //first state
@@ -98,31 +102,43 @@ class MainFragment : BaseFragment() {
         DashboardFragment.setOnNavigationToFeed {
             bottomNavigationView.selectedItemId = R.id.nav_feed
         }
+        DashboardFragment.setOnNavigationToLeaderboard {
+            bottomNavigationView.selectedItemId = R.id.nav_leaderboard
+        }
     }
 
     private fun navToFeed() {
 
         showToolbar()
-        binding.mainViewPager.setCurrentItem(0, false)
+        openFragment(FeedFeatureHost())
     }
 
     private fun navToLeaderboard() {
 
         showToolbar()
-        binding.mainViewPager.setCurrentItem(1, false)
+        openFragment(LeaderboardFeatureHost())
     }
 
     private fun navToDashboard() {
 
         showToolbar()
         observeUser()
-        binding.mainViewPager.setCurrentItem(2, false)
+        openFragment(DashboardFragment())
     }
 
     private fun navToAccount() {
 
         hideToolbar()
-        binding.mainViewPager.setCurrentItem(3, false)
+        openFragment(AccountFeatureHost())
+    }
+
+    private fun openFragment(fragment: Fragment) {
+
+        val container = R.id.main_fragment_container
+        val manager: FragmentManager = childFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
+        transaction.replace(container, fragment)
+        transaction.commit()
     }
 
     private fun initToolbar() {

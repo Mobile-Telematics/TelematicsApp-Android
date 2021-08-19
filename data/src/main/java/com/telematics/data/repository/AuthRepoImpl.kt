@@ -1,5 +1,6 @@
 package com.telematics.data.repository
 
+import android.webkit.MimeTypeMap
 import com.telematics.data.BuildConfig
 import com.telematics.data.api.LoginApi
 import com.telematics.data.mappers.toRegistrationApiData
@@ -11,6 +12,10 @@ import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.IUser
 import com.telematics.domain.model.authentication.User
 import com.telematics.domain.repository.UserServicesRepo
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import javax.inject.Inject
 
 class AuthRepoImpl @Inject constructor(
@@ -64,5 +69,15 @@ class AuthRepoImpl @Inject constructor(
         )
         val response = api.updateUser(userUpdateBody)
         return response.result.toSessionData()
+    }
+
+    override suspend fun updateUserPicture(path: String) {
+
+        val file = File(path)
+        val type = MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(path))
+        val requestFile = RequestBody.create(MediaType.parse(type), file)
+        val body = MultipartBody.Part.createFormData("file", path, requestFile)
+        api.uploadImage(body)
     }
 }

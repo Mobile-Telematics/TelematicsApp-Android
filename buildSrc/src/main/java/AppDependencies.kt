@@ -74,14 +74,15 @@ object AppDependencies {
         "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}"
 
     //firebase
-    private const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
+    const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
     private const val firebaseDatabaseKtx =
-        "com.google.firebase:firebase-database-ktx:${Versions.firebaseDatabaseKtx}"
-    private const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
+        "com.google.firebase:firebase-database-ktx"
+    private const val firebaseAuth = "com.google.firebase:firebase-auth"
     private const val firebaseStorage =
-        "com.google.firebase:firebase-storage-ktx:${Versions.firebaseStorage}"
+        "com.google.firebase:firebase-storage-ktx"
     const val firebaseCrashlytics =
-        "com.google.firebase:firebase-crashlytics-ktx:${Versions.firebaseCrashlytics}"
+        "com.google.firebase:firebase-crashlytics-ktx"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
 
     //google
     private const val googlePlayServices =
@@ -130,7 +131,6 @@ object AppDependencies {
     )
 
     val firebase = arrayListOf(
-        firebaseBom,
         firebaseDatabaseKtx,
         firebaseAuth,
         firebaseStorage,

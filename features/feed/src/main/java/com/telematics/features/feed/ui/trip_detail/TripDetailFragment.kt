@@ -731,7 +731,8 @@ class TripDetailFragment : BaseFragment() {
         binding.tripDetailsBottomSheet.tripBottomSheet.alpha = if (show) 0.5f else 1f
     }
 
-    private fun showToast(success: Boolean) {
+    private fun showSuccessToast(success: Boolean) {
+
         val s =
             if (success) resources.getString(R.string.trip_details_thanks) else resources.getString(
                 R.string.trip_details_error
@@ -793,10 +794,10 @@ class TripDetailFragment : BaseFragment() {
                         renderEventsAndRoute()
                         removeOverlay()
                     }
-                    showToast(true)
+                    showSuccessToast(true)
                 }
                 result.onFailure {
-                    showToast(false)
+                    showSuccessToast(false)
                 }
                 showProgress(false)
             }
