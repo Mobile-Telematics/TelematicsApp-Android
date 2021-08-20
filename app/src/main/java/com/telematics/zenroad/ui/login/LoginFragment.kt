@@ -14,12 +14,11 @@ import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
+import com.telematics.content.utils.BaseFragment
 import com.telematics.data.BuildConfig
 import com.telematics.domain.model.LoginType
-import com.telematics.features.account.BaseFragment
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.LoginFragmentBinding
 import com.telematics.zenroad.extention.isValidEmail
@@ -59,6 +58,7 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setWhiteNavigationBar()
 
         setListeners()
         initScreen()
@@ -80,7 +80,11 @@ class LoginFragment : BaseFragment() {
 
         binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
         val rawString =
-            "${getString(R.string.login_screen_i_agree)} <a href=\"${BuildConfig.PRIVACY_POLICY}\">${getString(R.string.login_screen_policy)}</a>"
+            "${getString(R.string.login_screen_i_agree)} <a href=\"${BuildConfig.PRIVACY_POLICY}\">${
+                getString(
+                    R.string.login_screen_policy
+                )
+            }</a>"
         binding.loginPolicy.text = HtmlCompat.fromHtml(rawString, HtmlCompat.FROM_HTML_MODE_LEGACY)
         binding.loginPolicy.movementMethod = LinkMovementMethod.getInstance()
         binding.loginPolicy.setOnClickListener {
@@ -234,7 +238,7 @@ class LoginFragment : BaseFragment() {
 
     private fun showLoginFailedMessage(message: String) {
         Log.d(TAG, "message: $message")
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+        showMessage(message)
     }
 
     private fun getLoginField(): String {
@@ -307,6 +311,8 @@ class LoginFragment : BaseFragment() {
                 AuthErrorCode.NETWORK_EXCEPTION -> showLoginFailedMessage(R.string.auth_error_network)
                 else -> showLoginFailedMessage(R.string.auth_error_unknown)
             }
+        } else {
+            showLoginFailedMessage(R.string.auth_error_unknown)
         }
     }
 

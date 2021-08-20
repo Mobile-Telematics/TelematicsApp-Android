@@ -11,6 +11,9 @@
     <color name="colorMenuBackground">#464646</color>
     <color name="colorMenuBackgroundAlpha">#8C000000</color>
 
+    <color name="navigationMenuBarOnMain">#464646</color>
+    <color name="navigationMenuBarOnLogin">#FFF</color>
+
     <!-- Dashboard -->
     <color name="colorDashGreyText">#99464646</color>
 

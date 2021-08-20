@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
-import com.telematics.zenroad.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -14,16 +13,13 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var mainViewModel: MainViewModel
 
-    private lateinit var binding: MainActivityBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         setTheme(R.style.AppTheme)
 
         super.onCreate(savedInstanceState)
         overridePendingTransition(0, 0)
-        binding = MainActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.main_activity)
     }
 
     override fun onBackPressed() {

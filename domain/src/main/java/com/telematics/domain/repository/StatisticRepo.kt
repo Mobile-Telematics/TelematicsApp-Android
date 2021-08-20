@@ -1,5 +1,7 @@
 package com.telematics.domain.repository
 
+import com.telematics.domain.model.leaderboard.LeaderboardMemberData
+import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.statistics.*
 
 interface StatisticRepo {

@@ -50,5 +50,6 @@ dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.data))
 
+    implementation(platform(AppDependencies.firebaseBom))
     implementation(AppDependencies.firebase)
 }

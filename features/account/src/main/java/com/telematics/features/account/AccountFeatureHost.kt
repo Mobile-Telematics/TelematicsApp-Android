@@ -1,4 +1,4 @@
-package com.telematics.features.account.ui
+package com.telematics.features.account
 
 import android.os.Bundle
 import android.view.LayoutInflater

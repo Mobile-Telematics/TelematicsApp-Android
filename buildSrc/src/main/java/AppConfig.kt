@@ -8,7 +8,6 @@ object AppConfig {
     const val targetSdk = 30
     const val versionName = "1.0.0"
     const val versionCode = 1
-    const val dimension = name
 
     const val PRIVACY_POLICY = "\"YOUR_PRIVACY_POLICY_LINK\"" //for example "\"https://www.telematicssdk.com/privacy-policy/\""
     const val TERMS_OF_USE = "\"YOUR_TERMS_OF_USE_LINK\"" //for example"\"https://www.telematicssdk.com/privacy-policy/\""
@@ -20,9 +19,9 @@ object AppConfig {
 
     const val HERE_API_KEY = "\"YOUR_HERE_API_KEY\""
 
-    const val HERE_LICENCE_KEY = "YOUR_HERE_LICENCE_KEY"
-    const val HERE_APP_ID = "YOUR_HERE_APP_ID"
-    const val HERE_APP_CODE = "YOUR_HERE_APP_CODE"
+    const val HERE_LICENCE_KEY = "\"YOUR_HERE_LICENCE_KEY\""
+    const val HERE_APP_ID = "\"YOUR_HERE_APP_ID\""
+    const val HERE_APP_CODE = "\"YOUR_HERE_APP_CODE\""
 
     const val USER_SERVICE_URL = "\"https://user.telematicssdk.com/\""
     const val USER_SERVICE_URL_DEV = "\"https://user.telematicssdk.com/\""

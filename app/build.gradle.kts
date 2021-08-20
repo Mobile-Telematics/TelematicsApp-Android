@@ -5,7 +5,7 @@ plugins {
     id(Plugins.kotlinKapt)
     id(Plugins.googlePlugins)
     id(Plugins.firebaseCrashlyticsPlugin)
-    id("kotlin-android")
+    id(Plugins.kotlinAndroid)
 }
 
 android {
@@ -86,6 +86,7 @@ dependencies {
     implementation(project(Modules.feed))
     implementation(project(Modules.dashboard))
     implementation(project(Modules.account))
+    implementation(project(Modules.leaderboard))
 
     implementation(AppDependencies.trackingApi)
 }

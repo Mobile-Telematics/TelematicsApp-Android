@@ -158,5 +158,21 @@ Step 6: Copy LICENSE KEY from HERE developer console to HERE_LICENSE_KEY paramet
 
 Build & Run!
 
+## Leaderboard screen
 
+We provide you with the ability to create user ratings based on their trips. All this is displayed and relied on in the Leaderboard section of our Telematics App.
+There are 9 different leaderboards in total:
 
+- Acceleration = 1
+- Deceleration = 2
+- Distraction = 3
+- Speeding = 4
+- Turn = 5
+- RateOverall = 6
+- Distance = 7
+- Trips = 8
+- Duration = 9
+
+All types are presented in the Telematics App and you can understand which of these options for user ratings you need.
+
+>Remember! It takes a little time to create a Leaderboard rating in our Leaderboard API. A user who does not have a sufficient number of trips cannot see the Leaderboard data. Use placeholders for new users with an offer to make a trip, who just signed up.

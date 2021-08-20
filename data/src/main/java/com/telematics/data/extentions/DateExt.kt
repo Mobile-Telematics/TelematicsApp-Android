@@ -212,13 +212,13 @@ fun String.iso8601TimeToLong(): Long? {
  * @param dateFormat string date to translate in millisecond
  * @param dateFormat expected format for the string date, [DateFormat.Iso8601DateTime]by default
  */
-fun String.stringDateToTimeInMillis(dateFormat: DateFormat = DateFormat.ServerFormat()): Long {
+fun String.stringDateToTimeInMillis(dateFormat: DateFormat = DateFormat.ServerFormat()): Long? {
     val result: Long?
     try {
         val simpleDateFormat = SimpleDateFormat(dateFormat.format, Locale.getDefault())
         result = simpleDateFormat.parse(this).time
     } catch (e: ParseException) {
-        error { "Error during parsing a date : " + e.message }
+        return null
     }
     return result
 }

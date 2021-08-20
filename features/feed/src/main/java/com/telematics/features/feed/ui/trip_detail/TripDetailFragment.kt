@@ -18,10 +18,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
 import com.here.android.mpa.common.*
 import com.here.android.mpa.mapping.*
 import com.here.android.mpa.mapping.Map
+import com.telematics.content.utils.BaseFragment
 import com.telematics.data.extentions.color
 import com.telematics.data.extentions.convertDpToPx
 import com.telematics.data.extentions.drawable
@@ -30,7 +30,6 @@ import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.model.tracking.TripDetailsData
 import com.telematics.domain.model.tracking.TripPointData
 import com.telematics.features.feed.model.AlertType
-import com.telematics.features.feed.model.BaseFragment
 import com.telematics.features.feed.model.ChangeDriverTypeDialog
 import com.telematics.features.feed.model.SpeedType
 import com.telematics.feed.R
@@ -699,7 +698,7 @@ class TripDetailFragment : BaseFragment() {
     private fun showError(msg: String) {
 
         Log.d(TAG, "showError: $msg")
-        Snackbar.make(binding.root, R.string.trip_details_error_msg, Snackbar.LENGTH_SHORT).show()
+        showMessage(msg)
     }
 
     private fun showProgress(show: Boolean) {
@@ -732,7 +731,8 @@ class TripDetailFragment : BaseFragment() {
         binding.tripDetailsBottomSheet.tripBottomSheet.alpha = if (show) 0.5f else 1f
     }
 
-    private fun showToast(success: Boolean) {
+    private fun showSuccessToast(success: Boolean) {
+
         val s =
             if (success) resources.getString(R.string.trip_details_thanks) else resources.getString(
                 R.string.trip_details_error
@@ -794,10 +794,10 @@ class TripDetailFragment : BaseFragment() {
                         renderEventsAndRoute()
                         removeOverlay()
                     }
-                    showToast(true)
+                    showSuccessToast(true)
                 }
                 result.onFailure {
-                    showToast(false)
+                    showSuccessToast(false)
                 }
                 showProgress(false)
             }
@@ -816,7 +816,6 @@ class TripDetailFragment : BaseFragment() {
         min %= 60
         return requireContext().getString(R.string.common_time_in_hm_format, h, min)
     }
-
 
     private fun finish() {
         onBackPressed()

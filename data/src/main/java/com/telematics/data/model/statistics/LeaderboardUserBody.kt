@@ -2,7 +2,7 @@ package com.telematics.data.model.statistics
 
 import com.google.gson.annotations.SerializedName
 
-data class LeaderboardUser(
+data class LeaderboardUserBody(
     @SerializedName("DeviceToken")
     val deviceToken: String?,
     @SerializedName("Distance")

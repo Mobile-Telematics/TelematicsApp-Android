@@ -6,6 +6,8 @@ import com.telematics.data.api.UserStatisticsApi
 import com.telematics.data.extentions.DateFormat
 import com.telematics.data.extentions.timeMillsToDisplayableString
 import com.telematics.data.mappers.*
+import com.telematics.domain.model.leaderboard.LeaderboardMemberData
+import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.statistics.*
 import com.telematics.domain.repository.StatisticRepo
 import com.telematics.domain.repository.UserRepo
@@ -95,8 +97,20 @@ class StatisticRepoImpl @Inject constructor(
 
     override suspend fun getLeaderboard(type: LeaderboardType): List<LeaderboardMemberData>? {
 
+        val mappedType = when (type) {
+            LeaderboardType.Rate -> 6
+            LeaderboardType.Acceleration -> 1
+            LeaderboardType.Deceleration -> 2
+            LeaderboardType.Speeding -> 4
+            LeaderboardType.Distraction -> 3
+            LeaderboardType.Turn -> 5
+            LeaderboardType.Trips -> 8
+            LeaderboardType.Distance -> 7
+            LeaderboardType.Duration -> 9
+        }
+
         val deviceToken = userRepo.getDeviceToken()
         val data = leaderboardApi.getLeaderBoard(deviceToken, 10, 2, 6)
-        return data.result?.toLeaderboardData(type)
+        return data.result?.toLeaderboardData(mappedType)
     }
 }

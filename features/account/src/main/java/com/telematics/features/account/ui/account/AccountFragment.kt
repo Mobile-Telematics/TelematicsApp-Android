@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.telematics.content.utils.BaseFragment
 import com.telematics.data.utils.PermissionUtils
 import com.telematics.data.utils.PhotoUtils
 import com.telematics.domain.model.authentication.User
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class AccountFragment : Fragment() {
+class AccountFragment : BaseFragment() {
 
     private val TAG = "AccountFragment"
 
@@ -86,6 +86,8 @@ class AccountFragment : Fragment() {
             val filePath = result.getString(CROP_FILE_PATH_KEY)
             filePath?.let {
                 uploadProfilePic(filePath)
+            } ?: run {
+                showFilePathError()
             }
         }
     }
@@ -229,6 +231,7 @@ class AccountFragment : Fragment() {
     }
 
     private fun showPermissionError() {
+
         val snackBar = Snackbar.make(
             binding.root,
             R.string.account_access_permission_msg,
@@ -238,5 +241,9 @@ class AccountFragment : Fragment() {
             askPermissions()
         }
         snackBar.show()
+    }
+
+    private fun showFilePathError() {
+        showMessage(getString(R.string.something_went_wrong))
     }
 }

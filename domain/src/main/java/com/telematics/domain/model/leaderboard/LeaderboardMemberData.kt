@@ -1,4 +1,4 @@
-package com.telematics.domain.model.statistics
+package com.telematics.domain.model.leaderboard
 
 data class LeaderboardMemberData(
     var deviceToken: String? = null,

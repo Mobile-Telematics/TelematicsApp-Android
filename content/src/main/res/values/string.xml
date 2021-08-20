@@ -102,17 +102,7 @@
     <string name="dashboard_new_template_progress_mi">%1$s mi / %2$s mi</string>
     <string name="dashboard_new_just_press_start">To get full experience of our product, pass test drive and get your personal driving style analysis. \n Just press <b>Start</b></string>
     <string name="dashboard_new_rank">Rank</string>
-    <string name="leaderboard_global">Global</string>
-    <string name="leaderboard_friends">Friends</string>
     <string name="change_pass_equal_pass">Passwords should not be equal</string>
-    <string name="leaderboard_rate">Overall Safety Score</string>
-    <string name="leaderboard_acceleration">Acceleration</string>
-    <string name="leaderboard_deceleration">Braking</string>
-    <string name="leaderboard_distraction">Distraction</string>
-    <string name="leaderboard_speeding">Speeding</string>
-    <string name="leaderboard_turn">Cornering</string>
-    <string name="settings_leaderboard">Leaderboard</string>
-    <string name="nav_item_leaderboard">Leaderboard</string>
     <string name="dashboard_new_scoring_is_available_in">Scoring is available in:</string>
     <string name="dashboard_new_drive_as_you_do_normally">Drive as you do normally</string>
     <string name="dashboard_new_welcome_aboard">Welcome aboard!</string>
@@ -201,6 +191,25 @@
     <string name="trip_details_phone_usage">Phone Usage</string>
     <string name="trip_type_dialog_title">Trip Role</string>
     <string name="trip_type_dialog_header">Please select your trip role</string>
-    <string name="trip_details_error_msg">Something went wrong</string>
+    <string name="something_went_wrong">Something went wrong</string>
+
+    <!--LEADERBOARD-->
+    <string name="leaderboard_global">Global</string>
+    <string name="leaderboard_keep_driving">Keep driving!\nLeaderboard appears soon</string>
+    <string name="nav_item_leaderboard">Leaderboard</string>
+    <string name="settings_leaderboard">Leaderboard</string>
+    <string name="leaderboard_friends">Friends</string>
+    <string name="leaderboard_statistics">Statistics</string>
+    <string name="leaderboard_mileage">Mileage</string>
+    <string name="leaderboard_rate">Overall Safety Score</string>
+    <string name="leaderboard_acceleration">Acceleration</string>
+    <string name="leaderboard_deceleration">Braking</string>
+    <string name="leaderboard_distraction">Distraction</string>
+    <string name="leaderboard_speeding">Speeding</string>
+    <string name="leaderboard_turn">Cornering</string>
+    <string name="leaderboard_time_driven">Time Driven</string>
+    <string name="leaderboard_total_trips">Total Trips</string>
+    <string name="leaderboard_full_name">FULL NAME</string>
+
 
 </resources>

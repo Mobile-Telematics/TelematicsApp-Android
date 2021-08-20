@@ -1,11 +1,14 @@
-package com.telematics.features.account
+package com.telematics.content.utils
 
 import android.app.Activity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.telematics.content.R
 
 abstract class BaseFragment : Fragment() {
 
@@ -19,6 +22,10 @@ abstract class BaseFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
+    fun onBackPressed() {
+        findNavController().popBackStack()
+    }
+
     fun hideKeyboard() {
 
         val imm: InputMethodManager =
@@ -28,5 +35,23 @@ abstract class BaseFragment : Fragment() {
             view = View(activity)
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun setWhiteNavigationBar() {
+        requireActivity().window.navigationBarColor =
+            ContextCompat.getColor(requireContext(), R.color.navigationMenuBarOnLogin)
+    }
+
+    fun setGreenNavigationBar() {
+        requireActivity().window.navigationBarColor =
+            ContextCompat.getColor(requireContext(), R.color.navigationMenuBarOnMain)
+    }
+
+    fun showMessage(msg: String) {
+
+        if (isAdded) {
+            val view = requireActivity().findViewById<View>(android.R.id.content)
+            Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show()
+        }
     }
 }
