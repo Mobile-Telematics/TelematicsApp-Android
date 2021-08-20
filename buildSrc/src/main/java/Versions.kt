@@ -1,6 +1,6 @@
 object Versions {
 
-    const val kotlin = "1.4.32"
+    const val kotlin = "1.5.0"
 
     const val trackingApi = "2.2.253"
 

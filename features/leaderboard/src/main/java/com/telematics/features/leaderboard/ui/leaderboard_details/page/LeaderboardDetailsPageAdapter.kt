@@ -53,7 +53,10 @@ class LeaderboardDetailsPageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHo
 
         fun bind(lm: LeaderboardMemberData) {
             this.item = lm
-            Glide.with(view.context).load(lm.photoUrl).into(view.leaderboardUserIcon)
+            Glide.with(view.context)
+                .load(lm.photoUrl)
+                .placeholder(R.drawable.ic_no_avatar_white)
+                .into(view.leaderboardUserIcon)
             view.leaderboardPosition.text = lm.rank.toString()
 
             if (lm.firstName.isNullOrEmpty() && lm.familyName.isNullOrEmpty())
