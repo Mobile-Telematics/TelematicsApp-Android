@@ -2,7 +2,7 @@
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/telematicsapp.jpeg)
 
 ## Description
-This Telematics App is created by DATA MOTION PTE. LTD. and is distributed free of charge to all customers & users and can be used to create your own application for iOS in a few steps.
+This Telematics App is created by DATA MOTION PTE. LTD. and is distributed free of charge to all customers & users and can be used to create your own application for Android in a few steps.
 
 ## Basic Concepts & Credentials
 For commercial use, you need to create a sandbox account https://userdatahub.com/user/registration and get `InstanceID` and`InstanceKEY` auth keys to work with our API
@@ -63,23 +63,34 @@ Step 13: Select "Start a locked mode" and click the "Enable" button.
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/13.png)
 
-Step 14: Open our TelematicsApp in Android Studio, make sure to transfer the `google-services.json` file to project_directory\app (See Step 5 above) and Enjoy! 
+Step 14: Now you need to change rules for your Realtime Database. You need to go to “Realtime Database” section on the left side of the menu. In the “Rules” tab change read and write fields to “auth.uid != null”.
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/14.png)
+
+Step 15: Open our TelematicsApp in Android Studio, make sure to transfer the `google-services.json` file to project_directory\app (See Step 5 above) and Enjoy! 
 
 Build & Run!
 
 
 ## Setup TelematicsApp Configuration
 In file AppConfig.kt you can specify the basic settings for your app.
-To use your unique applicationId for your application, change applicationIdPrefix and name:
-const val applicationIdPrefix = "com.your_application_prefix"
+To use your unique applicationId for your application, change applicationIdPrefix and name:<br/>
+const val applicationIdPrefix = "com.your_application_prefix"<br/>
 private const val name = "your_application_name"
 
-To work with our API use InstanceId and InstanceKey from https://userdatahub.com/user/registration :
-const val INSTANCE_ID_PROD = "\"YOUR_INSTANCE_ID\"" 
-const val INSTANCE_KEY_PROD = "\"YOUR_INSTANCE_KEY\"" 
+To work with our API use InstanceId and InstanceKey from https://userdatahub.com/user/registration :<br/>
+const val INSTANCE_ID_PROD = "YOUR_INSTANCE_ID"<br/>
+const val INSTANCE_KEY_PROD = "YOUR_INSTANCE_KEY" 
 
-To set application label change app_name in strings.xml in content module:
+To set application label change app_name in strings.xml in content module:<br/>
 <string name="app_name">YOUR_LABEL</string>
+
+To set Privacy Policy change PRIVACY_POLICY in AppConfig.kt file :<br/>
+const val PRIVACY_POLICY = "YOUR_PRIVACY_POLICY_LINK" //for example "https://www.telematicssdk.com/privacy-policy/"
+
+To set Terms Of Use change PRIVACY_POLICY in AppConfig.kt file : <br/>
+const val TERMS_OF_USE = "YOUR_TERMS_OF_USE_LINK" //for example"https://www.telematicssdk.com/privacy-policy/"
+
 
 To set application icon, find the content module icon in resource folders (res/mipmap, res/mipmap-hdpi, etc.) and replace it. And for change background icon color set ic_launcher_background in color.xml:
 <color name="ic_launcher_background">#your_color</color>
@@ -89,6 +100,63 @@ To set application icon, find the content module icon in resource folders (res/m
 Our goal is to provide your users with a user-friendly interface to get the best user experience.
 We suggest you use 2 (two) dashboards with Scoring and user Statistics data in your application. To get the first data, the user usually needs to drive a short distance. We set this parameter in the configuration file `AppConfig.kt` in parameter
 const val DASHBOARD_DISTANCE_LIMIT = "10" //measured in km
+
+## Feed features
+
+The Trips screen displays the trips users have made.
+
+## Trip Details screen
+
+>Telematics App for Android uses HERE Maps to display the user's trips on a map. You need to get your access key to view the trip details. Visit https://developer.here.com
+
+
+To set API KEY for HERE Maps change HERE_API_KEY in the AppConfig.kt file. </br>
+const val HERE_API_KEY = "YOUR_HERE_API_KEY"
+
+To set LICENSE KEY for HERE Maps change HERE_LICENSE_KEY in the AppConfig.kt file. </br>
+const val HERE_LICENSE_KEY = "YOUR_HERE_LICENSE_KEY"
+
+To set APP ID for HERE Maps change HERE_APP_ID in the AppConfig.kt file. </br>
+const val HERE_APP_ID = "YOUR_HERE_APP_ID"
+
+To set APP CODE for HERE Maps change HERE_APP_CODE in the AppConfig.kt file. </br>
+const val HERE_APP_CODE = "YOUR_HERE_APP_CODE"
+
+Having received a list of the user's trips, you can refer to your array of trips and get more detailed information, as well as a set of points to be displayed on the HERE Maps API.
+
+## Get HERE Maps access keys
+
+In the next few simple steps, we'll show you how easy it is to create access keys in the HERE developer console.
+
+
+Step 1: After creating your HERE account, aopen your project in https://developer.here.com/projects </br>
+In the REST table click "Generate App".
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_1.png)
+
+Step 2: Click "Create API key"
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_2.png)
+
+Step 3: Copy API KEY and paste it to HERE_API_KEY parameter in AppConfig.kt file
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_3.png)
+
+Step 4: In HERE SDK FOR ANDROID table click "Generate App ID and App Code".
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_4.png)
+
+Step 5: Input your applicationId like a "com.prefix.application_name" from AppConfig.kt file for connecting your application and HERE Maps services. Then click "GENERATE".
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_5.png)
+
+Step 6: Copy LICENSE KEY from HERE developer console to HERE_LICENSE_KEY parameter in AppConfig.kt file. Also do the same for parameters: APP ID and APP CODE.
+
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_6.png)
+
+>Note: you do not need to Download SDK from the HERE developer console, it is already in the application project.
+
+Build & Run!
 
 ## Leaderboard screen
 
