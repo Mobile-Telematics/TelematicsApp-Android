@@ -3,17 +3,9 @@ package com.telematics.data.model.statistics
 import com.google.gson.annotations.SerializedName
 
 data class DrivingDetailsRest(
-    //    @SerializedName("CreatedAtUtc")
-//    val createdAtUtc: String,
     @SerializedName("DeviceToken")
     val deviceToken: String,
-//    @SerializedName("DistanceKm")
-//    val distanceKm: Double,
-//    @SerializedName("DurationMinutes")
-//    val durationMinutes: Double,
-//    @SerializedName("PeriodDays")
-//    val periodDays: Int,
-    @SerializedName("OverallScore")
+    @SerializedName("SafetyScore")
     val score: Int,
     @SerializedName("AccelerationScore")
     val scoreAcceleration: Int,
@@ -21,12 +13,10 @@ data class DrivingDetailsRest(
     val scoreDate: String,
     @SerializedName("BrakingScore")
     val scoreDeceleration: Int,
-    @SerializedName("DistractedScore")
+    @SerializedName("PhoneUsageScore")
     val scoreDistraction: Int,
     @SerializedName("SpeedingScore")
     val scoreSpeeding: Int,
     @SerializedName("CorneringScore")
     val scoreTurn: Int
-//    @SerializedName("Trips")
-//    val trips: Int
 )
