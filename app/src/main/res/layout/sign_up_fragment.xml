@@ -40,10 +40,11 @@
         android:id="@+id/registrationTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_bold"
         android:text="@string/sign_up"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="16sp"
+        android:textColor="@color/colorDefButton"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/registrationInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +73,7 @@
             android:layout_height="52dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:gravity="bottom"
             android:hint="@string/login_screen_hint_email"
@@ -85,6 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:background="@drawable/dr_login_email_rect"
+                android:gravity="center"
                 android:imeOptions="actionGo"
                 android:inputType="textEmailAddress"
                 android:paddingStart="8dp"
@@ -102,40 +104,54 @@
             android:layout_height="52dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:gravity="bottom"
             android:hint="@string/login_screen_hint_phone"
             android:textColor="@color/colorPrimaryText"
-            android:visibility="gone"
+            android:visibility="visible"
             app:hintTextAppearance="@style/TextLabel">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/registrationInputPhone"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="@drawable/dr_login_email_rect"
-                android:imeOptions="actionGo"
-                android:inputType="phone"
-                android:paddingStart="8dp"
-                android:paddingEnd="0dp"
-                android:textColor="@color/colorPrimaryText"
-                android:theme="@style/EditText" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <!--</LinearLayout>-->
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/registrationInputPhoneCCP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/dr_login_email_rect"
+                    android:gravity="center"
+                    android:paddingHorizontal="8dp"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_autoFormatNumber="false"
+                    app:ccp_flagBorderColor="@color/colorPrimaryLightText"
+                    app:ccp_showFlag="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_textSize="@dimen/bottom_input_field_edit_text_size" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registrationInputPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="start"
+                    android:hint="@string/login_screen_hint_phone"
+                    android:imeOptions="actionGo"
+                    android:inputType="phone"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="8dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:theme="@style/EditText" />
+
+            </LinearLayout>
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/registrationEmailError"
-            style="@style/TextLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:textColor="@android:color/holo_red_dark"
-            android:visibility="gone" />
 
         <!-- Password -->
         <com.google.android.material.textfield.TextInputLayout
@@ -145,11 +161,10 @@
             android:layout_height="52dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:gravity="bottom"
             android:hint="@string/login_screen_hint_password"
-            android:textColor="@color/colorPrimaryText"
             android:visibility="visible"
             app:hintTextAppearance="@style/TextLabel"
             app:passwordToggleEnabled="true">
@@ -159,9 +174,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:background="@drawable/dr_login_email_rect"
+                android:gravity="center"
                 android:imeOptions="actionGo"
                 android:inputType="textPassword"
-                android:paddingStart="8dp"
+                android:paddingStart="48dp"
                 android:paddingEnd="0dp"
                 android:textColor="@color/colorPrimaryText"
                 android:theme="@style/EditText" />
@@ -176,11 +192,10 @@
         style="@style/ButtonOrange"
         android:layout_width="150dp"
         android:layout_height="32dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="24dp"
         android:enabled="true"
         android:text="JOIN"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/registrationPolicyLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -200,17 +215,17 @@
         app:layout_constraintTop_toTopOf="@id/registrationSend"
         tools:visibility="visible" />
 
-    <Button
+    <TextView
         android:id="@+id/registrationSighIn"
-        style="@style/Button"
-        android:layout_width="150dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:enabled="true"
-        android:text="@string/login_screen_sigh_in"
-        android:textAllCaps="true"
+        android:fontFamily="@font/open_sans_bold"
+        android:text="Already hare an account? Sign In"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryText"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/registrationJoinVia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationSend" />
@@ -219,14 +234,13 @@
         android:id="@+id/registrationJoinVia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Join via"
+        android:text="Sign Up via"
         android:textColor="@color/colorPrimaryText"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/registrationPolicyLayout"
         app:layout_constraintEnd_toStartOf="@id/registrationChangeButton"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registrationSighIn"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintTop_toBottomOf="@id/registrationSighIn" />
 
     <TextView
         android:id="@+id/registrationChangeButton"
@@ -244,27 +258,29 @@
         app:layout_constraintStart_toEndOf="@id/registrationJoinVia"
         app:layout_constraintTop_toTopOf="@id/registrationJoinVia" />
 
-
     <LinearLayout
         android:id="@+id/registrationPolicyLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registrationChangeButton">
+        app:layout_constraintTop_toBottomOf="@id/registrationJoinVia">
 
         <CheckBox
             android:id="@+id/registration_policy_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
             android:button="@drawable/ic_rect_checkbox"
             android:buttonTint="@color/colorDefButton"
-            android:checked="true" />
+            android:checked="true"
+            android:visibility="gone" />
 
         <!-- Policy -->
         <TextView
@@ -273,9 +289,9 @@
             android:layout_height="wrap_content"
             android:text="@string/login_screen_policy"
             android:textAlignment="center"
-            android:textColor="@color/colorDefButton"
-            android:textColorLink="@color/colorDefButton"
-            android:textSize="14sp" />
+            android:textColor="@color/colorPrimaryText"
+            android:textColorLink="@color/colorPrimaryText"
+            android:textSize="10sp" />
 
     </LinearLayout>
 

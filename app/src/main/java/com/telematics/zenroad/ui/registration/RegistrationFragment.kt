@@ -9,13 +9,15 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.text.HtmlCompat
 import androidx.navigation.fragment.findNavController
 import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.content.utils.BaseFragment
+import com.telematics.data.BuildConfig
 import com.telematics.domain.model.LoginType
 import com.telematics.zenroad.R
-import com.telematics.zenroad.databinding.RegistrationFragmentBinding
+import com.telematics.zenroad.databinding.SignUpFragmentBinding
 import com.telematics.zenroad.extention.isValidEmail
 import com.telematics.zenroad.extention.setVisible
 import com.telematics.zenroad.ui.login.LoginFragment
@@ -30,9 +32,10 @@ class RegistrationFragment : BaseFragment() {
     @Inject
     lateinit var viewModel: RegistrationViewModel
 
-    private lateinit var binding: RegistrationFragmentBinding
+    private lateinit var binding: SignUpFragmentBinding
 
     private var loginType = LoginType.EMAIL
+    private var countryCode = -1
     private val PASSWORD_MIN_LENGTH = LoginFragment.PASSWORD_MIN_LENGTH
 
     override fun onCreateView(
@@ -41,7 +44,7 @@ class RegistrationFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = RegistrationFragmentBinding.inflate(inflater, container, false)
+        binding = SignUpFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -76,6 +79,14 @@ class RegistrationFragment : BaseFragment() {
         }
 
         binding.registrationSend.isEnabled = binding.registrationPolicyCheck.isChecked
+        val rawString =
+            "<a href=\"${BuildConfig.PRIVACY_POLICY}\">${
+                getString(
+                    R.string.login_screen_policy
+                )
+            }</a>"
+        binding.registrationPolicy.text =
+            HtmlCompat.fromHtml(rawString, HtmlCompat.FROM_HTML_MODE_LEGACY)
         binding.registrationPolicy.movementMethod = LinkMovementMethod.getInstance()
         binding.registrationPolicy.setOnClickListener {
             binding.registrationPolicyCheck.isChecked = !binding.registrationPolicyCheck.isChecked
@@ -94,7 +105,6 @@ class RegistrationFragment : BaseFragment() {
 
         when (loginType) {
             LoginType.EMAIL -> {
-                //initInputField(loginInputEmail, regType)
                 binding.registrationInputEmailTill.setVisible(true)
                 binding.registrationInputPhoneTill.setVisible(null)
                 binding.registrationInputPasswordTill.setVisible(true)
@@ -111,6 +121,11 @@ class RegistrationFragment : BaseFragment() {
                     }
             }
             LoginType.PHONE -> {
+                if (countryCode == -1) {
+                    countryCode = binding.registrationInputPhoneCCP.selectedCountryCodeAsInt
+                }
+                binding.registrationInputPhoneCCP.setCountryForPhoneCode(countryCode)
+                binding.registrationInputPhoneCCP.registerCarrierNumberEditText(binding.registrationInputPhone)
                 binding.registrationInputPhoneTill.setVisible(true)
                 binding.registrationInputEmailTill.setVisible(null)
                 binding.registrationInputPasswordTill.setVisible(null)
@@ -131,33 +146,34 @@ class RegistrationFragment : BaseFragment() {
 
     private fun animateViews() {
 
-        val duration = 500L
-        val durationK = 100L
+        fun animateView(view: View, index: Int = 1) {
 
-        binding.registrationInputEmailTill.alpha = 0f
-        binding.registrationInputPhoneTill.alpha = 0f
-        binding.registrationChangeButton.alpha = 0f
-        binding.registrationTitle.alpha = 0f
+            val duration = 500L
+            val durationK = 100L
+            val d = duration + durationK * index
 
-        binding.registrationChangeButton.alpha = 0f
+            view.alpha = 0f
+            view.animate().alpha(1f).setDuration(d)
+                .start()
+        }
 
-        binding.registrationInputEmailTill.animate().alpha(1f).setDuration(duration + durationK * 1)
-            .start()
-        binding.registrationInputPhoneTill.animate().alpha(1f).setDuration(duration + durationK * 1)
-            .start()
-        binding.registrationChangeButton.animate().alpha(1f).setDuration(duration + durationK * 2)
-            .start()
-        binding.registrationTitle.animate().alpha(1f)
-            .setDuration(duration + durationK * 2)
-            .start()
-        binding.registrationChangeButton.animate().alpha(1f).setDuration(duration + durationK * 5)
-            .start()
+        animateView(binding.registrationTitle, 1)
+        animateView(binding.registrationInputEmailTill, 1)
+        animateView(binding.registrationInputPhoneTill, 1)
+        animateView(binding.registrationInputPasswordTill, 1)
+        animateView(binding.registrationSend, 2)
+        animateView(binding.registrationSighIn, 3)
+        animateView(binding.registrationJoinVia, 3)
+        animateView(binding.registrationChangeButton, 3)
+        animateView(binding.registrationPolicyLayout, 4)
     }
 
     private fun bindFields(login: String, password: String, loginType: LoginType) {
 
         when (loginType) {
-            LoginType.PHONE -> binding.registrationInputPhone.setText(login)
+            LoginType.PHONE -> {
+                binding.registrationInputPhoneCCP.fullNumber = login
+            }
             LoginType.EMAIL -> {
                 binding.registrationInputEmail.setText(login)
                 binding.registrationInputPassword.setText(password)
@@ -189,7 +205,6 @@ class RegistrationFragment : BaseFragment() {
 
         val passwordField = binding.registrationInputPassword.text.toString()
         val emailField = binding.registrationInputEmail.text.toString()
-        val phoneField = binding.registrationInputPhone.text.toString()
 
         if (loginType == LoginType.EMAIL) {
 
@@ -220,8 +235,8 @@ class RegistrationFragment : BaseFragment() {
         }
 
         if (loginType == LoginType.PHONE)
-            if (phoneField.isBlank()) {
-                showLoginFailedMessage(R.string.auth_error_empty_phone)
+            if (!binding.registrationInputPhoneCCP.isValidFullNumber) {
+                showLoginFailedMessage(R.string.login_screen_phone_invalid)
                 return false
             }
 
@@ -244,7 +259,7 @@ class RegistrationFragment : BaseFragment() {
                 binding.registrationInputEmail.text.toString()
             }
             LoginType.PHONE -> {
-                binding.registrationInputPhone.text.toString()
+                binding.registrationInputPhoneCCP.selectedCountryCodeWithPlus + binding.registrationInputPhone.text.toString()
             }
         }
     }
@@ -311,6 +326,8 @@ class RegistrationFragment : BaseFragment() {
 
     /** navigation */
     private fun startVerifyCodeFragment() {
+
+        countryCode = binding.registrationInputPhoneCCP.selectedCountryCodeAsInt
 
         val bundle = bundleOf(LoginFragment.BUNDLE_LOGIN_KEY to getLoginField())
         findNavController().navigate(

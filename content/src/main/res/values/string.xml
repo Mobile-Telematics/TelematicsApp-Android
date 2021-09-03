@@ -12,9 +12,9 @@
     <string name="login_screen_join">JOIN</string>
     <string name="login_screen_sigh_in">SIGN IN</string>
     <string name="login_screen_sigh_up">SIGN UP</string>
-    <string name="login_screen_hint_email">Email Address</string>
-    <string name="login_screen_hint_phone">Phone</string>
-    <string name="login_screen_hint_password">Password</string>
+    <string name="login_screen_hint_email">email address</string>
+    <string name="login_screen_hint_phone">phone</string>
+    <string name="login_screen_hint_password">password</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="dialog_registration_confirm_proceed">This Login is not registered. Do you want to proceed registration with this Login?</string>

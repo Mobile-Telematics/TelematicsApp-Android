@@ -88,5 +88,7 @@ dependencies {
     implementation(project(Modules.account))
     implementation(project(Modules.leaderboard))
 
+    implementation(AppDependencies.countryCodePicker)
+
     implementation(AppDependencies.trackingApi)
 }
