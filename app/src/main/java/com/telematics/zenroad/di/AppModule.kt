@@ -241,6 +241,13 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideRewardRepo(
+        driveCoinsApi: DriveCoinsApi,
+        userStatisticsApi: UserStatisticsApi
+    ): RewardRepo = RewardRepoImpl(driveCoinsApi, userStatisticsApi)
+
+    @Provides
+    @Singleton
     fun provideAuthentication(
         authRepo: UserServicesRepo,
         sessionRepo: SessionRepo,

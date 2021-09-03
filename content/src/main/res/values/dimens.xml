@@ -599,13 +599,5 @@
     <dimen name="padding_item_decoration_edge">0dp</dimen>
     <dimen name="events_images_dimen">50dp</dimen>
     <dimen name="trip_details_change_image_size">70dp</dimen>
-
-
-    <dimen name="extra_small_dimen">4dp</dimen>
-    <dimen name="small_dimen">8dp</dimen>
-    <dimen name="medium_dimen">16dp</dimen>
-    <dimen name="big_dimen">32dp</dimen>
-    <dimen name="large_dimen">64dp</dimen>
-
     <dimen name="margin_for_toolbar">80dp</dimen>
 </resources>

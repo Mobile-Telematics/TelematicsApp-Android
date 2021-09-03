@@ -87,6 +87,7 @@ dependencies {
     implementation(project(Modules.dashboard))
     implementation(project(Modules.account))
     implementation(project(Modules.leaderboard))
+    implementation(project(Modules.reward))
 
     implementation(AppDependencies.trackingApi)
 }

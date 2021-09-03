@@ -2,6 +2,8 @@ package com.telematics.data.mappers
 
 import com.telematics.data.R
 import com.telematics.data.model.rest.ApiResult
+import com.telematics.data.model.reward.DailyLimit
+import com.telematics.data.model.reward.DriveCoinsTotal
 import com.telematics.data.model.statistics.*
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
@@ -9,6 +11,8 @@ import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.leaderboard.LeaderboardUser
 import com.telematics.domain.model.leaderboard.LeaderboardUserItems
+import com.telematics.domain.model.reward.DailyLimitData
+import com.telematics.domain.model.reward.DriveCoinsTotalData
 import com.telematics.domain.model.statistics.*
 import java.util.*
 import kotlin.math.roundToInt
@@ -335,4 +339,17 @@ fun LeaderboardType.getStringRes(): Int = when (this) {
     LeaderboardType.Trips -> R.string.leaderboard_total_trips
     LeaderboardType.Distance -> R.string.leaderboard_mileage
     LeaderboardType.Duration -> R.string.leaderboard_time_driven
+}
+
+fun DailyLimit?.toDailyLimitData(): DailyLimitData {
+    this ?: return DailyLimitData()
+    return DailyLimitData(this.dailyLimit)
+}
+
+fun DriveCoinsTotal?.toDriveCoinsTotalData(): DriveCoinsTotalData {
+    this ?: return DriveCoinsTotalData()
+    return DriveCoinsTotalData(
+        this.totalEarnedCoins,
+        this.acquiredCoins
+    )
 }

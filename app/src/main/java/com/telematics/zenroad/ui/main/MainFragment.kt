@@ -18,6 +18,7 @@ import com.telematics.features.account.AccountFeatureHost
 import com.telematics.features.dashboard.ui.ui.dashboard.DashboardFragment
 import com.telematics.features.feed.FeedFeatureHost
 import com.telematics.features.leaderboard.LeaderboardFeatureHost
+import com.telematics.features.reward.RewardFeatureHost
 import com.telematics.zenroad.MainActivity
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.MainFragmentBinding
@@ -79,6 +80,9 @@ class MainFragment : BaseFragment() {
                 R.id.nav_dashboard -> {
                     navToDashboard()
                 }
+                R.id.nav_reward -> {
+                    navToReward()
+                }
                 R.id.nav_profile -> {
                     navToAccount()
                 }
@@ -130,6 +134,13 @@ class MainFragment : BaseFragment() {
 
         hideToolbar()
         openFragment(AccountFeatureHost())
+    }
+
+    private fun navToReward() {
+
+        showToolbar()
+        observeUser()
+        openFragment(RewardFeatureHost())
     }
 
     private fun openFragment(fragment: Fragment) {

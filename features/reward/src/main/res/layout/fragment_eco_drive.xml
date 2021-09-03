@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/eco_icon_image"
+            style="@style/eco_score_img_style"
+            android:layout_marginTop="0dp"
+            android:contentDescription="@string/leaf_text"
+            android:src="@drawable/drive_coins_eco_score"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/eco_title"
+            style="@style/eco_score_title_style"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/eco_score_text"
+            app:layout_constraintStart_toEndOf="@+id/eco_icon_image"
+            app:layout_constraintTop_toTopOf="@+id/eco_icon_image" />
+
+        <SeekBar
+            android:id="@+id/eco_seek_bar"
+            style="@style/eco_score_seek_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/eco_icon_image"
+            app:layout_constraintEnd_toEndOf="@+id/eco_score"
+            app:layout_constraintStart_toEndOf="@+id/eco_icon_image"
+            app:layout_constraintTop_toBottomOf="@+id/eco_title" />
+
+        <TextView
+            android:id="@+id/eco_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="+550"
+            android:textColor="@color/colorGreenText"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/eco_title" />
+
+        <!--    -->
+
+        <ImageView
+            android:id="@+id/brake_icon_image"
+            style="@style/eco_score_img_style"
+            android:contentDescription="@string/leaf_text"
+            android:src="@drawable/drive_coins_brakes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eco_icon_image" />
+
+        <TextView
+            android:id="@+id/brake_title"
+            style="@style/eco_score_title_style"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/brakes_title"
+            app:layout_constraintStart_toEndOf="@+id/brake_icon_image"
+            app:layout_constraintTop_toTopOf="@+id/brake_icon_image" />
+
+        <SeekBar
+            android:id="@+id/braked_seek_bar"
+            style="@style/eco_score_seek_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/brake_icon_image"
+            app:layout_constraintEnd_toEndOf="@+id/eco_score"
+            app:layout_constraintStart_toEndOf="@+id/brake_icon_image"
+            app:layout_constraintTop_toBottomOf="@+id/brake_title" />
+
+        <TextView
+            android:id="@+id/brake_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="+100"
+            android:textColor="@color/colorGreenText"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/brake_title" />
+
+        <!--    -->
+
+        <ImageView
+            android:id="@+id/fuel_icon_image"
+            style="@style/eco_score_img_style"
+            android:contentDescription="@string/leaf_text"
+            android:src="@drawable/drive_coins_fuel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/brake_icon_image" />
+
+        <TextView
+            android:id="@+id/fuel_title"
+            style="@style/eco_score_title_style"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/fuel_title"
+            app:layout_constraintStart_toEndOf="@+id/fuel_icon_image"
+            app:layout_constraintTop_toTopOf="@+id/fuel_icon_image" />
+
+        <SeekBar
+            android:id="@+id/fuel_seek_bar"
+            style="@style/eco_score_seek_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fuel_icon_image"
+            app:layout_constraintEnd_toEndOf="@+id/eco_score"
+            app:layout_constraintStart_toEndOf="@+id/fuel_icon_image"
+            app:layout_constraintTop_toBottomOf="@+id/fuel_title" />
+
+        <TextView
+            android:id="@+id/fuel_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="+50"
+            android:textColor="@color/colorGreenText"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/fuel_title" />
+
+        <!--    -->
+
+        <ImageView
+            android:id="@+id/tyres_icon_image"
+            style="@style/eco_score_img_style"
+            android:contentDescription="@string/leaf_text"
+            android:src="@drawable/drive_coins_tyres"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fuel_icon_image" />
+
+        <TextView
+            android:id="@+id/tyres_title"
+            style="@style/eco_score_title_style"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/tyres_title"
+            app:layout_constraintStart_toEndOf="@+id/tyres_icon_image"
+            app:layout_constraintTop_toTopOf="@+id/tyres_icon_image" />
+
+        <SeekBar
+            android:id="@+id/tyres_seek_bar"
+            style="@style/eco_score_seek_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tyres_icon_image"
+            app:layout_constraintEnd_toEndOf="@+id/eco_score"
+            app:layout_constraintStart_toEndOf="@+id/tyres_icon_image"
+            app:layout_constraintTop_toBottomOf="@+id/tyres_title" />
+
+        <TextView
+            android:id="@+id/tyres_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="+100"
+            android:textColor="@color/colorGreenText"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tyres_title" />
+
+        <!--    -->
+
+        <ImageView
+            android:id="@+id/cost_icon_image"
+            style="@style/eco_score_img_style"
+            android:contentDescription="@string/leaf_text"
+            android:src="@drawable/drive_coins_cost_of_ownership"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tyres_icon_image" />
+
+        <TextView
+            android:id="@+id/cost_title"
+            style="@style/eco_score_title_style"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/cost_of_ownership_title"
+            app:layout_constraintStart_toEndOf="@+id/cost_icon_image"
+            app:layout_constraintTop_toTopOf="@+id/cost_icon_image" />
+
+        <SeekBar
+            android:id="@+id/cost_seek_bar"
+            style="@style/eco_score_seek_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cost_icon_image"
+            app:layout_constraintEnd_toEndOf="@+id/eco_score"
+            app:layout_constraintStart_toEndOf="@+id/cost_icon_image"
+            app:layout_constraintTop_toBottomOf="@+id/cost_title" />
+
+        <TextView
+            android:id="@+id/cost_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="-300"
+            android:textColor="@color/colorRedText"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cost_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
