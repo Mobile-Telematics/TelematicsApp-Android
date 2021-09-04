@@ -14,7 +14,6 @@
             android:id="@+id/drive_coins_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
             android:orientation="vertical"
             android:paddingTop="20dp">
 
@@ -77,9 +76,8 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="40dp"
-                android:visibility="visible"
                 app:tabGravity="center"
-                app:tabIndicatorColor="@android:color/white"
+                app:tabIndicatorColor="@color/colorDefButton"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorHeight="4dp"
                 app:tabRippleColor="@android:color/transparent"
@@ -112,7 +110,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@android:color/white"
+                android:background="@color/drive_coins_grey"
                 app:layout_constraintTop_toBottomOf="@+id/duration_tabs" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -161,8 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
+                android:orientation="horizontal">
 
                 <Space
                     android:layout_width="0dp"
@@ -319,18 +316,19 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@android:color/white"
+                    android:background="@color/drive_coins_grey"
                     android:translationY="-1dp"
                     app:layout_constraintBottom_toBottomOf="@id/drive_coins_select_arrow_parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.viewpager.widget.ViewPager
+            <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/statistic_pager"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginTop="32dp"
-                android:paddingHorizontal="48dp" />
+                android:paddingHorizontal="48dp"
+                android:visibility="visible" />
 
         </LinearLayout>
 

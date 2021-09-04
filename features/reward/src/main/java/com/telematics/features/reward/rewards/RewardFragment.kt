@@ -8,9 +8,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.telematics.content.utils.BaseFragment
+import com.telematics.features.reward.RewardFeatureHost
 import com.telematics.features.reward.drivecoins.DrivecoinsFragment
+import com.telematics.features.reward.streaks.StreaksFragment
 import com.telematics.reward.R
 import com.telematics.reward.databinding.FragmentRewardBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,10 +46,18 @@ class RewardFragment : BaseFragment() {
 
     private fun initViews() {
 
+        var toStreaks: Boolean
+        findNavController().graph.arguments.apply {
+            toStreaks = this[RewardFeatureHost.NAV_TO_STREAKS]?.defaultValue as Boolean? ?: false
+        }
+
         initTabs()
         initInviteScreen()
 
         openDriveCoinsFragment()
+
+        if (toStreaks)
+            binding.headerTabs.getTabAt(1)?.select()
     }
 
     private fun initInviteScreen() {
@@ -85,7 +96,7 @@ class RewardFragment : BaseFragment() {
 
     private fun openStreaksFragment() {
         lastOpenFragment = 1
-        //openFragment(StreaksFragment())
+        openFragment(StreaksFragment())
     }
 
     private fun openFragment(fragment: Fragment) {

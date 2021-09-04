@@ -39,7 +39,7 @@ class TrackingApiImpl @Inject constructor(
             Settings.stopTrackingTimeHigh, 150,
             autoStartOn = true,
             hfOn = true,
-            elmOn = false
+            elmOn = true
         )
         TrackingApi.getInstance().initialize(context, setting)
     }

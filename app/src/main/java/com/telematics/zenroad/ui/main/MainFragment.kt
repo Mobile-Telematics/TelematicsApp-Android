@@ -109,6 +109,11 @@ class MainFragment : BaseFragment() {
         DashboardFragment.setOnNavigationToLeaderboard {
             bottomNavigationView.selectedItemId = R.id.nav_leaderboard
         }
+        DashboardFragment.setOnNavigationToReward { toStreaks ->
+            bottomNavigationView.selectedItemId = R.id.nav_reward
+            if (toStreaks)
+                navToReward(true)
+        }
     }
 
     private fun navToFeed() {
@@ -136,11 +141,11 @@ class MainFragment : BaseFragment() {
         openFragment(AccountFeatureHost())
     }
 
-    private fun navToReward() {
+    private fun navToReward(toStreaks: Boolean = false) {
 
         showToolbar()
         observeUser()
-        openFragment(RewardFeatureHost())
+        openFragment(RewardFeatureHost.createFragment(toStreaks))
     }
 
     private fun openFragment(fragment: Fragment) {

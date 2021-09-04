@@ -8,5 +8,6 @@ interface RewardRepo {
     suspend fun getDailyLimit(): DailyLimitData
     suspend fun getTotalCoinsByDuration(duration: DriveCoinsDuration): DriveCoinsTotalData
     suspend fun getDetailed(duration: DriveCoinsDuration): DriveCoinsDetailedData
-    suspend fun getStreaks(): StreaksData
+    suspend fun getStreaks(): List<Streak>
+    suspend fun getDrivingStreaks(): StreaksData
 }

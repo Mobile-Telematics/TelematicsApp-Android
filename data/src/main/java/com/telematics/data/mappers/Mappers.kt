@@ -2,8 +2,7 @@ package com.telematics.data.mappers
 
 import com.telematics.data.R
 import com.telematics.data.model.rest.ApiResult
-import com.telematics.data.model.reward.DailyLimit
-import com.telematics.data.model.reward.DriveCoinsTotal
+import com.telematics.data.model.reward.*
 import com.telematics.data.model.statistics.*
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
@@ -11,9 +10,9 @@ import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.leaderboard.LeaderboardUser
 import com.telematics.domain.model.leaderboard.LeaderboardUserItems
-import com.telematics.domain.model.reward.DailyLimitData
-import com.telematics.domain.model.reward.DriveCoinsTotalData
+import com.telematics.domain.model.reward.*
 import com.telematics.domain.model.statistics.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -351,5 +350,225 @@ fun DriveCoinsTotal?.toDriveCoinsTotalData(): DriveCoinsTotalData {
     return DriveCoinsTotalData(
         this.totalEarnedCoins,
         this.acquiredCoins
+    )
+}
+
+fun DriveCoinsDetailedData.setCompleteData(
+    individualData: UserStatisticsIndividualRest?,
+    coinsDetailedList: List<DriveCoinsDetailed>?,
+    driveCoinsDetailed2: DriveCoinsDetailed2?,
+    driveCoinsScoreEco: DriveCoinsScoreEco?
+): DriveCoinsDetailedData {
+
+    val detailedData = this
+
+    detailedData.travelingTimeDrivenData = individualData?.drivingTime?.roundToInt()
+        ?: 0
+    detailedData.travelingMileageData = individualData?.mileageKm?.roundToInt() ?: 0
+
+    var midSpeedingMileage = 0
+    var highSpeedingMileage = 0
+
+    coinsDetailedList?.forEach { driveCoinsDetailed ->
+        when (driveCoinsDetailed.coinFactor.toLowerCase()) {
+            "EcoScore".toLowerCase() -> detailedData.ecoDrivingEcoScore =
+                driveCoinsDetailed.coinsSum
+            "EcoScoreBrakes".toLowerCase() -> detailedData.ecoDrivingBrakes =
+                driveCoinsDetailed.coinsSum
+            "EcoScoreDepreciation".toLowerCase() -> detailedData.ecoDrivingCostOfOwnership =
+                driveCoinsDetailed.coinsSum
+            "EcoScoreFuel".toLowerCase() -> detailedData.ecoDrivingFuel =
+                driveCoinsDetailed.coinsSum
+            "EcoScoreTyres".toLowerCase() -> detailedData.ecoDrivingTires =
+                driveCoinsDetailed.coinsSum
+
+            "Mileage".toLowerCase() -> detailedData.travelingMileage = driveCoinsDetailed.coinsSum
+            "DurationSec".toLowerCase() -> detailedData.travelingTimeDriven =
+                driveCoinsDetailed.coinsSum
+            "AccelerationCount".toLowerCase() -> detailedData.travelingAccelerations =
+                driveCoinsDetailed.coinsSum
+            "BrakingCount".toLowerCase() -> detailedData.travelingBrakings =
+                driveCoinsDetailed.coinsSum
+            "PhoneUsage".toLowerCase() -> detailedData.travelingPhoneUsage =
+                driveCoinsDetailed.coinsSum
+            "CorneringCount".toLowerCase() -> detailedData.travelingCornerings =
+                driveCoinsDetailed.coinsSum
+            "MidSpeedingMileage".toLowerCase() -> midSpeedingMileage = driveCoinsDetailed.coinsSum
+            "HighSpeedingMileage".toLowerCase() -> highSpeedingMileage = driveCoinsDetailed.coinsSum
+
+            "SafeScore".toLowerCase() -> detailedData.safeDrivingCoinsTotal =
+                driveCoinsDetailed.coinsSum
+        }
+    }
+    detailedData.travelingSpeeding = midSpeedingMileage + highSpeedingMileage
+
+
+    detailedData.ecoScore = driveCoinsScoreEco?.ecoScore
+        ?.roundToInt() ?: 0
+    detailedData.ecoScoreBrakes = driveCoinsScoreEco?.ecoScoreBrakes
+        ?.roundToInt() ?: 0
+    detailedData.ecoScoreFuel = driveCoinsScoreEco?.ecoScoreFuel
+        ?.roundToInt() ?: 0
+    detailedData.ecoScoreTyres = driveCoinsScoreEco?.ecoScoreTyres
+        ?.roundToInt() ?: 0
+    detailedData.ecoScoreCostOfOwnership = driveCoinsScoreEco?.ecoScoreDepreciation
+        ?.roundToInt() ?: 0
+
+    detailedData.travellingSum =
+        detailedData.travelingMileage + detailedData.travelingTimeDriven + detailedData.travelingAccelerations + detailedData.travelingBrakings + detailedData.travelingCornerings + detailedData.travelingPhoneUsage + detailedData.travelingSpeeding
+    detailedData.safeDrivingSum = detailedData.safeDrivingCoinsTotal
+    detailedData.ecoDrivingSum =
+        detailedData.ecoDrivingEcoScore + detailedData.ecoDrivingBrakes + detailedData.ecoDrivingFuel + detailedData.ecoDrivingTires + detailedData.ecoDrivingCostOfOwnership
+
+    detailedData.travelingAccelerationCount = driveCoinsDetailed2?.accelerationCount
+        ?: 0
+    detailedData.travelingBrakingCount = driveCoinsDetailed2?.brakingCount ?: 0
+    detailedData.travelingCorneringCount = driveCoinsDetailed2?.corneringCount ?: 0
+    detailedData.travelingTotalSpeedingKm = driveCoinsDetailed2?.totalSpeedingKm?.roundToInt()
+        ?: 0
+    detailedData.travelingDrivingTime = driveCoinsDetailed2?.phoneUsage?.roundToInt()
+        ?: 0
+
+    return this
+}
+
+fun StreaksRest?.toStreakList(): List<Streak> {
+
+    fun getDistance(d: Double) = "${d.roundToInt()} km"
+    fun getDate(s: String): String? {
+        val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).parse(s) ?: return null
+        val dd_MM_yy = SimpleDateFormat("dd.MM.yy", Locale.ENGLISH)
+        return dd_MM_yy.format(date)
+    }
+
+    val min = "m"
+
+    this ?: return emptyList()
+    val data = this
+
+    return listOf(
+        Streak(
+            StreakCarType.Acceleration,
+            getDistance(data.StreakAccelerationCurrentDistanceKm) + " | " + (data.StreakAccelerationCurrentDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakAccelerationCurrentFromDate) + " to " + getDate(data.StreakAccelerationCurrentToDate),
+            data.StreakAccelerationCurrentStreak.toString(),
+
+            getDistance(data.StreakAccelerationBestDistanceKm) + " | " + (data.StreakAccelerationBestDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakAccelerationBestFromDate) + " to " + getDate(data.StreakAccelerationBestToDate),
+            data.StreakAccelerationBest.toString()
+        ),
+        Streak(
+            StreakCarType.Braking,
+            getDistance(data.StreakBrakingCurrentDistanceKm) + " | " + (data.StreakBrakingCurrentDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakBrakingCurrentFromDate) + " to " + getDate(data.StreakBrakingCurrentToDate),
+            data.StreakBrakingCurrentStreak.toString(),
+
+            getDistance(data.StreakBrakingBestDistanceKm) + " | " + (data.StreakBrakingBestDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakBrakingBestFromDate) + " to " + getDate(data.StreakBrakingBestToDate),
+            data.StreakBrakingBest.toString()
+        ),
+        Streak(
+            StreakCarType.Cornering,
+            getDistance(data.StreakCorneringCurrentDistanceKm) + " | " + (data.StreakCorneringCurrentDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakCorneringCurrentFromDate) + " to " + getDate(data.StreakCorneringCurrentToDate),
+            data.StreakCorneringCurrentStreak.toString(),
+
+            getDistance(data.StreakCorneringBestDistanceKm) + " | " + (data.StreakCorneringBestDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakCorneringBestFromDate) + " to " + getDate(data.StreakCorneringBestToDate),
+            data.StreakCorneringBest.toString()
+        ),
+        Streak(
+            StreakCarType.Speeding,
+            getDistance(data.StreakOverSpeedCurrentDistanceKm) + " | " + (data.StreakOverSpeedCurrentDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakOverSpeedCurrentFromDate) + " to " + getDate(data.StreakOverSpeedCurrentToDate),
+            data.StreakOverSpeedCurrentStreak.toString(),
+
+            getDistance(data.StreakOverSpeedBestDistanceKm) + " | " + (data.StreakOverSpeedBestDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakOverSpeedBestFromDate) + " to " + getDate(data.StreakOverSpeedBestToDate),
+            data.StreakOverSpeedBest.toString()
+        ),
+        Streak(
+            StreakCarType.PhoneUsage,
+            getDistance(data.StreakPhoneUsageCurrentDistanceKm) + " | " + (data.StreakPhoneUsageCurrentDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakPhoneUsageCurrentFromDate) + " to " + getDate(data.StreakPhoneUsageCurrentToDate),
+            data.StreakPhoneUsageCurrentStreak.toString(),
+
+            getDistance(data.StreakPhoneUsageBestDistanceKm) + " | " + (data.StreakPhoneUsageBestDurationSec.toFloat() / 60f).roundToInt()
+                .toString() + " $min",
+            getDate(data.StreakPhoneUsageBestFromDate) + " to " + getDate(data.StreakPhoneUsageBestToDate),
+            data.StreakPhoneUsageBest.toString()
+        )
+    )
+}
+
+fun StreaksRest?.toStreakData(): StreaksData {
+
+    this ?: return StreaksData()
+    val data = this
+
+    return StreaksData(
+        data.StreakAccelerationBest,
+        data.StreakAccelerationBestDurationSec,
+        data.StreakAccelerationBestDistanceKm,
+        data.StreakAccelerationBestFromDate,
+        data.StreakAccelerationBestToDate,
+        data.StreakAccelerationCurrentStreak,
+        data.StreakAccelerationCurrentDurationSec,
+        data.StreakAccelerationCurrentDistanceKm,
+        data.StreakAccelerationCurrentFromDate,
+        data.StreakAccelerationCurrentToDate,
+
+        data.StreakBrakingBest,
+        data.StreakBrakingBestDurationSec,
+        data.StreakBrakingBestDistanceKm,
+        data.StreakBrakingBestFromDate,
+        data.StreakBrakingBestToDate,
+        data.StreakBrakingCurrentStreak,
+        data.StreakBrakingCurrentDurationSec,
+        data.StreakBrakingCurrentDistanceKm,
+        data.StreakBrakingCurrentFromDate,
+        data.StreakBrakingCurrentToDate,
+
+        data.StreakCorneringBest,
+        data.StreakCorneringBestDurationSec,
+        data.StreakCorneringBestDistanceKm,
+        data.StreakCorneringBestFromDate,
+        data.StreakCorneringBestToDate,
+        data.StreakCorneringCurrentStreak,
+        data.StreakCorneringCurrentDurationSec,
+        data.StreakCorneringCurrentDistanceKm,
+        data.StreakCorneringCurrentFromDate,
+        data.StreakCorneringCurrentToDate,
+
+        data.StreakOverSpeedBest,
+        data.StreakOverSpeedBestDurationSec,
+        data.StreakOverSpeedBestDistanceKm,
+        data.StreakOverSpeedBestFromDate,
+        data.StreakOverSpeedBestToDate,
+        data.StreakOverSpeedCurrentStreak,
+        data.StreakOverSpeedCurrentDurationSec,
+        data.StreakOverSpeedCurrentDistanceKm,
+        data.StreakOverSpeedCurrentFromDate,
+        data.StreakOverSpeedCurrentToDate,
+
+        data.StreakPhoneUsageBest,
+        data.StreakPhoneUsageBestDurationSec,
+        data.StreakPhoneUsageBestDistanceKm,
+        data.StreakPhoneUsageBestFromDate,
+        data.StreakPhoneUsageBestToDate,
+        data.StreakPhoneUsageCurrentStreak,
+        data.StreakPhoneUsageCurrentDurationSec,
+        data.StreakPhoneUsageCurrentDistanceKm,
+        data.StreakPhoneUsageCurrentFromDate,
+        data.StreakPhoneUsageCurrentToDate
     )
 }

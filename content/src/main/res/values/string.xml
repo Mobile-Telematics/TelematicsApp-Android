@@ -240,5 +240,16 @@
     <string name="tyres_title">Tyres</string>
     <string name="aquired_coins_info">Earned Coins before applying daily limit</string>
     <string name="cost_of_ownership_title">Cost of ownership</string>
+    <string name="current_title_text">Current:</string>
+    <string name="trips_title_card">trips</string>
+    <string name="acceleration_card_title">Trips Without Harsh Acceleration</string>
+    <string name="braking_card_title">Trips Without Hard Braking</string>
+    <string name="speeding_card_title">Trips Without Speeding</string>
+    <string name="distraction_card_title">Trips Without Distraction</string>
+    <string name="cornering_card_title">Trips Without Hard Cornering</string>
+    <string name="phone_card_title">Trips Without Phone Usage</string>
+    <string name="current_duration_placeholder">You haven\'t had a current yet</string>
+    <string name="best_duration_placeholder">You haven\'t had a best yet</string>
+    <string name="best_block_title">Best:</string>
 
 </resources>

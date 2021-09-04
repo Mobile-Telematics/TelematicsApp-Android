@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -32,7 +32,7 @@ class DrivecoinsFragment : BaseFragment() {
     lateinit var driveCoinsViewModel: DriveCoinsViewModel
 
     private var lastSelectedDriveCoinsTab = 0
-    private lateinit var statisticPager: ViewPager
+    private lateinit var statisticPager: ViewPager2
     private lateinit var statisticAdapter: DriveCoinsViewPagerAdapter
 
     private lateinit var binding: FragmentDrivecoinsBinding
@@ -65,12 +65,6 @@ class DrivecoinsFragment : BaseFragment() {
             init()
         }
 
-        binding.driveCoinsScrollParent.apply {
-            //alpha = 0f
-            //animate().setDuration(400).alpha(1f).start()
-        }
-
-
         statisticPager = binding.statisticPager
 
 
@@ -86,31 +80,22 @@ class DrivecoinsFragment : BaseFragment() {
             statisticPager.setCurrentItem(2, false)
         }
 
-        statisticAdapter = DriveCoinsViewPagerAdapter(childFragmentManager, null)
+        statisticAdapter = DriveCoinsViewPagerAdapter(this, null)
         statisticPager.adapter = statisticAdapter
         statisticPager.offscreenPageLimit = 3
 
         val arrowParentView = binding.driveCoinsSelectArrowParent
-        statisticPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
 
-            }
-
+        statisticPager.isUserInputEnabled = false
+        statisticPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
                 lastSelectedDriveCoinsTab = position
                 when (position) {
                     1 -> arrowParentView.gravity = Gravity.CENTER
                     2 -> arrowParentView.gravity = Gravity.END
                     else -> arrowParentView.gravity = Gravity.START
                 }
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-
             }
         })
 
@@ -136,6 +121,11 @@ class DrivecoinsFragment : BaseFragment() {
     }
 
     private fun init() {
+
+        binding.root.apply {
+            alpha = 0f
+            animate().setDuration(400).alpha(1f).start()
+        }
 
         observeDailyLimit()
         observeTotalCoins(DriveCoinsDuration.ALL_TIME)
@@ -363,7 +353,7 @@ class DrivecoinsFragment : BaseFragment() {
 
         statisticPager.adapter = null
         if (!this::statisticAdapter.isInitialized) {
-            statisticAdapter = DriveCoinsViewPagerAdapter(childFragmentManager, data)
+            statisticAdapter = DriveCoinsViewPagerAdapter(this, data)
             statisticPager.adapter = statisticAdapter
         }
         if (statisticPager.adapter == null) {

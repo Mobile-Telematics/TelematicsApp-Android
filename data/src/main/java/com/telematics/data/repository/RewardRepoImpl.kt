@@ -3,8 +3,7 @@ package com.telematics.data.repository
 import android.util.Log
 import com.telematics.data.api.DriveCoinsApi
 import com.telematics.data.api.UserStatisticsApi
-import com.telematics.data.mappers.toDailyLimitData
-import com.telematics.data.mappers.toDriveCoinsTotalData
+import com.telematics.data.mappers.*
 import com.telematics.domain.model.reward.*
 import com.telematics.domain.repository.RewardRepo
 import java.text.SimpleDateFormat
@@ -51,19 +50,33 @@ class RewardRepoImpl @Inject constructor(
         val startDate = getPeriodByDuration(duration).first
         val endDate = getPeriodByDuration(duration).second
 
-        val userStatisticsIndividualRest = userStatisticsApi.getIndividualData(startDate, endDate).result
+        val userStatisticsIndividualRest =
+            userStatisticsApi.getIndividualData(startDate, endDate).result
         val driveCoinsDetailedList = driveCoinsApi.getDriveCoinsDetailed(startDate, endDate).result
-        //val s3 = indicatorApi.getStatisticsData(startDate, endDate)
-        ///val s4 = indicatorApi.getScore(startDate, endDate)
+        val driveCoinsDetailed2 = userStatisticsApi.getStatisticsData(startDate, endDate).result
+        val driveCoinsScoreEco = userStatisticsApi.getScore(startDate, endDate).result
 
-        return DriveCoinsDetailedData()
+        return DriveCoinsDetailedData().setCompleteData(
+            userStatisticsIndividualRest,
+            driveCoinsDetailedList,
+            driveCoinsDetailed2,
+            driveCoinsScoreEco
+        )
     }
 
-    override suspend fun getStreaks(): StreaksData {
+    override suspend fun getStreaks(): List<Streak> {
 
-        return StreaksData()
+        val data = userStatisticsApi.getStreaks().result
+        return data.toStreakList()
     }
 
+    override suspend fun getDrivingStreaks(): StreaksData {
+
+        val data = userStatisticsApi.getStreaks().result
+        return data.toStreakData()
+    }
+
+    /** additional date */
     private fun getPeriodByDuration(duration: DriveCoinsDuration): Pair<String, String> {
         val startDate = when (duration) {
             DriveCoinsDuration.ALL_TIME -> {
