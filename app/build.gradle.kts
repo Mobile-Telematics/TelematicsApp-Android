@@ -89,5 +89,7 @@ dependencies {
     implementation(project(Modules.leaderboard))
     implementation(project(Modules.reward))
 
+    implementation(AppDependencies.countryCodePicker)
+
     implementation(AppDependencies.trackingApi)
 }

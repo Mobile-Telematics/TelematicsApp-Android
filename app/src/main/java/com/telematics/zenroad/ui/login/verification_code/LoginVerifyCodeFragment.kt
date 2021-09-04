@@ -44,6 +44,8 @@ class LoginVerifyCodeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setBackPressedCallback()
+
         phone = arguments?.getString(LoginFragment.BUNDLE_LOGIN_KEY) ?: ""
         bindTitle(phone)
 

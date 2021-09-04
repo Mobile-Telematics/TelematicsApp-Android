@@ -22,6 +22,7 @@ object AppDependencies {
         "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeToRefresh}"
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    const val countryCodePicker = "com.hbb20:ccp:${Versions.countryCodePicker}"
 
     //di hilt
     const val daggerHiltCompiler =

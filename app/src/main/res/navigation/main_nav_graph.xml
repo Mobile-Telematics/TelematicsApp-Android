@@ -27,7 +27,7 @@
         android:id="@+id/loginFragment"
         android:name="com.telematics.zenroad.ui.login.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/login_fragment">
+        tools:layout="@layout/sign_in_fragment">
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment"
@@ -37,8 +37,8 @@
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment"
-            app:enterAnim="@anim/slide_in"
-            app:popExitAnim="@anim/slide_out" />
+            app:enterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_loginFragment_to_loginVerifyCodeFragment"
             app:destination="@id/loginVerifyCodeFragment"
@@ -68,14 +68,12 @@
         android:id="@+id/registrationFragment"
         android:name="com.telematics.zenroad.ui.registration.RegistrationFragment"
         android:label="RegistrationFragment"
-        tools:layout="@layout/registration_fragment">
+        tools:layout="@layout/sign_up_fragment">
         <action
             android:id="@+id/action_registrationFragment_to_loginVerifyCodeFragment"
             app:destination="@id/loginVerifyCodeFragment"
             app:enterAnim="@anim/slide_in"
-            app:popExitAnim="@anim/slide_out"
-            app:popUpTo="@id/main_nav_graph"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/slide_out" />
         <action
             android:id="@+id/action_registrationFragment_to_mainFragment"
             app:destination="@id/mainFragment"
