@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/leaderboard_nav_graph"
+    app:startDestination="@id/rewardFragment">
+
+    <fragment
+        android:id="@+id/rewardFragment"
+        android:name="com.telematics.features.reward.rewards.RewardFragment"
+        android:label="RewardFragment"
+        tools:layout="@layout/fragment_reward">
+        <argument
+            android:name="streaks"
+            app:argType="boolean" />
+    </fragment>
+</navigation>
