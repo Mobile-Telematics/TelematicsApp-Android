@@ -94,4 +94,6 @@
     <color name="colorTelematicsWizardButtonNorm">@color/colorDefButton</color>
 
     <color name="profile_view_line_color">#F2F2F6</color>
+
+    <color name="drive_coins_grey">#F4F4F4</color>
 </resources>

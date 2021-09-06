@@ -12,6 +12,7 @@ class SessionRepoImpl @Inject constructor(
     private val accessTokenKey = "access_token"
     private val refreshTokenKey = "refresh_token"
     private val expiresInKey = "expires_in"
+    private val rewardInviteState = "reward_invite_state"
 
     override fun saveSession(session: SessionData) {
         sharedPreferences.edit()
@@ -33,6 +34,22 @@ class SessionRepoImpl @Inject constructor(
             .remove(accessTokenKey)
             .remove(refreshTokenKey)
             .remove(expiresInKey)
+            .apply()
+    }
+
+    override fun saveStateForRewardInviteScreen() {
+        sharedPreferences.edit()
+            .putBoolean(rewardInviteState, true)
+            .apply()
+    }
+
+    override fun isRewardInviteScreenOpened(): Boolean {
+        return sharedPreferences.getBoolean(rewardInviteState, false)
+    }
+
+    override fun clearStateForRewardInviteScreen() {
+        sharedPreferences.edit()
+            .remove(rewardInviteState)
             .apply()
     }
 }

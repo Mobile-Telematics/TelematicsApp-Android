@@ -48,11 +48,18 @@ class DashboardFragment : Fragment() {
     companion object {
         private var onNavToFeed: (() -> Unit)? = null
         private var onRankClickListener: (() -> Unit)? = null
+        private var onRewardClickListner: ((toStreaks: Boolean) -> Unit)? = null
+
         fun setOnNavigationToFeed(action: () -> Unit) {
             onNavToFeed = action
         }
+
         fun setOnNavigationToLeaderboard(action: () -> Unit) {
             onRankClickListener = action
+        }
+
+        fun setOnNavigationToReward(action: (toStreaks: Boolean) -> Unit) {
+            onRewardClickListner = action
         }
     }
 
@@ -151,6 +158,14 @@ class DashboardFragment : Fragment() {
         binding.include.rankValue.setOnClickListener {
             navToLeaderboard()
         }
+
+        binding.include.dashboardDriveCoins.setOnClickListener {
+            navToReward(false)
+        }
+
+        binding.dashboardDriveCoinsLayout.dashDriveCoinsLearnMore.setOnClickListener {
+            navToReward(true)
+        }
     }
 
     private fun init() {
@@ -158,6 +173,7 @@ class DashboardFragment : Fragment() {
         observeDriveCoins()
         observeRank()
         observeUserIndividualStatistics()
+        observeDrivingStreaks()
     }
 
     private fun observeDriveCoins() {
@@ -245,6 +261,19 @@ class DashboardFragment : Fragment() {
             }
         })
         dashboardViewModel.getUserIndividualStatistics()
+    }
+
+    private fun observeDrivingStreaks() {
+
+        dashboardViewModel.getDrivingStreaks().observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                val speeding = (it.StreakOverSpeedCurrentStreak).toString() + " trips"
+                binding.dashboardDriveCoinsLayout.dashDriveCoinsSpeedingTrips.text = speeding
+                val phoneUsage = (it.StreakPhoneUsageCurrentStreak).toString() + " trips"
+                binding.dashboardDriveCoinsLayout.dashDriveCoinsPhoneUsageTrips.text =
+                    phoneUsage
+            }
+        }
     }
 
     private fun showEmptyDashboard(inData: UserStatisticsIndividualData?) {
@@ -484,7 +513,9 @@ class DashboardFragment : Fragment() {
                     in 80..100 -> ContextCompat.getColor(requireContext(), R.color.colorGreenText)
                     else -> ContextCompat.getColor(requireContext(), R.color.colorGreenText)
                 }
-                binding.include3.eventTripOverallScore.eventTripOverallScore.setTextColor(overallScoreColor)
+                binding.include3.eventTripOverallScore.eventTripOverallScore.setTextColor(
+                    overallScoreColor
+                )
                 binding.include3.eventTripMileage.text = DecimalFormat("0.0").format(tripData.dist)
                 binding.include3.mileageMeasureText.text = getString(R.string.dashboard_new_km)
 
@@ -625,5 +656,10 @@ class DashboardFragment : Fragment() {
     private fun navToLeaderboard() {
 
         onRankClickListener?.invoke()
+    }
+
+    private fun navToReward(toStreaks: Boolean) {
+
+        onRewardClickListner?.invoke(toStreaks)
     }
 }

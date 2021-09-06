@@ -13,8 +13,10 @@ import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.data.utils.Resource
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.leaderboard.LeaderboardType
+import com.telematics.domain.model.reward.StreaksData
 import com.telematics.domain.model.statistics.*
 import com.telematics.domain.model.tracking.TripData
+import com.telematics.domain.repository.RewardRepo
 import com.telematics.domain.repository.SettingsRepo
 import com.telematics.domain.repository.StatisticRepo
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +29,8 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     private val statisticRepo: StatisticRepo,
     private val trackingUseCase: TrackingUseCase,
-    private val settingsRepo: SettingsRepo
+    private val settingsRepo: SettingsRepo,
+    private val rewardRepo: RewardRepo
 ) : ViewModel() {
 
     private val TAG = "DashboardViewModel"
@@ -143,5 +146,18 @@ class DashboardViewModel @Inject constructor(
             .setLiveDataForResult(rankState)
             .launchIn(viewModelScope)
         return rankState
+    }
+
+    fun getDrivingStreaks(): LiveData<Result<StreaksData>>{
+
+        val drivingStreakState = MutableLiveData<Result<StreaksData>>()
+        flow {
+            val data = rewardRepo.getDrivingStreaks()
+            emit(data)
+        }
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(drivingStreakState)
+            .launchIn(viewModelScope)
+        return drivingStreakState
     }
 }

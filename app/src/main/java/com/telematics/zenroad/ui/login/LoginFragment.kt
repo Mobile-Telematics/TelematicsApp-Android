@@ -20,7 +20,7 @@ import com.telematics.content.utils.BaseFragment
 import com.telematics.data.BuildConfig
 import com.telematics.domain.model.LoginType
 import com.telematics.zenroad.R
-import com.telematics.zenroad.databinding.LoginFragmentBinding
+import com.telematics.zenroad.databinding.SignInFragmentBinding
 import com.telematics.zenroad.extention.isValidEmail
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -42,9 +42,10 @@ class LoginFragment : BaseFragment() {
     @Inject
     lateinit var loginViewModel: LoginViewModel
 
-    private lateinit var binding: LoginFragmentBinding
+    private lateinit var binding: SignInFragmentBinding
 
     private var loginType = LoginType.EMAIL
+    private var countryCode = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +53,7 @@ class LoginFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = LoginFragmentBinding.inflate(inflater, container, false)
+        binding = SignInFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -80,7 +81,7 @@ class LoginFragment : BaseFragment() {
 
         binding.loginSend.isEnabled = binding.loginPolicyCheck.isChecked
         val rawString =
-            "${getString(R.string.login_screen_i_agree)} <a href=\"${BuildConfig.PRIVACY_POLICY}\">${
+            "<a href=\"${BuildConfig.PRIVACY_POLICY}\">${
                 getString(
                     R.string.login_screen_policy
                 )
@@ -116,7 +117,6 @@ class LoginFragment : BaseFragment() {
 
         when (loginType) {
             LoginType.EMAIL -> {
-                //initInputField(loginInputEmail, regType)
                 binding.loginInputEmailTill.isVisible = true
                 binding.loginInputPhoneTill.isVisible = false
                 binding.loginInputPasswordTill.isVisible = true
@@ -133,7 +133,11 @@ class LoginFragment : BaseFragment() {
                     }
             }
             LoginType.PHONE -> {
-                //initInputField(loginInputPhone, regType)
+                if (countryCode == -1) {
+                    countryCode = binding.loginInputPhoneCCP.selectedCountryCodeAsInt
+                }
+                binding.loginInputPhoneCCP.setCountryForPhoneCode(countryCode)
+                binding.loginInputPhoneCCP.registerCarrierNumberEditText(binding.loginInputPhone)
                 binding.loginInputPhoneTill.isVisible = true
                 binding.loginInputEmailTill.isVisible = false
                 binding.loginInputPasswordTill.isVisible = false
@@ -154,24 +158,26 @@ class LoginFragment : BaseFragment() {
 
     private fun animateViews() {
 
-        val duration = 500L
-        val durationK = 100L
+        fun animateView(view: View, index: Int = 1) {
 
-        binding.loginInputEmailTill.alpha = 0f
-        binding.loginInputPhoneTill.alpha = 0f
-        binding.loginChangeButton.alpha = 0f
-        binding.loginTitle.alpha = 0f
+            val duration = 500L
+            val durationK = 100L
+            val d = duration + durationK * index
 
-        binding.loginChangeButton.alpha = 0f
+            view.alpha = 0f
+            view.animate().alpha(1f).setDuration(d)
+                .start()
+        }
 
-        binding.loginInputEmailTill.animate().alpha(1f).setDuration(duration + durationK * 1)
-            .start()
-        binding.loginInputPhoneTill.animate().alpha(1f).setDuration(duration + durationK * 1)
-            .start()
-        binding.loginChangeButton.animate().alpha(1f).setDuration(duration + durationK * 2).start()
-        binding.loginTitle.animate().alpha(1f).setDuration(duration + durationK * 2)
-            .start()
-        binding.loginChangeButton.animate().alpha(1f).setDuration(duration + durationK * 5).start()
+        animateView(binding.loginTitle, 1)
+        animateView(binding.loginInputEmailTill, 1)
+        animateView(binding.loginInputPhoneTill, 1)
+        animateView(binding.loginInputPasswordTill, 1)
+        animateView(binding.loginSend, 2)
+        animateView(binding.loginRegistration, 3)
+        animateView(binding.loginJoinVia, 3)
+        animateView(binding.loginChangeButton, 3)
+        animateView(binding.loginPolicyLayout, 4)
     }
 
     private fun showProgress() {
@@ -193,7 +199,6 @@ class LoginFragment : BaseFragment() {
 
         val passwordField = binding.loginInputPassword.text.toString()
         val emailField = binding.loginInputEmail.text.toString()
-        val phoneField = binding.loginInputPhone.text.toString()
 
         if (loginType == LoginType.EMAIL) {
 
@@ -224,8 +229,8 @@ class LoginFragment : BaseFragment() {
         }
 
         if (loginType == LoginType.PHONE)
-            if (phoneField.isBlank()) {
-                showLoginFailedMessage(R.string.auth_error_empty_phone)
+            if (!binding.loginInputPhoneCCP.isValidFullNumber) {
+                showLoginFailedMessage(R.string.login_screen_phone_invalid)
                 return false
             }
 
@@ -248,7 +253,7 @@ class LoginFragment : BaseFragment() {
                 binding.loginInputEmail.text.toString()
             }
             LoginType.PHONE -> {
-                binding.loginInputPhone.text.toString()
+                binding.loginInputPhoneCCP.selectedCountryCodeWithPlus + binding.loginInputPhone.text.toString()
             }
         }
     }
@@ -339,11 +344,15 @@ class LoginFragment : BaseFragment() {
 
     private fun startVerifyCodeFragment() {
 
+        countryCode = binding.loginInputPhoneCCP.selectedCountryCodeAsInt
+
         val bundle = bundleOf(BUNDLE_LOGIN_KEY to getLoginField())
         findNavController().navigate(R.id.action_loginFragment_to_loginVerifyCodeFragment, bundle)
     }
 
     private fun startRegistrationFragment() {
+
+        countryCode = binding.loginInputPhoneCCP.selectedCountryCodeAsInt
 
         val bundle = bundleOf(
             BUNDLE_LOGIN_KEY to getLoginField(),

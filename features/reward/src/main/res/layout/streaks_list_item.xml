@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginBottom="24dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/card_category_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_acceleration_arrow" />
+
+        <TextView
+            android:id="@+id/card_category_title"
+            android:fontFamily="@font/open_sans_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="center_vertical"
+            android:textColor="#555555"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card_category_icon"
+            app:layout_constraintTop_toTopOf="@+id/card_category_icon"
+            tools:text="Trips Without Hard Brakingffffffffffffffffffffff" />
+
+        <TextView
+            android:id="@+id/card_current_distance_title"
+            style="@style/distance_info_card_style"
+            android:text="@string/current_title_text"
+            app:layout_constraintStart_toStartOf="@+id/card_category_icon"
+            app:layout_constraintTop_toBottomOf="@+id/card_category_title" />
+
+        <TextView
+            android:id="@+id/card_current_trips_value"
+            style="@style/trips_score_card_style"
+            app:layout_constraintStart_toStartOf="@+id/card_current_distance_title"
+            app:layout_constraintTop_toBottomOf="@+id/card_current_distance_title"
+            tools:text="12" />
+
+        <TextView
+            android:id="@+id/card_current_trips_title"
+            style="@style/trips_title_card_style"
+            android:text="@string/trips_title_card"
+            app:layout_constraintBottom_toBottomOf="@+id/card_current_trips_value"
+            app:layout_constraintStart_toEndOf="@+id/card_current_trips_value"
+            app:layout_constraintTop_toTopOf="@+id/card_current_trips_value" />
+
+        <TextView
+            android:id="@+id/card_current_distance_value"
+            style="@style/distance_score_style"
+            app:layout_constraintEnd_toStartOf="@+id/centered_guideline"
+            app:layout_constraintStart_toStartOf="@+id/card_current_trips_value"
+            app:layout_constraintTop_toBottomOf="@+id/card_current_trips_value"
+            tools:text="27km | 7m" />
+
+        <TextView
+            android:id="@+id/card_current_duration_value"
+            style="@style/duration_content_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/centered_guideline"
+            app:layout_constraintStart_toStartOf="@+id/card_current_distance_value"
+            app:layout_constraintTop_toBottomOf="@+id/card_current_distance_value"
+            tools:text="You haven't had a current yet" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/centered_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/card_best_distance_title"
+            style="@style/distance_info_card_style"
+            android:text="@string/best_block_title"
+            app:layout_constraintBottom_toBottomOf="@+id/card_current_distance_title"
+            app:layout_constraintStart_toStartOf="@+id/centered_guideline" />
+
+        <TextView
+            android:id="@+id/card_best_trips_value"
+            style="@style/trips_score_card_style"
+            android:textColor="#464646"
+            app:layout_constraintStart_toStartOf="@+id/card_best_distance_title"
+            app:layout_constraintTop_toBottomOf="@+id/card_best_distance_title"
+            tools:text="7" />
+
+        <TextView
+            android:id="@+id/card_best_trips_title"
+            style="@style/trips_title_card_style"
+            android:text="@string/trips_title_card"
+            app:layout_constraintBottom_toBottomOf="@+id/card_best_trips_value"
+            app:layout_constraintStart_toEndOf="@+id/card_best_trips_value"
+            app:layout_constraintTop_toTopOf="@+id/card_best_trips_value" />
+
+        <TextView
+            android:id="@+id/card_best_distance_value"
+            style="@style/distance_score_style"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/centered_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/card_best_trips_value"
+            tools:text="27km | 7m" />
+
+        <TextView
+            android:id="@+id/card_best_duration_value"
+            style="@style/duration_content_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/card_best_distance_value"
+            app:layout_constraintTop_toBottomOf="@+id/card_best_distance_value"
+            tools:text="You haven't had a current yet" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

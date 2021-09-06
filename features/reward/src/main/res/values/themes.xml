@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="TabTextSize" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="DriveCoin_TabTextSize">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="safe_drive_header_text_style">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="score_set_style">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="trips_score_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="eco_score_img_style">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">34dp</item>
+    </style>
+
+    <style name="eco_score_title_style">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="eco_score_seek_style">
+        <item name="android:progressTint">@color/colorGreenText</item>
+        <item name="android:thumbTint">@color/colorGreenText</item>
+        <item name="android:progress">12</item>
+        <item name="android:max">100</item>
+    </style>
+
+    <style name="travelling_list_title_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textColor">#4B4B4B</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="travelling_list_sum_style">
+        <item name="android:textAlignment">textEnd</item>
+        <item name="layout_constraintWidth_percent">0.3</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#383838</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
+    <style name="travelling_list_score_style">
+        <item name="layout_constraintWidth_percent">0.3</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="distance_info_card_style">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#AAAAAA</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="trips_score_card_style">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#74C460</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
+    <style name="trips_title_card_style">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:textColor">#464645</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginStart">4dp</item>
+    </style>
+
+    <style name="distance_score_style">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#535353</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="duration_content_style">
+        <item name="android:textColor">#535353</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

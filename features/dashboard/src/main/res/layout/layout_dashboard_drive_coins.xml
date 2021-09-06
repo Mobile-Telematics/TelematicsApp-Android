@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Driving Streaks"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/dash_drive_coins_speeding_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/ic_dot_green"
+        android:paddingHorizontal="4dp"
+        android:paddingBottom="4dp"
+        android:src="@drawable/ic_leaderboard_acceleration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="No Speeding"
+        android:textColor="#AAAAAA"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/dash_drive_coins_speeding_img"
+        app:layout_constraintTop_toTopOf="@id/dash_drive_coins_speeding_img" />
+
+    <TextView
+        android:id="@+id/dash_drive_coins_speeding_trips"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0 trips"
+        android:textColor="#555555"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/dash_drive_coins_speeding_img"
+        app:layout_constraintStart_toEndOf="@id/dash_drive_coins_speeding_img" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centered_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="180dp" />
+
+    <ImageView
+        android:id="@+id/dash_drive_coins_phone_usage_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/ic_dot_green"
+        android:padding="4dp"
+        android:src="@drawable/ic_leaderboard_phone"
+        app:layout_constraintStart_toEndOf="@id/centered_guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="No Phone Usage"
+        android:textColor="#AAAAAA"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/dash_drive_coins_phone_usage_img"
+        app:layout_constraintTop_toTopOf="@id/dash_drive_coins_phone_usage_img" />
+
+    <TextView
+        android:id="@+id/dash_drive_coins_phone_usage_trips"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0 trips"
+        android:textColor="#555555"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/dash_drive_coins_phone_usage_img"
+        app:layout_constraintStart_toEndOf="@id/dash_drive_coins_phone_usage_img" />
+
+    <TextView
+        android:id="@+id/dash_drive_coins_learn_more"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="4dp"
+        android:text="Learn more >>"
+        android:textColor="#AAAAAA"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dash_drive_coins_speeding_img" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:background="@color/colorTripButtonDisabled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/distance_title"
+            style="@style/travelling_list_title_style"
+            android:text="@string/distance_title"
+            app:layout_constraintEnd_toStartOf="@+id/distance_sum"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/distance_sum" />
+
+        <TextView
+            android:id="@+id/distance_sum"
+            style="@style/travelling_list_sum_style"
+            android:layout_marginTop="0dp"
+            android:text="125ml"
+            app:layout_constraintEnd_toStartOf="@+id/distance_score"
+            app:layout_constraintStart_toEndOf="@+id/distance_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/distance_score"
+            style="@style/travelling_list_score_style"
+            android:text="0"
+            android:textColor="@color/colorGreenText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/distance_sum"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/duration_title"
+            style="@style/travelling_list_title_style"
+            android:text="@string/duration_title"
+            app:layout_constraintEnd_toStartOf="@+id/duration_sum"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/duration_sum" />
+
+        <TextView
+            android:id="@+id/duration_sum"
+            style="@style/travelling_list_sum_style"
+            android:text="45h"
+            app:layout_constraintEnd_toStartOf="@+id/duration_score"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/duration_title"
+            app:layout_constraintTop_toBottomOf="@id/distance_sum" />
+
+        <TextView
+            android:id="@+id/duration_score"
+            style="@style/travelling_list_score_style"
+            android:text="0"
+            android:textColor="@color/colorGreenText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/duration_sum"
+            app:layout_constraintTop_toTopOf="@id/duration_sum" />
+
+        <View
+            android:id="@+id/view_separator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginVertical="4dp"
+            android:background="@color/drive_coins_grey"
+            app:layout_constraintTop_toBottomOf="@id/duration_sum" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/accelerations_title"
+            style="@style/travelling_list_title_style"
+            android:text="@string/accelerations_title"
+            app:layout_constraintEnd_toStartOf="@+id/accelerations_sum"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/accelerations_sum" />
+
+        <TextView
+            android:id="@+id/accelerations_sum"
+            style="@style/travelling_list_sum_style"
+            android:text="8"
+            app:layout_constraintEnd_toStartOf="@+id/accelerations_score"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/accelerations_title"
+            app:layout_constraintTop_toBottomOf="@id/view_separator" />
+
+        <TextView
+            android:id="@+id/accelerations_score"
+            style="@style/travelling_list_score_style"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/accelerations_sum"
+            app:layout_constraintTop_toTopOf="@id/accelerations_sum" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/brakings_title"
+            style="@style/travelling_list_title_style"
+            android:text="@string/brakings_title"
+            app:layout_constraintEnd_toStartOf="@+id/brakings_sum"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/brakings_sum" />
+
+        <TextView
+            android:id="@+id/brakings_sum"
+            style="@style/travelling_list_sum_style"
+            android:text="5"
+            app:layout_constraintEnd_toStartOf="@+id/brakings_score"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/brakings_title"
+            app:layout_constraintTop_toBottomOf="@id/accelerations_sum" />
+
+        <TextView
+            android:id="@+id/brakings_score"
+            style="@style/travelling_list_score_style"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/brakings_sum"
+            app:layout_constraintTop_toTopOf="@id/brakings_sum" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/cornerings_title"
+            style="@style/travelling_list_title_style"
+            android:text="@string/cornerings"
+            app:layout_constraintEnd_toStartOf="@+id/cornerings_sum"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cornerings_sum" />
+
+        <TextView
+            android:id="@+id/cornerings_sum"
+            style="@style/travelling_list_sum_style"
+            android:text="4"
+            app:layout_constraintEnd_toStartOf="@+id/cornerings_score"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cornerings_title"
+            app:layout_constraintTop_toBottomOf="@id/brakings_sum" />
+
+        <TextView
+            android:id="@+id/cornerings_score"
+            style="@style/travelling_list_score_style"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cornerings_sum"
+            app:layout_constraintTop_toTopOf="@id/cornerings_sum" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/phone_usage_title"
+            style="@style/travelling_list_title_style"
+            android:text="@string/phone_usage_title"
+            app:layout_constraintEnd_toStartOf="@+id/phone_usage_sum"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/phone_usage_sum" />
+
+        <TextView
+            android:id="@+id/phone_usage_sum"
+            style="@style/travelling_list_sum_style"
+            android:text="7mi"
+            app:layout_constraintEnd_toStartOf="@+id/phone_usage_score"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/phone_usage_title"
+            app:layout_constraintTop_toBottomOf="@id/cornerings_sum" />
+
+        <TextView
+            android:id="@+id/phone_usage_score"
+            style="@style/travelling_list_score_style"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/phone_usage_sum"
+            app:layout_constraintTop_toTopOf="@id/phone_usage_sum" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/speeding_title"
+            style="@style/travelling_list_title_style"
+            android:text="@string/speeding_title"
+            app:layout_constraintEnd_toStartOf="@+id/speeding_sum"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/speeding_sum" />
+
+        <TextView
+            android:id="@+id/speeding_sum"
+            style="@style/travelling_list_sum_style"
+            android:text="2mi"
+            app:layout_constraintEnd_toStartOf="@+id/speeding_score"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/speeding_title"
+            app:layout_constraintTop_toBottomOf="@id/phone_usage_sum" />
+
+        <TextView
+            android:id="@+id/speeding_score"
+            style="@style/travelling_list_score_style"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/speeding_sum"
+            app:layout_constraintTop_toTopOf="@id/speeding_sum" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
