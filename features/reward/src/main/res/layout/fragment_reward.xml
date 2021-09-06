@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@drawable/bg_onboard_first">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_for_toolbar"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/header_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="start"
+            app:tabIndicatorColor="@color/colorPrimaryText"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="4dp"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextColor="@color/colorPrimaryText"
+            app:tabTextAppearance="@style/TabTextSize"
+            app:tabTextColor="@android:color/darker_gray">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/drive_coins_title" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/streaks_title" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <RelativeLayout
+            android:id="@+id/more_drive_coins_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/rewardsInvite"
+        layout="@layout/fragment_rewards_invite"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

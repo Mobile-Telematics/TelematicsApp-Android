@@ -70,7 +70,14 @@ class StatisticRepoImpl @Inject constructor(
     }
 
     override suspend fun getMainEcoScoring(): StatisticEcoScoringMain {
-        return userStatisticsApi.getMainEcoScoring().result?.toDashboardEcoScoringMain()
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, 2000)
+        calendar.set(Calendar.MONTH, 1)
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        val startDate = format.format(calendar.time)
+        val endDate = format.format(Calendar.getInstance().time)
+        return userStatisticsApi.getMainEcoScoring(startDate, endDate).result?.toDashboardEcoScoringMain()
             ?: StatisticEcoScoringMain()
     }
 

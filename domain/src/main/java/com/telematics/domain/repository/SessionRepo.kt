@@ -7,4 +7,8 @@ interface SessionRepo {
     fun saveSession(session: SessionData)
     fun getSession(): SessionData
     fun clearSession()
+
+    fun saveStateForRewardInviteScreen()
+    fun isRewardInviteScreenOpened(): Boolean
+    fun clearStateForRewardInviteScreen()
 }

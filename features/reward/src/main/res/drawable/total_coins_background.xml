@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/drive_coins_grey"/>
+    <corners android:radius="32dp"/>
+    <padding android:left="4dp" android:top="3dp" android:right="12dp" android:bottom="3dp" />
+</shape>

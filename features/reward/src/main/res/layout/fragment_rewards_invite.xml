@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:id="@+id/rewardsInviteView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Logo -->
+        <ImageView
+            android:layout_width="@dimen/reward_invite_logo_width"
+            android:layout_height="@dimen/reward_invite_logo_height"
+            android:src="@drawable/ic_rewards_money_bg" />
+
+        <!-- Title -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- Invite Info -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/reward_invite_info_margin"
+                android:gravity="center_vertical"
+                android:text="@string/rewards_invite_info"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/reward_invite_info_text_size" />
+
+        </LinearLayout>
+
+        <!-- Start Button -->
+        <Button
+            android:id="@+id/rewardsInviteStartBtn"
+            style="@style/Button"
+            android:layout_width="@dimen/reward_invite_btn_width"
+            android:layout_height="@dimen/reward_invite_btn_height"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/reward_invite_btn_margin"
+            android:enabled="true"
+            android:text="@string/rewards_invite_start"
+            android:textAllCaps="true" />
+
+        <!-- Info Detailed -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:gravity="center"
+            android:text="Get rewarded for your good driving\nhabits, save on fuel &amp; maintenance\ncosts."
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryLightText"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <!-- Support -->
+    <TextView
+        android:id="@+id/rewardsInviteSupport"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/reward_invite_support_margin"
+        android:gravity="center_vertical"
+        android:text="@string/rewards_invite_support"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryLightText"
+        android:textSize="@dimen/reward_invite_info_support_text_size"
+        android:visibility="gone" />
+
+</LinearLayout>

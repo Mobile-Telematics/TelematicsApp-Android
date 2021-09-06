@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/risk_score_title"
+            style="@style/safe_drive_header_text_style"
+            android:maxLines="1"
+            android:text="@string/risk_score_title"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/trips_title" />
+
+        <TextView
+            android:id="@+id/trips_title"
+            style="@style/safe_drive_header_text_style"
+            android:gravity="center"
+            android:text="@string/trips_title"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/coins_total_title"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toEndOf="@+id/risk_score_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/coins_total_title"
+            style="@style/safe_drive_header_text_style"
+            android:layout_marginStart="24dp"
+            android:gravity="center"
+            android:text="@string/coins_total_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/trips_title"
+            app:layout_constraintTop_toTopOf="@+id/trips_title" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/low_score_set"
+            style="@style/score_set_style"
+            android:text="20-40"
+            android:textColor="@color/colorRedText"
+            app:layout_constraintEnd_toEndOf="@+id/risk_score_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/risk_score_title" />
+
+        <TextView
+            android:id="@+id/low_score_trips"
+            style="@style/trips_score_style"
+            android:text="2"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/low_score_set"
+            app:layout_constraintEnd_toEndOf="@+id/trips_title"
+            app:layout_constraintStart_toEndOf="@+id/risk_score_title"
+            app:layout_constraintTop_toTopOf="@+id/low_score_set" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/medium_score_set"
+            style="@style/score_set_style"
+            android:text="40-60"
+            android:textColor="@color/colorOrangeText"
+            app:layout_constraintEnd_toEndOf="@+id/risk_score_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/low_score_set" />
+
+        <TextView
+            android:id="@+id/medium_score_trips"
+            style="@style/trips_score_style"
+            android:text="1"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/medium_score_set"
+            app:layout_constraintEnd_toEndOf="@+id/trips_title"
+            app:layout_constraintStart_toEndOf="@+id/risk_score_title"
+            app:layout_constraintTop_toTopOf="@+id/medium_score_set" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/good_score_set"
+            style="@style/score_set_style"
+            android:text="60-80"
+            android:textColor="@color/colorYellowText"
+            app:layout_constraintEnd_toEndOf="@+id/risk_score_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/medium_score_set" />
+
+        <TextView
+            android:id="@+id/good_score_trips"
+            style="@style/trips_score_style"
+            android:text="3"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/good_score_set"
+            app:layout_constraintEnd_toEndOf="@+id/trips_title"
+            app:layout_constraintStart_toEndOf="@+id/risk_score_title"
+            app:layout_constraintTop_toTopOf="@+id/good_score_set" />
+
+        <!--    -->
+
+        <TextView
+            android:id="@+id/best_score_set"
+            style="@style/score_set_style"
+            android:text="80-100"
+            android:textColor="@color/colorGreenText"
+            app:layout_constraintEnd_toEndOf="@+id/risk_score_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/good_score_set" />
+
+        <TextView
+            android:id="@+id/best_score_trips"
+            style="@style/trips_score_style"
+            android:text="5"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/best_score_set"
+            app:layout_constraintEnd_toEndOf="@+id/trips_title"
+            app:layout_constraintStart_toEndOf="@+id/risk_score_title"
+            app:layout_constraintTop_toTopOf="@+id/best_score_set" />
+
+        <!--    -->
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="@color/drive_coins_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/best_score_trips"
+            app:layout_constraintEnd_toEndOf="@+id/low_score_trips"
+            app:layout_constraintStart_toEndOf="@+id/low_score_trips"
+            app:layout_constraintTop_toTopOf="@+id/coins_total_title" />
+
+        <TextView
+            android:id="@+id/safe_total_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/open_sans_bold"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/best_score_trips"
+            app:layout_constraintEnd_toEndOf="@+id/coins_total_title"
+            app:layout_constraintStart_toStartOf="@id/coins_total_title"
+            app:layout_constraintTop_toBottomOf="@+id/coins_total_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

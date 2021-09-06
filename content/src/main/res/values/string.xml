@@ -12,9 +12,9 @@
     <string name="login_screen_join">JOIN</string>
     <string name="login_screen_sigh_in">SIGN IN</string>
     <string name="login_screen_sigh_up">SIGN UP</string>
-    <string name="login_screen_hint_email">Email Address</string>
-    <string name="login_screen_hint_phone">Phone</string>
-    <string name="login_screen_hint_password">Password</string>
+    <string name="login_screen_hint_email">email address</string>
+    <string name="login_screen_hint_phone">phone</string>
+    <string name="login_screen_hint_password">password</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="dialog_registration_confirm_proceed">This Login is not registered. Do you want to proceed registration with this Login?</string>
@@ -211,5 +211,45 @@
     <string name="leaderboard_total_trips">Total Trips</string>
     <string name="leaderboard_full_name">FULL NAME</string>
 
+    <!--REWARDS-->
+    <string name="rewards_invite_info">You are about to earn\nsome <b>DriveCoins!</b></string>
+    <string name="drive_coins_title">Drivecoins</string>
+    <string name="streaks_title">Streaks</string>
+    <string name="rewards_invite_start">Start Now</string>
+    <string name="rewards_invite_support"><u>Support</u></string>
+    <string name="earned_coins_title">Acquired Coins</string>
+    <string name="daily_limit_placeholder">— — — Daily limit: %1$s</string>
+    <string name="all_time_tab_title">All time</string>
+    <string name="day_tab_title">Day</string>
+    <string name="this_month_tab_title">This month</string>
+    <string name="last_month_tab_title">Last month</string>
+    <string name="distance_title">Mileage</string>
+    <string name="duration_title">Time Driven</string>
+    <string name="accelerations_title">Accelerations</string>
+    <string name="brakings_title">Brakings</string>
+    <string name="cornerings">Cornerings</string>
+    <string name="phone_usage_title">Phone Usage</string>
+    <string name="speeding_title">Speeding</string>
+    <string name="risk_score_title">Safety score</string>
+    <string name="trips_title">Trips</string>
+    <string name="coins_total_title">Coins Total</string>
+    <string name="leaf_text">Leaf</string>
+    <string name="eco_score_text">Eco Score</string>
+    <string name="brakes_title">Brakes</string>
+    <string name="fuel_title">Fuel</string>
+    <string name="tyres_title">Tyres</string>
+    <string name="aquired_coins_info">Earned Coins before applying daily limit</string>
+    <string name="cost_of_ownership_title">Cost of ownership</string>
+    <string name="current_title_text">Current:</string>
+    <string name="trips_title_card">trips</string>
+    <string name="acceleration_card_title">Trips Without Harsh Acceleration</string>
+    <string name="braking_card_title">Trips Without Hard Braking</string>
+    <string name="speeding_card_title">Trips Without Speeding</string>
+    <string name="distraction_card_title">Trips Without Distraction</string>
+    <string name="cornering_card_title">Trips Without Hard Cornering</string>
+    <string name="phone_card_title">Trips Without Phone Usage</string>
+    <string name="current_duration_placeholder">You haven\'t had a current yet</string>
+    <string name="best_duration_placeholder">You haven\'t had a best yet</string>
+    <string name="best_block_title">Best:</string>
 
 </resources>
