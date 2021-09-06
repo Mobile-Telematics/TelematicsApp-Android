@@ -176,3 +176,11 @@ There are 9 different leaderboards in total:
 All types are presented in the Telematics App and you can understand which of these options for user ratings you need.
 
 >Remember! It takes a little time to create a Leaderboard rating in our Leaderboard API. A user who does not have a sufficient number of trips cannot see the Leaderboard data. Use placeholders for new users with an offer to make a trip, who just signed up.
+>
+## My Rewards
+
+Our telematics app allows you to work with DriveCoins and Streaks for each user:
+`DriveCoins` - the coins accrued to the user for the trips made;
+`Streaks` - the user's achievements in relation to his past trips.
+
+In detail, you can see the work with methods for rewards in the Telematics App source code in the DriveCoins section.
