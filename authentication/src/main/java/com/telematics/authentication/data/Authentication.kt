@@ -22,6 +22,7 @@ import com.telematics.authentication.model.UserDatabase
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.*
+import com.telematics.domain.model.company_id.InstanceName
 import com.telematics.domain.repository.AuthenticationRepo
 import com.telematics.domain.repository.SessionRepo
 import com.telematics.domain.repository.UserRepo
@@ -268,5 +269,9 @@ class Authentication constructor(
         val data = authRepo.loginWithDeviceToken(deviceToken)
         sessionRepo.saveSession(data)
         return data
+    }
+
+    override suspend fun changeCompanyId(companyId: String): InstanceName {
+        return authRepo.changeCompanyId(companyId)
     }
 }

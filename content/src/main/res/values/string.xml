@@ -172,6 +172,14 @@
     <string name="nav_logout_yes">logout</string>
     <string name="nav_logout_no">no</string>
 
+    <!--COMPANY ID-->
+    <string name="if_you_have_a_company_invitation_code">If you have a Company invitation code, enter it in the field below.</string>
+    <string name="dashboard_settings_company_id">Join a Company</string>
+    <string name="invite_code">Invite code</string>
+    <string name="company_screen_join">JOIN</string>
+    <string name="dashboard_settings_company_id_success">You have successfully joined%1$s</string>
+    <string name="company_screen_invalid_code">Invite code is invalid</string>
+
     <!--TRIP DETAILS-->
     <string name="trip_details_title">Trip Details</string>
     <string name="trip_details_swipe_up_for_details">Swipe up for details</string>
