@@ -53,6 +53,10 @@ class SettingsFragment : Fragment() {
             openAccountFragment()
         }
 
+        binding.settingsCompanyID.setOnClickListener {
+            openCompanyIdFragment()
+        }
+
         binding.settingsLogout.setOnClickListener {
             logout()
         }
@@ -111,5 +115,10 @@ class SettingsFragment : Fragment() {
 
         val bundle = bundleOf(NAV_TO_KEY to NAV_TO_ACCOUNT)
         findNavController().navigate(R.id.action_settingsFragment_to_mainFragment, bundle)
+    }
+
+    private fun openCompanyIdFragment() {
+
+        findNavController().navigate(R.id.action_settingsFragment_to_companyIdFragment)
     }
 }

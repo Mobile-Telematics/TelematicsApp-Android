@@ -117,6 +117,14 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/main_nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_settingsFragment_to_companyIdFragment"
+            app:destination="@id/companyIdFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/companyIdFragment"
+        android:name="com.telematics.zenroad.ui.settings.company_id.CompanyIDFragment"
+        tools:layout="@layout/company_id_fragment"/>
 
 </navigation>

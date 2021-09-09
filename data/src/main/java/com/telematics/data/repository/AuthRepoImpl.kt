@@ -3,6 +3,7 @@ package com.telematics.data.repository
 import android.webkit.MimeTypeMap
 import com.telematics.data.BuildConfig
 import com.telematics.data.api.LoginApi
+import com.telematics.data.mappers.toInstanceName
 import com.telematics.data.mappers.toRegistrationApiData
 import com.telematics.data.mappers.toSessionData
 import com.telematics.data.model.login.*
@@ -11,6 +12,7 @@ import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.IUser
 import com.telematics.domain.model.authentication.User
+import com.telematics.domain.model.company_id.InstanceName
 import com.telematics.domain.repository.UserServicesRepo
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -79,5 +81,13 @@ class AuthRepoImpl @Inject constructor(
         val requestFile = RequestBody.create(MediaType.parse(type), file)
         val body = MultipartBody.Part.createFormData("file", path, requestFile)
         api.uploadImage(body)
+    }
+
+    override suspend fun changeCompanyId(companyId: String): InstanceName {
+
+        val response = api.sendCompanyId(companyId)
+        return if (response.status == 200) {
+            response.result.toInstanceName()
+        } else InstanceName(null, false)
     }
 }

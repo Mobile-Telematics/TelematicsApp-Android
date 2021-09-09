@@ -1,11 +1,13 @@
 package com.telematics.data.mappers
 
 import com.telematics.data.R
+import com.telematics.data.model.company_id.InstanceNameBody
 import com.telematics.data.model.rest.ApiResult
 import com.telematics.data.model.reward.*
 import com.telematics.data.model.statistics.*
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
+import com.telematics.domain.model.company_id.InstanceName
 import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.leaderboard.LeaderboardUser
@@ -570,5 +572,15 @@ fun StreaksRest?.toStreakData(): StreaksData {
         data.StreakPhoneUsageCurrentDistanceKm,
         data.StreakPhoneUsageCurrentFromDate,
         data.StreakPhoneUsageCurrentToDate
+    )
+}
+
+fun InstanceNameBody?.toInstanceName(): InstanceName {
+
+    this ?: return InstanceName(null, false)
+
+    return InstanceName(
+        this.instanceName,
+        true
     )
 }

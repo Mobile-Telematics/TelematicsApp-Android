@@ -8,6 +8,7 @@ import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
 import com.telematics.domain.model.authentication.User
+import com.telematics.domain.model.company_id.InstanceName
 import com.telematics.domain.repository.AuthenticationRepo
 import com.telematics.domain.repository.UserRepo
 import kotlinx.coroutines.flow.Flow
@@ -250,6 +251,14 @@ class LoginUseCase @Inject constructor(
             }
             val bitmap = authenticationRepo.downloadProfilePicture()
             emit(bitmap)
+        }
+    }
+
+    fun changeCompanyId(companyId: String): Flow<InstanceName> {
+
+        return flow {
+            val data = authenticationRepo.changeCompanyId(companyId)
+            emit(data)
         }
     }
 
