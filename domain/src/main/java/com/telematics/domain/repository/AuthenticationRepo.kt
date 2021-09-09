@@ -7,6 +7,7 @@ import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.IUser
 import com.telematics.domain.model.authentication.PhoneAuthCallback
 import com.telematics.domain.model.authentication.PhoneAuthCred
+import com.telematics.domain.model.company_id.InstanceName
 
 interface AuthenticationRepo {
 
@@ -15,6 +16,7 @@ interface AuthenticationRepo {
     /** api */
     suspend fun registrationCreateAPI(): RegistrationApiData
     suspend fun loginAPI(deviceToken: String): SessionData
+    suspend fun changeCompanyId(companyId: String): InstanceName
 
     /** sign in FirebaseAuth*/
     suspend fun signInWithEmailAndPasswordFirebase(email: String, password: String): IUser?
