@@ -39,6 +39,15 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.List
+import kotlin.collections.MutableList
+import kotlin.collections.filter
+import kotlin.collections.find
+import kotlin.collections.forEach
+import kotlin.collections.indices
+import kotlin.collections.isNotEmpty
+import kotlin.collections.map
+import kotlin.collections.mutableListOf
 
 
 @AndroidEntryPoint
@@ -514,6 +523,9 @@ class TripDetailFragment : BaseFragment() {
             listMapObjects.clear()
             eventsMarkersList.clear()
             eventsList.clear()
+
+            renderPhoneUsage(tripDetailsData)
+
             val imageStart = Image()
             val imageStop = Image()
             imageStart.setImageResource(R.drawable.ic_dot_a_trip)
@@ -529,9 +541,6 @@ class TripDetailFragment : BaseFragment() {
                     val color = SpeedType.getColor(point.speedType)
                     line.lineColor = ContextCompat.getColor(requireContext(), color)
                     line.lineWidth = 8
-                    if (point.usePhone)
-                        line.lineColor =
-                            ContextCompat.getColor(requireContext(), R.color.colorPhoneUsage)
                     listLines.add(line)
                     listCoordinates = ArrayList()
                     listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
@@ -602,6 +611,51 @@ class TripDetailFragment : BaseFragment() {
                 if (tripPoints.isNotEmpty()) {
                     centerMapByRoute(tripPoints)
                 }
+            }
+        }
+    }
+
+    private fun renderPhoneUsage(tripDetailsData: TripDetailsData) {
+
+        val tripPoints = tripDetailsData.points!!
+        var listCoordinates: MutableList<GeoCoordinate> = ArrayList()
+        val listLines = ArrayList<MapPolyline>()
+
+        tripPoints.indices.forEach { i ->
+            val point = tripPoints[i]
+
+            if (i > 0) {
+                listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
+                if (point.usePhone) {
+                    val phoneLine = MapPolyline(GeoPolyline(listCoordinates))
+                    val phoneColor = ContextCompat.getColor(requireContext(), R.color.colorPhoneUsage)
+                    phoneLine.lineColor = phoneColor
+                    phoneLine.lineWidth = 20
+                    phoneLine.capStyle = MapPolyline.CapStyle.ROUND
+                    listLines.add(phoneLine)
+                }
+                listCoordinates = ArrayList()
+                listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
+            } else if (i == 0) {
+                listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
+            }
+        }
+
+        if (listCoordinates.size > 1) {
+            val line = MapPolyline(GeoPolyline(listCoordinates))
+            val point = tripPoints[tripPoints.size - 1]
+            val color = SpeedType.getColor(point.speedType)
+            line.lineColor = ContextCompat.getColor(requireContext(), color)
+            line.lineWidth = 8
+            listLines.add(line)
+        }
+        for (line in listLines) {
+            listMapObjects.add(line)
+        }
+        if (map != null) {
+            renderEventsAndRoute()
+            if (tripPoints.isNotEmpty()) {
+                centerMapByRoute(tripPoints)
             }
         }
     }
