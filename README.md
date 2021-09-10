@@ -5,9 +5,20 @@
 
 This Telematics App is developed by Damoov and is distributed free of charge. This app can be used to create your own telematics app for Android in few steps.
 
+## Ready Features
+Telematics:
+- Telematics SDK - mobile telematics engine.
+
+Screens:
+- Dashboard
+- Feed
+- Trip Details
+- Leaderboard
+- My Rewards
+
 ## Basic concepts & credentials
 
-1. You need to create an account https://app.damoov.com/user/registration and get `InstanceId` and`InstanceKey` auth keys to work with the telematics SDK & APIs.
+1. Create an account https://app.damoov.com/user/registration and get `InstanceId` and`InstanceKey` auth keys to work with the telematics SDK & APIs.
 How to obtain InsanceId & InstanceKey => https://docs.telematicssdk.com/docs/datahub#user-group-credentials
 
 2. Additionally, to authenticate users in your app and store users data, you need to create a firebase account: https://firebase.google.com
