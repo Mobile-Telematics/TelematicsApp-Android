@@ -221,8 +221,8 @@ In detail, you can see the work with methods for rewards in the Telematics App s
 In the Telematics App source code, we show you an option to clear user data after logging out. Do not forget - to stop tracking and record user trips, you need to explicitly delete `VIRTUAL_DEVICE_TOKEN`.
 This can be done using Telematics SDK method:
 
-trackingApi.setEnableSdk(false) //disable SDK
-trackingApi.clearDeviceID() //Clear DeviceToken
+    trackingApi.setEnableSdk(false) //disable SDK
+    trackingApi.clearDeviceID() //Clear DeviceToken
     
 You can also disable Telematics SDK with the trips uploading to upload already recorded and stored on the device trips to Damoov platform.
 Learn more about available SDK methods here: https://docs.telematicssdk.com/docs/methods-for-android-app
