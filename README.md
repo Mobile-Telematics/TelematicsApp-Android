@@ -1,4 +1,4 @@
-# TelematicsApp-Android with Firebase© integration
+# Android Open-Source Telematics App with Firebase© integration
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/telematicsapp.jpeg)
 
 ## Description
