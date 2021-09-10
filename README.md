@@ -4,6 +4,9 @@
 ## Description
 This Telematics App is created by DATA MOTION PTE. LTD. and is distributed free of charge to all customers & users and can be used to create your own application for Android in a few steps.
 
+#Setting Up
+Here you can find a short video guide, how to launch Android Open-Source Telematics app: https://youtu.be/Hbk7p3q8fbw
+
 ## Basic Concepts & Credentials
 For commercial use, you need to create a sandbox account https://userdatahub.com/user/registration and get `InstanceID` and`InstanceKEY` auth keys to work with our API
 
@@ -184,3 +187,21 @@ Our telematics app allows you to work with DriveCoins and Streaks for each user:
 `Streaks` - the user's achievements in relation to his past trips.
 
 In detail, you can see the work with methods for rewards in the Telematics App source code in the DriveCoins section.
+
+## Links
+
+[Official product Web-page](https://app.damoov.com/)
+
+[Official API services web-page](https://www.damoov.com/telematics-api/)
+
+[Official API references](https://docs.telematicssdk.com/reference)
+
+[Official ZenRoad web-page](https://www.damoov.com/telematics-app/)
+
+[Official ZenRoad app for iOS](https://apps.apple.com/jo/app/zenroad/id1563218393)
+
+[Official ZenRoad app for Android](https://play.google.com/store/apps/details?id=com.telematicssdk.zenroad&hl=en&gl=US)
+
+[Official ZenRoad app for Huawei](https://appgallery.huawei.com/#/app/C104163115)
+
+###### Copyright © 2020-2021 DATA MOTION PTE. LTD. All rights reserved.
