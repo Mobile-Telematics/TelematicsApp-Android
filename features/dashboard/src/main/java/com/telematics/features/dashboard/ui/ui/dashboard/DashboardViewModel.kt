@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveData
 import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.data.mappers.toScoreTypeModelList
+import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.data.utils.Resource
 import com.telematics.domain.model.SessionData
@@ -30,7 +31,8 @@ class DashboardViewModel @Inject constructor(
     private val statisticRepo: StatisticRepo,
     private val trackingUseCase: TrackingUseCase,
     private val settingsRepo: SettingsRepo,
-    private val rewardRepo: RewardRepo
+    private val rewardRepo: RewardRepo,
+    val measuresFormatter: MeasuresFormatter
 ) : ViewModel() {
 
     private val TAG = "DashboardViewModel"
@@ -148,7 +150,7 @@ class DashboardViewModel @Inject constructor(
         return rankState
     }
 
-    fun getDrivingStreaks(): LiveData<Result<StreaksData>>{
+    fun getDrivingStreaks(): LiveData<Result<StreaksData>> {
 
         val drivingStreakState = MutableLiveData<Result<StreaksData>>()
         flow {
@@ -159,5 +161,11 @@ class DashboardViewModel @Inject constructor(
             .setLiveDataForResult(drivingStreakState)
             .launchIn(viewModelScope)
         return drivingStreakState
+    }
+
+    fun getFormatterDate(dateInString: String): String {
+
+        val date = measuresFormatter.parseFullNewDate(dateInString)
+        return measuresFormatter.getDateWithTime(date)
     }
 }

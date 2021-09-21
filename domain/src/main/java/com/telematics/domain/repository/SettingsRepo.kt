@@ -10,9 +10,9 @@ interface SettingsRepo {
 
     fun getTelematicsLink(context: Context): String
 
-    fun getDateMeasure(): Flow<DateMeasure>
-    fun getDistanceMeasure(): Flow<DistanceMeasure>
-    fun getTimeMeasure(): Flow<TimeMeasure>
+    fun getDateMeasure(): DateMeasure
+    fun getDistanceMeasure(): DistanceMeasure
+    fun getTimeMeasure(): TimeMeasure
 
     fun setDateMeasure(dateMeasure: DateMeasure)
     fun setDistanceMeasure(distanceMeasure: DistanceMeasure)

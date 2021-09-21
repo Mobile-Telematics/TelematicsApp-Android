@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
+import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.domain.model.reward.DailyLimitData
 import com.telematics.domain.model.reward.DriveCoinsDetailedData
 import com.telematics.domain.model.reward.DriveCoinsDuration
@@ -15,9 +16,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class DriveCoinsViewModel @Inject constructor(
-    private val rewardRepo: RewardRepo
+    private val rewardRepo: RewardRepo,
+    val measuresFormatter: MeasuresFormatter
 ) : ViewModel() {
 
     fun getTotalCoinsByDuration(duration: DriveCoinsDuration): LiveData<Result<DriveCoinsTotalData>> {
@@ -64,6 +67,10 @@ class DriveCoinsViewModel @Inject constructor(
         val state = MutableLiveData<Result<DriveCoinsDetailedData>>()
         flow {
             val data = rewardRepo.getDetailed(duration)
+            data.travelingTotalSpeedingKm =
+                measuresFormatter.getDistanceByKm(data.travelingTotalSpeedingKm).roundToInt()
+            data.travelingMileageData =
+                measuresFormatter.getDistanceByKm(data.travelingMileageData).roundToInt()
             emit(data)
         }
             .flowOn(Dispatchers.IO)

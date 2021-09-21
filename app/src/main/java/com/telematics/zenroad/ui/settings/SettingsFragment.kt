@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.telematics.content.utils.BaseFragment
 import com.telematics.content.utils.TryOpenLink
 import com.telematics.data.BuildConfig
 import com.telematics.zenroad.R
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsFragment : Fragment() {
+class SettingsFragment : BaseFragment() {
 
     companion object {
         const val NAV_TO_KEY = "nav_to"
@@ -46,7 +47,7 @@ class SettingsFragment : Fragment() {
     private fun setListeners() {
 
         binding.settingsToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            onBackPressed()
         }
 
         binding.settingsProfile.setOnClickListener {

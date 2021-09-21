@@ -15,10 +15,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MeasuresFragment : BaseFragment() {
 
-    lateinit var binding: MeasuresFragmentBinding
-
     @Inject
     lateinit var measuresViewModel: MeasuresViewModel
+
+    private lateinit var binding: MeasuresFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,21 +54,9 @@ class MeasuresFragment : BaseFragment() {
 
     private fun observeMeasures() {
 
-        measuresViewModel.getDateMeasure().observe(viewLifecycleOwner) { result ->
-            result.onSuccess {
-                showDate(it)
-            }
-        }
-        measuresViewModel.getDistanceMeasure().observe(viewLifecycleOwner) { result ->
-            result.onSuccess {
-                showDistance(it)
-            }
-        }
-        measuresViewModel.getTimeMeasure().observe(viewLifecycleOwner) { result ->
-            result.onSuccess {
-                showTime(it)
-            }
-        }
+        showDate(measuresViewModel.getDateMeasure())
+        showDistance(measuresViewModel.getDistanceMeasure())
+        showTime(measuresViewModel.getTimeMeasure())
     }
 
     private fun showDate(dateMeasure: DateMeasure) {

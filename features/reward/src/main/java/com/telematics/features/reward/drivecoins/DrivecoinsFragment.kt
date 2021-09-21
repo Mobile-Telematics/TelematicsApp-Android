@@ -80,7 +80,8 @@ class DrivecoinsFragment : BaseFragment() {
             statisticPager.setCurrentItem(2, false)
         }
 
-        statisticAdapter = DriveCoinsViewPagerAdapter(this, null)
+        statisticAdapter =
+            DriveCoinsViewPagerAdapter(this, null, driveCoinsViewModel.measuresFormatter)
         statisticPager.adapter = statisticAdapter
         statisticPager.offscreenPageLimit = 3
 
@@ -353,7 +354,8 @@ class DrivecoinsFragment : BaseFragment() {
 
         statisticPager.adapter = null
         if (!this::statisticAdapter.isInitialized) {
-            statisticAdapter = DriveCoinsViewPagerAdapter(this, data)
+            statisticAdapter =
+                DriveCoinsViewPagerAdapter(this, data, driveCoinsViewModel.measuresFormatter)
             statisticPager.adapter = statisticAdapter
         }
         if (statisticPager.adapter == null) {

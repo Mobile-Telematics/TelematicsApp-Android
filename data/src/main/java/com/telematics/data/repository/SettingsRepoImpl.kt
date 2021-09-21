@@ -9,8 +9,6 @@ import com.telematics.domain.model.measures.DateMeasure
 import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.measures.TimeMeasure
 import com.telematics.domain.repository.SettingsRepo
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class SettingsRepoImpl @Inject constructor(
@@ -71,32 +69,23 @@ class SettingsRepoImpl @Inject constructor(
         ) != null
     }
 
-    override fun getDateMeasure(): Flow<DateMeasure> {
+    override fun getDateMeasure(): DateMeasure {
 
-        return flow {
-            val data = sharedPreferences.getString(dateMeasureKey, DateMeasure.default.value)
-            val date = DateMeasure.parse(data)
-            emit(date)
-        }
+        val data = sharedPreferences.getString(dateMeasureKey, DateMeasure.default.value)
+        return DateMeasure.parse(data)
     }
 
-    override fun getDistanceMeasure(): Flow<DistanceMeasure> {
+    override fun getDistanceMeasure(): DistanceMeasure {
 
-        return flow {
-            val data =
-                sharedPreferences.getString(distanceMeasureKey, DistanceMeasure.default.value)
-            val distanceMeasure = DistanceMeasure.parse(data)
-            emit(distanceMeasure)
-        }
+        val data =
+            sharedPreferences.getString(distanceMeasureKey, DistanceMeasure.default.value)
+        return DistanceMeasure.parse(data)
     }
 
-    override fun getTimeMeasure(): Flow<TimeMeasure> {
+    override fun getTimeMeasure(): TimeMeasure {
 
-        return flow {
-            val data = sharedPreferences.getString(timeMeasureKey, TimeMeasure.default.value)
-            val timeMeasure = TimeMeasure.parse(data)
-            emit(timeMeasure)
-        }
+        val data = sharedPreferences.getString(timeMeasureKey, TimeMeasure.default.value)
+        return TimeMeasure.parse(data)
     }
 
     override fun setDateMeasure(dateMeasure: DateMeasure) {

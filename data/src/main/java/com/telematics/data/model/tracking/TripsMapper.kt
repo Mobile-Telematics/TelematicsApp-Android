@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class TripsMapper @Inject constructor(
-    private val formatter: DateFormatter
+    private val formatter: MeasuresFormatter
 ) {
 
     fun transformTripDetails(trip: TrackDetails?): TripDetailsData? {

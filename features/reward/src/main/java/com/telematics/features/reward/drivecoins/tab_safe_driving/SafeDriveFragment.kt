@@ -32,12 +32,3 @@ class SafeDriveFragment : Fragment(R.layout.fragment_safe_drive) {
         return ContextCompat.getColor(requireContext(), rc)
     }
 }
-
-/*
-API detailed
-*  "DeviceToken": "736cbd83-a937-4889-ae79-af2d5b63f73d",
-      "CoinCategoryName": "Safe Driving",
-      "CoinCategoryToken": "07348680-3ca6-4af3-8d7d-bd5f019cde4f",
-      "CoinFactor": "SafeScore",
-      "CoinFactorToken": "1fa9d236-36d9-49a6-be0e-3c8dde899a85",
-      "CoinsSum": 216*/

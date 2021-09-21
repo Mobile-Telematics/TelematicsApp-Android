@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.telematics.data.extentions.color
 import com.telematics.data.extentions.drawable
 import com.telematics.data.extentions.format
-import com.telematics.data.model.tracking.DateFormatter
+import com.telematics.data.model.tracking.MeasuresFormatter
+import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.feed.R
 import kotlinx.android.synthetic.main.layout_trip_item.view.*
@@ -16,7 +17,7 @@ import kotlin.math.roundToInt
 
 
 class FeedListAdapter(
-    private val formatter: DateFormatter
+    private val formatter: MeasuresFormatter
 ) :
     RecyclerView.Adapter<FeedListAdapter.ViewHolder>() {
 
@@ -94,8 +95,17 @@ class FeedListAdapter(
 
             val context = itemView.context
 
-            itemView.eventTripMileage.text = tripItem.dist.format()
-            itemView.measure_dist_text.text = context.getString(R.string.dashboard_new_km)
+            formatter.getDistanceByKm(tripItem.dist.toDouble()).apply {
+                itemView.eventTripMileage.text = this.format()
+            }
+
+            formatter.getDistanceMeasureValue().apply {
+                val distValue = when (formatter.getDistanceMeasureValue()) {
+                    DistanceMeasure.KM -> R.string.dashboard_new_km
+                    DistanceMeasure.MI -> R.string.dashboard_new_mi
+                }
+                itemView.measure_dist_text.text = context.getString(distValue)
+            }
             val startDate = formatter.parseFullNewDate(tripItem.timeStart!!)
             val endDate = formatter.parseFullNewDate(tripItem.timeEnd!!)
             itemView.eventTripDateStart.text = formatter.getDateWithTime(startDate)

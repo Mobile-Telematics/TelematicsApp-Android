@@ -6,13 +6,9 @@
 
     <ImageView
         android:id="@+id/profile_company_id_back"
-        android:layout_width="24dp"
-        android:layout_height="18dp"
-        android:layout_margin="18dp"
-        android:src="@drawable/ic_back"
+        style="@style/SettingsBackButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@android:color/black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/profile_company_id_title"
