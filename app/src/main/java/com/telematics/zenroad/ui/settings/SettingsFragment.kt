@@ -47,7 +47,7 @@ class SettingsFragment : BaseFragment() {
     private fun setListeners() {
 
         binding.settingsToolbar.setNavigationOnClickListener {
-            onBackPressed()
+            openMainFragment()
         }
 
         binding.settingsProfile.setOnClickListener {
@@ -114,6 +114,11 @@ class SettingsFragment : BaseFragment() {
     private fun openSplashFragment() {
 
         findNavController().navigate(R.id.action_settingsFragment_to_splashFragment)
+    }
+
+    private fun openMainFragment(){
+
+        onBackPressed()
     }
 
     private fun openAccountFragment() {

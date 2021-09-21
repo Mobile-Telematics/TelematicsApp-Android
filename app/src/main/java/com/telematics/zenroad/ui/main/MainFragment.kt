@@ -65,6 +65,8 @@ class MainFragment : BaseFragment() {
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
 
+            mainFragmentViewModel.saveCurrentBottomMenuState(it.itemId)
+
             if (previousItemId == it.itemId) {
                 return@setOnNavigationItemSelectedListener true
             }
@@ -100,7 +102,14 @@ class MainFragment : BaseFragment() {
                     bottomNavigationView.selectedItemId = R.id.nav_profile
             }
         } ?: run {
-            bottomNavigationView.selectedItemId = R.id.nav_dashboard
+
+            observeSavedBottomMenuState {
+                if (it == 0) {
+                    bottomNavigationView.selectedItemId = R.id.nav_dashboard
+                } else {
+                    bottomNavigationView.selectedItemId = it
+                }
+            }
         }
 
         DashboardFragment.setOnNavigationToFeed {
@@ -240,5 +249,20 @@ class MainFragment : BaseFragment() {
     private fun openSettings() {
 
         findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+    }
+
+
+    private fun observeSavedBottomMenuState(action: (bottomMenuState: Int) -> Unit) {
+
+        if (mainFragmentViewModel.getSaveStateBundle.value == null) {
+            action(0)
+            return
+        }
+
+        mainFragmentViewModel.getSaveStateBundle.observe(viewLifecycleOwner) { bundle ->
+            val bottomMenuState = mainFragmentViewModel.bundleToListSize(bundle)
+            action(bottomMenuState)
+            mainFragmentViewModel.getSaveStateBundle.removeObservers(viewLifecycleOwner)
+        }
     }
 }
