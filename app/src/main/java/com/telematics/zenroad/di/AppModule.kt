@@ -282,8 +282,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSettingsRepo(): SettingsRepo {
-        return SettingsRepoImpl()
+    fun provideSettingsRepo(sharedPreferences: SharedPreferences): SettingsRepo {
+        return SettingsRepoImpl(sharedPreferences)
     }
 
     @Provides

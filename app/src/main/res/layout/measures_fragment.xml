@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/measures_back"
+        android:layout_width="24dp"
+        android:layout_height="18dp"
+        android:layout_margin="18dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/black" />
+
+    <TextView
+        android:id="@+id/profile_company_id_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="@string/dashboard_settings_measures"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/app_settings_toolbar_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/measures_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/measures_back" />
+
+    <!--    distance-->
+    <TextView
+        android:id="@+id/measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_settings_menu_item_padding_side"
+        android:fontFamily="@font/open_sans_bold"
+        android:text="@string/settings_measure_distance"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/measures_back"
+        app:layout_constraintVertical_bias="0.050000012" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:foreground="@drawable/radio_group_rounded_background"
+        app:layout_constraintStart_toStartOf="@+id/measure"
+        app:layout_constraintTop_toBottomOf="@+id/measure">
+
+        <RadioGroup
+            android:id="@+id/distanceRadioGroup"
+            android:layout_width="@dimen/feed_event_trip_type_switcher_width"
+            android:layout_height="28dp"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/kmBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:buttonTint="@color/colorDefButton"
+                android:text="@string/settings_measure_km" />
+
+            <RadioButton
+                android:id="@+id/miBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/colorDefButton"
+                android:text="@string/settings_measure_mi" />
+
+        </RadioGroup>
+    </FrameLayout>
+
+    <!--    date format-->
+    <TextView
+        android:id="@+id/dateFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_settings_menu_item_padding_side"
+        android:fontFamily="@font/open_sans_bold"
+        android:text="@string/settings_measure_date_format"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintVertical_bias="0.050000012" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:foreground="@drawable/radio_group_rounded_background"
+        app:layout_constraintStart_toStartOf="@+id/dateFormat"
+        app:layout_constraintTop_toBottomOf="@+id/dateFormat">
+
+        <RadioGroup
+            android:id="@+id/dateRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/dd_mmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/colorDefButton"
+                android:text="@string/settings_measure_dd_mm_yyy"
+                tools:checked="true" />
+
+            <RadioButton
+                android:id="@+id/mm_ddButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/colorDefButton"
+                android:paddingEnd="10dp"
+                android:text="@string/settings_measure_mm_dd_yyy"
+                tools:enabled="false" />
+
+        </RadioGroup>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/timeFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_settings_menu_item_padding_side"
+        android:fontFamily="@font/open_sans_bold"
+        android:text="@string/settings_measure_time_format"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout3"
+        app:layout_constraintVertical_bias="0.050000012" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:foreground="@drawable/radio_group_rounded_background"
+        app:layout_constraintStart_toStartOf="@+id/timeFormat"
+        app:layout_constraintTop_toBottomOf="@+id/timeFormat">
+
+        <RadioGroup
+            android:id="@+id/timeRadioGroup"
+            android:layout_width="@dimen/feed_event_trip_type_switcher_width"
+            android:layout_height="28dp"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/btn24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/colorDefButton"
+                android:text="@string/settings_measure_24h"
+                tools:checked="true" />
+
+            <RadioButton
+                android:id="@+id/btn12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/colorDefButton"
+                android:text="@string/settings_measure_12h" />
+
+        </RadioGroup>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

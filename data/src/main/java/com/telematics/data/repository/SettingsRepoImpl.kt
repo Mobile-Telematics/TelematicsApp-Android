@@ -3,10 +3,23 @@ package com.telematics.data.repository
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import com.telematics.domain.model.measures.DateMeasure
+import com.telematics.domain.model.measures.DistanceMeasure
+import com.telematics.domain.model.measures.TimeMeasure
 import com.telematics.domain.repository.SettingsRepo
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class SettingsRepoImpl : SettingsRepo {
+class SettingsRepoImpl @Inject constructor(
+    private val sharedPreferences: SharedPreferences
+) : SettingsRepo {
+
+    private val dateMeasureKey = "dateMeasureKey"
+    private val distanceMeasureKey = "distanceMeasureKey"
+    private val timeMeasureKey = "timeMeasureKey"
 
     override fun getTelematicsLink(context: Context): String {
         return telematicsSettingsLink(context)
@@ -56,5 +69,54 @@ class SettingsRepoImpl : SettingsRepo {
             intent,
             PackageManager.MATCH_DEFAULT_ONLY
         ) != null
+    }
+
+    override fun getDateMeasure(): Flow<DateMeasure> {
+
+        return flow {
+            val data = sharedPreferences.getString(dateMeasureKey, DateMeasure.default.value)
+            val date = DateMeasure.parse(data)
+            emit(date)
+        }
+    }
+
+    override fun getDistanceMeasure(): Flow<DistanceMeasure> {
+
+        return flow {
+            val data =
+                sharedPreferences.getString(distanceMeasureKey, DistanceMeasure.default.value)
+            val distanceMeasure = DistanceMeasure.parse(data)
+            emit(distanceMeasure)
+        }
+    }
+
+    override fun getTimeMeasure(): Flow<TimeMeasure> {
+
+        return flow {
+            val data = sharedPreferences.getString(timeMeasureKey, TimeMeasure.default.value)
+            val timeMeasure = TimeMeasure.parse(data)
+            emit(timeMeasure)
+        }
+    }
+
+    override fun setDateMeasure(dateMeasure: DateMeasure) {
+
+        sharedPreferences.edit()
+            .putString(dateMeasureKey, dateMeasure.value)
+            .apply()
+    }
+
+    override fun setDistanceMeasure(distanceMeasure: DistanceMeasure) {
+
+        sharedPreferences.edit()
+            .putString(distanceMeasureKey, distanceMeasure.value)
+            .apply()
+    }
+
+    override fun setTimeMeasure(timeMeasure: TimeMeasure) {
+
+        sharedPreferences.edit()
+            .putString(timeMeasureKey, timeMeasure.value)
+            .apply()
     }
 }

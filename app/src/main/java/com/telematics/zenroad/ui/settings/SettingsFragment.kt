@@ -53,6 +53,10 @@ class SettingsFragment : Fragment() {
             openAccountFragment()
         }
 
+        binding.settingsMeasures.setOnClickListener {
+            openMeasures()
+        }
+
         binding.settingsCompanyID.setOnClickListener {
             openCompanyIdFragment()
         }
@@ -120,5 +124,10 @@ class SettingsFragment : Fragment() {
     private fun openCompanyIdFragment() {
 
         findNavController().navigate(R.id.action_settingsFragment_to_companyIdFragment)
+    }
+
+    private fun openMeasures() {
+
+        findNavController().navigate(R.id.action_settingsFragment_to_measuresFragment)
     }
 }
