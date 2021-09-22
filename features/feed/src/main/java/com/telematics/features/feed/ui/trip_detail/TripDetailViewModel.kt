@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
+import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.domain.model.tracking.ChangeTripEvent
 import com.telematics.domain.model.tracking.TripData
@@ -19,6 +20,7 @@ import javax.inject.Inject
 
 class TripDetailViewModel @Inject constructor(
     private val trackingUseCase: TrackingUseCase,
+    val formatter: MeasuresFormatter
 ) : ViewModel() {
 
     private var currentTripId: String? = null

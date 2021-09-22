@@ -119,12 +119,20 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_settingsFragment_to_companyIdFragment"
-            app:destination="@id/companyIdFragment"/>
+            app:destination="@id/companyIdFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_measuresFragment"
+            app:destination="@id/measuresFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/companyIdFragment"
         android:name="com.telematics.zenroad.ui.settings.company_id.CompanyIDFragment"
-        tools:layout="@layout/company_id_fragment"/>
+        tools:layout="@layout/company_id_fragment" />
+
+    <fragment
+        android:id="@+id/measuresFragment"
+        android:name="com.telematics.zenroad.ui.settings.measures.MeasuresFragment"
+        tools:layout="@layout/measures_fragment" />
 
 </navigation>

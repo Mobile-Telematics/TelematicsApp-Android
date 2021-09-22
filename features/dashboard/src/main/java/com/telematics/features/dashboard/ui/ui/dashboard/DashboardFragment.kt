@@ -30,6 +30,7 @@ import com.telematics.data.extentions.format
 import com.telematics.data.extentions.getColorByScore
 import com.telematics.data.extentions.setProgressWithColor
 import com.telematics.data.utils.Resource
+import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.statistics.*
 import com.telematics.features.dashboard.ui.ui.chart.DashboardTypePagerAdapter
 import com.telematics.features.dashboard.ui.ui.ecoscoring.DashboardEcoScoringTabAdapter
@@ -351,9 +352,16 @@ class DashboardFragment : Fragment() {
         binding.include4.ecoScoringMainScore.backgroundTintList =
             ColorStateList.valueOf(Color.LTGRAY)
 
+        val stringRes = dashboardViewModel.measuresFormatter.getDistanceMeasureValue().let {
+            return@let when (it) {
+                DistanceMeasure.KM -> R.string.dashboard_new_km
+                DistanceMeasure.MI -> R.string.dashboard_new_mi
+            }
+        }
+
         binding.dashboardDistanceValue.text = resources.getString(
-            R.string.dashboard_new_template_progress_km,
-            data.mileageKm.format("0"),
+            stringRes,
+            dashboardViewModel.measuresFormatter.getDistanceByKm(data.mileageKm).format("0"),
             DISTANCE_LIMIT.toString()
         )
 
@@ -367,7 +375,8 @@ class DashboardFragment : Fragment() {
         binding.include4.pager.adapter = DashboardEcoScoringTabAdapter(
             this.childFragmentManager,
             outputData,
-            this.requireContext()
+            this.requireContext(),
+            dashboardViewModel.measuresFormatter
         )
         binding.include4.tabLayout.setupWithViewPager(binding.include4.pager)
 
@@ -445,9 +454,16 @@ class DashboardFragment : Fragment() {
 
     private fun fillTripData(individualData: UserStatisticsIndividualData) {
 
-        binding.include2.milage.bottomText.text = getString(R.string.dashboard_new_km)
-        binding.include2.milage.middleText.text = getString(R.string.dashboard_new_km)
-        binding.include2.milage.topText.text = (individualData.mileageKm).format()
+        val stringRes = dashboardViewModel.measuresFormatter.getDistanceMeasureValue().let {
+            return@let when (it) {
+                DistanceMeasure.KM -> R.string.dashboard_new_km
+                DistanceMeasure.MI -> R.string.dashboard_new_mi
+            }
+        }
+        binding.include2.milage.bottomText.text = getString(stringRes)
+        binding.include2.milage.middleText.text = getString(R.string.dashboard_new_mileage)
+        binding.include2.milage.topText.text =
+            dashboardViewModel.measuresFormatter.getDistanceByKm(individualData.mileageKm).format()
 
         binding.include2.trips.topText.text = (individualData.tripsCount).toString()
         binding.include2.trips.middleText.text = getString(R.string.dashboard_new_total_trips)
@@ -493,17 +509,17 @@ class DashboardFragment : Fragment() {
     private fun observeLastTrip() {
 
         dashboardViewModel.getLastTrip().observe(viewLifecycleOwner) { result ->
-            result.onFailure {
-
-            }
             result.onSuccess { tripData ->
 
                 if (tripData == null) return@onSuccess
                 binding.dashboardEmptyLastTrip.dashboardEmptyLastTripParent.isVisible = false
                 binding.include3.lastTripParent.isVisible = true
 
-                binding.include3.eventTripDateStart.text = tripData.timeStart
-                binding.include3.eventTripDateFinish.text = tripData.timeEnd
+
+                binding.include3.eventTripDateStart.text =
+                    dashboardViewModel.getFormatterDate(tripData.timeStart!!)
+                binding.include3.eventTripDateFinish.text =
+                    dashboardViewModel.getFormatterDate(tripData.timeEnd!!)
                 binding.include3.eventTripOverallScore.text =
                     tripData.rating.roundToInt().toString()
                 val overallScoreColor = when (tripData.rating.roundToInt()) {
@@ -516,8 +532,15 @@ class DashboardFragment : Fragment() {
                 binding.include3.eventTripOverallScore.eventTripOverallScore.setTextColor(
                     overallScoreColor
                 )
-                binding.include3.eventTripMileage.text = DecimalFormat("0.0").format(tripData.dist)
-                binding.include3.mileageMeasureText.text = getString(R.string.dashboard_new_km)
+
+                binding.include3.eventTripMileage.text = dashboardViewModel.measuresFormatter.getDistanceByKm(tripData.dist).format()
+                val stringRes = dashboardViewModel.measuresFormatter.getDistanceMeasureValue().let {
+                    return@let when (it) {
+                        DistanceMeasure.KM -> R.string.dashboard_new_km
+                        DistanceMeasure.MI -> R.string.dashboard_new_mi
+                    }
+                }
+                binding.include3.mileageMeasureText.text = getString(stringRes)
 
                 getLastTripImage(tripData.id)
             }
@@ -610,7 +633,8 @@ class DashboardFragment : Fragment() {
             val pagerAdapter = DashboardEcoScoringTabAdapter(
                 this.childFragmentManager,
                 data,
-                this.requireContext()
+                this.requireContext(),
+                dashboardViewModel.measuresFormatter
             )
             pager.adapter = pagerAdapter
             tabLayout.setupWithViewPager(pager)

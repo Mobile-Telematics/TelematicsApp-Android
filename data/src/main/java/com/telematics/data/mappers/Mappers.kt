@@ -12,6 +12,7 @@ import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.leaderboard.LeaderboardUser
 import com.telematics.domain.model.leaderboard.LeaderboardUserItems
+import com.telematics.domain.model.measures.DateMeasure
 import com.telematics.domain.model.reward.*
 import com.telematics.domain.model.statistics.*
 import java.text.SimpleDateFormat
@@ -434,13 +435,18 @@ fun DriveCoinsDetailedData.setCompleteData(
     return this
 }
 
-fun StreaksRest?.toStreakList(): List<Streak> {
+fun StreaksRest?.toStreakList(dateMeasure: DateMeasure): List<Streak> {
 
     fun getDistance(d: Double) = "${d.roundToInt()} km"
     fun getDate(s: String): String? {
         val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).parse(s) ?: return null
-        val dd_MM_yy = SimpleDateFormat("dd.MM.yy", Locale.ENGLISH)
-        return dd_MM_yy.format(date)
+
+        val format = when (dateMeasure) {
+            DateMeasure.MM_DD -> "MM.dd.yy"
+            DateMeasure.DD_MM -> "dd.MM.yy"
+        }
+        val simpleDateFormat = SimpleDateFormat(format, Locale.ENGLISH)
+        return simpleDateFormat.format(date)
     }
 
     val min = "m"

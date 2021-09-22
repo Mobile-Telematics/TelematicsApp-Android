@@ -5,30 +5,30 @@
         android:id="@+id/nav_feed"
         android:enabled="true"
         android:icon="@drawable/ic_menu_feed"
-        android:title="Feed" />
+        android:title="@string/nav_item_feed" />
 
     <item
         android:id="@+id/nav_leaderboard"
         android:enabled="true"
         android:icon="@drawable/ic_menu_leaderboard"
-        android:title="Leaderboard" />
+        android:title="@string/nav_item_leaderboard" />
 
     <item
         android:id="@+id/nav_dashboard"
         android:enabled="true"
         android:icon="@drawable/ic_menu_dashboard"
-        android:title="Dashboard" />
+        android:title="@string/nav_item_dashboard" />
 
     <item
         android:id="@+id/nav_reward"
         android:enabled="true"
         android:icon="@drawable/ic_menu_dashboard"
-        android:title="Reward" />
+        android:title="@string/nav_item_reward" />
 
     <item
         android:id="@+id/nav_profile"
         android:enabled="true"
         android:icon="@drawable/ic_menu_profile"
-        android:title="Profile" />
+        android:title="@string/nav_item_profile" />
 
 </menu>

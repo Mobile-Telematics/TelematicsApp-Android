@@ -48,6 +48,16 @@
 
             <View style="@style/SettingsViewLine" />
 
+            <!--Measure-->
+            <TextView
+                android:id="@+id/settingsMeasures"
+                style="@style/SettingsMenuItemText"
+                android:drawableStart="@drawable/ic_sett_measure"
+                android:drawableEnd="@drawable/ic_dash_arrow_right_gray"
+                android:text="@string/dashboard_settings_measures" />
+
+            <View style="@style/SettingsViewLine" />
+
             <TextView
                 android:id="@+id/settingsCompanyID"
                 style="@style/SettingsMenuItemText"

@@ -63,7 +63,7 @@ class FeedFragment : Fragment() {
         val recyclerView = binding.feedList
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
-        feedListAdapter = FeedListAdapter(feedViewModel.getDateFormatter)
+        feedListAdapter = FeedListAdapter(feedViewModel.getMeasuresFormatter)
         feedListAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 

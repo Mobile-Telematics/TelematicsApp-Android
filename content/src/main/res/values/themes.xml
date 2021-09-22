@@ -132,16 +132,25 @@
     <!-- for BottomNavigationView text size -->
     <style name="bottom_normal_text">
         <item name="android:textColor">#000</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <style name="bottom_selected_text">
         <item name="android:textColor">#000</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <style name="MapProgressBarTheme" parent="AppTheme">
         <item name="colorAccent">@color/colorGreenText</item>
+    </style>
+
+    <style name="SettingsBackButton">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_margin">18dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:src">@drawable/ic_back</item>
+        <item name="tint">@android:color/black</item>
     </style>
 
 </resources>

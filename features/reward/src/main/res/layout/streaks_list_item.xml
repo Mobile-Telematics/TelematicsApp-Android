@@ -71,7 +71,7 @@
             tools:text="27km | 7m" />
 
         <TextView
-            android:id="@+id/card_current_duration_value"
+            android:id="@+id/card_current_date_value"
             style="@style/duration_content_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/centered_guideline"
@@ -118,7 +118,7 @@
             tools:text="27km | 7m" />
 
         <TextView
-            android:id="@+id/card_best_duration_value"
+            android:id="@+id/card_best_date_value"
             style="@style/duration_content_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
