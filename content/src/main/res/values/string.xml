@@ -2,7 +2,7 @@
     <string name="app_name">YOUR_LABEL</string>
 
     <string name="nav_item_feed">Feed</string>
-    <string name="nav_item_networks">Network</string>
+    <string name="nav_item_dashboard">Dashboard</string>
     <string name="nav_item_reward">My Rewards</string>
     <string name="nav_item_more">More</string>
     <string name="nav_item_settings">Settings</string>

@@ -461,7 +461,7 @@ class DashboardFragment : Fragment() {
             }
         }
         binding.include2.milage.bottomText.text = getString(stringRes)
-        binding.include2.milage.middleText.text = getString(stringRes)
+        binding.include2.milage.middleText.text = getString(R.string.dashboard_new_mileage)
         binding.include2.milage.topText.text =
             dashboardViewModel.measuresFormatter.getDistanceByKm(individualData.mileageKm).format()
 
