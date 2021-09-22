@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.telematics.content.utils.BaseFragment
 import com.telematics.content.utils.TryOpenLink
 import com.telematics.data.BuildConfig
 import com.telematics.zenroad.R
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsFragment : Fragment() {
+class SettingsFragment : BaseFragment() {
 
     companion object {
         const val NAV_TO_KEY = "nav_to"
@@ -46,11 +47,15 @@ class SettingsFragment : Fragment() {
     private fun setListeners() {
 
         binding.settingsToolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            openMainFragment()
         }
 
         binding.settingsProfile.setOnClickListener {
             openAccountFragment()
+        }
+
+        binding.settingsMeasures.setOnClickListener {
+            openMeasures()
         }
 
         binding.settingsCompanyID.setOnClickListener {
@@ -111,6 +116,11 @@ class SettingsFragment : Fragment() {
         findNavController().navigate(R.id.action_settingsFragment_to_splashFragment)
     }
 
+    private fun openMainFragment(){
+
+        onBackPressed()
+    }
+
     private fun openAccountFragment() {
 
         val bundle = bundleOf(NAV_TO_KEY to NAV_TO_ACCOUNT)
@@ -120,5 +130,10 @@ class SettingsFragment : Fragment() {
     private fun openCompanyIdFragment() {
 
         findNavController().navigate(R.id.action_settingsFragment_to_companyIdFragment)
+    }
+
+    private fun openMeasures() {
+
+        findNavController().navigate(R.id.action_settingsFragment_to_measuresFragment)
     }
 }

@@ -5,8 +5,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_DETAILED_KEY
 import com.telematics.domain.model.reward.DriveCoinsDetailedData
+import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_DETAILED_KEY
+import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_IN_MILES_KEY
 import com.telematics.reward.R
 import kotlin.math.roundToInt
 
@@ -17,6 +18,7 @@ class TravellingFragment : Fragment(R.layout.fragment_travelling) {
 
         val data = arguments?.getSerializable(DRIVE_COINS_DETAILED_KEY) as DriveCoinsDetailedData?
             ?: DriveCoinsDetailedData()
+        val inMiles = arguments?.getBoolean(DRIVE_COINS_IN_MILES_KEY) ?: false
 
         view.alpha = 0f
         view.animate().setDuration(300).alpha(1f).start()
@@ -64,11 +66,11 @@ class TravellingFragment : Fragment(R.layout.fragment_travelling) {
             text = outHoursOrMinutes(data.travelingDrivingTime)
         }
         view.findViewById<TextView>(R.id.speeding_sum).apply {
-            text = getDistanceValue(data.travelingTotalSpeedingKm)
+            text = getDistanceValue(data.travelingTotalSpeedingKm, inMiles)
         }
 
         view.findViewById<TextView>(R.id.distance_sum).text =
-            getDistanceValue(data.travelingMileageData)
+            getDistanceValue(data.travelingMileageData, inMiles)
         view.findViewById<TextView>(R.id.duration_sum).text =
             outHoursOrMinutes(data.travelingTimeDrivenData)
 
@@ -90,10 +92,10 @@ class TravellingFragment : Fragment(R.layout.fragment_travelling) {
         } else "$p m"
     }
 
-    private fun getDistanceValue(p: Int): String {
+    private fun getDistanceValue(p: Int, inMiles: Boolean): String {
 
-        val miStr = getString(R.string.dashboard_new_mi)
-        val kmStr = getString(R.string.dashboard_new_km)
+        val distValue = if (inMiles) R.string.dashboard_new_mi else R.string.dashboard_new_km
+        val kmStr = getString(distValue)
         return "$p $kmStr"
     }
 }

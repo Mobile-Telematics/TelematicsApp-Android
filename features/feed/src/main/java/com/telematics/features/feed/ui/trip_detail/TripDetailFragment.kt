@@ -26,6 +26,7 @@ import com.telematics.data.extentions.color
 import com.telematics.data.extentions.convertDpToPx
 import com.telematics.data.extentions.drawable
 import com.telematics.data.extentions.format
+import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.model.tracking.TripDetailsData
 import com.telematics.domain.model.tracking.TripPointData
@@ -39,15 +40,6 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.List
-import kotlin.collections.MutableList
-import kotlin.collections.filter
-import kotlin.collections.find
-import kotlin.collections.forEach
-import kotlin.collections.indices
-import kotlin.collections.isNotEmpty
-import kotlin.collections.map
-import kotlin.collections.mutableListOf
 
 
 @AndroidEntryPoint
@@ -358,10 +350,18 @@ class TripDetailFragment : BaseFragment() {
             tripDetailsData.rating.toString()
         binding.tripDetailsBottomSheet.tripBottomSheetTime.text = formatTime(tripDetailsData.time)
 
-        binding.tripDetailsBottomSheet.tripBottomSheetMileage.text =
-            tripDetailsData.distance.format()
-        binding.tripDetailsBottomSheet.distanceMeasureText.text =
-            getString(R.string.dashboard_new_km)
+        tripDetailViewModel.formatter.getDistanceByKm(tripDetailsData.distance).apply {
+            binding.tripDetailsBottomSheet.tripBottomSheetMileage.text =
+                this.format()
+        }
+
+        tripDetailViewModel.formatter.getDistanceMeasureValue().apply {
+            val distValue = when (this) {
+                DistanceMeasure.KM -> R.string.dashboard_new_km
+                DistanceMeasure.MI -> R.string.dashboard_new_mi
+            }
+            binding.tripDetailsBottomSheet.distanceMeasureText.text = getString(distValue)
+        }
 
         binding.tripDetailsBottomSheet.tripBottomSheetOverallScore.setTextColor(
             when (tripDetailsData.rating) {
@@ -628,7 +628,8 @@ class TripDetailFragment : BaseFragment() {
                 listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
                 if (point.usePhone) {
                     val phoneLine = MapPolyline(GeoPolyline(listCoordinates))
-                    val phoneColor = ContextCompat.getColor(requireContext(), R.color.colorPhoneUsage)
+                    val phoneColor =
+                        ContextCompat.getColor(requireContext(), R.color.colorPhoneUsage)
                     phoneLine.lineColor = phoneColor
                     phoneLine.lineWidth = 20
                     phoneLine.capStyle = MapPolyline.CapStyle.ROUND

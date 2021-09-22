@@ -6,13 +6,15 @@ import com.telematics.data.api.UserStatisticsApi
 import com.telematics.data.mappers.*
 import com.telematics.domain.model.reward.*
 import com.telematics.domain.repository.RewardRepo
+import com.telematics.domain.repository.SettingsRepo
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 class RewardRepoImpl @Inject constructor(
     private val driveCoinsApi: DriveCoinsApi,
-    private val userStatisticsApi: UserStatisticsApi
+    private val userStatisticsApi: UserStatisticsApi,
+    private val settingsRepo: SettingsRepo
 ) : RewardRepo {
 
     override suspend fun getDaily(): List<Pair<Int, Int>> {
@@ -67,7 +69,7 @@ class RewardRepoImpl @Inject constructor(
     override suspend fun getStreaks(): List<Streak> {
 
         val data = userStatisticsApi.getStreaks().result
-        return data.toStreakList()
+        return data.toStreakList(settingsRepo.getDateMeasure())
     }
 
     override suspend fun getDrivingStreaks(): StreaksData {

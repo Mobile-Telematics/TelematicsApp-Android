@@ -9,7 +9,7 @@ import com.telematics.data.api.*
 import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
 import com.telematics.data.interceptor.MainInterceptor
-import com.telematics.data.model.tracking.DateFormatter
+import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.data.model.tracking.TripsMapper
 import com.telematics.data.repository.*
 import com.telematics.data.tracking.TrackingApiImpl
@@ -243,8 +243,9 @@ object AppModule {
     @Singleton
     fun provideRewardRepo(
         driveCoinsApi: DriveCoinsApi,
-        userStatisticsApi: UserStatisticsApi
-    ): RewardRepo = RewardRepoImpl(driveCoinsApi, userStatisticsApi)
+        userStatisticsApi: UserStatisticsApi,
+        settingsRepo: SettingsRepo
+    ): RewardRepo = RewardRepoImpl(driveCoinsApi, userStatisticsApi, settingsRepo)
 
     @Provides
     @Singleton
@@ -259,16 +260,16 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDateFormatter(): DateFormatter {
-        return DateFormatterImpl()
+    fun provideDateFormatter(settingsRepo: SettingsRepo): MeasuresFormatter {
+        return MeasuresFormatterImpl(settingsRepo)
     }
 
     @Provides
     @Singleton
     fun provideTripsMapper(
-        dateFormatter: DateFormatter
+        measuresFormatter: MeasuresFormatter
     ): TripsMapper {
-        return TripsMapper(dateFormatter)
+        return TripsMapper(measuresFormatter)
     }
 
     @Provides
@@ -282,8 +283,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSettingsRepo(): SettingsRepo {
-        return SettingsRepoImpl()
+    fun provideSettingsRepo(sharedPreferences: SharedPreferences): SettingsRepo {
+        return SettingsRepoImpl(sharedPreferences)
     }
 
     @Provides

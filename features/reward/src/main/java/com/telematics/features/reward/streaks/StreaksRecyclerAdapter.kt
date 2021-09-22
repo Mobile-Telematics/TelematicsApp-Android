@@ -24,9 +24,9 @@ class StreaksRecyclerAdapter(private val streaksList: List<Streak> = listOf()) :
         private var currentTripsCount: TextView =
             itemView.findViewById(R.id.card_current_trips_value)
         private var bestTripsCount: TextView = itemView.findViewById(R.id.card_best_trips_value)
-        private var currentDuration: TextView =
-            itemView.findViewById(R.id.card_current_duration_value)
-        private var bestDuration: TextView = itemView.findViewById(R.id.card_best_duration_value)
+        private var currentDate: TextView =
+            itemView.findViewById(R.id.card_current_date_value)
+        private var bestDate: TextView = itemView.findViewById(R.id.card_best_date_value)
 
         fun bind(streak: Streak) {
             when (streak.cardType) {
@@ -89,9 +89,9 @@ class StreaksRecyclerAdapter(private val streaksList: List<Streak> = listOf()) :
             bestValues.text = streak.bestDistance
             currentTripsCount.text = streak.currentTrips
             bestTripsCount.text = streak.bestTrips
-            currentDuration.text = streak.currentDuration
+            currentDate.text = streak.currentDate
                 ?: itemView.context.getString(R.string.current_duration_placeholder)
-            bestDuration.text = streak.bestDuration
+            bestDate.text = streak.bestDate
                 ?: itemView.context.getString(R.string.best_duration_placeholder)
         }
     }

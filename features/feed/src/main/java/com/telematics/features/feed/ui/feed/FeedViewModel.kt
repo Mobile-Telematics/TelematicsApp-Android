@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
-import com.telematics.data.model.tracking.DateFormatter
+import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.repository.SettingsRepo
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
     private val trackingUseCase: TrackingUseCase,
-    private val dateFormatter: DateFormatter,
+    private val measuresFormatter: MeasuresFormatter,
     private val settingsRepo: SettingsRepo
 ) : ViewModel() {
 
@@ -27,9 +27,9 @@ class FeedViewModel @Inject constructor(
 
     private val LOADING_COUNT = 20
 
-    val getDateFormatter: DateFormatter
+    val getMeasuresFormatter: MeasuresFormatter
         get() {
-            return dateFormatter
+            return measuresFormatter
         }
 
     private val saveStateBundle = MutableLiveData<Bundle>()

@@ -3,7 +3,12 @@ package com.telematics.zenroad.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import androidx.lifecycle.*
+import android.os.Bundle
+import androidx.core.os.bundleOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.domain.model.authentication.User
@@ -75,5 +80,25 @@ class MainFragmentViewModel @Inject constructor(
             .launchIn(viewModelScope)
 
         return profilePictureState
+    }
+
+
+    ///
+
+    private val saveStateBundle = MutableLiveData<Bundle>()
+    val getSaveStateBundle: LiveData<Bundle>
+        get() {
+            return saveStateBundle
+        }
+
+    fun saveCurrentBottomMenuState(state: Int) {
+
+        val bundle = bundleOf("bottom_state" to state)
+        saveStateBundle.value = bundle
+    }
+
+    fun bundleToListSize(bundle: Bundle): Int {
+
+        return bundle.getInt("bottom_state", 0)
     }
 }

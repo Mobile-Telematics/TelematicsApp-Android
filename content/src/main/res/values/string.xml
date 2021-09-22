@@ -2,7 +2,7 @@
     <string name="app_name">YOUR_LABEL</string>
 
     <string name="nav_item_feed">Feed</string>
-    <string name="nav_item_networks">Network</string>
+    <string name="nav_item_dashboard">Dashboard</string>
     <string name="nav_item_reward">My Rewards</string>
     <string name="nav_item_more">More</string>
     <string name="nav_item_settings">Settings</string>
@@ -179,6 +179,18 @@
     <string name="company_screen_join">JOIN</string>
     <string name="dashboard_settings_company_id_success">You have successfully joined%1$s</string>
     <string name="company_screen_invalid_code">Invite code is invalid</string>
+
+    <!--MEASURES-->
+    <string name="dashboard_settings_measures">Measures</string>
+    <string name="settings_measure_distance">Distance</string>
+    <string name="settings_measure_km">km</string>
+    <string name="settings_measure_mi">mi</string>
+    <string name="settings_measure_date_format">Date format</string>
+    <string name="settings_measure_dd_mm_yyy">dd/mm</string>
+    <string name="settings_measure_mm_dd_yyy">mm/dd</string>
+    <string name="settings_measure_time_format">Time format</string>
+    <string name="settings_measure_24h">24h</string>
+    <string name="settings_measure_12h">12h</string>
 
     <!--TRIP DETAILS-->
     <string name="trip_details_title">Trip Details</string>
