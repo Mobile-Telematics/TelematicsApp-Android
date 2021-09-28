@@ -29,6 +29,13 @@ class AccountFragment : BaseFragment() {
     private val TAG = "AccountFragment"
 
     companion object {
+
+        private var onNavToSettings: (() -> Unit)? = null
+
+        fun setOnNavigationToSettings(action: () -> Unit) {
+            onNavToSettings = action
+        }
+
         const val ACCOUNT_USER_KEY = "account_user_key"
         const val ACCOUNT_USER_BUNDLE_KEY = "account_user_bundle_key"
 
@@ -75,6 +82,10 @@ class AccountFragment : BaseFragment() {
 
         binding.accountAvatar.setOnClickListener {
             askPermissions()
+        }
+
+        binding.accountSettings.setOnClickListener {
+            onNavToSettings?.invoke()
         }
 
         //listener for update picture

@@ -105,7 +105,6 @@ object AppModule {
             addInterceptor(mainInterceptor)
             addInterceptor(instanceValuesInterceptor)
             authenticator(mainInterceptor)
-            //if (BuildConfig.DEBUG)
             addInterceptor(loggingInterceptor)
             addInterceptor(errorInterceptor)
         }.build()

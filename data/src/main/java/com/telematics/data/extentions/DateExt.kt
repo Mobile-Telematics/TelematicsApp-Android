@@ -14,16 +14,11 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by Jovan on 18/9/17.
- */
 
-// MARK: - ================== Common formats used ==================
 object DateFormatString {
     internal const val FORMAT_FOR_FILE_NAME = "yyyyMMdd_HHmmss"
     internal const val FORMAT_ISO8601 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
-    //this `XXX` pattern should be used in Android eg:"yyyy-MM-dd'T'HH:mm:ssXXX"
     internal const val FORMAT_ISO8601_JUST_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ"
     internal const val FORMAT_ISO8601_JUST_SECONDS_Z = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     internal const val FORMAT_ISO8601_JUST_SECONDS_DECIMAL = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
@@ -54,11 +49,6 @@ sealed class DateFormat(val format: String) {
     class DayMonthFullYear : DateFormat(FORMAT_DAY_MONTH_FULL_YEAR)
 }
 
-/**
- * Returns a string representation of the date
- * @param stringFormat the expected date format to parse
- * @return string representation of date
- */
 fun Date.toStringWithFormat(stringFormat: String): String {
     val format = SimpleDateFormat(stringFormat, Locale.getDefault())
     if (stringFormat == DateFormat.Iso8601DateTime().format) {
@@ -90,9 +80,6 @@ fun Date.durationFromNow(): Date {
 
 fun Date.toFullMonthAndYearOnly() = toStringWithFormat(FORMAT_FULL_MONTH_YEAR)
 
-/**
- * Return a string with format like "15th October 2018"
- */
 fun Date.toDayOrdinalAndMonthAndYear(): String {
     val cal = Calendar.getInstance()
     cal.time = this
@@ -159,11 +146,6 @@ fun Date.plusYears(years: Int = 0): Date {
     return calendar.time
 }
 
-/**
- * year
- * month
- * dayOfMonth
- */
 fun Triple<Int, Int, Int>.toTimeInMillis(): Long {
     val calendar = Calendar.getInstance()
     calendar.set(Calendar.YEAR, first)
@@ -208,10 +190,6 @@ fun String.iso8601TimeToLong(): Long? {
     return result
 }
 
-/**
- * @param dateFormat string date to translate in millisecond
- * @param dateFormat expected format for the string date, [DateFormat.Iso8601DateTime]by default
- */
 fun String.stringDateToTimeInMillis(dateFormat: DateFormat = DateFormat.ServerFormat()): Long? {
     val result: Long?
     try {
@@ -223,34 +201,15 @@ fun String.stringDateToTimeInMillis(dateFormat: DateFormat = DateFormat.ServerFo
     return result
 }
 
-/**
- * Returns a string representation in the format specified of the long date
- * @param format format of output string
- * @return returns string representation of long date
- */
 fun Long.stringWithFormat(format: String) =
     Date(this).toStringWithFormat(format)
 
-// MARK: - ================== Common formats ==================
-
-/**
- * Returns a string representation in the format specified of the long date
- * @return returns string representation of long date in 'YYYY-MM-dd'T'HH:mm:ss.SSSZ' format
- */
 fun Long?.toDateLongWithIso8601DateTimeFormat() =
     toStringWithFormat(this, DateFormat.Iso8601DateTime())
 
-/**
- * Returns a string representation in the format specified of the long date
- * @return returns string representation of long date in 'dd/MM/YY' format
- */
 fun Long?.toStringWithDisplayFormat(dateFormat: DateFormat = DateFormat.DateDisplayFormat()) =
     toStringWithFormat(this, dateFormat)
 
-/**
- * Returns a string representation in the format specified of the long date
- * @return returns string representation of long date in 'dd/MM/YY' format
- */
 fun Long?.toStringWithTimeFormat() =
     toStringWithFormat(this, DateFormat.TimeFormat())
 

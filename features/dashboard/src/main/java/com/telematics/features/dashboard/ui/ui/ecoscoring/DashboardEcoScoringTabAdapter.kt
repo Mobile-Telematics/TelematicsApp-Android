@@ -37,11 +37,8 @@ class DashboardEcoScoringTabAdapter(
         }
         if (ecoScoringTabData != null) {
             averageSpeed = measuresFormatter.getDistanceByKm(ecoScoringTabData.averageSpeed)
-            //averageSpeed = ecoScoringTabData.averageSpeed
             maxSpeed = measuresFormatter.getDistanceByKm(ecoScoringTabData.maxSpeed)
-            //maxSpeed = ecoScoringTabData.maxSpeed
             averageTripDistance = measuresFormatter.getDistanceByKm(ecoScoringTabData.averageTripDistance)
-            //averageTripDistance = ecoScoringTabData.averageTripDistance
         }
         args.putDouble(DashboardEcoScoringTabFragment.AVERAGE_SPEED_KEY, averageSpeed)
         args.putDouble(DashboardEcoScoringTabFragment.MAX_SPEED_KEY, maxSpeed)
