@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.telematics.authentication.extention.observeOnce
 import com.telematics.content.utils.BaseFragment
 import com.telematics.features.account.AccountFeatureHost
+import com.telematics.features.account.ui.account.AccountFragment
 import com.telematics.features.dashboard.ui.ui.dashboard.DashboardFragment
 import com.telematics.features.feed.FeedFeatureHost
 import com.telematics.features.leaderboard.LeaderboardFeatureHost
@@ -123,47 +124,23 @@ class MainFragment : BaseFragment() {
             if (toStreaks)
                 navToReward(true)
         }
+        AccountFragment.setOnNavigationToSettings {
+            openSettings()
+        }
     }
 
-    private fun navToFeed() {
+    private fun observeSavedBottomMenuState(action: (bottomMenuState: Int) -> Unit) {
 
-        showToolbar()
-        openFragment(FeedFeatureHost())
-    }
+        if (mainFragmentViewModel.getSaveStateBundle.value == null) {
+            action(0)
+            return
+        }
 
-    private fun navToLeaderboard() {
-
-        showToolbar()
-        openFragment(LeaderboardFeatureHost())
-    }
-
-    private fun navToDashboard() {
-
-        showToolbar()
-        observeUser()
-        openFragment(DashboardFragment())
-    }
-
-    private fun navToAccount() {
-
-        hideToolbar()
-        openFragment(AccountFeatureHost())
-    }
-
-    private fun navToReward(toStreaks: Boolean = false) {
-
-        showToolbar()
-        observeUser()
-        openFragment(RewardFeatureHost.createFragment(toStreaks))
-    }
-
-    private fun openFragment(fragment: Fragment) {
-
-        val container = R.id.main_fragment_container
-        val manager: FragmentManager = childFragmentManager
-        val transaction: FragmentTransaction = manager.beginTransaction()
-        transaction.replace(container, fragment)
-        transaction.commit()
+        mainFragmentViewModel.getSaveStateBundle.observe(viewLifecycleOwner) { bundle ->
+            val bottomMenuState = mainFragmentViewModel.bundleToListSize(bundle)
+            action(bottomMenuState)
+            mainFragmentViewModel.getSaveStateBundle.removeObservers(viewLifecycleOwner)
+        }
     }
 
     private fun initToolbar() {
@@ -179,14 +156,6 @@ class MainFragment : BaseFragment() {
         binding.mainToolbar.findViewById<View>(R.id.toolbar_settings).setOnClickListener {
             openSettings()
         }
-    }
-
-    private fun showToolbar() {
-        binding.mainToolbar.visibility = View.VISIBLE
-    }
-
-    private fun hideToolbar() {
-        binding.mainToolbar.visibility = View.GONE
     }
 
     private fun observeUser() {
@@ -246,23 +215,57 @@ class MainFragment : BaseFragment() {
         mainFragmentViewModel.setIntentForNotification(intent)
     }
 
+    private fun navToFeed() {
+
+        showToolbar()
+        openFragment(FeedFeatureHost())
+    }
+
+    private fun navToLeaderboard() {
+
+        showToolbar()
+        openFragment(LeaderboardFeatureHost())
+    }
+
+    private fun navToDashboard() {
+
+        showToolbar()
+        observeUser()
+        openFragment(DashboardFragment())
+    }
+
+    private fun navToAccount() {
+
+        hideToolbar()
+        openFragment(AccountFeatureHost())
+    }
+
+    private fun navToReward(toStreaks: Boolean = false) {
+
+        showToolbar()
+        observeUser()
+        openFragment(RewardFeatureHost.createFragment(toStreaks))
+    }
+
+    private fun openFragment(fragment: Fragment) {
+
+        val container = R.id.main_fragment_container
+        val manager: FragmentManager = childFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
+        transaction.replace(container, fragment)
+        transaction.commit()
+    }
+
     private fun openSettings() {
 
         findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
     }
 
+    private fun showToolbar() {
+        binding.mainToolbar.visibility = View.VISIBLE
+    }
 
-    private fun observeSavedBottomMenuState(action: (bottomMenuState: Int) -> Unit) {
-
-        if (mainFragmentViewModel.getSaveStateBundle.value == null) {
-            action(0)
-            return
-        }
-
-        mainFragmentViewModel.getSaveStateBundle.observe(viewLifecycleOwner) { bundle ->
-            val bottomMenuState = mainFragmentViewModel.bundleToListSize(bundle)
-            action(bottomMenuState)
-            mainFragmentViewModel.getSaveStateBundle.removeObservers(viewLifecycleOwner)
-        }
+    private fun hideToolbar() {
+        binding.mainToolbar.visibility = View.GONE
     }
 }

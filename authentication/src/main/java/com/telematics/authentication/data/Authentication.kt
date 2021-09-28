@@ -32,7 +32,6 @@ import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
 
 
-//use like login use case
 class Authentication constructor(
     private val authRepo: UserServicesRepo,
     private val sessionRepo: SessionRepo,
@@ -50,7 +49,6 @@ class Authentication constructor(
 
     override suspend fun getCurrentUserID(): String? {
         val userId = firebaseAuth.currentUser?.uid
-        //val userId = userRepo.getUserId()
         Log.d(TAG, "getCurrentUserID: $userId")
         return userId
     }
