@@ -1,7 +1,6 @@
 package com.telematics.data.api
 
 import com.telematics.data.model.tracking.ChangeEventBody
-import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST

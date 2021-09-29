@@ -274,4 +274,6 @@
     <string name="best_duration_placeholder">You haven\'t had a best yet</string>
     <string name="best_block_title">Best:</string>
 
+    <!--ERRORS-->
+    <string name="server_error_error">Service is temporarily unavailable.</string>
 </resources>
