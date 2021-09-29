@@ -35,6 +35,7 @@ android {
             buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL)
             buildConfigField("String", "tripEventTypeUrl", AppConfig.TRIP_EVENT_TYPE_URL)
             buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
+            buildConfigField("String", "SOURCE", AppConfig.SOURCE)
         }
         getByName("debug") {
             isMinifyEnabled = false
@@ -50,6 +51,7 @@ android {
             buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL_DEV)
             buildConfigField("String", "tripEventTypeUrl", AppConfig.TRIP_EVENT_TYPE_URL_DEV)
             buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
+            buildConfigField("String", "SOURCE", AppConfig.SOURCE)
         }
     }
 

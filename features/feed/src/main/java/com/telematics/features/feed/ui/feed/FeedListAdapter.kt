@@ -41,6 +41,12 @@ class FeedListAdapter(
         notifyDataSetChanged()
     }
 
+    fun removeItem(itemPosition: Int) {
+
+        dataSet.removeAt(itemPosition)
+        notifyItemRemoved(itemPosition)
+    }
+
     fun clearAllData() {
 
         lastPosition = -1
@@ -62,6 +68,12 @@ class FeedListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataSet[position])
+
+        val screenWidth = holder.itemView.context.resources.displayMetrics.widthPixels
+        holder.itemView.eventTripMainBubble.layoutParams.width = screenWidth
+        holder.itemView.eventTripMainBubble.invalidate()
+        holder.itemView.eventTripHorizontalScroll.scrollX = 0
+
         setAnimation(holder.itemView, position)
     }
 
@@ -137,6 +149,19 @@ class FeedListAdapter(
                 )
             }
 
+            itemView.eventTripDelete.setOnClickListener {
+                this@FeedListAdapter.clickListener?.onItemDelete(
+                    tripItem,
+                    this.adapterPosition
+                )
+            }
+            itemView.eventTripHide.setOnClickListener {
+                this@FeedListAdapter.clickListener?.onItemHide(
+                    tripItem,
+                    this.adapterPosition
+                )
+            }
+
             // check radio btn
             val updateViews = {
                 when (tripItem.type) {
@@ -202,5 +227,7 @@ class FeedListAdapter(
     interface ClickListeners {
         fun onItemClick(tripData: TripData, listItemPosition: Int)
         fun onItemChangeTypeClick(tripData: TripData, listItemPosition: Int)
+        fun onItemDelete(tripData: TripData, listItemPosition: Int)
+        fun onItemHide(tripData: TripData, listItemPosition: Int)
     }
 }

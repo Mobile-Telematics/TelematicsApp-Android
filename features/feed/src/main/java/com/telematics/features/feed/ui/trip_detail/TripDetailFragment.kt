@@ -473,13 +473,42 @@ class TripDetailFragment : BaseFragment() {
             }
         }
 
-        binding.tripDetailsBottomSheet.tripBottomSheetTrash.setOnClickListener {
-            showConfirmDialog {
-                //todo: tripDetail to trash
-//                tripItemFromList.tripData.id.let { id ->
-//                    presenter.toTrash(id)
-//                }
-            }
+        binding.tripDetailsBottomSheet.tripBottomSheetDelete.setOnClickListener {
+            showAnswerDialog(
+                R.string.dialog_events_delete_trip,
+                onPositive = {
+                    showProgress(true)
+                    tripDetailViewModel.setDeleteStatus(tripDetailsData.id!!)
+                        .observe(viewLifecycleOwner) { result ->
+                            result.onSuccess {
+                                finish()
+                            }
+                            result.onFailure {
+                                showMessage(R.string.server_error_error)
+                            }
+                            showProgress(false)
+                        }
+                }
+            )
+        }
+
+        binding.tripDetailsBottomSheet.tripBottomSheetHide.setOnClickListener {
+            showAnswerDialog(
+                R.string.dialog_events_hide_trip,
+                onPositive = {
+                    showProgress(true)
+                    tripDetailViewModel.hideTrip(tripDetailsData.id!!)
+                        .observe(viewLifecycleOwner) { result ->
+                            result.onSuccess {
+                                finish()
+                            }
+                            result.onFailure {
+                                showMessage(R.string.server_error_error)
+                            }
+                            showProgress(false)
+                        }
+                }
+            )
         }
     }
 
@@ -679,15 +708,10 @@ class TripDetailFragment : BaseFragment() {
 
     /** additional UIs*/
     private fun showConfirmDialog(callback: () -> Unit) {
-        val dialog = AlertDialog.Builder(requireContext())
-            .setMessage("Are you sure?")
-            .setPositiveButton("YES") { _, _ ->
-                callback()
-            }
-            .setNegativeButton("NO") { _, _ ->
-
-            }.create()
-        dialog.show()
+        showAnswerDialog(
+            R.string.are_you_sure,
+            onPositive = callback
+        )
     }
 
     private fun showEventDialog(event: TripPointData, alertType: AlertType) {

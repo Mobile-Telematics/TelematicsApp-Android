@@ -1,6 +1,7 @@
 package com.telematics.data.api
 
 import com.telematics.data.model.tracking.ChangeEventBody
+import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -14,4 +15,9 @@ interface TripEventTypeApi {
         @Path("trackToken") trackToken: String,
         @Body body: ChangeEventBody
     )
+
+    @POST("track/{trackId}/setdeleted/v1")
+    suspend fun setDeleted(
+        @Path("trackId") trackId: String,
+        @Header("DeviceToken") deviceToken: String)
 }

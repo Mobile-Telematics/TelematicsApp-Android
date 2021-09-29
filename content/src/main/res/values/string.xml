@@ -159,7 +159,9 @@
     <string name="progress_trip_type_bicycle">Bicycle</string>
     <string name="progress_trip_type_other">Other</string>
     <string name="progress_trip">Trip</string>
-    <string name="dialog_events_hide_trip">Delete this trip?</string>
+    <string name="dialog_events_delete_trip">Delete this trip?</string>
+    <string name="dialog_events_hide_trip">Hide this trip?</string>
+    <string name="are_you_sure">Are you sure?</string>
     <string name="dialog_yes">YES</string>
     <string name="dialog_no">NO</string>
     <string name="progress_event_trip">Trip</string>
