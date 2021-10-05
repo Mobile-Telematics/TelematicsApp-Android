@@ -7,7 +7,9 @@ import android.content.Intent
 import android.util.Log
 import com.raxeltelematics.v2.sdk.Settings
 import com.raxeltelematics.v2.sdk.TrackingApi
+import com.raxeltelematics.v2.sdk.server.model.sdk.TrackTag
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
+import com.telematics.data.BuildConfig
 import com.telematics.data.api.TripEventTypeApi
 import com.telematics.data.model.tracking.ChangeEventBody
 import com.telematics.data.model.tracking.TripsMapper
@@ -160,5 +162,17 @@ class TrackingApiImpl @Inject constructor(
         val deviceToken = trackingApi.getDeviceId()!!
         tripEventTypeApi.changeEvent(deviceToken, tripId, body)
         return true
+    }
+
+    override suspend fun hideTrip(tripId: String) {
+
+        val tag = TrackTag(tag = "DEL", source = BuildConfig.SOURCE)
+        trackingApi.addTrackTags(tripId, arrayOf(tag))
+    }
+
+    override suspend fun setStatusDelete(tripId: String) {
+
+        val deviceToken = trackingApi.getDeviceId()!!
+        tripEventTypeApi.setDeleted(tripId, deviceToken)
     }
 }

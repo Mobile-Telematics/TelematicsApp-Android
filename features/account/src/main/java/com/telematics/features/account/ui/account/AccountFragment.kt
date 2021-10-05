@@ -10,14 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.content.utils.BaseFragment
 import com.telematics.data.utils.PermissionUtils
 import com.telematics.data.utils.PhotoUtils
 import com.telematics.domain.model.authentication.User
+import com.telematics.domain.model.carservice.Vehicle
 import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentAccountBinding
+import com.telematics.features.account.ui.account.vehicle.VehicleFragment
 import com.telematics.features.account.ui.crop.CropFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -72,6 +76,7 @@ class AccountFragment : BaseFragment() {
 
         setListeners()
         observeUser()
+        observeVehicles()
     }
 
     private fun setListeners() {
@@ -256,5 +261,82 @@ class AccountFragment : BaseFragment() {
 
     private fun showFilePathError() {
         showMessage(getString(R.string.something_went_wrong))
+    }
+
+
+    /*vehicles*/
+    private fun observeVehicles() {
+
+        accountViewModel.getVehicles().observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                bindVehicleList(it)
+            }
+            result.onFailure {
+                showEmptyVehicle(true)
+            }
+        }
+
+        /*listeners*/
+        binding.accountVehicles.accountVehicleAddParent.setOnClickListener {
+            openAddVehicleFragment()
+        }
+        binding.accountVehicles.accountNewCarDocumentAddIcon.setOnClickListener {
+            openAddVehicleFragment()
+        }
+    }
+
+    private fun bindVehicleList(list: List<Vehicle>) {
+
+        if (list.isEmpty()) {
+            showEmptyVehicle(true)
+            return
+        }
+
+        showEmptyVehicle(false)
+
+        val adapter = VehicleListAdapter(list)
+        adapter.setOnClickListener(object : VehicleListAdapter.ClickListeners {
+            override fun onItemClick(vehicle: Vehicle, listItemPosition: Int) {
+                openVehicleFragment(vehicle)
+            }
+        })
+        binding.accountVehicles.recyclerViewAccountVehicleList.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.accountVehicles.recyclerViewAccountVehicleList.adapter = adapter
+    }
+
+    private fun showEmptyVehicle(show: Boolean) {
+
+        if (show) {
+            binding.accountVehicles.accountNewCarDocumentAddIcon.isVisible = false
+            binding.accountVehicles.recyclerViewAccountVehicleList.isVisible = false
+            binding.accountVehicles.accountVehicleAddParent.isVisible = true
+            binding.accountVehicles.accountVehicleAddParent.alpha = 0f
+            binding.accountVehicles.accountVehicleAddParent.animate().setDuration(200).alpha(1f)
+                .start()
+        } else {
+            binding.accountVehicles.accountVehicleAddParent.isVisible = false
+            binding.accountVehicles.recyclerViewAccountVehicleList.isVisible = true
+            binding.accountVehicles.accountNewCarDocumentAddIcon.isVisible = true
+            binding.accountVehicles.recyclerViewAccountVehicleList.alpha = 0f
+            binding.accountVehicles
+                .recyclerViewAccountVehicleList.animate().setDuration(300).alpha(1f)
+            binding.accountVehicles.accountNewCarDocumentAddIcon.alpha = 0f
+            binding
+                .accountVehicles.accountNewCarDocumentAddIcon.animate().setDuration(200).alpha(1f)
+        }
+    }
+
+    private fun openAddVehicleFragment() {
+
+        openVehicleFragment(null)
+    }
+
+    private fun openVehicleFragment(vehicle: Vehicle?) {
+
+        val bundle = bundleOf(
+            VehicleFragment.VEHICLE_FRAGMENT_VEHICLE_KEY to vehicle
+        )
+        findNavController().navigate(R.id.action_accountFragment_to_vehicleFragment, bundle)
     }
 }

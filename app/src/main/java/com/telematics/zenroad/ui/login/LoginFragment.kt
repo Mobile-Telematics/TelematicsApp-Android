@@ -314,10 +314,10 @@ class LoginFragment : BaseFragment() {
                 AuthErrorCode.EMPTY_DEVICE_TOKEN -> showRegistrationDialog()
                 AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage(R.string.auth_error_invalid_email_password)
                 AuthErrorCode.NETWORK_EXCEPTION -> showLoginFailedMessage(R.string.auth_error_network)
-                else -> showLoginFailedMessage(R.string.auth_error_unknown)
+                else -> showLoginFailedMessage(R.string.error_unknown)
             }
         } else {
-            showLoginFailedMessage(R.string.auth_error_unknown)
+            showLoginFailedMessage(R.string.error_unknown)
         }
     }
 

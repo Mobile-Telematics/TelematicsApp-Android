@@ -16,9 +16,7 @@ import kotlinx.android.synthetic.main.layout_trip_item.view.*
 import kotlin.math.roundToInt
 
 
-class FeedListAdapter(
-    private val formatter: MeasuresFormatter
-) :
+class FeedListAdapter(private val formatter: MeasuresFormatter) :
     RecyclerView.Adapter<FeedListAdapter.ViewHolder>() {
 
     private var dataSet: MutableList<TripData> = mutableListOf()
@@ -39,6 +37,12 @@ class FeedListAdapter(
 
         dataSet.addAll(data)
         notifyDataSetChanged()
+    }
+
+    fun removeItem(itemPosition: Int) {
+
+        dataSet.removeAt(itemPosition)
+        notifyItemRemoved(itemPosition)
     }
 
     fun clearAllData() {
@@ -62,6 +66,12 @@ class FeedListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataSet[position])
+
+        val screenWidth = holder.itemView.context.resources.displayMetrics.widthPixels
+        holder.itemView.eventTripMainBubble.layoutParams.width = screenWidth
+        holder.itemView.eventTripMainBubble.invalidate()
+        holder.itemView.eventTripHorizontalScroll.scrollX = 0
+
         setAnimation(holder.itemView, position)
     }
 
@@ -85,13 +95,9 @@ class FeedListAdapter(
         }
     }
 
-    inner class ViewHolder(
-        view: View
-    ) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(
-            tripItem: TripData
-        ) {
+        fun bind(tripItem: TripData) {
 
             val context = itemView.context
 
@@ -127,13 +133,29 @@ class FeedListAdapter(
             )
 
             itemView.eventTripDetailsClickArea.setOnClickListener {
-                this@FeedListAdapter.clickListener?.onItemClick(tripItem, this.adapterPosition)
+                this@FeedListAdapter.clickListener?.onItemClick(
+                    tripItem,
+                    this.absoluteAdapterPosition
+                )
             }
 
             itemView.item_event_type_layout.setOnClickListener {
                 this@FeedListAdapter.clickListener?.onItemChangeTypeClick(
                     tripItem,
-                    this.adapterPosition
+                    this.absoluteAdapterPosition
+                )
+            }
+
+            itemView.eventTripDelete.setOnClickListener {
+                this@FeedListAdapter.clickListener?.onItemDelete(
+                    tripItem,
+                    this.absoluteAdapterPosition
+                )
+            }
+            itemView.eventTripHide.setOnClickListener {
+                this@FeedListAdapter.clickListener?.onItemHide(
+                    tripItem,
+                    this.absoluteAdapterPosition
                 )
             }
 
@@ -202,5 +224,7 @@ class FeedListAdapter(
     interface ClickListeners {
         fun onItemClick(tripData: TripData, listItemPosition: Int)
         fun onItemChangeTypeClick(tripData: TripData, listItemPosition: Int)
+        fun onItemDelete(tripData: TripData, listItemPosition: Int)
+        fun onItemHide(tripData: TripData, listItemPosition: Int)
     }
 }

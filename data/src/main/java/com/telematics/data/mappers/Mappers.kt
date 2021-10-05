@@ -1,12 +1,19 @@
 package com.telematics.data.mappers
 
 import com.telematics.data.R
+import com.telematics.data.model.carservice.CarRest
+import com.telematics.data.model.carservice.CarUpdateBody
+import com.telematics.data.model.carservice.ManufacturerRest
+import com.telematics.data.model.carservice.ModelRest
 import com.telematics.data.model.company_id.InstanceNameBody
 import com.telematics.data.model.rest.ApiResult
 import com.telematics.data.model.reward.*
 import com.telematics.data.model.statistics.*
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
+import com.telematics.domain.model.carservice.ManufacturerData
+import com.telematics.domain.model.carservice.ModelData
+import com.telematics.domain.model.carservice.Vehicle
 import com.telematics.domain.model.company_id.InstanceName
 import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
@@ -589,4 +596,58 @@ fun InstanceNameBody?.toInstanceName(): InstanceName {
         this.instanceName,
         true
     )
+}
+
+fun CarRest?.toVehicle(): Vehicle {
+    this ?: return Vehicle()
+    val car = this
+
+    val mileage = car.initialMilage?.toDoubleOrNull()?.toInt()?.toString()
+    return Vehicle(
+        car.plateNumber,
+        car.vin,
+        car.manufacturer,
+        car.manufacturerId,
+        car.model,
+        car.modelId,
+        car.name,
+        car.carYear,
+        mileage,
+        car.token,
+        car.activated,
+        car.company,
+        car.type,
+        car.specialMarks,
+        car.nvic,
+        car.vehicleIdString
+    )
+}
+
+fun Vehicle.toCarUpdateBody(): CarUpdateBody {
+
+    val vehicle = this
+    return CarUpdateBody(
+        plateNumber = vehicle.plateNumber.orEmpty(),
+        vin = vehicle.vin.orEmpty(),
+        manufacturer = vehicle.manufacturer,
+        manufacturerId = vehicle.manufacturerId,
+        model = vehicle.model,
+        modelId = vehicle.modelId,
+        type = vehicle.type.orEmpty(),
+        name = vehicle.name.orEmpty(),
+        carYear = vehicle.carYear,
+        initialMileage = vehicle.initialMileage
+    )
+}
+
+fun ManufacturerRest.toManufacturerData(): ManufacturerData {
+
+    val manufacturerRest = this
+    return ManufacturerData(manufacturerRest.id, manufacturerRest.name)
+}
+
+fun ModelRest.toModelData(): ModelData {
+
+    val modelRest = this
+    return ModelData(modelRest.id, modelRest.name)
 }

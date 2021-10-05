@@ -208,6 +208,24 @@ object AppModule {
         return retrofit.create(RefreshApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideCarServiceApi(
+        loggingInterceptor: HttpLoggingInterceptor,
+        converterFactory: Converter.Factory
+    ): CarServiceApi {
+        val client = OkHttpClient.Builder().apply {
+            if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
+        }.build()
+        val retrofit = Retrofit
+            .Builder()
+            .client(client)
+            .baseUrl(BuildConfig.carServiceUrl)
+            .addConverterFactory(converterFactory)
+            .build()
+        return retrofit.create(CarServiceApi::class.java)
+    }
+
     @Provides
     @Singleton
     fun provideAuthRepo(loginApi: LoginApi): UserServicesRepo = AuthRepoImpl(loginApi)
@@ -245,6 +263,13 @@ object AppModule {
         userStatisticsApi: UserStatisticsApi,
         settingsRepo: SettingsRepo
     ): RewardRepo = RewardRepoImpl(driveCoinsApi, userStatisticsApi, settingsRepo)
+
+    @Provides
+    @Singleton
+    fun provideCarServiceRepo(
+        carServiceApi: CarServiceApi,
+        userRepo: UserRepo
+    ): CarServiceRepo = CarServiceRepoImpl(carServiceApi, userRepo)
 
     @Provides
     @Singleton

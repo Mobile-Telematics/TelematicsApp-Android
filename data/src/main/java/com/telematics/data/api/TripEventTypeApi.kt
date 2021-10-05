@@ -14,4 +14,9 @@ interface TripEventTypeApi {
         @Path("trackToken") trackToken: String,
         @Body body: ChangeEventBody
     )
+
+    @POST("track/{trackId}/setdeleted/v1")
+    suspend fun setDeleted(
+        @Path("trackId") trackId: String,
+        @Header("DeviceToken") deviceToken: String)
 }

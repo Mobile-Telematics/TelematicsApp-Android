@@ -108,4 +108,20 @@ class TrackingUseCase
             emit(data)
         }
     }
+
+    fun hideTrip(tripId: String): Flow<Unit> {
+
+        return flow {
+            val data = trackingApiRepo.hideTrip(tripId)
+            emit(data)
+        }
+    }
+
+    fun setDeleteStatus(tripId: String): Flow<Unit> {
+
+        return flow {
+            val data = trackingApiRepo.setStatusDelete(tripId)
+            emit(data)
+        }
+    }
 }

@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.telematics.content.utils.BaseFragment
 import com.telematics.content.utils.TryOpenLink
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.features.feed.model.ChangeDriverTypeDialog
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class FeedFragment : Fragment() {
+class FeedFragment : BaseFragment() {
 
     private val TAG = "FeedFragment"
 
@@ -67,6 +67,31 @@ class FeedFragment : Fragment() {
         feedListAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
+        /*swipe*/
+
+//        val onSwipe = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+//            override fun onMove(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder,
+//                target: RecyclerView.ViewHolder
+//            ): Boolean = false
+//
+//
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                when (direction) {
+//                    ItemTouchHelper.LEFT -> {
+//
+//                    }
+//                    ItemTouchHelper.RIGHT -> {
+//
+//                    }
+//                }
+//            }
+//        }
+//
+//        val itemTouchHelper = ItemTouchHelper(onSwipe)
+//        itemTouchHelper.attachToRecyclerView(recyclerView)
+
         recyclerView.adapter = feedListAdapter
 
         scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
@@ -109,6 +134,14 @@ class FeedFragment : Fragment() {
                 changeDriverTypeDialog.showDialog(tripType) { type ->
                     changeTripTypeTo(tripData, type, listItemPosition)
                 }
+            }
+
+            override fun onItemHide(tripData: TripData, listItemPosition: Int) {
+                hideTrip(tripData, listItemPosition)
+            }
+
+            override fun onItemDelete(tripData: TripData, listItemPosition: Int) {
+                setDeleteStatus(tripData, listItemPosition)
             }
         })
     }
@@ -188,6 +221,40 @@ class FeedFragment : Fragment() {
         feedViewModel.saveCurrentListSize(feedListAdapter.itemCount)
     }
 
+    private fun setDeleteStatus(tripData: TripData, listItemPosition: Int) {
+
+        showAnswerDialog(
+            R.string.dialog_events_delete_trip,
+            onPositive = {
+                feedViewModel.setDeleteStatus(tripData).observe(viewLifecycleOwner) { result ->
+                    result.onSuccess {
+                        feedListAdapter.removeItem(listItemPosition)
+                    }
+                    result.onFailure {
+                        showMessage(R.string.server_error_error)
+                    }
+                }
+            }
+        )
+    }
+
+    private fun hideTrip(tripData: TripData, listItemPosition: Int) {
+
+        showAnswerDialog(
+            R.string.dialog_events_hide_trip,
+            onPositive = {
+                feedViewModel.hideTrip(tripData).observe(viewLifecycleOwner) { result ->
+                    result.onSuccess {
+                        feedListAdapter.removeItem(listItemPosition)
+                    }
+                    result.onFailure {
+                        showMessage(R.string.server_error_error)
+                    }
+                }
+            }
+        )
+    }
+
     /** show dialog for change trip type */
     private fun changeTripTypeTo(
         tripData: TripData,
@@ -228,7 +295,7 @@ class FeedFragment : Fragment() {
 
     private fun showEmptyData(show: Boolean) {
 
-        binding.eventsEmptyList.alpha = if(show) 1f else 0f
+        binding.eventsEmptyList.alpha = if (show) 1f else 0f
     }
 
     private fun tryOpenLink() {

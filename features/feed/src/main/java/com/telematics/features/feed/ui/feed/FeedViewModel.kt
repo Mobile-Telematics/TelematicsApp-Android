@@ -63,6 +63,26 @@ class FeedViewModel @Inject constructor(
         return changeState
     }
 
+    fun setDeleteStatus(tripData: TripData): LiveData<Result<Unit>> {
+
+        val deleteState = MutableLiveData<Result<Unit>>()
+        trackingUseCase.setDeleteStatus(tripData.id!!)
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(deleteState)
+            .launchIn(viewModelScope)
+        return deleteState
+    }
+
+    fun hideTrip(tripData: TripData): LiveData<Result<Unit>> {
+
+        val deleteState = MutableLiveData<Result<Unit>>()
+        trackingUseCase.hideTrip(tripData.id!!)
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(deleteState)
+            .launchIn(viewModelScope)
+        return deleteState
+    }
+
     fun saveCurrentListSize(tripListSize: Int) {
 
         val bundle = bundleOf(SAVE_LIST_STATE_BUNDLE_KEY to tripListSize)

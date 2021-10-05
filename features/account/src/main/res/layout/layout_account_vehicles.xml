@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/account_docs_margin_horizontal"
+        android:layout_marginEnd="@dimen/account_docs_margin_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/account_my_cars"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/account_list_label_text_size" />
+
+        <!-- Add icon -->
+        <ImageView
+            android:id="@+id/accountNewCarDocumentAddIcon"
+            android:layout_width="@dimen/acc_wizard_document_add_button_size"
+            android:layout_height="@dimen/acc_wizard_document_add_button_size"
+            android:background="@drawable/ic_dot_green"
+            android:padding="@dimen/acc_wizard_document_add_button_padding"
+            android:src="@drawable/ic_wizard_plus"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/cars_progress"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAccountVehicleList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/acc_wizard_document_bubble_margin"
+        android:layout_marginEnd="@dimen/acc_wizard_document_bubble_margin"
+        android:clipToPadding="false"
+        android:drawSelectorOnTop="true" />
+
+    <!-- Empty Data Button -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/accountVehicleAddParent"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/acc_wizard_document_bubble_margin"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/acc_wizard_document_bubble_margin"
+        android:background="@drawable/ic_wizard_back_bubble_smallest"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/accountVehicleAddIcon"
+            android:layout_width="@dimen/acc_wizard_document_add_button_size"
+            android:layout_height="@dimen/acc_wizard_document_add_button_size"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_dot_orange"
+            android:backgroundTint="@color/colorGreenText"
+            android:padding="@dimen/acc_wizard_document_add_button_padding"
+            android:src="@drawable/ic_wizard_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/accountVehicleAddText"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/accountVehicleAddText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/acc_wizard_document_info_margin_start"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/account_add_new_car"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/acc_wizard_document_upload_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/accountVehicleAddIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
