@@ -39,4 +39,7 @@ object AppConfig {
 
     const val TRIP_EVENT_TYPE_URL = "\"https://mobilesdk.telematicssdk.com/mobilesdk/stage/\""
     const val TRIP_EVENT_TYPE_URL_DEV = "\"https://mobilesdk.telematicssdk.com/mobilesdk/stage/\""
+
+    const val OBD_API_ENDPOINT = "\"https://services.telematicssdk.com/api/carservice/\""
+    const val OBD_API_ENDPOINT_DEV = "\"https://services.telematicssdk.com/api/carservice/\""
 }

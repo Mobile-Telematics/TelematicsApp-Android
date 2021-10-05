@@ -3,6 +3,7 @@ plugins {
     id(Plugins.daggerHiltPlugin)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
+    id(Plugins.kotlinAndroidExtensions)
 }
 
 android {
@@ -67,4 +68,5 @@ dependencies {
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
 
     implementation(AppDependencies.cropView)
+    implementation(AppDependencies.recyclerView)
 }

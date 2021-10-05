@@ -6,16 +6,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
-import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.domain.model.authentication.User
+import com.telematics.domain.model.carservice.Vehicle
 import com.telematics.features.account.use_case.LoginUseCase
+import com.telematics.features.account.use_case.VehicleUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
 class AccountViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val vehicleUseCase: VehicleUseCase
 ) : ViewModel() {
 
     fun getUser(): LiveData<Result<User>> {
@@ -46,5 +48,15 @@ class AccountViewModel @Inject constructor(
             .setLiveDataForResult(profilePictureState)
             .launchIn(viewModelScope)
         return profilePictureState
+    }
+
+    fun getVehicles(): LiveData<Result<List<Vehicle>>> {
+
+        val vehiclesState = MutableLiveData<Result<List<Vehicle>>>()
+        vehicleUseCase.getVehicles()
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(vehiclesState)
+            .launchIn(viewModelScope)
+        return vehiclesState
     }
 }

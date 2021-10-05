@@ -311,10 +311,10 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="@dimen/feed_event_bubble_layout_margin_side"
                 android:layout_marginBottom="@dimen/feed_event_scroll_layout_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/eventTripHide"
@@ -323,8 +323,8 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/feed_circle"
                     android:padding="11dp"
+                    android:layout_marginBottom="12dp"
                     android:visibility="visible"
-                    android:layout_marginEnd="8dp"
                     app:srcCompat="@drawable/ic_event_hide" />
 
                 <ImageView

@@ -319,7 +319,7 @@ class RegistrationFragment : BaseFragment() {
                 AuthErrorCode.EMAIL_ALREADY_IN_USE -> showLoginFailedMessage(R.string.auth_error_email_already_in_use)
                 AuthErrorCode.INVALID_PASSWORD -> showLoginFailedMessage(R.string.auth_error_invalid_email_password)
                 AuthErrorCode.NETWORK_EXCEPTION -> showLoginFailedMessage(R.string.auth_error_network)
-                else -> showLoginFailedMessage(R.string.auth_error_unknown)
+                else -> showLoginFailedMessage(R.string.error_unknown)
             }
         }
     }

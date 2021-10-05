@@ -65,6 +65,20 @@
     <string name="account_complete_btn">Complete Profile</string>
     <string name="acc_wizard_btn_save">Save</string>
     <string name="account_access_permission_msg">Please allow access to camera and media</string>
+    <string name="account_my_cars">My Vehicles</string>
+    <string name="account_add_new_car">Add new vehicle</string>
+    <string name="obd_device_activated">Device Activated</string>
+    <!--car-->
+    <string name="vehicle_licence_plate">LICENSE PLATE</string>
+    <string name="vehicle_vin_number">VIN NUMBER</string>
+    <string name="vehicle_make_model">MAKE &amp; MODEL</string>
+    <string name="vehicle_manufacturer">MAKE</string>
+    <string name="vehicle_model">MODEL</string>
+    <string name="vehicle_car_name">CAR NICKNAME</string>
+    <string name="acc_wizard_car_year">CAR YEAR</string>
+    <string name="vehicle_initial_mileage">INITIAL MILEAGE</string>
+    <string name="obd_please_check_your_internet_connection_and_try_again">Please, check your internet connection and try again</string>
+    <string name="obd_search">Search</string>
 
     <!-- Account Wizard Profile -->
     <string name="acc_wizard_name">FIRST NAME</string>
@@ -132,7 +146,7 @@
     <string name="template_mi">%1$s mi</string>
 
     <!--authorization errors message-->
-    <string name="auth_error_unknown">Unknown error</string>
+    <string name="error_unknown">Unknown error</string>
     <string name="auth_error_invalid_email_password">Invalid email or password</string>
     <string name="auth_error_network">Check your network connection</string>
     <string name="auth_error_empty_email">Email field must be filled</string>

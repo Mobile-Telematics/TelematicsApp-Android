@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/ic_wizard_back_bubble_smallest"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/carClickArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/acc_wizard_document_click_area_margin"
+        android:layout_marginEnd="@dimen/acc_wizard_document_click_area_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Doc photo/icon -->
+        <ImageView
+            android:id="@+id/carIcon"
+            android:layout_width="@dimen/acc_wizard_document_icon_width"
+            android:layout_height="@dimen/acc_wizard_document_icon_height"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_account_car" />
+
+        <!-- Document Data area -->
+        <LinearLayout
+            android:id="@+id/carData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/acc_wizard_document_info_margin_start"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/carLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/open_sans_bold"
+                android:maxLines="1"
+                android:textAlignment="textStart"
+                android:textColor="@color/elm_connected_text_color"
+                android:textSize="16sp"
+                tools:text="Mercedes-Benz W140" />
+
+            <!-- Doc Number -->
+            <TextView
+                android:id="@+id/carConnectedStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:text="@string/obd_device_activated"
+                android:textColor="@color/colorPrimaryLightText" />
+
+        </LinearLayout>
+
+
+        <!-- Arrow Button -->
+        <ImageView
+            android:id="@+id/accountDocumentArrow"
+            android:layout_width="@dimen/acc_wizard_document_arrow_icon_size"
+            android:layout_height="@dimen/acc_wizard_document_arrow_icon_size"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_dash_arrow_right_gray"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+</LinearLayout>

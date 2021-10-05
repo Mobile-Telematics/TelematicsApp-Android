@@ -16,9 +16,7 @@ import kotlinx.android.synthetic.main.layout_trip_item.view.*
 import kotlin.math.roundToInt
 
 
-class FeedListAdapter(
-    private val formatter: MeasuresFormatter
-) :
+class FeedListAdapter(private val formatter: MeasuresFormatter) :
     RecyclerView.Adapter<FeedListAdapter.ViewHolder>() {
 
     private var dataSet: MutableList<TripData> = mutableListOf()
@@ -97,13 +95,9 @@ class FeedListAdapter(
         }
     }
 
-    inner class ViewHolder(
-        view: View
-    ) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(
-            tripItem: TripData
-        ) {
+        fun bind(tripItem: TripData) {
 
             val context = itemView.context
 
@@ -139,26 +133,29 @@ class FeedListAdapter(
             )
 
             itemView.eventTripDetailsClickArea.setOnClickListener {
-                this@FeedListAdapter.clickListener?.onItemClick(tripItem, this.adapterPosition)
+                this@FeedListAdapter.clickListener?.onItemClick(
+                    tripItem,
+                    this.absoluteAdapterPosition
+                )
             }
 
             itemView.item_event_type_layout.setOnClickListener {
                 this@FeedListAdapter.clickListener?.onItemChangeTypeClick(
                     tripItem,
-                    this.adapterPosition
+                    this.absoluteAdapterPosition
                 )
             }
 
             itemView.eventTripDelete.setOnClickListener {
                 this@FeedListAdapter.clickListener?.onItemDelete(
                     tripItem,
-                    this.adapterPosition
+                    this.absoluteAdapterPosition
                 )
             }
             itemView.eventTripHide.setOnClickListener {
                 this@FeedListAdapter.clickListener?.onItemHide(
                     tripItem,
-                    this.adapterPosition
+                    this.absoluteAdapterPosition
                 )
             }
 
