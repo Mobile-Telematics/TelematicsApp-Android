@@ -19,6 +19,7 @@ import com.telematics.authentication.exception.AuthException
 import com.telematics.authentication.extention.await
 import com.telematics.authentication.mapper.Mapper
 import com.telematics.authentication.model.UserDatabase
+import com.telematics.data.BuildConfig
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.*
@@ -27,6 +28,7 @@ import com.telematics.domain.repository.AuthenticationRepo
 import com.telematics.domain.repository.SessionRepo
 import com.telematics.domain.repository.UserRepo
 import com.telematics.domain.repository.UserServicesRepo
+import com.telematicssdk.auth.TelematicsAuth
 import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
@@ -40,6 +42,9 @@ class Authentication constructor(
 ) : AuthenticationRepo {
 
     private val TAG = "Authentication"
+
+    private val INSTANCE_ID = BuildConfig.INSTANCE_ID
+    private val INSTANCE_KEY = BuildConfig.INSTANCE_KEY
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = Firebase.database.reference
@@ -58,7 +63,10 @@ class Authentication constructor(
     }
 
     override suspend fun loginAPI(deviceToken: String): SessionData {
-        val data = authRepo.loginWithDeviceToken(deviceToken)
+
+        val loginResult = TelematicsAuth.login(INSTANCE_ID, INSTANCE_KEY, deviceToken).await()
+        val data = SessionData(loginResult.accessToken, loginResult.refreshToken, null)
+        //val data = authRepo.loginWithDeviceToken(deviceToken)
         sessionRepo.saveSession(data)
         return data
     }
@@ -171,6 +179,25 @@ class Authentication constructor(
 
         //update user in API user.telematicssdk.com
         authRepo.updateUser(newUser)
+
+        newUser.maritalStatus
+
+//        TelematicsAuth.updateUserProfile(
+//            INSTANCE_ID,
+//            INSTANCE_KEY,
+//            userRepo.getDeviceToken(),
+//            userRepo.getUserId()!!,
+//            newUser.email,
+//            newUser.phone,
+//            newUser.clientId,
+//            newUser.firstName,
+//            newUser.lastName,
+//            "1970-01-01'T'00:00:00", //format: yyyy-MM-dd'T'HH:mm:ss
+//            null,
+//            0,
+//            newUser.address,
+//            Gender.None
+//        ).await()
 
         val userDatabase = Mapper.userToUserDatabase(newUser)
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
