@@ -69,4 +69,24 @@ class TripDetailViewModel @Inject constructor(
             .launchIn(viewModelScope)
         return changeState
     }
+
+    fun hideTrip(tripId: String): LiveData<Result<Unit>> {
+
+        val deleteState = MutableLiveData<Result<Unit>>()
+        trackingUseCase.hideTrip(tripId)
+            .flowOn(Dispatchers.Main)
+            .setLiveDataForResult(deleteState)
+            .launchIn(viewModelScope)
+        return deleteState
+    }
+
+    fun setDeleteStatus(tripId: String): LiveData<Result<Unit>> {
+
+        val deleteState = MutableLiveData<Result<Unit>>()
+        trackingUseCase.setDeleteStatus(tripId)
+            .flowOn(Dispatchers.Main)
+            .setLiveDataForResult(deleteState)
+            .launchIn(viewModelScope)
+        return deleteState
+    }
 }

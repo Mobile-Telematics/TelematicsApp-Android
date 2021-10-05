@@ -220,7 +220,20 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/tripBottomSheetTrash"
+                        android:id="@+id/tripBottomSheetHide"
+                        android:layout_width="@dimen/trip_details_round_button_icon_size"
+                        android:layout_height="@dimen/trip_details_round_button_icon_size"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/ic_event_trip_bubble_type_bg"
+                        android:backgroundTint="@android:color/white"
+                        android:elevation="1dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_event_hide"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/tripBottomSheetDelete"
                         android:layout_width="@dimen/trip_details_round_button_icon_size"
                         android:layout_height="@dimen/trip_details_round_button_icon_size"
                         android:layout_gravity="center"
@@ -230,7 +243,7 @@
                         android:elevation="1dp"
                         android:padding="8dp"
                         android:src="@drawable/ic_event_trash"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                 </LinearLayout>
 

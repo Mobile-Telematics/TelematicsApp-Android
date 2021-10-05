@@ -20,19 +20,28 @@
             app:destination="@id/cropFragment"
             app:enterAnim="@anim/slide_in"
             app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_accountFragment_to_vehicleFragment"
+            app:destination="@id/vehicleFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.telematics.features.account.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile">
-    </fragment>
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/cropFragment"
         android:name="com.telematics.features.account.ui.crop.CropFragment"
         android:label="CropFragment"
-        tools:layout="@layout/fragment_crop_image">
-    </fragment>
+        tools:layout="@layout/fragment_crop_image" />
+
+    <fragment
+        android:id="@+id/vehicleFragment"
+        android:name="com.telematics.features.account.ui.account.vehicle.VehicleFragment"
+        android:label="VehicleFragment"
+        tools:layout="@layout/fragment_vehicle" />
 </navigation>
