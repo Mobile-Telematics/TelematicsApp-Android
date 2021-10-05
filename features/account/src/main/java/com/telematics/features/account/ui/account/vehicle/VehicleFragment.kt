@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import com.telematics.content.utils.BaseFragment
 import com.telematics.domain.model.authentication.User
 import com.telematics.domain.model.carservice.Vehicle
@@ -123,6 +124,35 @@ class VehicleFragment : BaseFragment() {
                 }
             }
         })
+
+        binding.vehicleCarYear.doOnTextChanged { text, start, count, after ->
+
+            if (text?.isEmpty() == true) {
+                return@doOnTextChanged
+            }
+
+            val year =
+                if (text.toString().isNotBlank())
+                    try {
+                        text.toString().toInt()
+                    } catch (e: Exception) {
+                        null
+                    }
+                else -1
+
+            if (year == null) {
+                binding.vehicleCarYear.error = "Invalid year"
+            } else {
+                when {
+                    year > Calendar.getInstance().get(Calendar.YEAR) -> {
+                        binding.vehicleCarYear.error = "Invalid year"
+                    }
+                    year <= 0 -> {
+                        binding.vehicleCarYear.error = "Invalid year"
+                    }
+                }
+            }
+        }
 
         binding.vehicleModelChoose.hide()
     }
