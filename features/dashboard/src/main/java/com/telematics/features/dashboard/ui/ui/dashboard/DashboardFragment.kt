@@ -39,7 +39,6 @@ import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import kotlinx.android.synthetic.main.fragment_new_dashboard_rank.*
 import kotlinx.android.synthetic.main.layout_eco_scoring_dashboard.*
 import kotlinx.android.synthetic.main.layout_last_trip_dashboard.view.*
-import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -284,6 +283,7 @@ class DashboardFragment : Fragment() {
         val data = inData ?: UserStatisticsIndividualData()
 
         //top data
+        binding.progressValue.max = DISTANCE_LIMIT
         binding.progressValue.progress = data.mileageKm.roundToInt()
 
         //scoring
@@ -352,18 +352,19 @@ class DashboardFragment : Fragment() {
         binding.include4.ecoScoringMainScore.backgroundTintList =
             ColorStateList.valueOf(Color.LTGRAY)
 
-        val stringRes = dashboardViewModel.measuresFormatter.getDistanceMeasureValue().let {
+        val distanceString = dashboardViewModel.measuresFormatter.getDistanceMeasureValue().let {
             return@let when (it) {
-                DistanceMeasure.KM -> R.string.dashboard_new_km
-                DistanceMeasure.MI -> R.string.dashboard_new_mi
+                DistanceMeasure.KM -> getString(R.string.dashboard_new_km)
+                DistanceMeasure.MI -> getString(R.string.dashboard_new_mi)
             }
         }
 
-        binding.dashboardDistanceValue.text = resources.getString(
-            stringRes,
-            dashboardViewModel.measuresFormatter.getDistanceByKm(data.mileageKm).format("0"),
-            DISTANCE_LIMIT.toString()
-        )
+        val distanceValue =
+            dashboardViewModel.measuresFormatter.getDistanceByKm(data.mileageKm).roundToInt()
+        val distanceLimitValue =
+            dashboardViewModel.measuresFormatter.getDistanceByKm(DISTANCE_LIMIT).roundToInt()
+        val distanceText = "$distanceValue $distanceString / $distanceLimitValue $distanceString"
+        binding.dashboardDistanceValue.text = distanceText
 
 
         val outputData = StatisticEcoScoringTabsData(
@@ -533,7 +534,8 @@ class DashboardFragment : Fragment() {
                     overallScoreColor
                 )
 
-                binding.include3.eventTripMileage.text = dashboardViewModel.measuresFormatter.getDistanceByKm(tripData.dist).format()
+                binding.include3.eventTripMileage.text =
+                    dashboardViewModel.measuresFormatter.getDistanceByKm(tripData.dist).format()
                 val stringRes = dashboardViewModel.measuresFormatter.getDistanceMeasureValue().let {
                     return@let when (it) {
                         DistanceMeasure.KM -> R.string.dashboard_new_km
