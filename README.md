@@ -95,6 +95,25 @@ const val TERMS_OF_USE = "YOUR_TERMS_OF_USE_LINK" //for example"https://www.tele
 To set application icon, find the content module icon in resource folders (res/mipmap, res/mipmap-hdpi, etc.) and replace it. And for change background icon color set ic_launcher_background in color.xml:
 <color name="ic_launcher_background">#your_color</color>
 
+## Telematics SDK Setup
+
+We are using the Gradle auto build system. 
+The Telematics SDK is installed automatically in the Telematics app. After downloading this application for the first time, you need to run the `Sync Project with Gradle Files` command. This will install the required dependency libraries for the application to function properly. To upgrade the Telematics SDK version, go to the `Versions` file ( module: buildSrc) and change the `const val trackingApi` parameter. This repository will always use the current version of the Telematics SDK.
+
+## Telematics SDK | Permission Wizard
+
+An important part to record user's trips is to properly request permissions to use the user's Location and Motion & Fitness activity. Telematics SDK includes a specially designed `Wizard` that helps the user explain why the application needs it and make the right choice.
+Note: this wizard is fully cutomizable, you can find the documentation here: https://docs.telematicssdk.com/docs/android-sdk-integration
+
+For use your own icon to the notification, place your own icons to res/drawable (module: content) folders with the following names: `ic_tracking_sdk_status_bar.png`, `ic_tracking_sdk_notification.png`.
+For change Wizard next button background color you need edit `layout_telematics_wizard_page.xml` (modile: data).
+
+## LoginAuthFramework Authentication
+
+We have created a special Framework that allows you to receive `deviceToken`, `jwToken` & `refreshToken` for full integration with our services. These keys are required to make calls to our APIs.
+`LoginAuth Framework` is already integrated into this Telematics App. After downloading this application for the first time, you need to run the `Sync Project with Gradle Files` command. This will install the required dependency libraries for the application to function properly. To upgrade the Telematics SDK version, go to the `Versions` file ( module: buildSrc) and change the `const val loginAuthFramework` parameter. This repository will always use the current version of the LoginAuthFramework.
+You can find complete information about LoginAuth Framework in our repository https://github.com/Mobile-Telematics/LoginAuthFramework-Android
+
 ## Dashboard features
 
 Our goal is to provide your users with a user-friendly interface to get the best user experience.
