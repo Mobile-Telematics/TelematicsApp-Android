@@ -59,7 +59,16 @@ class Authentication constructor(
     }
 
     override suspend fun registrationCreateAPI(): RegistrationApiData {
-        return authRepo.registration()
+
+        val createResult =
+            TelematicsAuth.createDeviceToken(INSTANCE_ID, INSTANCE_KEY).await()
+        //val data = authRepo.registration()
+        return RegistrationApiData(
+            createResult.deviceToken,
+            createResult.accessToken,
+            createResult.refreshToken,
+            null
+        )
     }
 
     override suspend fun loginAPI(deviceToken: String): SessionData {
@@ -179,25 +188,6 @@ class Authentication constructor(
 
         //update user in API user.telematicssdk.com
         authRepo.updateUser(newUser)
-
-        newUser.maritalStatus
-
-//        TelematicsAuth.updateUserProfile(
-//            INSTANCE_ID,
-//            INSTANCE_KEY,
-//            userRepo.getDeviceToken(),
-//            userRepo.getUserId()!!,
-//            newUser.email,
-//            newUser.phone,
-//            newUser.clientId,
-//            newUser.firstName,
-//            newUser.lastName,
-//            "1970-01-01'T'00:00:00", //format: yyyy-MM-dd'T'HH:mm:ss
-//            null,
-//            0,
-//            newUser.address,
-//            Gender.None
-//        ).await()
 
         val userDatabase = Mapper.userToUserDatabase(newUser)
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
