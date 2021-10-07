@@ -7,10 +7,6 @@ import com.telematics.reward.databinding.FragmentObdFeatureHostBinding
 
 class OBDFeatureHost : Fragment() {
 
-    companion object {
-        fun createFragment(toStreaks: Boolean) = OBDFeatureHost()
-    }
-
     private lateinit var binding: FragmentObdFeatureHostBinding
 
     override fun onCreateView(
@@ -20,11 +16,5 @@ class OBDFeatureHost : Fragment() {
     ): View {
         binding = FragmentObdFeatureHostBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
     }
 }

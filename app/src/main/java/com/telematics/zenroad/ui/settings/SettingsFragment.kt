@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.telematics.content.utils.BaseFragment
 import com.telematics.content.utils.TryOpenLink
@@ -52,6 +51,10 @@ class SettingsFragment : BaseFragment() {
 
         binding.settingsProfile.setOnClickListener {
             openAccountFragment()
+        }
+
+        binding.settingsOBD.setOnClickListener {
+            openOBDFragment()
         }
 
         binding.settingsMeasures.setOnClickListener {
@@ -116,7 +119,7 @@ class SettingsFragment : BaseFragment() {
         findNavController().navigate(R.id.action_settingsFragment_to_splashFragment)
     }
 
-    private fun openMainFragment(){
+    private fun openMainFragment() {
 
         onBackPressed()
     }
@@ -125,6 +128,11 @@ class SettingsFragment : BaseFragment() {
 
         val bundle = bundleOf(NAV_TO_KEY to NAV_TO_ACCOUNT)
         findNavController().navigate(R.id.action_settingsFragment_to_mainFragment, bundle)
+    }
+
+    private fun openOBDFragment() {
+
+        findNavController().navigate(R.id.action_settingsFragment_to_obdFragment)
     }
 
     private fun openCompanyIdFragment() {

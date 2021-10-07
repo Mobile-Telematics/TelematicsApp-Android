@@ -123,6 +123,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_measuresFragment"
             app:destination="@id/measuresFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_obdFragment"
+            app:destination="@id/obdFragment" />
     </fragment>
 
     <fragment
@@ -134,5 +137,10 @@
         android:id="@+id/measuresFragment"
         android:name="com.telematics.zenroad.ui.settings.measures.MeasuresFragment"
         tools:layout="@layout/measures_fragment" />
+
+    <fragment
+        android:id="@+id/obdFragment"
+        android:name="OBDFeatureHost"
+        tools:layout="@layout/fragment_obd_feature_host" />
 
 </navigation>
