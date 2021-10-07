@@ -52,4 +52,6 @@ dependencies {
 
     implementation(platform(AppDependencies.firebaseBom))
     implementation(AppDependencies.firebase)
+
+    implementation(AppDependencies.loginAuthFramework)
 }

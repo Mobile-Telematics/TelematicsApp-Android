@@ -94,3 +94,15 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
         }
     })
 }
+
+suspend fun <T> com.telematicssdk.auth.external.Task<T>.await(): T =
+    suspendCoroutine { continuation ->
+        onSuccess {
+            Log.d("com.telematicssdk.auth", "TASK: await: onSuccess")
+            continuation.resume(it)
+        }
+        onError {
+            Log.d("com.telematicssdk.auth", "TASK: await: onError ${it.message}")
+            continuation.resumeWithException(it)
+        }
+    }
