@@ -62,7 +62,7 @@ abstract class BaseFragment : Fragment() {
         showMessage(getString(stringRes))
     }
 
-    fun showAnswerDialog(
+    private fun showAnswerDialog(
         title: String,
         onPositive: (() -> Unit)?,
         onNegative: (() -> Unit)? = null
@@ -70,7 +70,7 @@ abstract class BaseFragment : Fragment() {
 
         AlertDialog.Builder(requireContext()).apply {
             setPositiveButton(R.string.dialog_yes) { d, _ ->
-                onPositive?.let{
+                onPositive?.let {
                     onPositive()
                 }
                 d.dismiss()

@@ -11,12 +11,10 @@ import com.raxeltelematics.v2.sdk.server.model.sdk.TrackTag
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity
 import com.telematics.data.BuildConfig
 import com.telematics.data.api.TripEventTypeApi
+import com.telematics.data.extentions.awaitLinkingListener
 import com.telematics.data.model.tracking.ChangeEventBody
 import com.telematics.data.model.tracking.TripsMapper
-import com.telematics.domain.model.tracking.ChangeTripEvent
-import com.telematics.domain.model.tracking.TripData
-import com.telematics.domain.model.tracking.TripDetailsData
-import com.telematics.domain.model.tracking.TripImageHolder
+import com.telematics.domain.model.tracking.*
 import com.telematics.domain.repository.TrackingApiRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -174,5 +172,28 @@ class TrackingApiImpl @Inject constructor(
 
         val deviceToken = trackingApi.getDeviceId()!!
         tripEventTypeApi.setDeleted(tripId, deviceToken)
+    }
+
+
+    override suspend fun getLastSession(): Long {
+
+        val elmManager = trackingApi.getElmManager()
+        val data = elmManager?.getLastSession()
+        return data?.second ?: 0
+    }
+
+    override suspend fun setElmManagerLinkingResult(): ElmManagerLinkingResult? {
+
+        return trackingApi.getElmManager()?.awaitLinkingListener()
+    }
+
+    override suspend fun getElmDevice() {
+
+        trackingApi.getElmManager()?.getElmDevices()
+    }
+
+    override suspend fun connectSelectedDevice(device: ElmDevice, token: String) {
+
+        trackingApi.getElmManager()?.connectAndRegisterDevice(device.deviceMacAddress ?: "", token)
     }
 }

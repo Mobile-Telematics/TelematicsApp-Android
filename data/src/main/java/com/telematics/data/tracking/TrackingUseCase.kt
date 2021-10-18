@@ -1,13 +1,14 @@
 package com.telematics.data.tracking
 
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import com.raxeltelematics.v2.sdk.services.main.elm.BluetoothUtils
+import com.raxeltelematics.v2.sdk.services.main.elm.Constants
 import com.telematics.data.utils.ImageLoader
-import com.telematics.domain.model.tracking.ChangeTripEvent
-import com.telematics.domain.model.tracking.TripData
-import com.telematics.domain.model.tracking.TripDetailsData
+import com.telematics.domain.model.tracking.*
 import com.telematics.domain.repository.TrackingApiRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -121,6 +122,44 @@ class TrackingUseCase
 
         return flow {
             val data = trackingApiRepo.setStatusDelete(tripId)
+            emit(data)
+        }
+    }
+
+    fun getLastSession(): Flow<Long> {
+
+        return flow {
+            val data = trackingApiRepo.getLastSession()
+            emit(data)
+        }
+    }
+
+    fun getBluetoothAdapter(context: Context): BluetoothAdapter? {
+
+        return BluetoothUtils.getBluetoothAdapter(context)
+    }
+
+    fun getRequestBluetoothEnableCode() = Constants.REQUEST_BLUETOOTH_ENABLE_CODE
+
+    fun getElmManagerLinkingResult(): Flow<ElmManagerLinkingResult?> {
+
+        return flow {
+            val data = trackingApiRepo.setElmManagerLinkingResult()
+            emit(data)
+        }
+    }
+
+    fun getElmDevice(): Flow<Unit> {
+
+        return flow {
+            emit(trackingApiRepo.getElmDevice())
+        }
+    }
+
+    fun connectSelectedDevice(device: ElmDevice, token: String): Flow<Unit> {
+
+        return flow {
+            val data = trackingApiRepo.connectSelectedDevice(device, token)
             emit(data)
         }
     }

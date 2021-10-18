@@ -2,10 +2,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.telematics.reward.databinding.FragmentObdFeatureHostBinding
+import androidx.navigation.fragment.findNavController
+import com.telematics.content.utils.BaseFragment
+import com.telematics.obd.databinding.FragmentObdFeatureHostBinding
 
-class OBDFeatureHost : Fragment() {
+
+class OBDFeatureHost : BaseFragment() {
 
     private lateinit var binding: FragmentObdFeatureHostBinding
 
@@ -16,5 +18,17 @@ class OBDFeatureHost : Fragment() {
     ): View {
         binding = FragmentObdFeatureHostBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.obdBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+        binding.obdExit.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }

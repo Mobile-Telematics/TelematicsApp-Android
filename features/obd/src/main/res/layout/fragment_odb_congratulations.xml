@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/ObdStepTitle"
+        android:text="" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/success_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.03">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/odb_success" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/odb_successfully_paired"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/congrats_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/odb_congratulations_nyour_device_is_now_ready"
+            android:textColor="@color/elm_connected_text_color"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/success_layout"
+            app:layout_constraintStart_toStartOf="@+id/success_layout"
+            app:layout_constraintTop_toBottomOf="@+id/success_layout"
+            app:layout_constraintVertical_bias="0.12" />
+
+        <TextView
+            android:id="@+id/device_number_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/odb_device_number"
+            android:textColor="@color/elm_connected_text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/congrats_text"
+            app:layout_constraintStart_toStartOf="@+id/congrats_text"
+            app:layout_constraintTop_toBottomOf="@+id/congrats_text"
+            app:layout_constraintVertical_bias="0.181" />
+
+        <TextView
+            android:id="@+id/policy_number_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/odb_policy_number"
+            android:textColor="@color/elm_connected_text_color"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/device_number_text"
+            app:layout_constraintStart_toStartOf="@+id/device_number_text"
+            app:layout_constraintTop_toTopOf="@+id/device_number_text"
+            app:layout_constraintVertical_bias="0.15" />
+
+        <Button
+            android:id="@+id/finish_button"
+            style="@style/Button"
+            android:layout_width="@dimen/slide_button_width"
+            android:layout_height="@dimen/slide_button_height"
+            android:text="@string/obd_finish"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.85" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

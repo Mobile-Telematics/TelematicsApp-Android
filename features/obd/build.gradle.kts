@@ -77,4 +77,9 @@ dependencies {
     implementation(AppDependencies.daggerHiltLibraries)
     kapt(AppDependencies.daggerHiltCompiler)
     kapt(AppDependencies.daggerHiltAndroidXCompiler)
+    
+    implementation(AppDependencies.circleIndicatorView)
+    implementation(AppDependencies.swipeToRefresh)
+    implementation(AppDependencies.recyclerView)
+    implementation(AppDependencies.cropView)
 }
