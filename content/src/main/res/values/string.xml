@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">(o) Zenroad</string>
+    <string name="app_name">YOUR_LABEL</string>
 
     <string name="nav_item_feed">Feed</string>
     <string name="nav_item_dashboard">Dashboard</string>

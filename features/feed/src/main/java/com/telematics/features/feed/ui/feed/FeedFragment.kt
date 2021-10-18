@@ -67,31 +67,6 @@ class FeedFragment : BaseFragment() {
         feedListAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-        /*swipe*/
-
-//        val onSwipe = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//            override fun onMove(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                target: RecyclerView.ViewHolder
-//            ): Boolean = false
-//
-//
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                when (direction) {
-//                    ItemTouchHelper.LEFT -> {
-//
-//                    }
-//                    ItemTouchHelper.RIGHT -> {
-//
-//                    }
-//                }
-//            }
-//        }
-//
-//        val itemTouchHelper = ItemTouchHelper(onSwipe)
-//        itemTouchHelper.attachToRecyclerView(recyclerView)
-
         recyclerView.adapter = feedListAdapter
 
         scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {

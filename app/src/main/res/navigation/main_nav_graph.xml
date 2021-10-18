@@ -97,7 +97,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
@@ -119,13 +121,19 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_settingsFragment_to_companyIdFragment"
-            app:destination="@id/companyIdFragment" />
+            app:destination="@id/companyIdFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_settingsFragment_to_measuresFragment"
-            app:destination="@id/measuresFragment" />
+            app:destination="@id/measuresFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_settingsFragment_to_obdFragment"
-            app:destination="@id/obdFragment" />
+            app:destination="@id/obdFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
