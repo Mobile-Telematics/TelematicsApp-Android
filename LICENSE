@@ -1,0 +1,128 @@
+License
+Telematics SDK Standard license Terms&Conditions
+
+1. ACCEPTANCE
+
+These DataMotion Service Terms together with the Privacy Policy and all other additional terms and information that may be provided within the Service (collectively "Terms") govern your use of the DataMotion 's services ("Service") that include items as per follows:
+
+DataMotion telematics engine (Telematics SDK) that works with smartphone sensors ("Telematics SDK")
+Web-interface the SAAS platform ("DATA HUB")
+By registering for or using the Service or any portion of it you accept the Terms.
+
+The Terms constitute an agreement between you ("Licensee") and DataMotion Pte.Ltd, UEN 201918904Z, 68 CIRCULAR ROAD #02-01, SINGAPORE (049422), including its parents, subsidiaries, and affiliates (collectively "DataMotion"), defining your and DataMotion 's rights and responsibilities with respect to the Service.
+
+2. LICENSE
+
+Subject to all terms hereof, DataMotion. hereby grants Licensee (i) a non-exclusive, non-transferable, revocable license to install and use the TELEMATICS SDK in object code solely for the purposes of integrating the TELEMATICS SDK into one Licensee mobile application ("Mobile Application") and to distribute the TELEMATICS SDK as part the Mobile Application and have such Mobile Application used by End Users, and (ii) a non-exclusive, non-transferable, revocable right to access through a web interface the DATA HUB that makes available information on End User routine behavior based on device data provided through the TELEMATICS SDK integrated in the Mobile Application installed on mobile devices of the End Users (such information and device data hereinafter jointly the "Data"). "End User" shall mean any person to which Licensee distributes its Mobile Application. A reference to the " TELEMATICS SDK" includes a reference to any part thereof and to any relating documentation.
+
+ As part of the Service, DataMotion may provide you with certain software developed by DataMotion or, its licensors ("Software"). Your use of Software may be subject to separate terms and conditions that you must accept before using the Software. If there are no separate terms and conditions applicable to such Software, the following terms apply: DataMotion grants to you a limited, non-exclusive, non-transferable right to install and use the Software on your mobile device. For DataMotion software, applicable open source license terms apply.
+
+ The Software maybe subject to export controls under your country regulations and other import or export control regulations. You agree to strictly comply with all applicable import and export regulations and acknowledge that you have the responsibility to obtain licenses to export, re-export, transfer, or import such Software.
+
+You are solely responsible for taking backup copies of the data you store on the Service. If the Service is discontinued or canceled, DataMotion may permanently delete your data. DataMotion has no obligation to return data to you after the Service is discontinued or canceled.
+
+3. REGISTRATION
+
+To use a Service you may need to register and create a DATA HUB account with username and a password. You may need to provide us with certain personal and other information. HERE may verify your email address before account can be used.
+
+ You agree to provide truthful and complete information when you register for the Service and to keep that information updated. You must take due care to protect your username and password against misuse by others and promptly notify DataMotion about any misuse. You, and your parent or legal guardian if you are a minor, are personally responsible for any use of the Service.
+
+4. COPIES
+
+Licensee is authorized to duplicate the TELEMATICS SDK for internal test and development purposes and for distribution of the Mobile Application to End Users. Licensee is further allowed to make a reasonable number of copies of the TELEMATICS SDK for non-productive backup and recovery purposes. Any and all such copies shall in all respects be subject to the terms and conditions of this agreement. Licensee shall not make copies of the TELEMATICS SDK additional to those expressly permitted in this agreement nor copy any documentation accompanying the TELEMATICS SDK other than as strictly needed for its permitted use. Licensee shall not remove or obscure any copyright and/or trademark notices or other proprietary notices in the TELEMATICS SDK. All notices must be duplicated as they appear on the TELEMATICS SDK on all authorized copies.
+
+
+5. USING THE SERVICE
+
+You agree to:
+
+Comply with applicable laws, the Terms and good manners;
+Respect the privacy of others;
+Not use any other technologies or initiate other activities that may harm the Service, or the interest or property of the Service users.
+Not to use any automated systems or means to access, acquire, copy or monitor any part of the service.
+DataMotion may but has no obligation to:
+Monitor or moderate any Content;
+Remove any Content from the Service; and
+Restrict access to any part of the Service at any time in its sole discretion.
+6. RESTRICTIONS
+
+Licensee may combine the TELEMATICS SDK with its Mobile Application. Except to the extent expressly permitted by law, Licensee shall not otherwise modify, adapt, merge or create derivative works of the TELEMATICS SDK nor electronically transfer into another computer language, translate, reverse engineer or reengineer the TELEMATICS SDK. Licensee will not (i) disclose its DATA HUB credentials ("Credentials") to any third party; (ii) disclose the TELEMATICS SDK to any third party other than (x) its service providers that are under obligations in respect of the TELEMATICS SDK no less stringent than those set forth herein, or (y) End Users as an integrated part of the Mobile Application; (iii) attempt to access any systems, programs or data of DataMotion to which no access is granted hereunder or that are not required for your activities in connection with this agreement; or (iv) use any device or software to interfere or attempt to interfere with the proper operation of DATA HUB. Licensee will notify DataMotion immediately if it learns of any unauthorized use of its Credentials or unauthorized acquisition of Data. Licensee will not, and will ensure that its End Users shall not decompile, disassemble, analyze or examine the TELEMATICS SDK or otherwise attempt to learn the source code, structure, algorithms or ideas underlying the TELEMATICS SDK (except to the extent allowed by the applicable laws), e.g. for the purpose of reverse engineering, re-engineering or rebuilding an SDK with the same or similar functionalities.
+
+7. INTELLECTUAL PROPERTY RIGHTS
+
+The TELEMATICS SDK and the DATA HUB are protected by applicable Singaporean and foreign laws and treaties, including copyright laws and treaty provisions. DataMotion and its third party licensors retain all title to, and, except as expressly and unambiguously licensed herein, all rights and interest in the TELEMATICS SDK and the Platform and all copies, versions, enhancements and derivative works thereof (other than the Licensee part of the Mobile Application) and all related documentation and materials, the DataMotion trademarks, trade names, icons and logos, and any and all intellectual property throughout the world in the foregoing. Except for the limited license granted herein, nothing herein shall be construed as DataMotion granting to Licensee or an End User any right, title or interest in or to the TELEMATICS SDK or the DATA HUB or any patent, trade secret or other intellectual property rights of DataMotion. All copies of the TELEMATICS SDK remain the property of DataMotion. The Data shall be owned by Licensee. DataMotion has the worldwide, non-exclusive, irrevocable, perpetual, royalty-free and fully paid-up right to use these Data in aggregated and anonymized form only for its internal business and marketing purposes, which include building statistical models and profiles.
+
+8. FEEDBACK TO DATAMOTION
+
+By submitting any ideas, feedback and/or proposals ("Feedback") to DataMotion through the Service or other means, you acknowledge and agree that: (1) DataMotion may have similar development ideas to the Feedback; (2) your Feedback does not contain confidential or proprietary information of you or any third party; (3) DataMotion is not under any obligation of confidentiality with respect to the Feedback; (4) DataMotion may freely use, distribute, exploit and further develop and modify Feedback for any purpose; and (5) you are not entitled to any compensation of any kind from DataMotion.
+
+9. NOTICES
+
+DataMotion may post notices within the Service. DataMotion may also send you notices about products and Services to the email address or telephone number you have provided to us. You are deemed to have received such notices at the latest within seven (7) days from DataMotion sending or posting those. Your continued use of the Services constitutes your receipt of all notices regardless of delivery method.
+
+10. CONFIDENTIALITY
+
+Each party (the "Recipient") acknowledges that any information supplied by the other party (the "Provider") (including but not limited to the terms of this agreement and the TELEMATICS SDK) is confidential and undertakes to keep secret any such information until it enters the public domain through no fault of Recipient. Recipient shall not without Provider's prior written consent disclose the information to any third party, nor use the same for any purpose other than exercising its rights or performing its obligations under this agreement. Recipient shall take all steps necessary to prevent any of the information becoming known to unauthorized third parties other than its agents, consultants and advisors subject to such agents, consultants and advisors entering into confidentiality agreements no less restrictive than the provisions hereof.
+
+11. FEES
+
+The Service offers subscriptions. You authorize the Service to place a periodical charge during the period of the subscription. The Service may also offer a trial period. If your Order involves a trial period (also known as try-and-buy), you may be charged when the trial period expires, unless you cancel in accordance with the subscription/trial terms.
+
+ The prices in the Service may change from time to time. Prices include applicable taxes in effect at the time of your transaction, unless otherwise stated. There may be instances where you incur additional charges from your bank or credit card provider based on currency conversion rates used and/or additional fees assessed. DataMotion assumes no responsibility for the payment of bank or any other third party service fees or charges.
+
+ Use of the Service may involve transmission of data through your service provider's network. Prices listed within the Service do not include possible data transmission, text message, voice or other service provision charges by your network service provider.
+ DataMotion assumes no responsibility for the payment of any charges of your service providers.
+
+ Payment of DataMotion 's invoices will be made within thirty (30) days of the invoice date by bank transfer in USD free of any deductions. All invoices shall be deemed accepted unless disputed in good faith within thirty (30) days after the invoice date. If an invoice is disputed, Fee shall pay the undisputed portion of the invoice when due.
+
+ Any amount due but not paid in full on the due date shall automatically and without prior notice be increased with an interest for late payment of ten percent (10%) per year. This amount will, by way of indemnity, automatically and without prior notice be increased by ten percent (10%) with a minimum of one hundred USD ($100) from the day following the due date of the invoice, in addition to the principal amount and the interest for late payment.
+
+ In addition to any other rights under this agreement, DataMotion shall have the right to suspend the use of the DATA HUB and connectivity of the TELEMATICS SDK in case of late payment. Fee will fully reimburse DataMotion the costs of notice, collection and recovery (including attorney's fees and expenses) made in connection with any unpaid invoice. DataMotion may increase the fees on an annual basis by giving thirty (30) days prior written notice to Licensee, provided that the annual percentage increase in the fees shall not exceed the aggregate percentage increase of the 10% per year
+
+12. CANCELLATIONS AND REFUNDS
+
+You agree to the electronic delivery of Service being initiated concurrently with the receiving of the first data set from TELEMATICS SDK under your Company ID. You will not be able to cancel your Service once it has been initiated. The nature of the Service is such that it cannot be returned.
+
+ In the event that after your Order you discover and promptly inform DataMotion within 48 hours that service you have ordered is faulty; (b) the Service delivers to you does not match the description of the Service you ordered via DataMotion or its parents, subsidiaries, affiliates or partners
+
+ Please note that HERE may not be able to process your customer support request if you are unable to provide your Company ID, which is provided to you by DataMotion following your account registration.
+
+13. TERMINATION
+
+This agreement enters into force on the Commencement Date and shall terminate on its one-year anniversary ("Initial Term"). This agreement shall automatically renew for successive one-year periods (each, a "Renewal Term") unless one party notifies the other in writing at least sixty (60) days prior to the end of the Initial Term or any Renewal Term that it does not wish to renew this agreement . This agreement and the rights granted to Licensee shall terminate on receipt of termination notice if Licensee fails to comply with any of the terms and conditions of this agreement (including non-payment within the time period specified in Section 4). Either party may terminate this agreement upon written notice in the event that the other party files a petition in bankruptcy or proceedings in bankruptcy are instituted against it, or any court assumes jurisdiction of such party and its assets pursuant to proceedings under any bankruptcy or reorganization act, or a receiver is appointed of that party's assets or that party makes an assignment for the benefit of its creditors. Upon termination, all licenses granted herein shall terminate, DataMotion may erase all Data, and Licensee shall immediately destroy all copies of the TELEMATICS SDK (including any documentation relating thereto) in its possession. Such termination shall be without prejudice to any other rights or remedies of DataMotion under this agreement or applicable law. Termination shall not relieve Licensee of its obligations which by their nature are intended to survive termination.
+
+14. AVAILABILITY AND TECHNICAL REQUIREMENTS
+
+The availability of Service may vary and is subject to DataMotion 's sole discretion. DataMotion expressly disclaims any representation or warranty that any particular Service will be available. The Service may not be available in all countries and may be provided only in accordance with country regulations The Service, operations and some features may also be dependent on the network, compatibility of the devices used.
+
+ To use the Service, you may need to use the latest version of TELEMATICS SDK
+
+ DataMotion may, in its sole discretion, change, correct or discontinue the Service in whole or in part. The Service may not be available during maintenance breaks and other times. If DataMotion considers a Software update to be important or critical you may not continue using the previous version of the Software. DataMotion may prevent your use of the previous version of the Software or Service until you install the update.
+
+15. PERSONAL DATA
+
+The Privacy Policy and any additional privacy information made available to you govern the use of your personal data.
+
+16. INDEMNIFICATION
+
+You agree to defend and indemnify DataMotion from and against all third party claims and all liabilities, assessments, losses, costs or damages resulting from or arising out of (i) any lost data or other indirect or consequential damages of any character, including, without limitation, damages for loss of profits, loss of goodwill, work stoppage, device failure or malfunction, or any and all other commercial damages or losses, (ii) the cost of procuring substitute products, services or technology, (iii) any use or loss of Data by Licensee or by any third party who has obtained such Data (directly or indirectly) from Licensee, or (iv) any amounts in excess of the License Fees paid to DataMotion under this agreement during the six (6) months preceding the date the cause of action arose. Licensee assumes total responsibility and risk for its use of the TELEMATICS SDK and the Data and distribution of the Mobile Application. Licensee shall indemnify, defend and hold DataMotion harmless from and against all claims, suits, proceedings, awards, judgments, penalties, fines, damages, losses, liabilities, costs and expenses resulting from any and all third party (including End Users and public authorities) claims against DataMotion relating to any breach of this agreement by Licensee or the End Users or any use of the Data (or loss of Data) by Licensee or by any third party who has obtained such Data (directly or indirectly) from Licensee. As used in this section, " DataMotion " includes its employees, directors, officers, agents, representatives, subcontractors, service providers and suppliers. Claims for damages must be made by Licensee within six months of the incident to which they relate or be forever barred.
+
+17. MISCELLANEOUS
+
+17.1 Choice of Law
+
+The Terms are governed by the laws of Singapore
+
+17.2 Validity
+
+The Terms neither exclude nor limit any of your mandatory rights in your country of residence that cannot by law be waived. If a provision of the Terms is found to be invalid, the remaining provisions will not be affected and the invalid provision will be replaced with a valid provision that comes closest to the result and purpose of the Terms. In the event one or more provisions of these Terms are not relevant to your use of the Service, it shall not impact the validity or enforceability of any other provision of the Terms or the Terms as a whole. If there is any conflict between these DataMotion Service Terms and the Privacy Policy, the provisions of these DataMotion Service Terms prevail. The provisions of the Terms that are intended to survive termination of your registration remain valid after termination.
+
+17.3 Changes in Terms
+
+DataMotion may modify the Terms at any time without prior notice. If the Terms are changed in a material, adverse way, DataMotion will provide a separate notice advising of the change.
+
+ You are responsible for regularly reviewing the Terms. Your continued use of the Service constitutes your consent to any changes and modification.
+
+18. ASSIGNMENT
+
+DataMotion may assign its rights and obligations under these Terms to its corporate parent, its subsidiaries, or to any company under common control with DataMotion. Additionally, DataMotion may assign its rights and obligations under these Terms to a third party in connection with a merger, acquisition, sale of assets, by operation of law or otherwise.

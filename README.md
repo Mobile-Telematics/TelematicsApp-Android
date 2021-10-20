@@ -1,15 +1,32 @@
-# TelematicsApp-Android with Firebase© integration
+# Android Open-Source Telematics App with Firebase© integration
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/telematicsapp.jpeg)
 
 ## Description
-This Telematics App is created by DATA MOTION PTE. LTD. and is distributed free of charge to all customers & users and can be used to create your own application for Android in a few steps.
 
-## Basic Concepts & Credentials
-For commercial use, you need to create a sandbox account https://userdatahub.com/user/registration and get `InstanceID` and`InstanceKEY` auth keys to work with our API
+This Telematics App is developed by Damoov and is distributed free of charge. This app can be used to create your own telematics app for Android in few steps.
 
-Additionally, to authenticate users in your app and store user data, you need to create a Firebase© account: https://firebase.google.com
+## Ready Features
+Telematics:
+- Telematics SDK - mobile telematics engine.
 
-All user data will be stored in the Firebase© Realtime Database, which will allow you to create an app users database without programming skills in a few minutes.
+Screens:
+- Dashboard
+- Feed
+- Trip Details
+- Leaderboard
+- My Rewards
+
+## Basic concepts & credentials
+
+1. Create an account https://app.damoov.com/user/registration and get `InstanceId` and`InstanceKey` auth keys to work with the telematics SDK & APIs.
+How to obtain InsanceId & InstanceKey => https://docs.telematicssdk.com/docs/datahub#user-group-credentials
+
+2. Additionally, to authenticate users in your app and store users data, you need to create a firebase account: https://firebase.google.com
+All user data will be stored in the Firebase© Realtime Database, which will allow you to create an app users database without programming skills.
+
+
+# Setting Up
+Here you can find a short video guide, how to launch Android Open-Source Telematics app: https://youtu.be/Hbk7p3q8fbw
 
 ## Setup Firebase© Project
 Step 1: After creating your Firebase© account, open your console: https://console.firebase.google.com
@@ -78,7 +95,7 @@ To use your unique applicationId for your application, change applicationIdPrefi
 const val applicationIdPrefix = "com.your_application_prefix"<br/>
 private const val name = "your_application_name"
 
-To work with our API use InstanceId and InstanceKey from https://userdatahub.com/user/registration :<br/>
+To work with our API use InstanceId and InstanceKey from https://app.damoov.com/user/registration :<br/>
 const val INSTANCE_ID_PROD = "YOUR_INSTANCE_ID"<br/>
 const val INSTANCE_KEY_PROD = "YOUR_INSTANCE_KEY" 
 
@@ -95,10 +112,12 @@ const val TERMS_OF_USE = "YOUR_TERMS_OF_USE_LINK" //for example"https://www.tele
 To set application icon, find the content module icon in resource folders (res/mipmap, res/mipmap-hdpi, etc.) and replace it. And for change background icon color set ic_launcher_background in color.xml:
 <color name="ic_launcher_background">#your_color</color>
 
+
 ## Telematics SDK Setup
 
 We are using the Gradle auto build system. 
 The Telematics SDK is installed automatically in the Telematics app. After downloading this application for the first time, you need to run the `Sync Project with Gradle Files` command. This will install the required dependency libraries for the application to function properly. To upgrade the Telematics SDK version, go to the `Versions` file ( module: buildSrc) and change the `const val trackingApi` parameter. This repository will always use the current version of the Telematics SDK.
+
 
 ## Telematics SDK | Permission Wizard
 
@@ -108,47 +127,20 @@ Note: this wizard is fully cutomizable, you can find the documentation here: htt
 For use your own icon to the notification, place your own icons to res/drawable (module: content) folders with the following names: `ic_tracking_sdk_status_bar.png`, `ic_tracking_sdk_notification.png`.
 For change Wizard next button background color you need edit `layout_telematics_wizard_page.xml` (modile: data).
 
+
 ## LoginAuthFramework Authentication
 
 We have created a special Framework that allows you to receive `deviceToken`, `jwToken` & `refreshToken` for full integration with our services. These keys are required to make calls to our APIs.
 `LoginAuth Framework` is already integrated into this Telematics App. After downloading this application for the first time, you need to run the `Sync Project with Gradle Files` command. This will install the required dependency libraries for the application to function properly. To upgrade the Telematics SDK version, go to the `Versions` file ( module: buildSrc) and change the `const val loginAuthFramework` parameter. This repository will always use the current version of the LoginAuthFramework.
 You can find complete information about LoginAuth Framework in our repository https://github.com/Mobile-Telematics/LoginAuthFramework-Android
 
-## Dashboard features
-
-Our goal is to provide your users with a user-friendly interface to get the best user experience.
-We suggest you use 2 (two) dashboards with Scoring and user Statistics data in your application. To get the first data, the user usually needs to drive a short distance. We set this parameter in the configuration file `AppConfig.kt` in parameter
-const val DASHBOARD_DISTANCE_LIMIT = "10" //measured in km
-
-## Feed features
-
-The Trips screen displays the trips users have made.
-
-## Trip Details screen
-
->Telematics App for Android uses HERE Maps to display the user's trips on a map. You need to get your access key to view the trip details. Visit https://developer.here.com
-
-
-To set API KEY for HERE Maps change HERE_API_KEY in the AppConfig.kt file. </br>
-const val HERE_API_KEY = "YOUR_HERE_API_KEY"
-
-To set LICENSE KEY for HERE Maps change HERE_LICENSE_KEY in the AppConfig.kt file. </br>
-const val HERE_LICENSE_KEY = "YOUR_HERE_LICENSE_KEY"
-
-To set APP ID for HERE Maps change HERE_APP_ID in the AppConfig.kt file. </br>
-const val HERE_APP_ID = "YOUR_HERE_APP_ID"
-
-To set APP CODE for HERE Maps change HERE_APP_CODE in the AppConfig.kt file. </br>
-const val HERE_APP_CODE = "YOUR_HERE_APP_CODE"
-
-Having received a list of the user's trips, you can refer to your array of trips and get more detailed information, as well as a set of points to be displayed on the HERE Maps API.
 
 ## Get HERE Maps access keys
 
 In the next few simple steps, we'll show you how easy it is to create access keys in the HERE developer console.
 
 
-Step 1: After creating your HERE account, aopen your project in https://developer.here.com/projects </br>
+Step 1: After creating your HERE account, open your project in https://developer.here.com/projects </br>
 In the REST table click "Generate App".
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_1.png)
@@ -175,23 +167,107 @@ Step 6: Copy LICENSE KEY from HERE developer console to HERE_LICENSE_KEY paramet
 
 >Note: you do not need to Download SDK from the HERE developer console, it is already in the application project.
 
-Build & Run!
 
-## Leaderboard screen
+# Screens
 
-We provide you with the ability to create user ratings based on their trips. All this is displayed and relied on in the Leaderboard section of our Telematics App.
-There are 9 different leaderboards in total:
+## Dashboard
 
-- Acceleration = 1
-- Deceleration = 2
-- Distraction = 3
-- Speeding = 4
-- Turn = 5
-- RateOverall = 6
-- Distance = 7
-- Trips = 8
-- Duration = 9
+Our goal is to provide your users with a user-friendly interface to get the best user experience.
+To get the first data, user usually needs to drive a short distance. We set this parameter in the configuration file `AppConfig.kt` in parameter
+const val DASHBOARD_DISTANCE_LIMIT = "10" //measured in km
 
-All types are presented in the Telematics App and you can understand which of these options for user ratings you need.
+## Feed
 
->Remember! It takes a little time to create a Leaderboard rating in our Leaderboard API. A user who does not have a sufficient number of trips cannot see the Leaderboard data. Use placeholders for new users with an offer to make a trip, who just signed up.
+The Trips screen displays the trips users have made.
+
+## Feed | Type of transport
+
+The Telematics SDK allows users to change their role for any trip.
+
+Use the following string values below!
+                    
+- OriginalDriver
+- Passenger
+- Bus
+- Motorcycle
+- Train
+- Taxi
+- Bicycle
+- Other
+
+## Feed | Tags
+
+Depending on your product use cases, you can also use our Tags feature. You can learn more about it here: https://docs.telematicssdk.com/docs/tags
+We also offer you a convenient interface for switching certain tags for each trip.
+
+The Telematics SDK allows users to add specific unique`tags` to any ride for ease of use.
+For example, by adding tag options to any trip, you will be able to mark specific trips for Business/Personal or other options.
+
+NOTE: you can use `DEL` tag and hide the trips marked by it in the app. These trips will be shown in DataHub on List of Trips page with a special mark that these trips were hidden in the app.
+
+## Trip Details
+
+To set API KEY for HERE Maps change HERE_API_KEY in the AppConfig.kt file. </br>
+const val HERE_API_KEY = "YOUR_HERE_API_KEY"
+
+To set LICENSE KEY for HERE Maps change HERE_LICENSE_KEY in the AppConfig.kt file. </br>
+const val HERE_LICENSE_KEY = "YOUR_HERE_LICENSE_KEY"
+
+To set APP ID for HERE Maps change HERE_APP_ID in the AppConfig.kt file. </br>
+const val HERE_APP_ID = "YOUR_HERE_APP_ID"
+
+To set APP CODE for HERE Maps change HERE_APP_CODE in the AppConfig.kt file. </br>
+const val HERE_APP_CODE = "YOUR_HERE_APP_CODE"
+
+Having received a list of the user's trips, you can refer to your array of trips and get more detailed information, as well as a set of points to be displayed on the HERE Maps API.
+
+
+## Leaderboard
+
+You can learn more about these services by following to our docs:
+https://docs.telematicssdk.com/docs/leaderboards
+
+All 9 types of Leaderboard are presented in the Telematics App and you can figure out which of these options you actually need.
+
+>Note! Only users who have trips during latest 14 days participate in Leaderboard. Use placeholders for new and lost users.
+
+
+## My Rewards
+
+Our telematics app allows you to work with DriveCoins and Streaks for each user:
+
+You can learn more about these services by following to our docs:
+DriveCoins - https://docs.telematicssdk.com/docs/drivecoins
+Streaks - https://docs.telematicssdk.com/docs/streaks-1
+
+In detail, you can see the work with methods for rewards in the Telematics App source code in the DriveCoins section.
+
+
+## User Log Out
+
+In the Telematics App source code, we show you an option to clear user data after logging out. Do not forget - to stop tracking and record user trips, you need to explicitly delete `VIRTUAL_DEVICE_TOKEN`.
+This can be done using Telematics SDK method:
+
+    trackingApi.setEnableSdk(false) //disable SDK
+    trackingApi.clearDeviceID() //Clear DeviceToken
+    
+You can also disable Telematics SDK with the trips uploading to upload already recorded and stored on the device trips to Damoov platform.
+Learn more about available SDK methods here: https://docs.telematicssdk.com/docs/methods-for-android-app
+
+## Links
+
+[Official product Web-page](https://app.damoov.com/)
+
+[Official API services web-page](https://www.damoov.com/telematics-api/)
+
+[Official API references](https://docs.telematicssdk.com/reference)
+
+[Official ZenRoad web-page](https://www.damoov.com/telematics-app/)
+
+[Official ZenRoad app for iOS](https://apps.apple.com/jo/app/zenroad/id1563218393)
+
+[Official ZenRoad app for Android](https://play.google.com/store/apps/details?id=com.telematicssdk.zenroad&hl=en&gl=US)
+
+[Official ZenRoad app for Huawei](https://appgallery.huawei.com/#/app/C104163115)
+
+###### Copyright © 2020-2021 DATA MOTION PTE. LTD. All rights reserved.
