@@ -3,10 +3,11 @@ package com.telematics.features.account.ui.account
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.telematics.domain.model.carservice.Vehicle
 import com.telematics.features.account.R
-import kotlinx.android.synthetic.main.vehicle_item_view.view.*
 
 class VehicleListAdapter(data: List<Vehicle>) :
     RecyclerView.Adapter<VehicleListAdapter.ViewHolder>() {
@@ -40,19 +41,17 @@ class VehicleListAdapter(data: List<Vehicle>) :
         view: View
     ) : RecyclerView.ViewHolder(view) {
 
-        fun bind(
-            vehicle: Vehicle
-        ) {
-            itemView.carClickArea.setOnClickListener(null)
-            itemView.carClickArea.setOnClickListener {
+        fun bind(vehicle: Vehicle) {
+            val carClickArea = itemView.findViewById<View>(R.id.carClickArea)
+            carClickArea.setOnClickListener(null)
+            carClickArea.setOnClickListener {
                 clickListener?.onItemClick(vehicle, absoluteAdapterPosition)
             }
+            val carLabel = itemView.findViewById<TextView>(R.id.carLabel)
             val carTitle = vehicle.manufacturer ?: "—"
-            itemView.carLabel.text = carTitle
-            if (vehicle.activated) {
-                itemView.carConnectedStatus.visibility = View.VISIBLE
-            } else {
-                itemView.carConnectedStatus.visibility = View.GONE
+            carLabel.text = carTitle
+            itemView.findViewById<View>(R.id.carConnectedStatus).apply {
+                isVisible = vehicle.activated
             }
         }
     }

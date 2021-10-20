@@ -21,7 +21,14 @@ class CarServiceRepoImpl @Inject constructor(
 
         val deviceToken = userRepo.getDeviceToken()
         val data = carServiceApi.getVehicles(deviceToken).result
-        return data?.cars?.map { it.toVehicle() } ?: emptyList()
+        val listVehicle = data?.cars?.map { carRest ->
+            val vehicle = carRest.toVehicle()
+            val isActivated = !carServiceApi.getVehicleDevices(deviceToken, carRest.token!!)
+                .result?.elms.isNullOrEmpty()
+            vehicle.activated = isActivated
+            return@map vehicle
+        }
+        return listVehicle ?: emptyList()
     }
 
     override suspend fun createVehicle(vehicle: Vehicle) {

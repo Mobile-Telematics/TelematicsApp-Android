@@ -19,6 +19,7 @@ import com.telematics.authentication.exception.AuthException
 import com.telematics.authentication.extention.await
 import com.telematics.authentication.mapper.Mapper
 import com.telematics.authentication.model.UserDatabase
+import com.telematics.data.BuildConfig
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.authentication.*
@@ -27,6 +28,7 @@ import com.telematics.domain.repository.AuthenticationRepo
 import com.telematics.domain.repository.SessionRepo
 import com.telematics.domain.repository.UserRepo
 import com.telematics.domain.repository.UserServicesRepo
+import com.telematicssdk.auth.TelematicsAuth
 import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
@@ -41,6 +43,9 @@ class Authentication constructor(
 
     private val TAG = "Authentication"
 
+    private val INSTANCE_ID = BuildConfig.INSTANCE_ID
+    private val INSTANCE_KEY = BuildConfig.INSTANCE_KEY
+
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = Firebase.database.reference
     private val firebaseStorage = FirebaseStorage.getInstance()
@@ -54,11 +59,23 @@ class Authentication constructor(
     }
 
     override suspend fun registrationCreateAPI(): RegistrationApiData {
-        return authRepo.registration()
+
+        val createResult =
+            TelematicsAuth.createDeviceToken(INSTANCE_ID, INSTANCE_KEY).await()
+        //val data = authRepo.registration()
+        return RegistrationApiData(
+            createResult.deviceToken,
+            createResult.accessToken,
+            createResult.refreshToken,
+            null
+        )
     }
 
     override suspend fun loginAPI(deviceToken: String): SessionData {
-        val data = authRepo.loginWithDeviceToken(deviceToken)
+
+        val loginResult = TelematicsAuth.login(INSTANCE_ID, INSTANCE_KEY, deviceToken).await()
+        val data = SessionData(loginResult.accessToken, loginResult.refreshToken, null)
+        //val data = authRepo.loginWithDeviceToken(deviceToken)
         sessionRepo.saveSession(data)
         return data
     }

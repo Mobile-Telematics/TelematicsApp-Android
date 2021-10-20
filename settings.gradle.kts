@@ -9,6 +9,7 @@ include(
     ":features:dashboard",
     ":features:feed",
     ":features:leaderboard",
-    ":features:reward"
+    ":features:reward",
+    ":features:obd"
 )
 rootProject.name = "Zenroad"

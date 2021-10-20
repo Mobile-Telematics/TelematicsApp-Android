@@ -22,6 +22,7 @@ import com.telematics.domain.model.leaderboard.LeaderboardUserItems
 import com.telematics.domain.model.measures.DateMeasure
 import com.telematics.domain.model.reward.*
 import com.telematics.domain.model.statistics.*
+import com.telematics.domain.model.tracking.ElmDevice
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -650,4 +651,14 @@ fun ModelRest.toModelData(): ModelData {
 
     val modelRest = this
     return ModelData(modelRest.id, modelRest.name)
+}
+
+fun com.raxeltelematics.v2.sdk.services.main.elm.ElmDevice.toElmDevice(): ElmDevice {
+    return ElmDevice(
+        this.connectedState,
+        this.device,
+        this.deviceMacAddress,
+        this.deviceName,
+        this.rssi
+    )
 }

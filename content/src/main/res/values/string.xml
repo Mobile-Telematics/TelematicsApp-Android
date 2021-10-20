@@ -67,7 +67,6 @@
     <string name="account_access_permission_msg">Please allow access to camera and media</string>
     <string name="account_my_cars">My Vehicles</string>
     <string name="account_add_new_car">Add new vehicle</string>
-    <string name="obd_device_activated">Device Activated</string>
     <!--car-->
     <string name="vehicle_licence_plate">LICENSE PLATE</string>
     <string name="vehicle_vin_number">VIN NUMBER</string>
@@ -77,8 +76,6 @@
     <string name="vehicle_car_name">CAR NICKNAME</string>
     <string name="acc_wizard_car_year">CAR YEAR</string>
     <string name="vehicle_initial_mileage">INITIAL MILEAGE</string>
-    <string name="obd_please_check_your_internet_connection_and_try_again">Please, check your internet connection and try again</string>
-    <string name="obd_search">Search</string>
 
     <!-- Account Wizard Profile -->
     <string name="acc_wizard_name">FIRST NAME</string>
@@ -182,6 +179,7 @@
 
     <!--SETTINGS-->
     <string name="dashboard_settings_my_profile">My Profile</string>
+    <string name="dashboard_settings_obd">Connect OBD device</string>
     <string name="dashboard_settings_privacy">Privacy Policy</string>
     <string name="dashboard_settings_terms">Terms of Use</string>
     <string name="nav_logout_question">Logout?</string>
@@ -290,4 +288,68 @@
 
     <!--ERRORS-->
     <string name="server_error_error">Service is temporarily unavailable.</string>
+
+    <!--OBD-->
+    <string name="odb_step_1">STEP <b>1</b></string>
+    <string name="odb_step_2">STEP <b>2</b></string>
+    <string name="odb_step_3">STEP <b>3</b></string>
+    <string name="odb_install_your_device">Install Your Device</string>
+    <string name="odb_connect_the_device_to_the_can_port">Connect the Device to the CAN Port in\nyour vehicle. The CAN port is normally\nlocated below the dashboard, next to\nyour steering wheel.</string>
+    <string name="odb_can_t_find_the_can">Can’t find the CAN\nPort in your car?</string>
+    <string name="odb_turn_on_your_vehicle">Turn On Your Vehicle</string>
+    <string name="odb_start_your_engine_to_power_on_your_device">Start your engine to power on your Device.</string>
+    <string name="odb_take_a_photo_of_your_odometer">Take a photo of your Odometer</string>
+    <string name="odb_the_photo_will_show_the_odometer">The photo will show the odometer\nreading at the start of your policy.</string>
+    <string name="odb_open_camera">OPEN CAMERA</string>
+    <string name="odb_prepare_the_device_for_pairing">Prepare the Device for pairing</string>
+    <string name="odb_make_sure_the_device_in">Make sure the Device is plugged\ninto the CAN Port.</string>
+    <string name="odb_turn_on_bluetooth">Turn on Bluetooth</string>
+    <string name="odb_to_continue_please_enable_bluetooth">To continue, please enable Bluetooth in\nSettings or Control Centre on your phone.</string>
+    <string name="odb_search">SEARCH</string>
+    <string name="odb_oops_we_couldnt">Oops, we couldn’t\nconnect to your Device!</string>
+    <string name="odb_we_can_t_find_your_device">We can’t find your Device.\nPlease make sure that:</string>
+    <string name="odb_tips">- Your engine is turned on\n\n\n- Your Device is installed and has a red light\n\n\n- Your mobile Bluetooth is switched on\n\n\n- Your Device is already paired</string>
+    <string name="odb_try_again">TRY AGAIN</string>
+    <string name="odb_unfortunately_car_not_supported">Unfortunately, your car\nis not supported</string>
+    <string name="odb_if_your_car_model">If your car model was manufactured\nbefore 1996, our Device will\nnot support it.</string>
+    <string name="odb_give_us_a_call_at">Give us a call at:</string>
+    <string name="odb_1_300_824_227">1 300 824 227</string>
+    <string name="odb_chat_with_us">or chat with us through the app</string>
+    <string name="quit">QUIT</string>
+    <string name="odb_successfully_paired">Successfully\nPaired</string>
+    <string name="odb_congratulations_nyour_device_is_now_ready">Congratulations!\nYour Device is now ready!</string>
+    <string name="odb_device_number">Device number: %1$s</string>
+    <string name="odb_policy_number">Policy number: %1$s</string>
+    <string name="odb_next">NEXT</string>
+    <string name="odb_we_found_these_devices">We found these Devices</string>
+    <string name="odb_please_select_the_device">Please select the Device that you would\nlike to link to your policy.</string>
+    <string name="odb_can_t_see_your_device_listed">Can’t see your Device listed?\nTry again.</string>
+    <string name="odb_looking_for_a_device">Looking for a device</string>
+    <string name="odb_please_wait_while_we_search_for_your_device">Please wait while we search for your Device. This may take up to one minute.</string>
+    <string name="odb_once_we_find_it">Once we find it, you will be automatically directed to the next page.</string>
+    <string name="obd_select_the_vehicle">Select the vehicle you’re installing the\nDevice in, from the list below\nor add a new vehicle.</string>
+    <string name="obd_your_vehicles">Your Vehicles</string>
+    <string name="settings_obd">Connect OBD device</string>
+    <string name="odb_confirm">CONFIRM</string>
+    <string name="odb_would_you_like_to_use_this_photo">Would you like to use this photo?</string>
+    <string name="obd_internet_error">Your internet connection is unstable.</string>
+    <string name="obd_taking_too_long">Taking too long?</string>
+    <string name="obd_finish">FINISH</string>
+    <string name="obd_no_vehicles_error">You cars list is empty</string>
+    <string name="obd_connected">Connected</string>
+    <string name="obd_not_connected">Not Connected</string>
+    <string name="obd_device_activated">Device Activated</string>
+    <string name="obd_add">ADD</string>
+    <string name="obd_car_last_session_min">Connected (%dm ago)</string>
+    <string name="obd_car_last_session_hours">Connected  (%dh ago)</string>
+    <string name="obd_car_last_session_days">Connected (%dd ago)</string>
+    <string name="obd_car_last_session_never">Not Connected</string>
+    <string name="cars_error_validation_message">The field must be filled</string>
+    <string name="obd_please_check_your_internet_connection_and_try_again">Please, check your internet connection and try again</string>
+    <string name="obd_search">Search</string>
+    <string name="obd_help_link">http://help.telematicssdk.com/en/articles/4170881-obd-settings</string>
+    <string name="cars_error_yaer">Invalid car year</string>
+    <string name="obd_setting_up_your_device">Setting Up your Device</string>
+    <string name="obd_ble_error">Your devices do not support BLE</string>
+
 </resources>

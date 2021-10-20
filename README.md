@@ -112,6 +112,29 @@ const val TERMS_OF_USE = "YOUR_TERMS_OF_USE_LINK" //for example"https://www.tele
 To set application icon, find the content module icon in resource folders (res/mipmap, res/mipmap-hdpi, etc.) and replace it. And for change background icon color set ic_launcher_background in color.xml:
 <color name="ic_launcher_background">#your_color</color>
 
+
+## Telematics SDK Setup
+
+We are using the Gradle auto build system. 
+The Telematics SDK is installed automatically in the Telematics app. After downloading this application for the first time, you need to run the `Sync Project with Gradle Files` command. This will install the required dependency libraries for the application to function properly. To upgrade the Telematics SDK version, go to the `Versions` file ( module: buildSrc) and change the `const val trackingApi` parameter. This repository will always use the current version of the Telematics SDK.
+
+
+## Telematics SDK | Permission Wizard
+
+An important part to record user's trips is to properly request permissions to use the user's Location and Motion & Fitness activity. Telematics SDK includes a specially designed `Wizard` that helps the user explain why the application needs it and make the right choice.
+Note: this wizard is fully cutomizable, you can find the documentation here: https://docs.telematicssdk.com/docs/android-sdk-integration
+
+For use your own icon to the notification, place your own icons to res/drawable (module: content) folders with the following names: `ic_tracking_sdk_status_bar.png`, `ic_tracking_sdk_notification.png`.
+For change Wizard next button background color you need edit `layout_telematics_wizard_page.xml` (modile: data).
+
+
+## LoginAuthFramework Authentication
+
+We have created a special Framework that allows you to receive `deviceToken`, `jwToken` & `refreshToken` for full integration with our services. These keys are required to make calls to our APIs.
+`LoginAuth Framework` is already integrated into this Telematics App. After downloading this application for the first time, you need to run the `Sync Project with Gradle Files` command. This will install the required dependency libraries for the application to function properly. To upgrade the Telematics SDK version, go to the `Versions` file ( module: buildSrc) and change the `const val loginAuthFramework` parameter. This repository will always use the current version of the LoginAuthFramework.
+You can find complete information about LoginAuth Framework in our repository https://github.com/Mobile-Telematics/LoginAuthFramework-Android
+
+
 ## Get HERE Maps access keys
 
 In the next few simple steps, we'll show you how easy it is to create access keys in the HERE developer console.
@@ -183,6 +206,7 @@ For example, by adding tag options to any trip, you will be able to mark specifi
 NOTE: you can use `DEL` tag and hide the trips marked by it in the app. These trips will be shown in DataHub on List of Trips page with a special mark that these trips were hidden in the app.
 
 ## Trip Details
+
 To set API KEY for HERE Maps change HERE_API_KEY in the AppConfig.kt file. </br>
 const val HERE_API_KEY = "YOUR_HERE_API_KEY"
 
@@ -199,6 +223,7 @@ Having received a list of the user's trips, you can refer to your array of trips
 
 
 ## Leaderboard
+
 You can learn more about these services by following to our docs:
 https://docs.telematicssdk.com/docs/leaderboards
 
@@ -217,7 +242,9 @@ Streaks - https://docs.telematicssdk.com/docs/streaks-1
 
 In detail, you can see the work with methods for rewards in the Telematics App source code in the DriveCoins section.
 
+
 ## User Log Out
+
 In the Telematics App source code, we show you an option to clear user data after logging out. Do not forget - to stop tracking and record user trips, you need to explicitly delete `VIRTUAL_DEVICE_TOKEN`.
 This can be done using Telematics SDK method:
 

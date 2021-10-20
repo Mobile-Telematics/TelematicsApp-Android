@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -262,10 +263,10 @@ class MainFragment : BaseFragment() {
     }
 
     private fun showToolbar() {
-        binding.mainToolbar.visibility = View.VISIBLE
+        binding.mainToolbar.isVisible = true
     }
 
     private fun hideToolbar() {
-        binding.mainToolbar.visibility = View.GONE
+        binding.mainToolbar.isVisible = false
     }
 }

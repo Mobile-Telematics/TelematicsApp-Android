@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="@null"
+    android:background="#1A000000">
+
+    <LinearLayout
+        android:id="@+id/chooseModelVehicleParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/chooseModelVehicleSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/chooseModelVehicleItemsRV" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chooseModelVehicleItemsRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+
+    <!--   <ProgressBar
+           android:id="@+id/chooseModelVehicleProgress"
+           style="?android:attr/progressBarStyle"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:visibility="gone"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+
+       <LinearLayout
+           android:id="@+id/error_layout"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:gravity="center"
+           android:orientation="vertical"
+           android:visibility="gone"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="10dp"
+               android:gravity="center"
+               android:text="@string/obd_please_check_your_internet_connection_and_try_again"
+               android:textColor="@color/colorEventGreyLabelBg"
+               android:textSize="16sp" />
+
+           <Button
+               android:id="@+id/chooseModelVehicleRetry"
+               style="@style/Button"
+               android:layout_width="@dimen/account_dialog_btn_width"
+               android:layout_height="@dimen/account_dialog_btn_height"
+               android:layout_marginBottom="@dimen/account_dialog_btn_margin_bottom"
+               android:text="@string/retry"
+               android:textAllCaps="true" />
+
+       </LinearLayout>
+-->
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

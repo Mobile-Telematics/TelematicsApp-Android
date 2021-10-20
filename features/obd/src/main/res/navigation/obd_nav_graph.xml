@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_obd_graph"
+    app:startDestination="@id/vehiclesFragment">
+
+    <fragment
+        android:id="@+id/vehiclesFragment"
+        android:name="ui.step1_vehicles.VehiclesFragment"
+        tools:layout="@layout/fragment_obd_vehicles">
+        <action
+            android:id="@+id/action_vehiclesFragment_to_vehicleWizardFragment"
+            app:destination="@id/vehicleWizardFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_vehiclesFragment_to_deviceConnectFragment"
+            app:destination="@id/deviceConnectFragment" />
+        <action
+            android:id="@+id/action_vehiclesFragment_to_obdAddVehicle"
+            app:destination="@id/obdAddVehicle"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/vehicleWizardFragment"
+        android:name="ui.step2_wizard.VehicleWizardFragment"
+        tools:layout="@layout/fragment_obd_vehicle_wizard">
+        <action
+            android:id="@+id/action_vehicleWizardFragment_to_cropPhotoFragment"
+            app:destination="@id/cropPhotoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cropPhotoFragment"
+        android:name="ui.step2_wizard.crop.CropFragment"
+        tools:layout="@layout/fragment_crop_image">
+        <action
+            android:id="@+id/action_cropPhotoFragment_to_confirmPhotoFragment"
+            app:destination="@id/confirmPhotoFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/confirmPhotoFragment"
+        android:name="ui.step3_photo.ConfirmPhotoFragment"
+        android:label="confirm_photo_fragment"
+        tools:layout="@layout/fragment_obd_confirm_photo">
+        <action
+            android:id="@+id/action_confirmPhotoFragment_to_deviceConnectFragment"
+            app:destination="@id/deviceConnectFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"
+            app:popUpTo="@+id/vehicleWizardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/deviceConnectFragment"
+        android:name="ui.step4_connect_device.DeviceConnectFragment"
+        android:label="device_connect_fragment"
+        app:enterAnim="@anim/slide_in"
+        app:popExitAnim="@anim/slide_out"
+        tools:layout="@layout/fragment_obd_device_connect">
+        <action
+            android:id="@+id/action_deviceConnectFragment_to_foundedDevicesFragment"
+            app:destination="@id/foundedDevicesFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_deviceConnectFragment_to_vehicleNotSupportedFragment"
+            app:destination="@id/vehicleNotSupportedFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_deviceConnectFragment_to_couldNotConnectFragment"
+            app:destination="@id/couldNotConnectFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/foundedDevicesFragment"
+        android:name="ui.step5_founded_device.FoundedDevicesFragment"
+        tools:layout="@layout/fragment_odb_devices">
+        <action
+            android:id="@+id/action_foundedDevicesFragment_to_obdSuccessFragment"
+            app:destination="@id/obdSuccessFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"
+            app:popUpTo="@id/vehiclesFragment" />
+        <action
+            android:id="@+id/action_foundedDevicesFragment_to_vehicleNotSupportedFragment"
+            app:destination="@id/vehicleNotSupportedFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_foundedDevicesFragment_to_couldNotConnectFragment"
+            app:destination="@id/couldNotConnectFragment"
+            app:enterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/obdSuccessFragment"
+        android:name="ui.step6_success.ObdSuccessFragment"
+        tools:layout="@layout/fragment_odb_congratulations" />
+
+    <fragment
+        android:id="@+id/vehicleNotSupportedFragment"
+        android:name="ui.step_error_not_suported.VehicleNotSupportedFragment"
+        tools:layout="@layout/fragment_obd_car_not_supported" />
+
+    <fragment
+        android:id="@+id/couldNotConnectFragment"
+        android:name="ui.step_unknown_error.CouldNotConnectFragment"
+        tools:layout="@layout/fragment_odb_oops" />
+
+    <fragment
+        android:id="@+id/obdAddVehicle"
+        android:name="ui.step1_vehicles.add_vehicle.ObdAddVehicleFragment"
+        tools:layout="@layout/fragment_obd_add_vehicle" />
+
+</navigation>

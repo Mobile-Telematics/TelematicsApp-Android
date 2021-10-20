@@ -39,12 +39,23 @@
             android:orientation="vertical">
 
             <!-- Profile -->
+
             <TextView
                 android:id="@+id/settingsProfile"
                 style="@style/SettingsMenuItemText"
                 android:drawableStart="@drawable/ic_sett_profile"
                 android:drawableEnd="@drawable/ic_dash_arrow_right_gray"
                 android:text="@string/dashboard_settings_my_profile" />
+
+            <View style="@style/SettingsViewLine" />
+
+            <!--OBD-->
+            <TextView
+                android:id="@+id/settingsOBD"
+                style="@style/SettingsMenuItemText"
+                android:drawableStart="@drawable/ic_sett_profile"
+                android:drawableEnd="@drawable/ic_dash_arrow_right_gray"
+                android:text="@string/dashboard_settings_obd" />
 
             <View style="@style/SettingsViewLine" />
 

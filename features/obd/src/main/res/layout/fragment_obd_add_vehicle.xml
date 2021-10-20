@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/accountWizardCarInfoScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingTop="8dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@id/createButton"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/accountWizardCarInfoFocusView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <!-- LICENSE PLATE -->
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/vehicleLicencePlate"
+                    style="@style/TextLabelWizard"
+                    android:drawableStart="@drawable/ic_vehicle_licence_plate"
+                    android:hint="@string/vehicle_licence_plate"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapCharacters|textNoSuggestions" />
+
+                <!-- VIN NUMBER -->
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/vehicleVinNumber"
+                    style="@style/TextLabelWizard"
+                    android:drawableStart="@drawable/ic_vehicle_vin"
+                    android:hint="@string/vehicle_vin_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapCharacters|textNoSuggestions" />
+
+                <!-- MAKE &amp; MODEL -->
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/vehicleManufacturer"
+                    style="@style/TextLabelWizard"
+                    android:drawableStart="@drawable/ic_vehicle_make"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/vehicle_manufacturer"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords|textNoSuggestions" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/vehicleModel"
+                    style="@style/TextLabelWizard"
+                    android:drawableStart="@drawable/ic_vehicle_model"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/vehicle_model"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords|textNoSuggestions" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/vehicleCarName"
+                    style="@style/TextLabelWizard"
+                    android:drawableStart="@drawable/ic_vehicle_nickname"
+                    android:hint="@string/vehicle_car_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords|textNoSuggestions" />
+
+                <!-- CAR YEAR -->
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/vehicleCarYear"
+                    style="@style/TextLabelWizard"
+                    android:drawableStart="@drawable/ic_vehicle_year"
+                    android:hint="@string/acc_wizard_car_year"
+                    android:imeOptions="actionNext"
+                    android:inputType="date"
+                    android:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/vehicleInitialMileage"
+                    style="@style/TextLabelWizard"
+                    android:drawableStart="@drawable/ic_vehicle_mileage"
+                    android:hint="@string/vehicle_initial_mileage"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/createButton"
+            style="@style/Button"
+            android:layout_width="@dimen/acc_wizard_next_btn_width"
+            android:layout_height="@dimen/acc_wizard_btn_height"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/acc_wizard_btn_margin_top"
+            android:layout_marginBottom="@dimen/acc_wizard_btn_margin_top"
+            android:text="@string/acc_wizard_btn_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/vehicleLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1A000000"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:theme="@style/MapProgressBarTheme" />
+
+    </FrameLayout>
+
+    <ui.step1_vehicles.add_vehicle.OBDVehicleChooseView
+        android:id="@+id/vehicleModelChoose"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="2dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

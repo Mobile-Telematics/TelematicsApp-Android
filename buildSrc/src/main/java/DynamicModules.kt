@@ -10,6 +10,7 @@ object Modules {
     const val feed = ":features:feed"
     const val leaderboard = ":features:leaderboard"
     const val reward = ":features:reward"
+    const val obd = ":features:obd"
     const val HERE_SDK = ":HERE-sdk"
 }
 

@@ -7,8 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.features.leaderboard.ui.leaderboard_details.page.LeaderboardDetailsPageFragment
 
-class LeaderboardDetailsAdapter(activity: FragmentActivity) :
-    FragmentStateAdapter(activity) {
+class LeaderboardDetailsAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int {
         return 9
