@@ -88,6 +88,7 @@ dependencies {
     implementation(project(Modules.account))
     implementation(project(Modules.leaderboard))
     implementation(project(Modules.reward))
+    implementation(project(Modules.obd))
 
     implementation(AppDependencies.countryCodePicker)
 

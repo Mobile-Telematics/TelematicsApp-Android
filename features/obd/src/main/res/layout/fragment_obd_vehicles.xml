@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/ObdStepTitle"
+        android:text="Select vehicle" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/vehicles_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/obd_select_the_vehicle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.02" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="@string/obd_your_vehicles"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vehicles_title"
+                app:layout_constraintVertical_bias="0.07999998" />
+
+            <ImageView
+                android:id="@+id/addCarButton"
+                android:layout_width="@dimen/acc_wizard_document_add_button_size"
+                android:layout_height="@dimen/acc_wizard_document_add_button_size"
+                android:background="@drawable/ic_dot_green"
+                android:padding="@dimen/acc_wizard_document_add_button_padding"
+                android:src="@drawable/ic_wizard_plus"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.92"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vehiclesRV"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/connectedStatus"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addCarButton" />
+
+            <View
+                android:id="@+id/connectedStatusBack"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/ic_wizard_back_bubble_smallest"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/vehiclesRV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addCarButton"
+                app:layout_constraintVertical_bias="1" />
+
+            <TextView
+                android:id="@+id/connectedStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:text="@string/obd_car_last_session_never"
+                android:textColor="@color/elm_connected_text_color"
+                app:drawableStartCompat="@drawable/obd_connected"
+                app:layout_constraintBottom_toBottomOf="@+id/connectedStatusBack"
+                app:layout_constraintEnd_toEndOf="@+id/connectedStatusBack"
+                app:layout_constraintStart_toStartOf="@+id/connectedStatusBack"
+                app:layout_constraintTop_toTopOf="@+id/connectedStatusBack" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/lastSession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="connectedStatus, connectedStatusBack" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>
