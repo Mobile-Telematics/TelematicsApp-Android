@@ -8,10 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.telematics.content.utils.BaseFragment
 import com.telematics.obd.R
 import com.telematics.obd.databinding.FragmentOdbCongratulationsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import ui.CommonObdViewModel
 import ui.ObdViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ObdSuccessFragment : BaseFragment() {
 
     @Inject

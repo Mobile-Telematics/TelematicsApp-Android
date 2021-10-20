@@ -116,7 +116,6 @@ class VehiclesFragment : BaseFragment() {
                 }
             }
         }
-
     }
 
     private fun createVehicle() {

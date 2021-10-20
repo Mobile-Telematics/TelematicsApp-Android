@@ -12,10 +12,12 @@ import com.telematics.content.utils.BaseFragment
 import com.telematics.domain.model.tracking.ElmDevice
 import com.telematics.obd.R
 import com.telematics.obd.databinding.FragmentOdbDevicesBinding
+import dagger.hilt.android.AndroidEntryPoint
 import ui.CommonObdViewModel
 import ui.ObdViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class FoundedDevicesFragment : BaseFragment() {
 
     @Inject

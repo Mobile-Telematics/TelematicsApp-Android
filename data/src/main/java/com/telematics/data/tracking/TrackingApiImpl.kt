@@ -174,11 +174,9 @@ class TrackingApiImpl @Inject constructor(
         tripEventTypeApi.setDeleted(tripId, deviceToken)
     }
 
-
     override suspend fun getLastSession(): Long {
 
-        val elmManager = trackingApi.getElmManager()
-        val data = elmManager?.getLastSession()
+        val data = trackingApi.getElmManager()?.getLastSession()
         return data?.second ?: 0
     }
 

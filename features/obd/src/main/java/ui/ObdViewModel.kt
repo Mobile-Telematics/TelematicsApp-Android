@@ -48,7 +48,7 @@ class ObdViewModel @Inject constructor(
 
         val uploadState = MutableLiveData<Result<Unit>>()
         flow {
-            delay(3000)
+            delay(2000)
             emit(Unit)
         }
             .flowOn(Dispatchers.IO)

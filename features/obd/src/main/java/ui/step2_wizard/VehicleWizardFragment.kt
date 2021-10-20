@@ -1,6 +1,7 @@
 package ui.step2_wizard
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -61,6 +62,12 @@ class VehicleWizardFragment : BaseFragment() {
             })
         }
         binding.obdPagesIndicator.setViewPager(binding.obdWizardViewPager)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        permissionUtils.registerContract(this)
     }
 
     private fun askPermissions() {
