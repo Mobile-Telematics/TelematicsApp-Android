@@ -254,6 +254,18 @@ This can be done using Telematics SDK method:
 You can also disable Telematics SDK with the trips uploading to upload already recorded and stored on the device trips to Damoov platform.
 Learn more about available SDK methods here: https://docs.telematicssdk.com/docs/methods-for-android-app
 
+
+## Connect OBD device
+
+Telematics App provides you with the optional functionality to connect the app with an OBD vehicle adapter using Bluetooth® technology.
+OBD adapter is a small device that plugs into the CAN-port of your car.
+
+Telematics App created by Damoov, has a full range of functionality that allows you to read almost any information and indicators from your vehicle, and add it to trips recorded by the Telematics App on iOS/Android.
+Connecting and disconnecting to your Android device happens automatically. OBD adapter can detect accidents.
+
+Detailed documentation and the basic principles of operation can be found in the development portal https://docs.telematicssdk.com/docs/bluetooth-obd
+To fully work with this functionality, you need additional equipment, which we can provide upon your request.
+
 ## Links
 
 [Official product Web-page](https://app.damoov.com/)
