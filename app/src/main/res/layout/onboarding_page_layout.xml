@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/onboardingItemImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_onboard_first" />
+
+    <ImageView
+        android:id="@+id/onboardingItemLogo"
+        android:layout_width="@dimen/slide_logo_width"
+        android:layout_height="@dimen/slide_logo_height"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/onboardingItemImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/onboardingItemImage"
+        app:layout_constraintVertical_bias="@dimen/login_logo_vertical_bias"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/onboardingItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_bold"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/slide_title_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onboardingItemLogo"
+        app:layout_constraintVertical_bias="0.32"
+        tools:text="TITLE" />
+
+    <TextView
+        android:id="@+id/onboardingItemText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textColorLink="@color/colorDefButton"
+        android:textSize="@dimen/slide_description_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onboardingItemTitle"
+        tools:text="TEXT" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
