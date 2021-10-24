@@ -7,7 +7,7 @@ import android.widget.Button
 import androidx.viewpager.widget.PagerAdapter
 import com.telematics.obd.R
 
-class DeviceConnectedWizardAdapter() : PagerAdapter() {
+class DeviceConnectedWizardAdapter : PagerAdapter() {
 
     private var listener: OnSearchClickListener? = null
 

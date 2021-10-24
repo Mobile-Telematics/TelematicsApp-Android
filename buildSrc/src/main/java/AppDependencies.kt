@@ -29,8 +29,6 @@ object AppDependencies {
     const val daggerHiltCompiler =
         "com.google.dagger:hilt-android-compiler:${Versions.daggerHilt}"
     private const val daggerHilt = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
-    private const val daggerHiltViewModel =
-        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.daggerHiltAndroidX}"
     const val daggerHiltAndroidXCompiler =
         "androidx.hilt:hilt-compiler:${Versions.daggerHiltAndroidX}"
 
@@ -84,7 +82,6 @@ object AppDependencies {
         "com.google.firebase:firebase-storage-ktx"
     const val firebaseCrashlytics =
         "com.google.firebase:firebase-crashlytics-ktx"
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
 
     //google
     private const val googlePlayServices =

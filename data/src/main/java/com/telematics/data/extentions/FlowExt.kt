@@ -1,6 +1,5 @@
 package com.telematics.data.extentions
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.telematics.data.utils.Resource
 import kotlinx.coroutines.flow.Flow

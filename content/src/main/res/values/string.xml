@@ -8,6 +8,17 @@
     <string name="nav_item_settings">Settings</string>
     <string name="nav_item_profile">Profile</string>
 
+    <!-- onboarding -->
+    <string name="onboarding_screen_1_title">Welcome to Damoov\'s Zenroad</string>
+    <string name="onboarding_screen_2_title">Open-source and Out-of-the-box</string>
+    <string name="onboarding_screen_3_title">Track that moves with Damoov!</string>
+    <string name="onboarding_screen_4_title">Prepare to get on the Telematics Track</string>
+
+    <string name="onboarding_screen_1_text">You\'re about to launch our demo app Zenroad running on Damoov\'s Telematics SDK.</string>
+    <string name="onboarding_screen_2_text">Zenroad is open-source and available for customization at no cost. This means you can launch your Zenroad-like app almost instantly.</string>
+    <string name="onboarding_screen_3_text">We\'ve built a fully-featured Damoov\'s Telematics Suite to solve your needs in telematics tracking. We have it all: from plug&amp;play to complex, custom flows.</string>
+    <string name="onboarding_screen_4_text">Be sure to sign up at <a href="http://damoov.com/">damoov.com</a> to get in touch with us and see the full demo of the platform: SDK, API, Web-Interface and much more.</string>
+
     <!-- Login Screen -->
     <string name="login_screen_join">JOIN</string>
     <string name="login_screen_sigh_in">SIGN IN</string>
@@ -320,7 +331,9 @@
     <string name="odb_congratulations_nyour_device_is_now_ready">Congratulations!\nYour Device is now ready!</string>
     <string name="odb_device_number">Device number: %1$s</string>
     <string name="odb_policy_number">Policy number: %1$s</string>
-    <string name="odb_next">NEXT</string>
+    <string name="next">NEXT</string>
+    <string name="go">GO</string>
+    <string name="lets_go">LET\'S GO</string>
     <string name="odb_we_found_these_devices">We found these Devices</string>
     <string name="odb_please_select_the_device">Please select the Device that you would\nlike to link to your policy.</string>
     <string name="odb_can_t_see_your_device_listed">Can’t see your Device listed?\nTry again.</string>

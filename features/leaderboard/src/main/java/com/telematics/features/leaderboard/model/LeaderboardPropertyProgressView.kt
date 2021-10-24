@@ -51,7 +51,7 @@ class LeaderboardPropertyProgressView @JvmOverloads constructor(
     fun highlight() {
         // hided icon
         val h = propertyIcon.layoutParams.height
-        val iconParams = ConstraintLayout.LayoutParams(
+        val iconParams = LayoutParams(
             0,
             h
         )

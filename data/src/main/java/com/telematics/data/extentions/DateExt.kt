@@ -123,7 +123,7 @@ fun String.toCalendarWithFormat(stringFormat: String): Calendar {
     return Calendar.getInstance().apply { timeInMillis = date }
 }
 
-fun String.iso8601InSecondsToLong(): Long? {
+fun String.iso8601InSecondsToLong(): Long {
     var result: Long? = 0L
     val format = SimpleDateFormat(FORMAT_ISO8601_JUST_SECONDS, Locale.getDefault())
     format.timeZone = TimeZone.getTimeZone("GMT")

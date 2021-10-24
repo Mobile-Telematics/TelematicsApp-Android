@@ -35,7 +35,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_empty_dashboard_last_trip"
-                    android:tint="@color/colorDefButton" />
+                    app:tint="@color/colorDefButton" />
 
                 <TextView
                     android:layout_width="wrap_content"

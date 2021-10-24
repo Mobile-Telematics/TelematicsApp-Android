@@ -7,7 +7,7 @@ abstract class IUser(
     val token: String
 ) {
     fun isEmpty(): Boolean {
-        return id.isNullOrBlank()
+        return id.isBlank()
     }
 }
 

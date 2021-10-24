@@ -218,7 +218,7 @@ class Authentication constructor(
         imagesRef.putFile(fileUri, metadata).await()
         val uri = imagesRef.downloadUrl.await()
 
-        Log.d(TAG, "uploadProfilePicture: image url ${uri}")
+        Log.d(TAG, "uploadProfilePicture: image url $uri")
 
         //update user picture in API user.telematicssdk.com
         authRepo.updateUserPicture(filePath)

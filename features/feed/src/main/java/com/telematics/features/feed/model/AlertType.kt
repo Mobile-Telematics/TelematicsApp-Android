@@ -82,15 +82,6 @@ enum class AlertType constructor(
             return from(type).drawableResId
         }
 
-        @DrawableRes
-        fun getEditedDrawableRes(type: String?): Int {
-            return from(type).editedDrawableResId
-        }
-
-        @DrawableRes
-        fun getWrongDrawableRes(type: String?): Int {
-            return from(type).wrongDrawableResId
-        }
     }
 
 }
