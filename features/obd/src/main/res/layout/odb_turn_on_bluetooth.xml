@@ -46,7 +46,6 @@
         android:id="@+id/bluetooth_search_button"
         style="@style/Button"
         android:layout_width="@dimen/slide_button_width"
-        android:layout_height="@dimen/slide_button_height"
         android:text="@string/odb_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

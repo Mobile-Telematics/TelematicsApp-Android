@@ -71,7 +71,6 @@
             android:id="@+id/nextButton"
             style="@style/Button"
             android:layout_width="@dimen/slide_button_width"
-            android:layout_height="@dimen/slide_button_height"
             android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

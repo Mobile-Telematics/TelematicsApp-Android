@@ -89,7 +89,7 @@ class OnboardingFragment : BaseFragment() {
     private fun onPageSelect(position: Int) {
 
         val isLastPage = position >= adapter.itemCount - 1
-        val text = if (isLastPage) R.string.go else R.string.next
+        val text = if (isLastPage) R.string.lets_go else R.string.next
         binding.onboardingBtn.setText(text)
         binding.onboardingBtn.setOnClickListener {
             if (isLastPage)

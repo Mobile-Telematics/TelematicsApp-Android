@@ -9,6 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:id="@+id/onboardingItemLogo"
+        android:layout_width="@dimen/slide_logo_width"
+        android:layout_height="@dimen/slide_logo_height"
+        android:src="@drawable/ic_onboard_logo"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="@dimen/login_logo_vertical_bias" />
+
     <me.relex.circleindicator.CircleIndicator3
         android:id="@+id/onboardingIndicator"
         android:layout_width="0dp"
@@ -25,7 +37,7 @@
         android:id="@+id/onboardingBtn"
         style="@style/Button"
         android:layout_width="@dimen/slide_button_width"
-        android:layout_height="@dimen/slide_button_height"
+        android:layout_height="40dp"
         android:layout_marginBottom="@dimen/slide_button_margin_bottom"
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"

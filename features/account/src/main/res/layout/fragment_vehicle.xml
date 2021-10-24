@@ -161,7 +161,6 @@
             android:id="@+id/createButton"
             style="@style/Button"
             android:layout_width="@dimen/acc_wizard_next_btn_width"
-            android:layout_height="@dimen/acc_wizard_btn_height"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/acc_wizard_btn_margin_top"
             android:layout_marginBottom="@dimen/acc_wizard_btn_margin_top"

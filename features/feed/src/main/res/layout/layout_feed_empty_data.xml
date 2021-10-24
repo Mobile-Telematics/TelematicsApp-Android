@@ -42,17 +42,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:alpha="0.8"
-                    android:text="Make your first trip"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:gravity="center"
+                    android:text="Have you already made a trip\nbut it is not in the Feed?"
                     android:textColor="@color/colorDefButton"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Do not see your trips?"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/feed_empty_list_permissions"
@@ -62,9 +57,10 @@
                     android:drawableStart="@drawable/ic_empty_dashboard_last_trip_warning"
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/colorRedText"
-                    android:text="Check App Permissions"
+                    android:text="Check App Permissions ➞"
                     android:textColor="@color/colorRedText"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:drawableStartCompat="@drawable/ic_empty_dashboard_last_trip_warning" />
 
             </LinearLayout>
 
@@ -82,7 +78,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="end"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="33dp"
                     android:background="@drawable/ic_event_trip_label_bg_green"
                     android:paddingStart="24dp"
@@ -110,7 +105,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="end"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="33dp"
                     android:background="@drawable/ic_event_trip_label_bg_green"
                     android:paddingStart="24dp"
@@ -138,7 +132,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="end"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="33dp"
                     android:background="@drawable/ic_event_trip_label_bg_green"
                     android:paddingStart="24dp"
@@ -166,7 +159,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="end"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="33dp"
                     android:background="@drawable/ic_event_trip_label_bg_green"
                     android:paddingStart="24dp"
