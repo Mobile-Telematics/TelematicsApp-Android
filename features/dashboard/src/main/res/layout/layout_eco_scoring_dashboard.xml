@@ -118,7 +118,6 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:src="@drawable/ic_dash_arrow_up_gray"
-            android:tint="@color/colorDefButton"
             app:tint="@color/colorDefButton" />
 
         <TextView

@@ -85,7 +85,6 @@
             android:id="@+id/finish_button"
             style="@style/Button"
             android:layout_width="@dimen/slide_button_width"
-            android:layout_height="@dimen/slide_button_height"
             android:text="@string/obd_finish"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

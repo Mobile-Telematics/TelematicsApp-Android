@@ -51,6 +51,7 @@ class UserRepoImpl @Inject constructor(
             .remove("birthday")
             .remove("address")
             .remove("clientId")
+            .remove("needOnboarding")
             .remove(deviceTokenKey)
             .remove(userIdKey)
             .apply()
@@ -100,5 +101,15 @@ class UserRepoImpl @Inject constructor(
         val userId = getUserId()
         val tempFile = File(context.filesDir, "$userId")
         return BitmapFactory.decodeFile(tempFile.path)
+    }
+
+    override suspend fun needOnboarding(): Boolean {
+        return sharedPreferences.getBoolean("needOnboarding", true)
+    }
+
+    override suspend fun setNeedOnboarding(need: Boolean) {
+        sharedPreferences.edit()
+            .putBoolean("needOnboarding", need)
+            .apply()
     }
 }

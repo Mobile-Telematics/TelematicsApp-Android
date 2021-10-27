@@ -4,7 +4,6 @@ import android.content.Context
 import com.telematics.domain.model.measures.DateMeasure
 import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.measures.TimeMeasure
-import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepo {
 

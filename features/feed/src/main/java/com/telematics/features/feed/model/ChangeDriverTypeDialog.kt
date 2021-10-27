@@ -13,7 +13,7 @@ import com.telematics.domain.model.tracking.TripData
 import com.telematics.feed.R
 
 class ChangeDriverTypeDialog(
-    private val context: Context
+    context: Context
 ) {
 
     private var dialog: Dialog = Dialog(context)

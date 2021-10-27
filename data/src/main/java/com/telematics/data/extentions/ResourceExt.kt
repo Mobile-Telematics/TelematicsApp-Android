@@ -14,7 +14,7 @@ fun Resources.color(colorRes: Int) =
 
 fun Resources.drawable(drawableRes: Int, context: Context): Drawable =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        this.getDrawable(drawableRes, context.theme);
+        this.getDrawable(drawableRes, context.theme)
     } else {
-        this.getDrawable(drawableRes);
+        this.getDrawable(drawableRes)
     }

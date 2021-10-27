@@ -42,8 +42,8 @@
 
     <!-- On boarding-->
     <dimen name="dots_margin_bottom">20dp</dimen>
-    <dimen name="slide_logo_width">100dp</dimen>
-    <dimen name="slide_logo_height">131dp</dimen>
+    <dimen name="slide_logo_width">180dp</dimen>
+    <dimen name="slide_logo_height">200dp</dimen>
     <dimen name="slide_app_name_text_size">32sp</dimen>
     <dimen name="slide_title_text_size">16sp</dimen>
     <dimen name="slide_description_text_size">12sp</dimen>

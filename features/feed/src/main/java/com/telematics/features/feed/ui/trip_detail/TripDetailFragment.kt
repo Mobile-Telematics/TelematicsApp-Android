@@ -180,7 +180,7 @@ class TripDetailFragment : BaseFragment() {
                     override fun onTwoFingerTapEvent(p0: PointF): Boolean = false
                 }, 0, true)
             } else {
-                Log.d(TAG, "initMap: ${error}")
+                Log.d(TAG, "initMap: $error")
                 showProgress(false)
             }
         }

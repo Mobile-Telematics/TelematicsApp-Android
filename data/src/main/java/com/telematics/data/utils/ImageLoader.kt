@@ -24,7 +24,7 @@ class ImageLoader {
             .url(url)
             .post(body)
             .build()
-        val bitmap = suspendCoroutine<Bitmap?> { continuation ->
+        return suspendCoroutine { continuation ->
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     continuation.resumeWithException(e)
@@ -48,7 +48,6 @@ class ImageLoader {
                 }
             })
         }
-        return bitmap
     }
 
 

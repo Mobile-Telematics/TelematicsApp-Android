@@ -12,7 +12,7 @@ import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.leaderboard.R
 import kotlinx.android.synthetic.main.layout_item_leaderboard.view.*
 
-class LeaderboardDetailsPageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LeaderboardDetailsPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<LeaderboardMemberData>()
 

@@ -13,7 +13,7 @@ import com.telematics.domain.model.statistics.StatisticEcoScoringTabsData
 class DashboardEcoScoringTabAdapter(
     fm: FragmentManager,
     val data: StatisticEcoScoringTabsData?,
-    private val context: Context,
+    context: Context,
     private val measuresFormatter: MeasuresFormatter
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

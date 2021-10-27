@@ -5,7 +5,4 @@ import javax.inject.Inject
 
 class LeaderboardDetailsViewModel @Inject constructor(
 
-) : ViewModel() {
-
-
-}
+) : ViewModel()

@@ -16,7 +16,7 @@ enum class SpeedType constructor(
     companion object {
 
         fun from(type: String?): SpeedType {
-            for (speedType in SpeedType.values()) {
+            for (speedType in values()) {
                 if (speedType.type == type) {
                     return speedType
                 }

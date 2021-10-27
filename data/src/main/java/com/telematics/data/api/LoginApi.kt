@@ -8,7 +8,6 @@ import com.telematics.data.model.login.UserUpdateBody
 import com.telematics.data.model.rest.ApiResponse
 import com.telematics.data.model.rest.ApiResult
 import com.telematics.data.model.user_exists.UserExists
-import io.reactivex.Single
 import okhttp3.MultipartBody
 import retrofit2.http.*
 
