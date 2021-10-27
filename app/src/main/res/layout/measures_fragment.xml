@@ -47,13 +47,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:foreground="@drawable/radio_group_rounded_background"
+        android:paddingStart="0dp"
+        android:paddingEnd="14dp"
         app:layout_constraintStart_toStartOf="@+id/measure"
         app:layout_constraintTop_toBottomOf="@+id/measure">
 
         <RadioGroup
             android:id="@+id/distanceRadioGroup"
-            android:layout_width="@dimen/feed_event_trip_type_switcher_width"
-            android:layout_height="28dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -65,7 +67,8 @@
                 android:layout_weight="1"
                 android:buttonTint="@color/colorDefButton"
                 android:checked="true"
-                android:text="@string/settings_measure_km" />
+                android:text="@string/settings_measure_km"
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/miBtn"
@@ -73,7 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorDefButton"
-                android:text="@string/settings_measure_mi" />
+                android:text="@string/settings_measure_mi"
+                android:textSize="18sp" />
 
         </RadioGroup>
     </FrameLayout>
@@ -101,6 +105,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:foreground="@drawable/radio_group_rounded_background"
+        android:paddingStart="0dp"
+        android:paddingEnd="14dp"
         app:layout_constraintStart_toStartOf="@+id/dateFormat"
         app:layout_constraintTop_toBottomOf="@+id/dateFormat">
 
@@ -119,6 +125,7 @@
                 android:layout_weight="1"
                 android:buttonTint="@color/colorDefButton"
                 android:text="@string/settings_measure_dd_mm_yyy"
+                android:textSize="18sp"
                 tools:checked="true" />
 
             <RadioButton
@@ -127,8 +134,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorDefButton"
-                android:paddingEnd="10dp"
                 android:text="@string/settings_measure_mm_dd_yyy"
+                android:textSize="18sp"
                 tools:enabled="false" />
 
         </RadioGroup>
@@ -155,13 +162,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:foreground="@drawable/radio_group_rounded_background"
+        android:paddingStart="0dp"
+        android:paddingEnd="14dp"
         app:layout_constraintStart_toStartOf="@+id/timeFormat"
         app:layout_constraintTop_toBottomOf="@+id/timeFormat">
 
         <RadioGroup
             android:id="@+id/timeRadioGroup"
-            android:layout_width="@dimen/feed_event_trip_type_switcher_width"
-            android:layout_height="28dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -173,6 +182,7 @@
                 android:layout_weight="1"
                 android:buttonTint="@color/colorDefButton"
                 android:text="@string/settings_measure_24h"
+                android:textSize="18sp"
                 tools:checked="true" />
 
             <RadioButton
@@ -181,7 +191,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorDefButton"
-                android:text="@string/settings_measure_12h" />
+                android:text="@string/settings_measure_12h"
+                android:textSize="18sp" />
 
         </RadioGroup>
     </FrameLayout>

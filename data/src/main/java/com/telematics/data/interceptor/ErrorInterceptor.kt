@@ -29,7 +29,7 @@ class ErrorInterceptor @Inject constructor(
                 val p = JSONObject(bodyString)
                 if (p.has("Status")) {
                     val status = p.getInt("Status")
-                    Log.d("ErrorInterceptor", "apiResponse.status: ${status}")
+                    Log.d("ErrorInterceptor", "apiResponse.status: $status")
                     if (status != 200) {
                         throw ApiError(status)
                     }

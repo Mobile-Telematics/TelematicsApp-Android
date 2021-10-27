@@ -203,7 +203,7 @@ class DrivecoinsFragment : BaseFragment() {
 
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
 
-        val max = (values.maxBy { it.second }?.second)?.toFloat() ?: 100f
+        val max = (values.maxByOrNull { it.second }?.second)?.toFloat() ?: 100f
 
         coinsGraph.clear()
         val entries = mutableListOf<Entry>()

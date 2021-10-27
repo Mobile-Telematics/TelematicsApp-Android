@@ -154,7 +154,7 @@ class AccountFragment : BaseFragment() {
 
     private fun uploadProfilePic(filePath: String?) {
 
-        Log.d(TAG, "updateProfilePic: file path ${filePath}")
+        Log.d(TAG, "updateProfilePic: file path $filePath")
         accountViewModel.uploadProfilePicture(filePath).observe(viewLifecycleOwner) { result ->
             result.onSuccess {
                 Log.d(TAG, "updateProfilePic: success")

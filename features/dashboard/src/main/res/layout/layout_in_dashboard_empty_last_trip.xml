@@ -1,8 +1,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dashboard_empty_last_trip_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/dashboard_empty_last_trip_parent"
     android:background="@android:color/white">
 
     <View
@@ -42,27 +42,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0.8"
-            android:text="Make your first trip"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:alpha="0.5"
-            android:text="Do not see your trips?"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:fontFamily="@font/open_sans_bold"
+            android:gravity="center"
+            android:text="Have you already made a trip\nbut it is not in the Feed?"
+            android:textColor="@color/colorDefButton"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/dashboard_empty_last_trip_permissions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:drawableStart="@drawable/ic_empty_dashboard_last_trip_warning"
             android:drawablePadding="10dp"
-            android:text="Check App Permissions"
+            android:text="Check App Permissions ➞"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 

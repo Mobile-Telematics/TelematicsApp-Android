@@ -1,6 +1,6 @@
 package com.telematics.domain.model.statistics
 
-enum class ScoreType() {
+enum class ScoreType {
 	OVERALL,
 	ACCELERATION,
 	BREAKING,

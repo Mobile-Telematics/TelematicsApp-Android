@@ -93,4 +93,5 @@ dependencies {
     implementation(AppDependencies.countryCodePicker)
 
     implementation(AppDependencies.trackingApi)
+    implementation(AppDependencies.circleIndicatorView)
 }

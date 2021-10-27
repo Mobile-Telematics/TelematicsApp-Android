@@ -17,5 +17,8 @@ interface UserRepo {
 
     suspend fun getUserPicture(context: Context): Bitmap
 
+    suspend fun needOnboarding(): Boolean
+    suspend fun setNeedOnboarding(need: Boolean)
+
     suspend fun clear()
 }

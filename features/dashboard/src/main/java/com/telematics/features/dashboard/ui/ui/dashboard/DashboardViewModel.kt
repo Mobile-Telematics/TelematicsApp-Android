@@ -37,7 +37,6 @@ class DashboardViewModel @Inject constructor(
 
     private val TAG = "DashboardViewModel"
 
-    private val sessionData = MutableLiveData<Resource<SessionData>>()
     val driveCoinsData = MutableLiveData<Resource<DriveCoins>>()
     val userIndividualStatisticsData = MutableLiveData<Resource<UserStatisticsIndividualData>>()
     val scoreLiveData = MutableLiveData<Resource<StatisticScoringData>>()

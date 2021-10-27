@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.SplashFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,25 +38,43 @@ class SplashFragment : Fragment() {
         viewModel.isSessionAvailable().observe(viewLifecycleOwner) { result ->
             result.onSuccess { isSessionAvailable ->
                 if (isSessionAvailable)
-                    goToDashboard()
+                    goToMainScreen()
                 else
-                    goToLogin()
+                    nextScreen()
             }
             result.onFailure {
-                goToLogin()
+                nextScreen()
             }
         }
     }
 
-    private fun goToLogin() {
+    private fun nextScreen() {
 
-        requireActivity().findNavController(R.id.main_nav_host)
-            .navigate(R.id.action_splash_to_loginFragment)
+        viewModel.needOpenOnboarding().observe(viewLifecycleOwner) { result ->
+            result.onSuccess { needOpenOnboarding ->
+                if (needOpenOnboarding)
+                    openOnboardingScreen()
+                else
+                    openLoginScreen()
+            }
+            result.onFailure {
+                openOnboardingScreen()
+            }
+        }
     }
 
-    private fun goToDashboard() {
+    private fun openOnboardingScreen() {
 
-        requireActivity().findNavController(R.id.main_nav_host)
-            .navigate(R.id.action_splash_to_mainFragment)
+        findNavController().navigate(R.id.action_splash_to_onboardingFragment)
+    }
+
+    private fun openLoginScreen() {
+
+        findNavController().navigate(R.id.action_splash_to_loginFragment)
+    }
+
+    private fun goToMainScreen() {
+
+        findNavController().navigate(R.id.action_splash_to_mainFragment)
     }
 }

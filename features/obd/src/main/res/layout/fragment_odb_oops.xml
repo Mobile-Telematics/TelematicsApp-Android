@@ -53,7 +53,6 @@
         android:id="@+id/tryAgainButton"
         style="@style/Button"
         android:layout_width="@dimen/slide_button_width"
-        android:layout_height="@dimen/slide_button_height"
         android:text="@string/odb_try_again"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
