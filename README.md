@@ -26,7 +26,9 @@ All user data will be stored in the Firebase© Realtime Database, which will all
 
 
 # Setting Up
-Here you can find a short video guide, how to launch Android Open-Source Telematics app: https://youtu.be/Hbk7p3q8fbw
+Here you can find a short video guide, how to launch Android Open-Source Telematics app: 
+
+[![Watch the video](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/Android%20Open-Source%20App.png)](https://youtu.be/Hbk7p3q8fbw)
 
 ## Setup Firebase© Project
 Step 1: After creating your Firebase© account, open your console: https://console.firebase.google.com
