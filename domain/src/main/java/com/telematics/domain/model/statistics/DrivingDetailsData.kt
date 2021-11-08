@@ -2,7 +2,6 @@ package com.telematics.domain.model.statistics
 
 data class DrivingDetailsData(
     val createdAtUtc: String = "",
-    val deviceToken: String = "",
     val distanceKm: Double = 0.0,
     val durationMinutes: Double = 0.0,
     val periodDays: Int = 0,
