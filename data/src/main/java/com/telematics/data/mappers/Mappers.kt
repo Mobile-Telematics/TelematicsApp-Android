@@ -57,7 +57,6 @@ fun DrivingDetailsRest.toDrivingDetailsData(): DrivingDetailsData {
 
     return DrivingDetailsData(
         "",
-        this.deviceToken,
         .0,
         .0,
         0,

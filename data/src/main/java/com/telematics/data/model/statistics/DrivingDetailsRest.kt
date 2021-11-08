@@ -3,8 +3,6 @@ package com.telematics.data.model.statistics
 import com.google.gson.annotations.SerializedName
 
 data class DrivingDetailsRest(
-    @SerializedName("DeviceToken")
-    val deviceToken: String,
     @SerializedName("SafetyScore")
     val score: Int,
     @SerializedName("AccelerationScore")
