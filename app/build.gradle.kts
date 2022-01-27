@@ -77,6 +77,7 @@ dependencies {
     implementation(AppDependencies.retrofitLibraries)
     implementation(AppDependencies.lifecycleKtx)
     implementation(AppDependencies.navigateLibraries)
+    implementation(platform(AppDependencies.firebaseBom))
     implementation(AppDependencies.firebaseCrashlytics)
 
     implementation(project(Modules.data))

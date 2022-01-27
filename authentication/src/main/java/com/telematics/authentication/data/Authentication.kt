@@ -52,6 +52,20 @@ class Authentication constructor(
     private val firebaseStorageProfilePicRef = firebaseStorage.reference.child("profile_images")
     private val firebaseStorageProfilePicFormat = ".png"
 
+    private val emptyRegistrationUser = User(
+        email = "",
+        phone = "",
+        clientId = "",
+        firstName = "",
+        lastName = "",
+        birthday = "",
+        maritalStatus = "",
+        childrenCount = 0,
+        address = "",
+        gender = "",
+        profilePictureUrl = ""
+    )
+
     override suspend fun getCurrentUserID(): String? {
         val userId = firebaseAuth.currentUser?.uid
         Log.d(TAG, "getCurrentUserID: $userId")
@@ -61,7 +75,20 @@ class Authentication constructor(
     override suspend fun registrationCreateAPI(): RegistrationApiData {
 
         val createResult =
-            TelematicsAuth.createDeviceToken(INSTANCE_ID, INSTANCE_KEY).await()
+            TelematicsAuth.createDeviceToken(
+                INSTANCE_ID,
+                INSTANCE_KEY,
+                email = emptyRegistrationUser.email,
+                phone = emptyRegistrationUser.phone,
+                clientId = emptyRegistrationUser.clientId,
+                firstName = emptyRegistrationUser.firstName,
+                lastName = emptyRegistrationUser.lastName,
+                //birthDay = "",
+                childrenCount = emptyRegistrationUser.childrenCount,
+                address = emptyRegistrationUser.address
+            )
+
+                .await()
         //val data = authRepo.registration()
         return RegistrationApiData(
             createResult.deviceToken,
@@ -167,7 +194,19 @@ class Authentication constructor(
         userDatabase.deviceToken = user.deviceToken
         userDatabase.email = user.email
         userDatabase.phone = user.phone
-        Log.d(TAG, "createUserInFirebaseDatabase userDatabase $userDatabase")
+
+        userDatabase.clientId = emptyRegistrationUser.clientId
+        userDatabase.firstName = emptyRegistrationUser.firstName
+        userDatabase.lastName = emptyRegistrationUser.lastName
+        userDatabase.birthday = emptyRegistrationUser.birthday
+        userDatabase.maritalStatus = emptyRegistrationUser.maritalStatus
+        userDatabase.childrenCount = emptyRegistrationUser.childrenCount
+        userDatabase.address = emptyRegistrationUser.address
+        userDatabase.gender = emptyRegistrationUser.gender
+        userDatabase.profilePictureLink = emptyRegistrationUser.profilePictureUrl
+
+        Log.d(TAG, "createUserInFirebaseDatabase userDa" +
+                "tabase $userDatabase")
         firebaseDatabase.child("users").child(user.userId!!).setValue(userDatabase).await()
     }
 
@@ -188,6 +227,23 @@ class Authentication constructor(
 
         //update user in API user.telematicssdk.com
         authRepo.updateUser(newUser)
+
+        TelematicsAuth.updateUserProfile(
+            INSTANCE_ID,
+            INSTANCE_KEY,
+            userRepo.getDeviceToken(),
+            sessionRepo.getSession().accessToken,
+            newUser.email,
+            newUser.phone,
+            newUser.clientId,
+            newUser.firstName,
+            newUser.lastName,
+            null,//newUser.birthday,
+            null,
+            newUser.childrenCount,
+            newUser.address,
+            null
+        ).await()
 
         val userDatabase = Mapper.userToUserDatabase(newUser)
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
