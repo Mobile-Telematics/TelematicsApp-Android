@@ -2,10 +2,13 @@ package com.telematics.zenroad.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
 import com.google.gson.Gson
 import com.telematics.authentication.data.Authentication
 import com.telematics.data.BuildConfig
 import com.telematics.data.api.*
+import com.telematics.data.db_room.AppDatabase
+import com.telematics.data.db_room.OnDemandDao
 import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
 import com.telematics.data.interceptor.MainInterceptor
@@ -313,7 +316,23 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideOnDemandRepo(onDemandDao: OnDemandDao): OnDemandRepo {
+        return OnDemandRepoImpl(onDemandDao)
+    }
+
+    @Provides
+    @Singleton
     fun provideImageLoader(): ImageLoader {
         return ImageLoader()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "AppDB"
+        ).build()
     }
 }

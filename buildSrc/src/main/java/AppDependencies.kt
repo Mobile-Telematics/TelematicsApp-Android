@@ -88,6 +88,10 @@ object AppDependencies {
         "com.google.android.gms:play-services-auth:${Versions.googlePlayServices}"
     const val googleGuava = "com.google.guava:guava:${Versions.googleGuava}"
 
+    //room DB
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+
 
     val appLibraries = arrayListOf(
         kotlinStdLib,

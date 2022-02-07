@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.androidLibrary)
     kotlin(Plugins.android)
+    id(Plugins.kotlinKapt)
 }
 
 
@@ -47,4 +48,7 @@ dependencies {
     implementation(AppDependencies.moduleLibraries)
     implementation(AppDependencies.moduleLibraries)
     implementation(AppDependencies.appLibraries)
+
+    implementation(AppDependencies.roomRuntime)
+    kapt(AppDependencies.roomCompiler)
 }

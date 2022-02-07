@@ -77,13 +77,23 @@
             </LinearLayout>
 
             <include
+                android:id="@+id/onDemand"
+                layout="@layout/fragment_dashboard_on_demand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dashboard_empty" />
+
+            <include
                 android:id="@+id/include"
                 layout="@layout/fragment_new_dashboard_rank"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dashboard_empty" />
+                app:layout_constraintTop_toBottomOf="@+id/onDemand" />
 
 
             <ImageView
@@ -195,17 +205,6 @@
                 app:layout_constraintEnd_toStartOf="@+id/rightArrow"
                 app:layout_constraintStart_toStartOf="@+id/drivingScoresPager"
                 app:layout_constraintTop_toBottomOf="@+id/include" />
-
-            <!--    <include-->
-            <!--        android:id="@+id/zero"-->
-            <!--        layout="@layout/layout_zero"-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="400dp"-->
-            <!--        android:visibility="gone"-->
-            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--        app:layout_constraintEnd_toEndOf="parent"-->
-            <!--        app:layout_constraintStart_toStartOf="parent"-->
-            <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"

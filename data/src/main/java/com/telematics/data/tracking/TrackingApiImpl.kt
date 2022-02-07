@@ -70,7 +70,7 @@ class TrackingApiImpl @Inject constructor(
         }
     }
 
-    override fun startTracking() {
+    override fun enableTrackingSDK() {
 
         trackingApi.setEnableSdk(true)
     }
@@ -193,5 +193,21 @@ class TrackingApiImpl @Inject constructor(
     override suspend fun connectSelectedDevice(device: ElmDevice, token: String) {
 
         trackingApi.getElmManager()?.connectAndRegisterDevice(device.deviceMacAddress ?: "", token)
+    }
+
+    override fun startTracking() {
+        trackingApi.startTracking()
+    }
+
+    override fun stopTracking() {
+        trackingApi.stopTracking()
+    }
+
+    override suspend fun removeFutureTrackTag(tag: String) {
+        trackingApi.removeFutureTrackTag(tag)
+    }
+
+    override suspend fun addFutureTrackTag(tag: String) {
+        trackingApi.addFutureTrackTag(tag)
     }
 }

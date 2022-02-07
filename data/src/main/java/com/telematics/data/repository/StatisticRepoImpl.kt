@@ -8,6 +8,7 @@ import com.telematics.data.extentions.timeMillsToDisplayableString
 import com.telematics.data.mappers.*
 import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
+import com.telematics.domain.model.on_demand.DashboardOnDemandJob
 import com.telematics.domain.model.statistics.*
 import com.telematics.domain.repository.StatisticRepo
 import com.telematics.domain.repository.UserRepo
@@ -77,7 +78,10 @@ class StatisticRepoImpl @Inject constructor(
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         val startDate = format.format(calendar.time)
         val endDate = format.format(Calendar.getInstance().time)
-        return userStatisticsApi.getMainEcoScoring(startDate, endDate).result?.toDashboardEcoScoringMain()
+        return userStatisticsApi.getMainEcoScoring(
+            startDate,
+            endDate
+        ).result?.toDashboardEcoScoringMain()
             ?: StatisticEcoScoringMain()
     }
 
@@ -119,5 +123,22 @@ class StatisticRepoImpl @Inject constructor(
         val deviceToken = userRepo.getDeviceToken()
         val data = leaderboardApi.getLeaderBoard(deviceToken, 10, 2, 6)
         return data.result?.toLeaderboardData(mappedType)
+    }
+
+    override suspend fun getOnDemandCompletedData(job: DashboardOnDemandJob): Pair<UserStatisticsIndividualData, UserStatisticsScoreData> {
+
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        val endDate = format.format(calendar.time)
+
+        val first =  userStatisticsApi.getIndividualDataByTag(job.getTag, "2000-01-01T00:00:01", endDate)
+            .result?.transformOnDemand() ?: UserStatisticsIndividualData()
+
+        val second = userStatisticsApi.getIndividualScoreDataByTag(job.getTag, "2000-01-01T00:00:01", endDate)
+            .result?.toUserStatisticsScoreData() ?: UserStatisticsScoreData()
+
+
+        return Pair(first, second)
     }
 }

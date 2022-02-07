@@ -8,6 +8,9 @@ import android.content.pm.PackageManager
 import com.telematics.domain.model.measures.DateMeasure
 import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.measures.TimeMeasure
+import com.telematics.domain.model.on_demand.DashboardOnDemandJob
+import com.telematics.domain.model.on_demand.OnDemandState
+import com.telematics.domain.model.on_demand.TrackingState
 import com.telematics.domain.repository.SettingsRepo
 import javax.inject.Inject
 
@@ -18,6 +21,9 @@ class SettingsRepoImpl @Inject constructor(
     private val dateMeasureKey = "dateMeasureKey"
     private val distanceMeasureKey = "distanceMeasureKey"
     private val timeMeasureKey = "timeMeasureKey"
+    private val trackingStateKey = "trackingStateKey"
+    private val onDemandDutyStateKey = "onDemandDutyStateKey"
+    private val onDemandLastCurrentJobKey = "onDemandLastCurrentJobKey"
 
     override fun getTelematicsLink(context: Context): String {
         return telematicsSettingsLink(context)
@@ -107,5 +113,46 @@ class SettingsRepoImpl @Inject constructor(
         sharedPreferences.edit()
             .putString(timeMeasureKey, timeMeasure.value)
             .apply()
+    }
+
+    override fun getTrackingState(): TrackingState {
+
+        val data =
+            sharedPreferences.getInt(trackingStateKey, TrackingState.AUTO.index)
+        return TrackingState.parse(data)
+    }
+
+    override fun setTrackingState(mode: TrackingState) {
+
+        sharedPreferences.edit()
+            .putInt(trackingStateKey, mode.index)
+            .apply()
+    }
+
+    override fun getDemandDutyState(): OnDemandState {
+        //onDemandDutyStateKey
+
+        val data =
+            sharedPreferences.getString(onDemandDutyStateKey, OnDemandState.OFFLINE.toString())
+        return OnDemandState.translation(data)
+    }
+
+    override fun setDemandDutyState(state: OnDemandState) {
+
+        sharedPreferences.edit()
+            .putString(onDemandDutyStateKey, state.toString())
+            .apply()
+    }
+
+    override fun setOnDemandLastCurrentJob(job: DashboardOnDemandJob) {
+
+        sharedPreferences.edit()
+            .putLong(onDemandLastCurrentJobKey, job.createTime)
+            .apply()
+    }
+
+    override fun getOnDemandLastCurrentJob(): Long {
+
+        return sharedPreferences.getLong(onDemandLastCurrentJobKey, -1L)
     }
 }

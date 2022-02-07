@@ -36,6 +36,8 @@ class MeasuresFormatterImpl @Inject constructor(
     private val fullDate =
         SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH)
 
+    private val hh_mm_ss = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
+    private val hh_mm_ss_a = SimpleDateFormat("hh:mm:ssaa", Locale.ENGLISH)
     private val hh_mm = SimpleDateFormat("HH:mm", Locale.ENGLISH)
     private val hh_mm_a = SimpleDateFormat("hh:mm a", Locale.ENGLISH)
 
@@ -44,6 +46,9 @@ class MeasuresFormatterImpl @Inject constructor(
 
     private val dd_MM = SimpleDateFormat("dd.MM", Locale.ENGLISH)
     private val MM_dd = SimpleDateFormat("MM.dd", Locale.ENGLISH)
+
+    private val MM_dd_ = SimpleDateFormat("MM/dd", Locale.ENGLISH)
+    private val dd_MM_ = SimpleDateFormat("dd/MM", Locale.ENGLISH)
 
 
     override fun getFullNewDate(date: Date?): String {
@@ -133,5 +138,19 @@ class MeasuresFormatterImpl @Inject constructor(
 
     override fun getDistanceMeasureValue(): DistanceMeasure {
         return distanceMeasure
+    }
+
+    override fun getDateForDemandMode(time: Long?): String {
+        val date = if (time != null) Date(time) else Date(System.currentTimeMillis())
+
+        val t = when (timeMeasure) {
+            TimeMeasure.H24 -> hh_mm_ss.format(date)
+            TimeMeasure.H12 -> hh_mm_ss_a.format(date)
+        }
+        val d = when (dateMeasure) {
+            DateMeasure.DD_MM -> dd_MM_.format(date)
+            DateMeasure.MM_DD -> MM_dd_.format(date)
+        }
+        return "$d $t"
     }
 }

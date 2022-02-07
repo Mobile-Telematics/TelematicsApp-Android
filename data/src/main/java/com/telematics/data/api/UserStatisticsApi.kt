@@ -57,4 +57,18 @@ interface UserStatisticsApi {
 
     @GET("$API_PATH/Streaks")
     suspend fun getStreaks(): ApiResponse<StreaksRest>
+
+    @GET("$API_PATH/Statistics")
+    suspend fun getIndividualDataByTag(
+        @Query("Tag") tag: String,
+        @Query("StartDate") startDate: String,
+        @Query("EndDate") endDate: String
+    ): ApiResponse<UserStatisticsIndividualRest>
+
+    @GET("$API_PATH/Scores/safety")
+    suspend fun getIndividualScoreDataByTag(
+        @Query("Tag") tag: String,
+        @Query("StartDate") startDate: String,
+        @Query("EndDate") endDate: String
+    ): ApiResponse<UserStatisticsScoreRest>
 }

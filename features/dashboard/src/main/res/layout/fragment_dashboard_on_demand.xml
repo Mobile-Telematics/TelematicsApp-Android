@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/on_demand_status_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_on_demand_status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/on_demand_state"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/offline"
+        android:textColor="@color/elm_connected_text_color"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/on_demand_status_img"
+        app:layout_constraintStart_toEndOf="@id/on_demand_status_img"
+        app:layout_constraintTop_toTopOf="@id/on_demand_status_img" />
+
+    <TextView
+        android:id="@+id/on_demand_set_state"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/on_demand_go_online"
+        android:textColor="@color/colorDefButton"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorTripButtonDisabled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_state" />
+
+    <TextView
+        android:id="@+id/on_demand_current_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/current_job"
+        android:textColor="@color/elm_connected_text_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_state" />
+
+    <TextView
+        android:id="@+id/on_demand_current_job_name"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/express_delivery"
+        android:textColor="@color/elm_connected_text_color"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/on_demand_current_job"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_current_job" />
+
+    <ImageView
+        android:id="@+id/on_demand_complete"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ic_trip_circle_blue"
+        android:backgroundTint="@color/colorDefButton"
+        android:padding="18dp"
+        android:src="@drawable/ic_rect_round_5dp"
+        app:tint="#fff"
+        app:layout_constraintBottom_toBottomOf="@id/on_demand_current_job_name"
+        app:layout_constraintEnd_toStartOf="@id/on_demand_pause"
+        app:layout_constraintTop_toTopOf="@id/on_demand_current_job_name" />
+
+    <ImageView
+        android:id="@+id/on_demand_pause"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_on_demand_pause"
+        app:layout_constraintBottom_toBottomOf="@id/on_demand_complete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/on_demand_complete" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorTripButtonDisabled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_pause" />
+
+    <TextView
+        android:id="@+id/on_demand_incoming_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/incoming_jobs"
+        android:textColor="@color/elm_connected_text_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/on_demand_current_job"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_pause" />
+
+    <EditText
+        android:id="@+id/on_demand_incoming_job_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_rectangle_green_bold"
+        android:paddingStart="12sp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12sp"
+        android:paddingBottom="8dp"
+        android:text=""
+        android:textColor="@color/elm_connected_text_color"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/on_demand_incoming_job_accept"
+        app:layout_constraintStart_toStartOf="@+id/on_demand_incoming_job"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_incoming_job"
+        app:layout_constraintWidth_percent="0.45" />
+
+    <Button
+        android:id="@+id/on_demand_incoming_job_accept"
+        style="@style/Button"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/selector_default_btn_stroke"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:text="@string/accept"
+        android:textColor="@color/colorDefButton"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@id/on_demand_incoming_job_edit"
+        app:layout_constraintEnd_toStartOf="@id/on_demand_incoming_job_start"
+        app:layout_constraintStart_toEndOf="@id/on_demand_incoming_job_edit"
+        app:layout_constraintTop_toTopOf="@id/on_demand_incoming_job_edit" />
+
+    <Button
+        android:id="@+id/on_demand_incoming_job_start"
+        style="@style/Button"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:text="@string/start"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@id/on_demand_incoming_job_accept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/on_demand_incoming_job_accept"
+        app:layout_constraintTop_toTopOf="@id/on_demand_incoming_job_accept" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorTripButtonDisabled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_incoming_job_edit" />
+
+    <TextView
+        android:id="@+id/on_demand_accepted_jobs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/my_accepted_jobs"
+        android:textColor="@color/elm_connected_text_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/on_demand_current_job"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_incoming_job_edit" />
+
+    <LinearLayout
+        android:id="@+id/on_demand_accepted_jobs_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_accepted_jobs">
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/on_demand_accept_split"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorTripButtonDisabled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_accepted_jobs_layout" />
+
+    <TextView
+        android:id="@+id/on_demand_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/completed"
+        android:textColor="@color/elm_connected_text_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/on_demand_current_job"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_accepted_jobs_layout" />
+
+    <LinearLayout
+        android:id="@+id/on_demand_completed_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_demand_completed">
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:background="@color/colorTripButtonDisabled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
