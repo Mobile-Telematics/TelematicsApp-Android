@@ -33,13 +33,12 @@ object Versions {
     const val countryCodePicker = "2.4.7"
 
     const val firebaseBom = "28.2.0"
-    const val firebaseDatabaseKtx = "20.0.0"
-    const val firebaseAuth = "21.0.1"
-    const val firebaseStorage = "20.0.0"
     const val firebaseCrashlytics = "18.1.0"
 
     const val googlePlayServices = "19.0.0"
     const val googleGuava = "27.0.1-android"
+
+    const val room = "2.3.0"
 }
 
 object PluginVersion {

@@ -95,4 +95,6 @@ dependencies {
 
     implementation(AppDependencies.trackingApi)
     implementation(AppDependencies.circleIndicatorView)
+    implementation(AppDependencies.roomRuntime)
+    kapt(AppDependencies.roomCompiler)
 }
