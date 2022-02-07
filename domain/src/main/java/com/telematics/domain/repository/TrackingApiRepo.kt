@@ -15,8 +15,11 @@ interface TrackingApiRepo {
     fun checkPermissions(): Flow<Boolean>
     fun checkPermissionAndStartWizard(activity: Activity)
 
-    fun startTracking()
+    fun enableTrackingSDK()
     fun setEnableTrackingSDK(enable: Boolean)
+
+    fun startTracking()
+    fun stopTracking()
 
     fun setIntentForNotification(intent: Intent)
 
@@ -39,4 +42,8 @@ interface TrackingApiRepo {
     suspend fun setElmManagerLinkingResult(): ElmManagerLinkingResult?
     suspend fun getElmDevice()
     suspend fun connectSelectedDevice(device: ElmDevice, token: String)
+
+    /** tags */
+    suspend fun removeFutureTrackTag(tag: String)
+    suspend fun addFutureTrackTag(tag: String)
 }

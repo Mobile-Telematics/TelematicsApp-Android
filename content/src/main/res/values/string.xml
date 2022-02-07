@@ -365,4 +365,34 @@
     <string name="obd_setting_up_your_device">Setting Up your Device</string>
     <string name="obd_ble_error">Your devices do not support BLE</string>
 
+
+    <!--On Demand-->
+    <string name="choose_tracking_mode">Choose Tracking Mode</string>
+    <string name="on_demand">On-demand</string>
+    <string name="automatic">Automatic</string>
+    <string name="disable">Disable</string>
+    <string name="on_demand_go_online"><u>Go Online</u></string>
+    <string name="on_demand_go_offline"><u>Go Offline</u></string>
+    <string name="on_demand_no_current_job">No current job</string>
+    <string name="on_demand_pause">PAUSE</string>
+    <string name="on_demand_resume">RESUME</string>
+    <string name="on_demand_start">START</string>
+    <string name="on_demand_offline">Offline</string>
+    <string name="on_demand_online">Online</string>
+    <string name="on_demand_on_duty">On Duty</string><string name="on_demand_tracking">On-Demand Tracking</string>
+    <string name="automatic_tracking">Automatic Tracking</string>
+    <string name="tracking_disabled">Tracking Disabled</string>
+    <string name="proceed_with_mode">Proceed with %s Mode</string>
+    <string name="offline">Offline</string>
+    <string name="accept">ACCEPT</string>
+    <string name="completed">Completed</string>
+    <string name="start">START</string>
+    <string name="decline">DECLINE</string>
+    <string name="my_accepted_jobs">My accepted jobs</string>
+    <string name="current_job">Current Job</string>
+    <string name="express_delivery">Express Delivery</string>
+    <string name="incoming_jobs">Incoming Jobs</string>
+    <string name="on_demand_are_you_sure">Are you sure?\nAll your open jobs will be automatically completed.</string>
+    <string name="on_demand_switch">Switch to %s mode</string>
+
 </resources>

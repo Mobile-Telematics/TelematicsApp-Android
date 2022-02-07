@@ -156,6 +156,11 @@
             app:destination="@id/obdFragment"
             app:enterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_settingsFragment_to_chooseTrackingModeFragment"
+            app:destination="@+id/chooseTrackingModeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
     </fragment>
 
     <fragment
@@ -172,5 +177,10 @@
         android:id="@+id/obdFragment"
         android:name="OBDFeatureHost"
         tools:layout="@layout/fragment_obd_feature_host" />
+
+    <fragment
+        android:id="@+id/chooseTrackingModeFragment"
+        android:name="com.telematics.zenroad.ui.settings.ondemand.ChooseTrackingModeFragment"
+        tools:layout="@layout/fragment_choose_traking_mode" />
 
 </navigation>

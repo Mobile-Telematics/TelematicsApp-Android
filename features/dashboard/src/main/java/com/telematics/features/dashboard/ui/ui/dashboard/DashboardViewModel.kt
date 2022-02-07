@@ -12,11 +12,15 @@ import com.telematics.data.mappers.toScoreTypeModelList
 import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.data.utils.Resource
-import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.leaderboard.LeaderboardType
+import com.telematics.domain.model.on_demand.DashboardOnDemandJob
+import com.telematics.domain.model.on_demand.OnDemandJobState
+import com.telematics.domain.model.on_demand.OnDemandState
+import com.telematics.domain.model.on_demand.TrackingState
 import com.telematics.domain.model.reward.StreaksData
 import com.telematics.domain.model.statistics.*
 import com.telematics.domain.model.tracking.TripData
+import com.telematics.domain.repository.OnDemandRepo
 import com.telematics.domain.repository.RewardRepo
 import com.telematics.domain.repository.SettingsRepo
 import com.telematics.domain.repository.StatisticRepo
@@ -32,6 +36,7 @@ class DashboardViewModel @Inject constructor(
     private val trackingUseCase: TrackingUseCase,
     private val settingsRepo: SettingsRepo,
     private val rewardRepo: RewardRepo,
+    private val onDemandRepo: OnDemandRepo,
     val measuresFormatter: MeasuresFormatter
 ) : ViewModel() {
 
@@ -166,5 +171,329 @@ class DashboardViewModel @Inject constructor(
 
         val date = measuresFormatter.parseFullNewDate(dateInString)
         return measuresFormatter.getDateWithTime(date)
+    }
+
+    /** On-demand tracking*/
+    private val onDemandLiveData = MutableLiveData<Result<List<DashboardOnDemandJob>>>()
+    fun getOnDemandJobLiveData() = onDemandLiveData
+
+    private var onDemandJobList = listOf<DashboardOnDemandJob>()
+
+    private var currentOnDemandDutyState = OnDemandState.OFFLINE
+    fun getCurrentDutyState() = currentOnDemandDutyState
+
+    fun getTrackingState(): LiveData<Result<TrackingState>> {
+
+        val state = MutableLiveData<Result<TrackingState>>()
+        flow {
+            val data = settingsRepo.getTrackingState()
+            emit(data)
+        }
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(state)
+            .launchIn(viewModelScope)
+        return state
+    }
+
+    fun getDemandDutyState(): LiveData<Result<OnDemandState>> {
+
+        val state = MutableLiveData<Result<OnDemandState>>()
+        flow {
+            val data = settingsRepo.getDemandDutyState()
+            currentOnDemandDutyState = data
+            emit(data)
+        }
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(state)
+            .launchIn(viewModelScope)
+        return state
+    }
+
+    fun setDemandDutyState(state: OnDemandState) {
+
+        currentOnDemandDutyState = state
+        flow {
+            val trackingState = settingsRepo.getTrackingState()
+            if (trackingState == TrackingState.DEMAND) {
+                if (state != OnDemandState.OFFLINE)
+                    trackingUseCase.enableTracking()
+                else trackingUseCase.disableTrackingSDK()
+            }
+            val data = settingsRepo.setDemandDutyState(state)
+            emit(data)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+    }
+
+    fun getOnDemandJobs() {
+
+        flow {
+            val list = onDemandRepo.getOnDemandJobList()
+            list.sortedBy { it.createTime }.reversed().apply {
+                onDemandJobList = this
+            }
+            onDemandLiveData.postValue(Result.success(onDemandJobList))
+            emit(onDemandJobList)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+    }
+
+    fun isExistsOnDemandCurrentJobs(): Boolean {
+
+        return onDemandJobList
+            .find { it.state == OnDemandJobState.CURRENT.name } != null
+    }
+
+    fun setOnDemandCurrentJobToPaused() {
+
+        flow {
+            val list = onDemandRepo.getOnDemandJobList()
+            val currentJob = list.find { it.state == OnDemandJobState.CURRENT.name }
+
+            if (currentJob != null) {
+                handlerForTrackingAPI(null, false)
+                onDemandRepo.updateOnDemandJob(
+                    currentJob.getOriginName,
+                    OnDemandJobState.PAUSED.name
+                )
+            }
+            getOnDemandJobs()
+            emit(list)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+    }
+
+    private fun handlerForTrackingAPI(enableSDK: Boolean? = null, startTracking: Boolean? = null) {
+
+        if (enableSDK != null) {
+            if (enableSDK)
+                trackingUseCase.enableTracking()
+            else
+                trackingUseCase.disableTrackingSDK()
+        }
+
+        when (startTracking) {
+            true -> {
+                trackingUseCase.startTracking()
+            }
+            false -> {
+                trackingUseCase.stopTracking()
+            }
+        }
+    }
+
+    fun getDateForDemandMode(): String {
+        return measuresFormatter.getDateForDemandMode(null)
+    }
+
+    fun addAcceptedJobs(inputName: String, actionForDisableAdd: (() -> Unit)?) {
+        var checkedInputName = inputName
+        if (checkedInputName.isBlank() || checkedInputName.isEmpty()) {
+            checkedInputName = getDefaultOnDemandJobName()
+        }
+
+        if (isExistsOnDemandAcceptedJobs(checkedInputName)) {
+            actionForDisableAdd?.invoke()
+            return
+        }
+
+        flow {
+            val list = onDemandRepo.getOnDemandJobList()
+            val currentJob = list.find { it.state == OnDemandJobState.CURRENT.name }
+
+            if (currentJob != null) {
+                handlerForTrackingAPI(null, false)
+                onDemandRepo.updateOnDemandJob(
+                    currentJob.getOriginName,
+                    OnDemandJobState.PAUSED.name
+                )
+            }
+            getOnDemandJobs()
+            emit(list)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+
+        flow {
+            onDemandRepo.getOnDemandJobList()
+            val job = DashboardOnDemandJob(
+                checkedInputName,
+                OnDemandJobState.ACCEPTED.name,
+                System.currentTimeMillis()
+            )
+            onDemandRepo.addOnDemandJob(job)
+            getOnDemandJobs()
+            emit(Unit)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+    }
+
+    private fun getDefaultOnDemandJobName(): String {
+        return getDateForDemandMode()
+    }
+
+    private fun isExistsOnDemandAcceptedJobs(checkName: String): Boolean {
+
+        return onDemandJobList
+            .find {
+                it.getName == checkName && (
+                        it.state == OnDemandJobState.ACCEPTED.name
+                                || it.state == OnDemandJobState.PAUSED.name
+                                || it.state == OnDemandJobState.CURRENT.name
+                        )
+            } != null
+    }
+
+    fun addAndStartOnDemandJob(
+        inputName: String,
+        actionForDialog: (() -> Unit)?,
+        action: ((isCurrentJobExist: Boolean, newJob: DashboardOnDemandJob) -> Unit)?
+    ) {
+        var checkedInputName = inputName
+        if (checkedInputName.isBlank() || checkedInputName.isEmpty()) {
+            checkedInputName = getDefaultOnDemandJobName()
+        }
+
+        if (isExistsOnDemandAcceptedJobs(checkedInputName)) {
+            actionForDialog?.invoke()
+            return
+        }
+
+        flow {
+            val list = onDemandRepo.getOnDemandJobList()
+            val currentTime = System.currentTimeMillis()
+            val newJob = DashboardOnDemandJob(
+                checkedInputName,
+                OnDemandJobState.CURRENT.name,
+                currentTime
+            )
+            if (action == null) {
+                handlerForTrackingAPI(null, true)
+                onDemandRepo.addOnDemandJob(newJob)
+            }
+            val currentJob = list.find { it.state == OnDemandJobState.CURRENT.name }
+            action?.invoke(currentJob != null, newJob)
+            if (currentJob == null) {
+                handlerForTrackingAPI(null, true)
+                onDemandRepo.addOnDemandJob(newJob)
+            }
+
+            getOnDemandJobs()
+            emit(Unit)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+    }
+
+    fun setOnDemandCurrentJobToCompleted() {
+
+        flow {
+            val list = onDemandRepo.getOnDemandJobList()
+            val currentJob = list.find { it.state == OnDemandJobState.CURRENT.name }
+            if (currentJob != null) {
+                val isCurrentJobExistInCompletedJobs =
+                    list.find { it.state == OnDemandJobState.COMPLETE.name && it.getName == currentJob.getName } != null
+                handlerForTrackingAPI(null, false)
+                if (!isCurrentJobExistInCompletedJobs)
+                    onDemandRepo.updateOnDemandJob(
+                        currentJob.getOriginName,
+                        OnDemandJobState.COMPLETE.name
+                    )
+                else {
+                    onDemandRepo.removeOnDemandJob(currentJob)
+                }
+            }
+
+            getOnDemandJobs()
+            emit(Unit)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+    }
+
+    fun removeOnDemandJob(job: DashboardOnDemandJob) {
+
+        flow {
+            val list = onDemandRepo.getOnDemandJobList()
+            trackingUseCase.removeFutureTrackTag(job.getTag)
+            handlerForTrackingAPI(null, false)
+            onDemandRepo.removeOnDemandJob(job)
+            getOnDemandJobs()
+            emit(Unit)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+    }
+
+    fun updateOnDemandJob(
+        job: DashboardOnDemandJob,
+        newState: String,
+        action: ((isCurrentJobExist: Boolean) -> Unit)?
+    ) {
+
+        flow {
+            val list = onDemandRepo.getOnDemandJobList()
+            if (newState == OnDemandJobState.CURRENT.name) {
+
+                if (action == null) {
+                    handlerForTrackingAPI(null, true)
+                    onDemandRepo.updateOnDemandJob(job.getOriginName, newState)
+                }
+
+                val currentJobExist =
+                    list.find { it.state == OnDemandJobState.CURRENT.name } != null
+                action?.invoke(currentJobExist)
+                if (!currentJobExist) {
+                    handlerForTrackingAPI(null, true)
+                    onDemandRepo.updateOnDemandJob(job.getOriginName, newState)
+                }
+            } else {
+                handlerForTrackingAPI(null, false)
+                onDemandRepo.updateOnDemandJob(job.getOriginName, newState)
+            }
+            getOnDemandJobs()
+            emit(Unit)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
+    }
+
+    fun getIndividualDataByTag(job: DashboardOnDemandJob): MutableLiveData<Result<Pair<UserStatisticsIndividualData, UserStatisticsScoreData>>> {
+
+        val state =
+            MutableLiveData<Result<Pair<UserStatisticsIndividualData, UserStatisticsScoreData>>>()
+        flow {
+            val data = statisticRepo.getOnDemandCompletedData(job)
+            emit(data)
+        }
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(state)
+            .launchIn(viewModelScope)
+        return state
+    }
+
+    fun setTrackingTag(jobList: List<DashboardOnDemandJob>?) {
+
+        flow {
+            val lastCurrentJob = settingsRepo.getOnDemandLastCurrentJob()
+            val lastTag = lastCurrentJob.toString()
+
+            jobList?.find { it.state == OnDemandJobState.CURRENT.name }?.let { job ->
+                settingsRepo.setOnDemandLastCurrentJob(job)
+                val tag = job.getTag
+                if (lastTag != tag) {
+                    handlerForTrackingAPI(null, true)
+                    trackingUseCase.addFutureTrackTag(tag)
+                }
+            }
+
+            emit(Unit)
+        }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
     }
 }

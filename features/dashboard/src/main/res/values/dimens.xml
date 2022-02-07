@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Text size Tracking mode -->
+    <dimen name="tracking_mode_text_size_title">17sp</dimen><!--16-->
+    <dimen name="tracking_mode_text_size_description">14sp</dimen><!--16-->
+    <dimen name="tracking_mode_min_height">130dp</dimen><!--130-->
+    <dimen name="tracking_mode_img_check_height">45dp</dimen><!--45-->
+    <dimen name="tracking_mode_img_icon_height">50dp</dimen><!--50-->
+    <dimen name="tracking_mode_top_margin">40dp</dimen><!--40-->
+    <dimen name="tracking_mode_start_margin_description">16dp</dimen><!--16-->
+
+</resources>

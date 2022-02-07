@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.telematics.content.utils.BaseFragment
 import com.telematics.content.utils.TryOpenLink
 import com.telematics.data.BuildConfig
+import com.telematics.domain.model.on_demand.TrackingState
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.SettingsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +41,7 @@ class SettingsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView()
         setListeners()
     }
 
@@ -76,6 +78,29 @@ class SettingsFragment : BaseFragment() {
         binding.settingsTerms.setOnClickListener {
             openTerms()
         }
+
+        binding.settingsChooseTrackingModeTitle.setOnClickListener {
+            openChooseTrackingMode()
+        }
+    }
+
+    private fun initView() {
+
+        settingsViewModel.getTrackingState().observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                showTrackingMode(it)
+            }
+        }
+    }
+
+    private fun showTrackingMode(state: TrackingState) {
+
+        val text = when (state) {
+            TrackingState.AUTO -> R.string.automatic
+            TrackingState.DEMAND -> R.string.on_demand
+            TrackingState.DISABLE -> R.string.disable
+        }
+        binding.settingsChooseTrackingModeName.setText(text)
     }
 
     private fun logout() {
@@ -143,5 +168,10 @@ class SettingsFragment : BaseFragment() {
     private fun openMeasures() {
 
         findNavController().navigate(R.id.action_settingsFragment_to_measuresFragment)
+    }
+
+    private fun openChooseTrackingMode() {
+
+        findNavController().navigate(R.id.action_settingsFragment_to_chooseTrackingModeFragment)
     }
 }

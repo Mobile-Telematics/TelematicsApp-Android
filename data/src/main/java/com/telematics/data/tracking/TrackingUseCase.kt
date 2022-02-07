@@ -8,7 +8,9 @@ import android.graphics.Bitmap
 import com.raxeltelematics.v2.sdk.services.main.elm.BluetoothUtils
 import com.raxeltelematics.v2.sdk.services.main.elm.Constants
 import com.telematics.data.utils.ImageLoader
+import com.telematics.domain.model.on_demand.TrackingState
 import com.telematics.domain.model.tracking.*
+import com.telematics.domain.repository.SettingsRepo
 import com.telematics.domain.repository.TrackingApiRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -18,8 +20,11 @@ class TrackingUseCase
 @Inject constructor(
     context: Context,
     private val trackingApiRepo: TrackingApiRepo,
-    private val imageLoader: ImageLoader
+    private val imageLoader: ImageLoader,
+    private val settingsRepo: SettingsRepo
 ) {
+
+    private var notificationIntent: Intent? = null
 
     init {
         trackingApiRepo.setContext(context)
@@ -40,16 +45,34 @@ class TrackingUseCase
     }
 
     fun enableTrackingSDK() {
-        trackingApiRepo.setEnableTrackingSDK(true)
+        if (settingsRepo.getTrackingState() == TrackingState.AUTO)
+            trackingApiRepo.setEnableTrackingSDK(true)
     }
 
     fun disableTrackingSDK() {
         trackingApiRepo.setEnableTrackingSDK(false)
     }
 
+    fun startTracking(){
+        trackingApiRepo.startTracking()
+    }
+
+    fun stopTracking() {
+        trackingApiRepo.stopTracking()
+    }
+
     fun setIntentForNotification(intent: Intent) {
 
+        notificationIntent = intent
         trackingApiRepo.setIntentForNotification(intent)
+    }
+
+    fun enableTracking() {
+
+        trackingApiRepo.setEnableTrackingSDK(true)
+        notificationIntent?.let { notificationIntent ->
+            trackingApiRepo.setIntentForNotification(notificationIntent)
+        }
     }
 
     fun logout() {
@@ -160,6 +183,22 @@ class TrackingUseCase
 
         return flow {
             val data = trackingApiRepo.connectSelectedDevice(device, token)
+            emit(data)
+        }
+    }
+
+    fun removeFutureTrackTag(tag: String): Flow<Unit> {
+
+        return flow {
+            val data = trackingApiRepo.removeFutureTrackTag(tag)
+            emit(data)
+        }
+    }
+
+    fun addFutureTrackTag(tag: String): Flow<Unit> {
+
+        return flow {
+            val data = trackingApiRepo.addFutureTrackTag(tag)
             emit(data)
         }
     }

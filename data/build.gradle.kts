@@ -82,4 +82,6 @@ dependencies {
 
     implementation(AppDependencies.trackingApi)
     implementation(AppDependencies.googleGuava)
+    implementation(AppDependencies.roomRuntime)
+    kapt(AppDependencies.roomCompiler)
 }

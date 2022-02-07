@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.telematics.data.extentions.setLiveDataForResult
 import com.telematics.data.tracking.TrackingUseCase
+import com.telematics.domain.model.on_demand.TrackingState
 import com.telematics.domain.repository.SessionRepo
+import com.telematics.domain.repository.SettingsRepo
 import com.telematics.features.account.use_case.LoginUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
@@ -16,7 +19,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val trackingUseCase: TrackingUseCase,
-    private val sessionRepo: SessionRepo
+    private val sessionRepo: SessionRepo,
+    private val settingsRepo: SettingsRepo
 ) : ViewModel() {
 
     fun logout(): LiveData<Result<Boolean>> {
@@ -31,5 +35,19 @@ class SettingsViewModel @Inject constructor(
         sessionRepo.clearStateForRewardInviteScreen()
 
         return logoutState
+    }
+
+    fun getTrackingState(): LiveData<Result<TrackingState>> {
+
+        val state = MutableLiveData<Result<TrackingState>>()
+        flow {
+            val data = settingsRepo.getTrackingState()
+            emit(data)
+        }
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(state)
+            .launchIn(viewModelScope)
+
+        return state
     }
 }

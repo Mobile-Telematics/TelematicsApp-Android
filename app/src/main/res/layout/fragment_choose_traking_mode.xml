@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/choose_tracking_back"
+        android:layout_width="24dp"
+        android:layout_height="18dp"
+        android:layout_margin="18dp"
+        android:src="@drawable/ic_sett_back_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/black" />
+
+    <TextView
+        android:id="@+id/choose_tracking_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_bold"
+        android:gravity="center_vertical"
+        android:text="Select Tracking Mode"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/app_settings_toolbar_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/choose_tracking_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/choose_tracking_back" />
+
+    <TextView
+        android:id="@+id/choose_tracking_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="Choose a mode depending on your goals. You can switch this any time. "
+        android:textColor="#9A9A9A"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_tracking_title"
+        app:layout_constraintWidth_percent="0.6" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/choose_tracking_mode_parent_auto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#fff"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@id/choose_tracking_mode_parent_demand"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_tracking_subtitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/choose_tracking_mode_parent_auto_select_mark"
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:background="@color/colorDefButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/choose_tracking_mode_parent_auto_img"
+                android:layout_width="@dimen/tracking_mode_img_icon_height"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_tracking_mode_auto"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/choose_tracking_mode_parent_auto_subtitle"
+                app:layout_constraintHeight_percent="0.35"
+                app:layout_constraintStart_toEndOf="@id/choose_tracking_mode_parent_auto_select_mark"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/choose_tracking_mode_parent_auto_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:maxLines="1"
+                android:text="@string/automatic_tracking"
+                android:textColor="#464646"
+                android:textSize="@dimen/tracking_mode_text_size_title"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/choose_tracking_mode_parent_auto_subtitle"
+                app:layout_constraintEnd_toEndOf="@id/choose_tracking_mode_parent_auto_subtitle"
+                app:layout_constraintStart_toStartOf="@id/choose_tracking_mode_parent_auto_subtitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/choose_tracking_mode_parent_auto_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tracking_mode_start_margin_description"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/tracking_mode_start_margin_description"
+                android:layout_marginBottom="15dp"
+                android:alpha="0.5"
+                android:autoSizeMaxTextSize="16sp"
+                android:autoSizeMinTextSize="14sp"
+                android:maxLines="3"
+                android:text="All your trips will be recorded 24/7. You can manually turn it off in Settings"
+                android:textColor="#464646"
+                android:textSize="@dimen/tracking_mode_text_size_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/choose_tracking_mode_parent_auto_title"
+                app:layout_constraintWidth_percent="0.6" />
+
+            <ImageView
+                android:id="@+id/choose_tracking_mode_parent_auto_select_btn"
+                android:layout_width="@dimen/tracking_mode_img_check_height"
+                android:layout_height="@dimen/tracking_mode_img_check_height"
+                android:background="@drawable/ic_trip_circle_blue"
+                android:backgroundTint="@color/colorDefButton"
+                android:padding="12dp"
+                android:src="@drawable/ic_check"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/choose_tracking_mode_parent_auto_subtitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#fff" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/choose_tracking_mode_parent_demand"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#fff"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@id/choose_tracking_mode_parent_disable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_tracking_mode_parent_auto">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/choose_tracking_mode_parent_demand_select_mark"
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/choose_tracking_mode_parent_demand_img"
+                android:layout_width="@dimen/tracking_mode_img_icon_height"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_tracking_mode_demand"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/choose_tracking_mode_parent_demand_subtitle"
+                app:layout_constraintHeight_percent="0.35"
+                app:layout_constraintStart_toEndOf="@id/choose_tracking_mode_parent_demand_select_mark"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/choose_tracking_mode_parent_demand_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:maxLines="1"
+                android:text="@string/on_demand_tracking"
+                android:textColor="#464646"
+                android:textSize="@dimen/tracking_mode_text_size_title"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/choose_tracking_mode_parent_demand_subtitle"
+                app:layout_constraintEnd_toEndOf="@id/choose_tracking_mode_parent_demand_subtitle"
+                app:layout_constraintStart_toStartOf="@id/choose_tracking_mode_parent_demand_subtitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/choose_tracking_mode_parent_demand_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tracking_mode_start_margin_description"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/tracking_mode_start_margin_description"
+                android:alpha="0.5"
+                android:autoSizeMaxTextSize="16sp"
+                android:autoSizeMinTextSize="14sp"
+                android:maxLines="3"
+                android:text="Tracking works only when you are on duty"
+                android:textColor="#464646"
+                android:textSize="@dimen/tracking_mode_text_size_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/choose_tracking_mode_parent_demand_title"
+                app:layout_constraintWidth_percent="0.6" />
+
+            <ImageView
+                android:id="@+id/choose_tracking_mode_parent_demand_select_btn"
+                android:layout_width="@dimen/tracking_mode_img_check_height"
+                android:layout_height="@dimen/tracking_mode_img_check_height"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/circle_setting_tracking_mode_disable"
+                android:padding="12dp"
+                app:tint="#fff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/choose_tracking_mode_parent_disable"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#fff"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@id/choose_tracking_mode_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_tracking_mode_parent_demand">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/choose_tracking_mode_parent_disable_select_mark"
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/choose_tracking_mode_parent_disable_img"
+                android:layout_width="@dimen/tracking_mode_img_icon_height"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_tracking_mode_disable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/choose_tracking_mode_parent_disable_subtitle"
+                app:layout_constraintHeight_percent="0.35"
+                app:layout_constraintStart_toEndOf="@id/choose_tracking_mode_parent_disable_select_mark"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/choose_tracking_mode_parent_disable_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@string/tracking_disabled"
+                android:textColor="#464646"
+                android:textSize="@dimen/tracking_mode_text_size_title"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/choose_tracking_mode_parent_disable_subtitle"
+                app:layout_constraintStart_toStartOf="@id/choose_tracking_mode_parent_disable_subtitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/choose_tracking_mode_parent_disable_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tracking_mode_start_margin_description"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/tracking_mode_start_margin_description"
+                android:alpha="0.5"
+                android:autoSizeMaxTextSize="16sp"
+                android:autoSizeMinTextSize="14sp"
+                android:maxLines="3"
+                android:text="Tracking does not work at all"
+                android:textColor="#464646"
+                android:textSize="@dimen/tracking_mode_text_size_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/choose_tracking_mode_parent_disable_title"
+                app:layout_constraintWidth_percent="0.6" />
+
+            <ImageView
+                android:id="@+id/choose_tracking_mode_parent_disable_select_btn"
+                android:layout_width="@dimen/tracking_mode_img_check_height"
+                android:layout_height="@dimen/tracking_mode_img_check_height"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/circle_setting_tracking_mode_disable"
+                android:padding="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.49"
+                app:tint="#fff" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/choose_tracking_mode_save"
+        style="@style/Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/open_sans_bold"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="Proceed with Automatic Tracking Mode"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

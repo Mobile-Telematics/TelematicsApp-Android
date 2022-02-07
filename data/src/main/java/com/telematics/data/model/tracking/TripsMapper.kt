@@ -186,7 +186,7 @@ class TripsMapper @Inject constructor(
             "Walking" -> TripData.TripType.WALKING
             "Running" -> TripData.TripType.RUNNING
             "Other" -> TripData.TripType.OTHER
-            else -> throw RuntimeException("Unknown Progress TripType: $this")
+            else -> TripData.TripType.DRIVER
         }
     }
 

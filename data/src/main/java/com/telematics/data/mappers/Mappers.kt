@@ -661,3 +661,12 @@ fun com.raxeltelematics.v2.sdk.services.main.elm.ElmDevice.toElmDevice(): ElmDev
         this.rssi
     )
 }
+
+fun UserStatisticsIndividualRest.transformOnDemand(): UserStatisticsIndividualData {
+    return UserStatisticsIndividualData(
+        this.tripsCount.toInt(),
+        this.mileageKm,
+        this.mileageMile,
+        this.drivingTime.toInt()
+    )
+}
