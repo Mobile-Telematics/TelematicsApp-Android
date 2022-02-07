@@ -245,6 +245,17 @@ Streaks - https://docs.telematicssdk.com/docs/streaks-1
 In detail, you can see the work with methods for rewards in the Telematics App source code in the DriveCoins section.
 
 
+## On-Demand Tracking Mode
+
+In the new version of the app, we have provided the ability to select Tracking Mode in Settings. There may be 3 options - `Automatic Tracking`, `On-Demand Tracking`, `Tracking disabled`.
+
+The`On-Demand Tracking` provides an updated `Dashboard` by applying and programmatically increasing Constraints in InterfaceBuilder and a special method for increasing the vertical dimensions of the DashboardController.m file. In this Mode, the user can create a Job for himself.
+
+`JobName` is a specific tag identifier that will be added for 1 or any number of trips made by the user. The user must necessarily start a certain job or order, and complete it accordingly. In the future, when the trip is enriched on our backend-side, the app will receive statistics for this `JobName` tag. The user will see the number of trips made for this task, the rating of maneuverability, risk score, etc. All this is available in a new section on our `Dashboard`.
+
+`On-Demand Tracking` is great for any business like delivery service, taxi and many others. Currently, this Mode will be an integral part of the Telematics App and provide you with a new experience of integrations and work options.
+
+
 ## User Log Out
 
 In the Telematics App source code, we show you an option to clear user data after logging out. Do not forget - to stop tracking and record user trips, you need to explicitly delete `VIRTUAL_DEVICE_TOKEN`.
