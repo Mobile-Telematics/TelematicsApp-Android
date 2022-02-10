@@ -13,5 +13,5 @@ class UserDatabase {
     var profilePictureLink: String? = null
     var gender: String? = null
     var maritalStatus: String? = null
-    var childrenCount: Int? = null
+    var childrenCount: String? = null
 }
