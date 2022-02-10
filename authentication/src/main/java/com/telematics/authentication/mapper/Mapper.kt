@@ -85,7 +85,7 @@ class Mapper {
                 profilePictureUrl = userDatabase.profilePictureLink
                 gender = userDatabase.gender
                 maritalStatus = userDatabase.maritalStatus
-                childrenCount = userDatabase.childrenCount
+                childrenCount = userDatabase.childrenCount?.toIntOrNull() ?: 0
             }
         }
 
@@ -107,7 +107,7 @@ class Mapper {
                 profilePictureLink = user.profilePictureUrl
                 gender = user.gender
                 maritalStatus = user.maritalStatus
-                childrenCount = user.childrenCount
+                childrenCount = user.childrenCount?.toString() ?: ""
                 //default
                 deviceToken = user.deviceToken
             }

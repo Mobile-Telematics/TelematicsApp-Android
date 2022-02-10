@@ -201,14 +201,17 @@ class Authentication constructor(
         userDatabase.lastName = emptyRegistrationUser.lastName
         userDatabase.birthday = emptyRegistrationUser.birthday
         userDatabase.maritalStatus = emptyRegistrationUser.maritalStatus
-        userDatabase.childrenCount = emptyRegistrationUser.childrenCount
+        userDatabase.childrenCount =
+            emptyRegistrationUser.childrenCount?.toString() ?: ""
         userDatabase.address = emptyRegistrationUser.address
         userDatabase.gender = emptyRegistrationUser.gender
         userDatabase.profilePictureLink = emptyRegistrationUser.profilePictureUrl
         userDatabase.userId = firebaseAuth.currentUser?.uid
 
-        Log.d(TAG, "createUserInFirebaseDatabase userDa" +
-                "tabase $userDatabase")
+        Log.d(
+            TAG, "createUserInFirebaseDatabase userDa" +
+                    "tabase $userDatabase"
+        )
         firebaseDatabase.child("users").child(user.userId!!).setValue(userDatabase).await()
     }
 

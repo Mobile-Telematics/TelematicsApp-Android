@@ -41,13 +41,17 @@ suspend fun <T> DatabaseReference.await(): T = suspendCoroutine { continuation -
     addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             Log.d("FIREBASE Database await", "onDataChange")
-            val userDatabase = snapshot.getValue(UserDatabase::class.java)
-            userDatabase?.deviceToken?.let { deviceToken ->
-                Log.d("FIREBASE Database await", "onDataChange deviceToken:${deviceToken}")
-                continuation.resume(userDatabase as T)
-            } ?: run {
-                Log.d("FIREBASE Database await", "onDataChange deviceToken null")
+            try {
+                val userDatabase = snapshot.getValue(UserDatabase::class.java)
+                userDatabase?.deviceToken?.let { deviceToken ->
+                    Log.d("FIREBASE Database await", "onDataChange deviceToken:${deviceToken}")
+                    continuation.resume(userDatabase as T)
+                } ?: run {
+                    Log.d("FIREBASE Database await", "onDataChange deviceToken null")
 //                continuation.resumeWithException(AuthException(AuthErrorCode.EMPTY_DEVICE_TOKEN))
+                    continuation.resume(UserDatabase() as T)
+                }
+            } catch (e: Exception) {
                 continuation.resume(UserDatabase() as T)
             }
         }
