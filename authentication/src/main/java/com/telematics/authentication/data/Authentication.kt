@@ -201,8 +201,7 @@ class Authentication constructor(
         userDatabase.lastName = emptyRegistrationUser.lastName
         userDatabase.birthday = emptyRegistrationUser.birthday
         userDatabase.maritalStatus = emptyRegistrationUser.maritalStatus
-        userDatabase.childrenCount =
-            emptyRegistrationUser.childrenCount?.toString() ?: ""
+        userDatabase.childrenCount = emptyRegistrationUser.childrenCount
         userDatabase.address = emptyRegistrationUser.address
         userDatabase.gender = emptyRegistrationUser.gender
         userDatabase.profilePictureLink = emptyRegistrationUser.profilePictureUrl
