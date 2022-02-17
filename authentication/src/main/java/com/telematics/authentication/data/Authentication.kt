@@ -232,6 +232,8 @@ class Authentication constructor(
         //update user in API user.telematicssdk.com
         authRepo.updateUser(newUser)
 
+        val userDatabase = Mapper.userToUserDatabase(newUser)
+
         TelematicsAuth.updateUserProfile(
             INSTANCE_ID,
             INSTANCE_KEY,
@@ -242,14 +244,13 @@ class Authentication constructor(
             newUser.clientId,
             newUser.firstName,
             newUser.lastName,
-            null,//newUser.birthday,
+            userDatabase.birthday,
             null,
             newUser.childrenCount,
             newUser.address,
             null
         ).await()
 
-        val userDatabase = Mapper.userToUserDatabase(newUser)
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
         user.userId?.let { userId ->
             firebaseDatabase.child("users").child(userId).setValue(userDatabase).await()

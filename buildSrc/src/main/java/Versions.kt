@@ -3,7 +3,7 @@ object Versions {
     const val kotlin = "1.5.0"
 
     const val trackingApi = "2.2.254"
-    const val loginAuthFramework = "1.0.0"
+    const val loginAuthFramework = "1.0.1"
 
     //libs
     const val coreKtx = "1.2.0"
