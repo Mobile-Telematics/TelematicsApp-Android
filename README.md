@@ -145,27 +145,27 @@ In the next few simple steps, we'll show you how easy it is to create access key
 Step 1: After creating your HERE account, open your project in https://developer.here.com/projects </br>
 In the REST table click "Generate App".
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_1.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/here_step_1.png)
 
 Step 2: Click "Create API key"
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_2.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/here_step_2.png)
 
 Step 3: Copy API KEY and paste it to HERE_API_KEY parameter in AppConfig.kt file
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_3.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/here_step_3.png)
 
 Step 4: In HERE SDK FOR ANDROID table click "Generate App ID and App Code".
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_4.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/here_step_4.png)
 
 Step 5: Input your applicationId like a "com.prefix.application_name" from AppConfig.kt file for connecting your application and HERE Maps services. Then click "GENERATE".
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_5.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/here_step_5.png)
 
 Step 6: Copy LICENSE KEY from HERE developer console to HERE_LICENSE_KEY parameter in AppConfig.kt file. Also do the same for parameters: APP ID and APP CODE.
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_6.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/here_step_6.png)
 
 >Note: you do not need to Download SDK from the HERE developer console, it is already in the application project.
 
