@@ -161,7 +161,7 @@ class LoginUseCase @Inject constructor(
     private suspend fun registerUser(user: User): SessionData {
         Log.d(TAG, "registrationUser")
 
-        val registrationApiData = authenticationRepo.registrationCreateAPI()
+        val registrationApiData = authenticationRepo.registrationCreateAPI(user.email, user.phone)
         val deviceToken = registrationApiData.deviceToken
         user.deviceToken = deviceToken
         authenticationRepo.createUserInFirebaseDatabase(user)

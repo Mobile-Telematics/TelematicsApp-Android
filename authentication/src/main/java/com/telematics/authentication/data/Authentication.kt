@@ -73,7 +73,10 @@ class Authentication constructor(
         return userId
     }
 
-    override suspend fun registrationCreateAPI(): RegistrationApiData {
+    override suspend fun registrationCreateAPI(email: String?, phone: String?): RegistrationApiData {
+
+        emptyRegistrationUser.email = email
+        emptyRegistrationUser.phone = phone
 
         val createResult =
             TelematicsAuth.createDeviceToken(
@@ -88,7 +91,6 @@ class Authentication constructor(
                 childrenCount = emptyRegistrationUser.childrenCount,
                 address = emptyRegistrationUser.address
             )
-
                 .await()
         //val data = authRepo.registration()
         return RegistrationApiData(
