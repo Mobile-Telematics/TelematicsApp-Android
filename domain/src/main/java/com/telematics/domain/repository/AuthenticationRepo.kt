@@ -14,7 +14,7 @@ interface AuthenticationRepo {
     suspend fun getCurrentUserID(): String?
 
     /** api */
-    suspend fun registrationCreateAPI(): RegistrationApiData
+    suspend fun registrationCreateAPI(email: String?, phone: String?): RegistrationApiData
     suspend fun loginAPI(deviceToken: String): SessionData
     suspend fun changeCompanyId(companyId: String): InstanceName
 

@@ -20,6 +20,7 @@
         tools:replace="android:allowBackup">
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
