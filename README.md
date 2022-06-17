@@ -18,7 +18,7 @@ Screens:
 
 ## Basic concepts & credentials
 
-1. Create an account https://app.damoov.com/user/registration and get `InstanceId` and`InstanceKey` auth keys to work with the telematics SDK & APIs.
+1. Create an account https://app.damoov.com and get `InstanceId` and`InstanceKey` auth keys to work with the telematics SDK & APIs.
 How to obtain InsanceId & InstanceKey => https://docs.telematicssdk.com/docs/datahub#user-group-credentials
 
 2. Additionally, to authenticate users in your app and store users data, you need to create a firebase account: https://firebase.google.com
