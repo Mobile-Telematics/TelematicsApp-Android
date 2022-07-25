@@ -3,9 +3,9 @@ object AppConfig {
     private const val name = "your_application_name"
 
     const val applicationId = "$applicationIdPrefix.$name"
-    const val compileSdk = 30
+    const val compileSdk = 32
     const val minSdk = 21
-    const val targetSdk = 30
+    const val targetSdk = 32
     const val versionName = "1.0.0"
     const val versionCode = 1
 

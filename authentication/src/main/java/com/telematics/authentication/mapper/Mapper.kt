@@ -62,13 +62,15 @@ class Mapper {
 
         fun userDatabaseToUser(userDatabase: UserDatabase): User {
 
-            val birthdayInString =
+            val birthdayInString = ""
+            if (userDatabase.birthday.isNullOrBlank())
+                "" else
                 try {
                     userDatabase.birthday
                         ?.iso8601InSecondsToLong()
                         ?.timeMillsToDisplayableString(DateFormat.DayMonthFullYear())
                 } catch (e: Exception) {
-                    Log.d("Mapper", "userDatabaseToUser: ${e.printStackTrace()}")
+                    Log.d("Mapper", "userDatabaseToUser: ${e.message}")
                     ""
                 }
 
