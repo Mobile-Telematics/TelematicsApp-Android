@@ -504,7 +504,7 @@ class DashboardFragment : Fragment() {
         }
 
         dashboardViewModel.scoreLiveData.removeObservers(this)
-        dashboardViewModel.scoreLiveData.observe(viewLifecycleOwner, {
+        dashboardViewModel.scoreLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Failure -> {
                     showEmptyDashboard(null)
@@ -518,7 +518,7 @@ class DashboardFragment : Fragment() {
                 }
 
             }
-        })
+        }
 
         dashboardViewModel.getStatistics()
     }

@@ -51,7 +51,7 @@ class TrackingApiImpl @Inject constructor(
 
     override fun checkPermissionAndStartWizard(activity: Activity) {
 
-        if (!trackingApi.isAllRequiredPermissionsAndSensorsGranted()) {
+        if (!trackingApi.areAllRequiredPermissionsAndSensorsGranted()) {
             activity.startActivityForResult(
                 PermissionsWizardActivity.getStartWizardIntent(
                     activity,
@@ -65,7 +65,7 @@ class TrackingApiImpl @Inject constructor(
     override fun checkPermissions(): Flow<Boolean> {
 
         return flow {
-            val data = trackingApi.isAllRequiredPermissionsGranted()
+            val data = trackingApi.areAllRequiredPermissionsGranted()
             emit(data)
         }
     }
