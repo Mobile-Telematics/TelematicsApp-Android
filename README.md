@@ -18,7 +18,7 @@ Screens:
 
 ## Basic concepts & credentials
 
-1. Create an account https://app.damoov.com/user/registration and get `InstanceId` and`InstanceKey` auth keys to work with the telematics SDK & APIs.
+1. Create an account https://app.damoov.com and get `InstanceId` and`InstanceKey` auth keys to work with the telematics SDK & APIs.
 How to obtain InsanceId & InstanceKey => https://docs.telematicssdk.com/docs/datahub#user-group-credentials
 
 2. Additionally, to authenticate users in your app and store users data, you need to create a firebase account: https://firebase.google.com
@@ -26,7 +26,9 @@ All user data will be stored in the Firebase© Realtime Database, which will all
 
 
 # Setting Up
-Here you can find a short video guide, how to launch Android Open-Source Telematics app: https://youtu.be/Hbk7p3q8fbw
+Here you can find a short video guide, how to launch Android Open-Source Telematics app: 
+
+[![Watch the video](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/Android%20Open-Source%20App.png)](https://youtu.be/Hbk7p3q8fbw)
 
 ## Setup Firebase© Project
 Step 1: After creating your Firebase© account, open your console: https://console.firebase.google.com
@@ -143,6 +145,7 @@ Step 1: After sign in your Google account open https://console.cloud.google.com/
 
 Step 2: Create new project in Google Cloud Console: https://console.cloud.google.com/projectcreate </br>
 
+
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_1.png)
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_2.png)
@@ -160,11 +163,13 @@ Step 5: Go to the Google Maps Platform → Credentials page → Create credentia
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_5.png)
 
+
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_6.png)
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_7.png)
 
 Step 6: After creted API key, copy it to GOOGLE_MAP_API parameter in AppConfig.kt file. </br>
+
 
 More info in: https://developers.google.com/maps/documentation/android-sdk/overview
 
@@ -239,6 +244,17 @@ DriveCoins - https://docs.telematicssdk.com/docs/drivecoins
 Streaks - https://docs.telematicssdk.com/docs/streaks-1
 
 In detail, you can see the work with methods for rewards in the Telematics App source code in the DriveCoins section.
+
+
+## On-Demand Tracking Mode
+
+In the new version of the app, we have provided the ability to select Tracking Mode in Settings. There may be 3 options - `Automatic Tracking`, `On-Demand Tracking`, `Tracking disabled`.
+
+The`On-Demand Tracking` provides an updated `Dashboard` by applying and programmatically increasing Constraints in InterfaceBuilder and a special method for increasing the vertical dimensions of the DashboardController.m file. In this Mode, the user can create a Job for himself.
+
+`JobName` is a specific tag identifier that will be added for 1 or any number of trips made by the user. The user must necessarily start a certain job or order, and complete it accordingly. In the future, when the trip is enriched on our backend-side, the app will receive statistics for this `JobName` tag. The user will see the number of trips made for this task, the rating of maneuverability, risk score, etc. All this is available in a new section on our `Dashboard`.
+
+`On-Demand Tracking` is great for any business like delivery service, taxi and many others. Currently, this Mode will be an integral part of the Telematics App and provide you with a new experience of integrations and work options.
 
 
 ## User Log Out
