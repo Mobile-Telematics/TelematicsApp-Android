@@ -91,9 +91,7 @@ class TrackingUseCase
     fun getTripImage(token: String): Flow<Bitmap?> {
 
         return flow {
-            val data = trackingApiRepo.getTrackImageHolder(token) ?: return@flow emit(null)
-            val bitmap = imageLoader.loadImage(data.url, data.r, token)
-            emit(bitmap)
+            emit(null)
         }
     }
 

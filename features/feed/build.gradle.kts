@@ -29,9 +29,7 @@ android {
             manifestPlaceholders(
                 mapOf(
                     "crashlyticsCollectionEnabled" to true,
-                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY,
-                    "hereMapsAppID" to AppConfig.HERE_APP_ID,
-                    "hereMapsAppToken" to AppConfig.HERE_APP_CODE
+                    "MAPS_API_KEY" to AppConfig.GOOGLE_MAP_API
                 )
             )
         }
@@ -41,9 +39,7 @@ android {
             manifestPlaceholders(
                 mapOf(
                     "crashlyticsCollectionEnabled" to false,
-                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY,
-                    "hereMapsAppID" to AppConfig.HERE_APP_ID,
-                    "hereMapsAppToken" to AppConfig.HERE_APP_CODE
+                    "MAPS_API_KEY" to AppConfig.GOOGLE_MAP_API
                 )
             )
         }
@@ -81,5 +77,5 @@ dependencies {
 
     implementation(AppDependencies.swipeToRefresh)
     implementation(AppDependencies.recyclerView)
-    implementation(project(Modules.HERE_SDK))
+    implementation(AppDependencies.googleMap)
 }

@@ -38,6 +38,8 @@ object Versions {
     const val googlePlayServices = "19.0.0"
     const val googleGuava = "27.0.1-android"
 
+    const val googleMap = "18.1.0"
+
     const val room = "2.3.0"
 }
 

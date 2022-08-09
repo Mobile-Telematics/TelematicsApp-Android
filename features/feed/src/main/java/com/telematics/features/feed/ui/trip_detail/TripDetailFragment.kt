@@ -2,7 +2,6 @@ package com.telematics.features.feed.ui.trip_detail
 
 import android.app.AlertDialog
 import android.graphics.Color
-import android.graphics.PointF
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
@@ -17,15 +16,16 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.here.android.mpa.common.*
-import com.here.android.mpa.mapping.*
-import com.here.android.mpa.mapping.Map
 import com.telematics.content.utils.BaseFragment
 import com.telematics.data.extentions.color
-import com.telematics.data.extentions.convertDpToPx
 import com.telematics.data.extentions.drawable
 import com.telematics.data.extentions.format
+import com.telematics.data.extentions.toMiles
 import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.model.tracking.TripDetailsData
@@ -36,9 +36,6 @@ import com.telematics.features.feed.model.SpeedType
 import com.telematics.feed.R
 import com.telematics.feed.databinding.FragmentTripDatailBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
-import java.io.IOException
-import java.util.*
 import javax.inject.Inject
 
 
@@ -56,17 +53,14 @@ class TripDetailFragment : BaseFragment() {
     lateinit var tripDetailViewModel: TripDetailViewModel
 
     private var currentTripPosition = -1
-    private val eventsMarkersList = mutableListOf<MapObject>()
-    private val eventsList = mutableListOf<TripPointData>()
-    private var listMapObjects = ArrayList<MapObject>()
-    private var selectedMarker: MapObject? = null
-    private var overlay: MapOverlay? = null
     private var isNeedUpdateFeedList = false
+    private var markersList = mutableListOf<Pair<Marker, TripPointData>>()
+    private var currentTripDetailsData: TripDetailsData? = null
+    private var needMapAnimation = false
 
     //UI
     lateinit var binding: FragmentTripDatailBinding
-    private var mapFragment: AndroidXMapFragment? = null
-    private var map: Map? = null
+    private var mMap: GoogleMap? = null
     private lateinit var claimDialog: AlertDialog
     private lateinit var changeDriverTypeDialog: ChangeDriverTypeDialog
 
@@ -98,119 +92,20 @@ class TripDetailFragment : BaseFragment() {
         initBottomSheet()
         initClaimDialog()
         initChangeDriverTypeDialog()
-
-        //set first state
-        getTripDetailsByPos(currentTripPosition)
     }
 
     private fun initMap() {
 
-        MapSettings.setDiskCacheRootPath(
-            requireContext().getExternalFilesDir(null).toString() + File.separator + ".here-maps"
-        )
-        mapFragment?.retainInstance = true
-        mapFragment =
-            childFragmentManager.findFragmentById(R.id.tripDetailsMap) as AndroidXMapFragment
-        mapFragment?.init { error ->
-            if (error == OnEngineInitListener.Error.NONE) {
-                map = mapFragment?.map
-                map?.mapScheme =
-                    Map.Scheme.NORMAL_NIGHT_GREY
-                map?.setUseSystemLanguage()
+        (childFragmentManager.findFragmentById(R.id.tripDetailsMap) as SupportMapFragment).apply {
+            getMapAsync { googleMap ->
+                mMap = googleMap
+                googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.google_map_style)
+                )
                 getTripDetailsByPos(currentTripPosition)
-                mapFragment?.mapGesture?.addOnGestureListener(object :
-                    MapGesture.OnGestureListener {
-
-                    override fun onMapObjectsSelected(p0: MutableList<ViewObject>): Boolean {
-                        val markers = p0.filter {
-                            it.baseType == ViewObject.Type.USER_OBJECT && (it as MapObject).type == MapObject.Type.MARKER && eventsMarkersList.contains(
-                                it
-                            )
-                        } as List<MapMarker>
-                        if (markers.size > 1) {
-                            map?.zoomTo(
-                                GeoBoundingBox.getBoundingBoxContainingGeoCoordinates(
-                                    markers.map { it.coordinate })!!, Map.Animation.LINEAR, 30f
-                            )
-                            return false
-                        }
-                        if (markers.isEmpty()) return false
-                        val marker = markers[0]
-                        if (marker != selectedMarker) {
-                            overlay?.let {
-                                map?.removeMapOverlay(overlay!!)
-                                overlay = null
-                            }
-                            selectedMarker = marker
-                            initAndFillOverlay(marker)
-                        } else {
-                            if (overlay != null) {
-                                map?.removeMapOverlay(overlay!!)
-                                overlay = null
-                            } else {
-                                initAndFillOverlay(marker)
-                            }
-                        }
-                        return false
-                    }
-
-                    override fun onTapEvent(p0: PointF): Boolean {
-                        overlay?.let {
-                            map?.removeMapOverlay(overlay!!)
-                            overlay = null
-                        }
-                        return false
-                    }
-
-                    override fun onDoubleTapEvent(p0: PointF): Boolean {
-                        return false
-                    }
-
-                    override fun onPanStart() {}
-                    override fun onPanEnd() {}
-                    override fun onMultiFingerManipulationStart() {}
-                    override fun onMultiFingerManipulationEnd() {}
-                    override fun onPinchLocked() {}
-                    override fun onPinchZoomEvent(p0: Float, p1: PointF): Boolean = false
-                    override fun onRotateLocked() {}
-                    override fun onRotateEvent(p0: Float): Boolean = false
-                    override fun onTiltEvent(p0: Float): Boolean = false
-                    override fun onLongPressEvent(p0: PointF): Boolean = false
-                    override fun onLongPressRelease() {}
-                    override fun onTwoFingerTapEvent(p0: PointF): Boolean = false
-                }, 0, true)
-            } else {
-                Log.d(TAG, "initMap: $error")
-                showProgress(false)
+                1
             }
         }
-    }
-
-    private fun initAndFillOverlay(marker: MapMarker) {
-        val index = eventsMarkersList.indexOf(marker)
-        val event = eventsList[index]
-        val v = LayoutInflater.from(context)
-            .inflate(R.layout.info_bubble_layout, binding.tripDetailsContainer as ViewGroup, false)
-        overlay =
-            MapOverlay(v, GeoCoordinate(marker.coordinate.latitude, marker.coordinate.longitude))
-        // для custom_info_bubble.xml размером 200dpх205dp. Если изменить размер, то придется подбирать снова
-        overlay?.anchorPoint =
-            PointF(convertDpToPx(requireContext(), 100f), convertDpToPx(requireContext(), 215f))
-        val alertType = AlertType.from(event.alertType)
-        val typeText = resources.getString(alertType.getStringRes())
-        v.findViewById<View>(R.id.info_not_event_button).setOnClickListener {
-            showEventDialog(event, alertType)
-        }
-        if (event.edited) v.findViewById<View>(R.id.info_not_event_button).visibility = View.GONE
-        v.findViewById<ImageView>(R.id.info_image).setImageResource(alertType.drawableResId)
-        v.findViewById<TextView>(R.id.info_type_text).text = typeText
-        v.findViewById<TextView>(R.id.info_date_text).text = event.date
-        v.findViewById<TextView>(R.id.info_max_force).text =
-            getString(R.string.trip_details_max_force, event.alertValue.format())
-        v.findViewById<TextView>(R.id.info_speed_text).text =
-            getString(R.string.trip_details_km_h, event.speed.format())
-
-        map?.addMapOverlay(overlay!!)
     }
 
     private fun initBottomSheet() {
@@ -328,6 +223,7 @@ class TripDetailFragment : BaseFragment() {
             .observe(viewLifecycleOwner) { result ->
                 result.onSuccess { tripDetails ->
                     tripDetails?.let {
+                        currentTripDetailsData = tripDetails
                         bindTrip(tripDetails)
                     } ?: run {
                         currentTripPosition = 0
@@ -544,166 +440,202 @@ class TripDetailFragment : BaseFragment() {
     /** render trip on map */
     private fun renderTrip(tripDetailsData: TripDetailsData) {
 
-        if (map != null) {
-            var listCoordinates: MutableList<GeoCoordinate> = ArrayList()
-            val listLines = ArrayList<MapPolyline>()
-            val listMarkers = ArrayList<MapMarker>()
-            map?.removeMapObjects(listMapObjects)
-            listMapObjects.clear()
-            eventsMarkersList.clear()
-            eventsList.clear()
-
-            renderPhoneUsage(tripDetailsData)
-
-            val imageStart = Image()
-            val imageStop = Image()
-            imageStart.setImageResource(R.drawable.ic_dot_a_trip)
-            imageStop.setImageResource(R.drawable.ic_dot_b_trip)
-
-            val tripPoints = tripDetailsData.points!!
-            tripPoints.indices.forEach { i ->
-                val point = tripPoints[i]
-
-                if (i > 0) {
-                    listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
-                    val line = MapPolyline(GeoPolyline(listCoordinates))
-                    val color = SpeedType.getColor(point.speedType)
-                    line.lineColor = ContextCompat.getColor(requireContext(), color)
-                    line.lineWidth = 8
-                    listLines.add(line)
-                    listCoordinates = ArrayList()
-                    listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
-
-                } else if (i == 0) {
-                    val marker = MapMarker()
-                    marker.coordinate = GeoCoordinate(point.latitude, point.longitude, 0.0)
-                    marker.icon = imageStart
-                    listMarkers.add(marker)
-                    listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
-                }
-
-                if (i == tripPoints.size - 1) {
-                    val marker = MapMarker()
-                    marker.coordinate = GeoCoordinate(point.latitude, point.longitude, 0.0)
-                    marker.icon = imageStop
-                    listMarkers.add(marker)
-                }
-
-                if (AlertType.from(point.alertType) != AlertType.UNKNOWN) {
-                    val marker = MapMarker()
-                    marker.coordinate = GeoCoordinate(point.latitude, point.longitude, 0.0)
-
-                    val image = Image()
-                    try {
-                        image.setBitmap(
-                            AppCompatResources.getDrawable(
-                                requireContext(),
-                                AlertType.getDrawableRes(point.alertType)
-                            )!!.toBitmap()
-                        )
-                        marker.icon = image
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-
-                    listMarkers.add(marker)
-                    if (AlertType.from(point.alertType) != AlertType.UNKNOWN) {
-                        if (eventsList.find { it.latitude == point.latitude && it.longitude == point.longitude } != null) {
-                            listMarkers.remove(marker)
-                        } else {
-                            if (AlertType.from(point.alertType) == AlertType.TURN) marker.zIndex = 3
-                            eventsMarkersList.add(marker)
-                            eventsList.add(point)
-                        }
-                    }
-                }
-            }
-
-            if (listCoordinates.size > 1) {
-                val line = MapPolyline(GeoPolyline(listCoordinates))
-                val point = tripPoints[tripPoints.size - 1]
-                val color = SpeedType.getColor(point.speedType)
-                line.lineColor = ContextCompat.getColor(requireContext(), color)
-                line.lineWidth = 8
-                listLines.add(line)
-            }
-            for (line in listLines) {
-                listMapObjects.add(line)
-            }
-            if (listMarkers.size > 0) {
-                for (marker in listMarkers) {
-                    listMapObjects.add(marker)
-                }
-            }
-            if (map != null) {
-                renderEventsAndRoute()
-                if (tripPoints.isNotEmpty()) {
-                    centerMapByRoute(tripPoints)
-                }
-            }
+        mMap?.clear()
+        mMap?.uiSettings?.apply {
+            isMapToolbarEnabled = false
+            isZoomControlsEnabled = false
         }
-    }
-
-    private fun renderPhoneUsage(tripDetailsData: TripDetailsData) {
 
         val tripPoints = tripDetailsData.points!!
-        var listCoordinates: MutableList<GeoCoordinate> = ArrayList()
-        val listLines = ArrayList<MapPolyline>()
 
-        tripPoints.indices.forEach { i ->
-            val point = tripPoints[i]
-
-            if (i > 0) {
-                listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
-                if (point.usePhone) {
-                    val phoneLine = MapPolyline(GeoPolyline(listCoordinates))
-                    val phoneColor =
-                        ContextCompat.getColor(requireContext(), R.color.colorPhoneUsage)
-                    phoneLine.lineColor = phoneColor
-                    phoneLine.lineWidth = 20
-                    phoneLine.capStyle = MapPolyline.CapStyle.ROUND
-                    listLines.add(phoneLine)
-                }
-                listCoordinates = ArrayList()
-                listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
-            } else if (i == 0) {
-                listCoordinates.add(GeoCoordinate(point.latitude, point.longitude, 0.0))
-            }
-        }
-
-        if (listCoordinates.size > 1) {
-            val line = MapPolyline(GeoPolyline(listCoordinates))
-            val point = tripPoints[tripPoints.size - 1]
-            val color = SpeedType.getColor(point.speedType)
-            line.lineColor = ContextCompat.getColor(requireContext(), color)
-            line.lineWidth = 8
-            listLines.add(line)
-        }
-        for (line in listLines) {
-            listMapObjects.add(line)
-        }
-        if (map != null) {
-            renderEventsAndRoute()
-            if (tripPoints.isNotEmpty()) {
-                centerMapByRoute(tripPoints)
-            }
-        }
+        centerMapByRoute(tripPoints)
+        renderRoute(tripPoints)
+        renderPhoneUsage(tripPoints)
+        renderMarkers(tripPoints)
+        showProgress(false)
     }
 
-    private fun renderEventsAndRoute() {
-        map?.removeMapObjects(listMapObjects)
-        map?.addMapObjects(listMapObjects)
+    private fun renderPhoneUsage(tripPoints: List<TripPointData>) {
+
+        var segmentPolyline = PolylineOptions()
+        for (i in tripPoints.indices) {
+            val currentPoint = tripPoints[i]
+            if (currentPoint.usePhone) {
+                segmentPolyline.add(LatLng(currentPoint.latitude, currentPoint.longitude))
+                segmentPolyline.color(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorPhoneUsage
+                    )
+                )
+                segmentPolyline.width(18f)
+                segmentPolyline.jointType(JointType.ROUND)
+                segmentPolyline.startCap(RoundCap())
+                segmentPolyline.endCap(RoundCap())
+                segmentPolyline.zIndex(1f)
+            } else {
+                mMap?.addPolyline(segmentPolyline)
+                segmentPolyline = PolylineOptions()
+            }
+        }
+
+        mMap?.addPolyline(segmentPolyline)
+    }
+
+    private fun renderRoute(tripPoints: List<TripPointData>) {
+
+        var currentSpeedType = tripPoints.first().speedType
+        var segmentPolyline = PolylineOptions()
+        for (i in tripPoints.indices) {
+            val currentPoint = tripPoints[i]
+            if (currentSpeedType.equals(currentPoint.speedType, true)) {
+                segmentPolyline.add(LatLng(currentPoint.latitude, currentPoint.longitude))
+                segmentPolyline.color(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        SpeedType.getColor(currentPoint.speedType)
+                    )
+                )
+                segmentPolyline.width(8f)
+                segmentPolyline.jointType(JointType.ROUND)
+                segmentPolyline.startCap(RoundCap())
+                segmentPolyline.endCap(RoundCap())
+                segmentPolyline.zIndex(2f)
+            } else {
+                mMap?.addPolyline(segmentPolyline)
+                segmentPolyline = PolylineOptions()
+                segmentPolyline.add(LatLng(tripPoints[i - 1].latitude, tripPoints[i - 1].longitude))
+                segmentPolyline.add(LatLng(currentPoint.latitude, currentPoint.longitude))
+            }
+            currentSpeedType = currentPoint.speedType
+        }
+
+        mMap?.addPolyline(segmentPolyline)
+    }
+
+    private fun renderMarkers(tripPoints: List<TripPointData>) {
+
+        fun createInfoView(marker: Marker): View {
+
+            val v: View =
+                LayoutInflater.from(requireContext()).inflate(R.layout.info_bubble_layout, null)
+            val latLng: LatLng = marker.position
+
+            val event = markersList.find { it.first == marker }?.second!!
+            val alertType = AlertType.from(event.alertType)
+
+            val typeText = resources.getString(alertType.getStringRes())
+
+            v.findViewById<View>(R.id.info_not_event_button).setOnClickListener {
+                showEventDialog(event, alertType)
+            }
+            if (event.edited) v.findViewById<View>(R.id.info_not_event_button).visibility =
+                View.GONE
+            v.findViewById<ImageView>(R.id.info_image).setImageResource(alertType.drawableResId)
+            v.findViewById<TextView>(R.id.info_type_text).text = typeText
+            v.findViewById<TextView>(R.id.info_date_text).text = event.date
+            v.findViewById<TextView>(R.id.info_max_force).text =
+                getString(R.string.trip_details_max_force, event.alertValue.format())
+            when (tripDetailViewModel.formatter.getDistanceMeasureValue()) {
+                DistanceMeasure.KM -> {
+                    v.findViewById<TextView>(R.id.info_speed_text).text =
+                        getString(R.string.trip_details_km_h, event.speed.format())
+                }
+                DistanceMeasure.MI -> {
+                    v.findViewById<TextView>(R.id.info_speed_text).text =
+                        getString(R.string.trip_details_mi_h, event.speed.toMiles().format())
+                }
+            }
+
+            return v
+        }
+
+        val infoViewAdapter = object : GoogleMap.InfoWindowAdapter {
+            override fun getInfoContents(p0: Marker): View? {
+                return null
+            }
+
+            override fun getInfoWindow(p0: Marker): View? {
+                return createInfoView(p0)
+            }
+        }
+
+        mMap?.setInfoWindowAdapter(infoViewAdapter)
+
+        markersList = mutableListOf()
+
+        val startPoint = LatLng(tripPoints[0].latitude, tripPoints[0].longitude)
+        val endPoint = LatLng(tripPoints.last().latitude, tripPoints.last().longitude)
+
+        val startMarker = MarkerOptions()
+            .position(startPoint)
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_dot_a_trip))
+            .anchor(0.5f, 0.5f)
+
+        val endMarker = MarkerOptions()
+            .position(endPoint)
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_dot_b_trip))
+            .anchor(0.5f, 0.5f)
+
+        mMap?.addMarker(startMarker)
+        mMap?.addMarker(endMarker)
+
+        for (i in tripPoints.indices) {
+            val currentPoint = tripPoints[i]
+            if (AlertType.from(currentPoint.alertType) != AlertType.UNKNOWN) {
+                val image = BitmapDescriptorFactory
+                    .fromBitmap(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            AlertType.getDrawableRes(currentPoint.alertType)
+                        )!!.toBitmap()
+                    )
+                val eventMarker = MarkerOptions()
+                    .position(LatLng(currentPoint.latitude, currentPoint.longitude))
+                    .title("")
+                    .snippet("")
+                    .icon(image)
+                    .anchor(0.5f, 0.5f)
+                    .draggable(false)
+                mMap?.addMarker(eventMarker).apply {
+                    this ?: return@apply
+                    markersList.add(Pair(this, currentPoint))
+                }
+            }
+        }
+
+        mMap?.setOnMarkerClickListener { marker ->
+            markersList.find { it.first == marker }.apply {
+                if (this != null) {
+                    marker.showInfoWindow()
+                }
+            }
+            true
+        }
+
+        mMap?.setOnInfoWindowClickListener { marker ->
+            markersList.find { it.first == marker }.apply {
+                if (this != null) {
+                    showEventDialog(this.second, AlertType.from(this.second.alertType))
+                }
+            }
+        }
     }
 
     private fun centerMapByRoute(tripPoints: List<TripPointData>) {
-        val geoCoords: MutableList<GeoCoordinate> = mutableListOf()
+
+        val b = LatLngBounds.Builder()
         tripPoints.forEach { point ->
-            geoCoords.add(GeoCoordinate(point.latitude, point.longitude))
+            b.include(LatLng(point.latitude, point.longitude))
         }
-        val geoPolyline = GeoPolyline(geoCoords)
-        val boundingBox = geoPolyline.boundingBox
-        boundingBox!!.expand(850F, 850F)
-        map?.zoomTo(boundingBox, Map.Animation.NONE, Map.MOVE_PRESERVE_ORIENTATION)
+        val cu = CameraUpdateFactory.newLatLngBounds(b.build(), 200)
+        mMap?.setPadding(55, 100, 55, 200)
+        if (needMapAnimation)
+            mMap?.animateCamera(cu)
+        else
+            mMap?.moveCamera(cu)
+
+        needMapAnimation = true
     }
 
     /** additional UIs*/
@@ -743,7 +675,6 @@ class TripDetailFragment : BaseFragment() {
         claimDialog.findViewById<View>(R.id.noEventLayout).setOnClickListener {
             showConfirmDialog {
                 claimDialog.dismiss()
-                //presenter.sendNotEvent(event, alertType)
             }
         }
 
@@ -794,15 +725,15 @@ class TripDetailFragment : BaseFragment() {
     private fun showMapFragment(show: Boolean) {
 
         if (show) {
-            binding.tripDetails.tripDetailsMap.isVisible = true
-            binding.tripDetails.tripDetailsMap.alpha = 0f
-            binding.tripDetails.tripDetailsMap.animate()
+            binding.tripDetails.tripDetailsMapParent.isVisible = true
+            binding.tripDetails.tripDetailsMapParent.alpha = 0f
+            binding.tripDetails.tripDetailsMapParent.animate()
                 .setDuration(300)
                 .setStartDelay(100)
                 .alpha(1f)
                 .start()
         } else {
-            binding.tripDetails.tripDetailsMap.isVisible = false
+            binding.tripDetails.tripDetailsMapParent.isVisible = false
         }
     }
 
@@ -858,21 +789,8 @@ class TripDetailFragment : BaseFragment() {
             .observe(viewLifecycleOwner) { result ->
                 result.onSuccess {
                     event.edited = true
-                    val index = eventsList.indexOf(event)
-                    eventsList[index].alertType = alertType.type
-                    if (index >= 0) {
-                        val image = Image()
-                        image.setBitmap(
-                            resources.drawable(
-                                alertType.editedDrawableResId,
-                                requireContext()
-                            ).toBitmap()
-                        )
-                        (listMapObjects[listMapObjects.indexOf(eventsMarkersList[index])] as MapMarker).icon =
-                            image
-                        renderEventsAndRoute()
-                        removeOverlay()
-                    }
+                    renderTrip(currentTripDetailsData!!)
+                    removeOverlay()
                     showSuccessToast(true)
                 }
                 result.onFailure {
@@ -883,9 +801,8 @@ class TripDetailFragment : BaseFragment() {
     }
 
     private fun removeOverlay() {
-        overlay?.let {
-            map?.removeMapOverlay(overlay!!)
-            overlay = null
+        markersList.forEach {
+            it.first.hideInfoWindow()
         }
     }
 

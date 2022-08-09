@@ -4,14 +4,8 @@
 
     <application>
         <meta-data
-            android:name="com.here.android.maps.appid"
-            android:value="${hereMapsAppID}" />
-        <meta-data
-            android:name="com.here.android.maps.apptoken"
-            android:value="${hereMapsAppToken}" />
-        <meta-data
-            android:name="com.here.android.maps.license.key"
-            android:value="${hereMapsLicenceKey}" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
     </application>
 
 </manifest>
