@@ -229,20 +229,7 @@ class TripsMapper @Inject constructor(
         r.deleteCharAt(r.length - 1)
 
         val url = StringBuilder()
-        url.append("https://image.maps.ls.hereapi.com/mia/1.6/route?")
-        url.append("apiKey=${BuildConfig.HERE_API_KEY}")
-        url.append("&w=900")
-        url.append("&h=360")
-        url.append("&nocp=1")
-        url.append("&mtxc=20")
-        url.append("&lc=54c751")
-        url.append("&mthm=1")
-        url.append("&t=7")
-        url.append("&ppi=100")
-        url.append("&lw=6")
-        url.append("&f=0")
-        url.append("&m=${m}")
-        url.append("&mfc=000000")
+        // url to the image
         val endpoint = url.toString()
         return TripImageHolder(endpoint, r.toString())
     }

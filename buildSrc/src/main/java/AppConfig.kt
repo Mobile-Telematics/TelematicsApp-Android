@@ -21,10 +21,6 @@ object AppConfig {
 
     const val GOOGLE_MAP_API = "YOUR_GOOGLE_MAP_API_KEY"
 
-    const val HERE_LICENCE_KEY = "\"YOUR_HERE_LICENCE_KEY\""
-    const val HERE_APP_ID = "\"YOUR_HERE_APP_ID\""
-    const val HERE_APP_CODE = "\"YOUR_HERE_APP_CODE\""
-
     const val USER_SERVICE_URL = "\"https://user.telematicssdk.com/\""
     const val USER_SERVICE_URL_DEV = "\"https://user.telematicssdk.com/\""
 
