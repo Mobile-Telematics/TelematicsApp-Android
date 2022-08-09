@@ -135,40 +135,38 @@ We have created a special Framework that allows you to receive `deviceToken`, `j
 You can find complete information about LoginAuth Framework in our repository https://github.com/Mobile-Telematics/LoginAuthFramework-Android
 
 
-## Get HERE Maps access keys
+## Get Google Map API key
 
-In the next few simple steps, we'll show you how easy it is to create access keys in the HERE developer console.
+In the next few simple steps, we'll show you how easy it is to create access keys in the Google Cloud Console.
 
+Step 1: After sign in your Google account open https://console.cloud.google.com/ </br>
 
-Step 1: After creating your HERE account, open your project in https://developer.here.com/projects </br>
-In the REST table click "Generate App".
+Step 2: Create new project in Google Cloud Console: https://console.cloud.google.com/projectcreate </br>
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_1.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_1.png)
 
-Step 2: Click "Create API key"
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_2.png)
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_2.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_3.png)
 
-Step 3: Copy API KEY and paste it to HERE_API_KEY parameter in AppConfig.kt file
+Step 3: Set for this project billing: https://console.cloud.google.com/projectselector/billing
+Note: use of maps is free </br>
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_3.png)
+Step 4: Enable MapsSDK for Android: https://console.cloud.google.com/apis/library/maps-android-backend.googleapis.com </br>
 
-Step 4: In HERE SDK FOR ANDROID table click "Generate App ID and App Code".
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_4.png)
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_4.png)
+Step 5: Go to the Google Maps Platform → Credentials page → Create credentials → API key. </br>
 
-Step 5: Input your applicationId like a "com.prefix.application_name" from AppConfig.kt file for connecting your application and HERE Maps services. Then click "GENERATE".
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_5.png)
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_5.png)
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_6.png)
 
-Step 6: Copy LICENSE KEY from HERE developer console to HERE_LICENSE_KEY parameter in AppConfig.kt file. Also do the same for parameters: APP ID and APP CODE.
+![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_7.png)
 
-![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/readme_for_trip_details/img_readme/here_step_6.png)
+Step 6: After creted API key, copy it to GOOGLE_MAP_API parameter in AppConfig.kt file. </br>
 
->Note: you do not need to Download SDK from the HERE developer console, it is already in the application project.
-
-
-# Screens
+More info in: https://developers.google.com/maps/documentation/android-sdk/overview
 
 ## Dashboard
 
