@@ -152,7 +152,7 @@ Step 2: Create new project in Google Cloud Console: https://console.cloud.google
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_3.png)
 
-Step 3: Set for this project billing: https://console.cloud.google.com/projectselector/billing
+Step 3: Set billing for this project: https://console.cloud.google.com/projectselector/billing
 Note: use of maps is free </br>
 
 Step 4: Enable MapsSDK for Android: https://console.cloud.google.com/apis/library/maps-android-backend.googleapis.com </br>
@@ -168,10 +168,10 @@ Step 5: Go to the Google Maps Platform → Credentials page → Create credentia
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/instruction_map_7.png)
 
-Step 6: After creted API key, copy it to GOOGLE_MAP_API parameter in AppConfig.kt file. </br>
+Step 6: After API key is created, copy it to GOOGLE_MAP_API parameter in AppConfig.kt file. </br>
 
 
-More info in: https://developers.google.com/maps/documentation/android-sdk/overview
+More info here: https://developers.google.com/maps/documentation/android-sdk/overview
 
 ## Dashboard
 
