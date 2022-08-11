@@ -19,7 +19,7 @@ object AppConfig {
     const val INSTANCE_ID = "\"YOUR_INSTANCE_ID\""
     const val INSTANCE_KEY = "\"YOUR_INSTANCE_KEY\""
 
-    const val HERE_API_KEY = "\"YOUR_HERE_API_KEY\""
+    const val GOOGLE_MAP_API = "YOUR_GOOGLE_MAP_API_KEY"
 
     const val HERE_LICENCE_KEY = "\"YOUR_HERE_LICENCE_KEY\""
     const val HERE_APP_ID = "\"YOUR_HERE_APP_ID\""

@@ -130,9 +130,9 @@ class DashboardFragment : Fragment() {
         binding.drivingScoresPager.adapter = scoringAdapter
         binding.progressIndicator.setViewPager(binding.drivingScoresPager)
 
-        binding.dashboardEmptyLastTrip.dashboardEmptyLastTripPermissions.setOnClickListener {
+        /*binding.dashboardEmptyLastTrip.dashboardEmptyLastTripPermissions.setOnClickListener {
             openLinkTelematicsLink()
-        }
+        }*/
         scoringAdapter.registerAdapterDataObserver(binding.progressIndicator.adapterDataObserver)
 
         binding.include4.layoutItemEcoScoringFuel.itemEcoScoringImage.setImageResource(R.drawable.ic_dash_fuel)
@@ -162,13 +162,13 @@ class DashboardFragment : Fragment() {
             binding.drivingScoresPager.setCurrentItem(position, true)
         }
 
-        binding.dashboardEmptyLastTrip.dashboardEmptyLastTripLayout.setOnClickListener {
+        /*binding.dashboardEmptyLastTrip.dashboardEmptyLastTripLayout.setOnClickListener {
             navToFeed()
-        }
+        }*/
 
-        binding.include3.lastTripParent.setOnClickListener {
+        /*binding.include3.lastTripParent.setOnClickListener {
             navToFeed()
-        }
+        }*/
 
         binding.include.rankValue.setOnClickListener {
             navToLeaderboard()
@@ -343,13 +343,13 @@ class DashboardFragment : Fragment() {
         fillTripData(UserStatisticsIndividualData())
 
         //last trip
-        binding.dashboardEmptyLastTrip.root.visibility = View.VISIBLE
-        binding.dashboardEmptyLastTrip.dashboardEmptyLastTripPermissions.setOnClickListener {
+        //binding.dashboardEmptyLastTrip.root.visibility = View.VISIBLE
+        /*binding.dashboardEmptyLastTrip.dashboardEmptyLastTripPermissions.setOnClickListener {
             //todo open permissions
-        }
-        binding.dashboardEmptyLastTrip.root.setOnClickListener {
+        }*/
+       /* binding.dashboardEmptyLastTrip.root.setOnClickListener {
             navToFeed()
-        }
+        }*/
 
         //eco_scoring
         binding.include4.layoutItemEcoScoringFuel.itemEcoScoringProgress.apply {
@@ -529,8 +529,8 @@ class DashboardFragment : Fragment() {
             result.onSuccess { tripData ->
 
                 if (tripData == null) return@onSuccess
-                binding.dashboardEmptyLastTrip.dashboardEmptyLastTripParent.isVisible = false
-                binding.include3.lastTripParent.isVisible = true
+                //binding.dashboardEmptyLastTrip.dashboardEmptyLastTripParent.isVisible = false
+                //binding.include3.lastTripParent.isVisible = true
 
 
                 binding.include3.eventTripDateStart.text =
@@ -571,7 +571,7 @@ class DashboardFragment : Fragment() {
 
         dashboardViewModel.getLastTripImage(token).observe(viewLifecycleOwner) { result ->
             result.onSuccess {
-                binding.include3.lastTripImage.setImageBitmap(it)
+                //binding.include3.lastTripImage.setImageBitmap(it)
             }
             result.onFailure {
 

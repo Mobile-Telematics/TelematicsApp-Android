@@ -87,6 +87,7 @@ object AppDependencies {
     private const val googlePlayServices =
         "com.google.android.gms:play-services-auth:${Versions.googlePlayServices}"
     const val googleGuava = "com.google.guava:guava:${Versions.googleGuava}"
+    const val googleMap = "com.google.android.gms:play-services-maps:${Versions.googleMap}"
 
     //room DB
     const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"

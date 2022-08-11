@@ -162,13 +162,13 @@
                 android:id="@+id/include3"
                 layout="@layout/layout_last_trip_dashboard"
                 android:layout_width="0dp"
-                android:layout_height="290dp"
+                android:layout_height="140dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include2" />
 
-            <include
+            <!--<include
                 android:id="@+id/dashboard_empty_last_trip"
                 layout="@layout/layout_in_dashboard_empty_last_trip"
                 android:layout_width="0dp"
@@ -176,7 +176,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/include3"
                 app:layout_constraintEnd_toEndOf="@id/include3"
                 app:layout_constraintStart_toStartOf="@id/include3"
-                app:layout_constraintTop_toTopOf="@id/include3" />
+                app:layout_constraintTop_toTopOf="@id/include3" />-->
 
             <include
                 android:id="@+id/dashboard_drive_coins_layout"
