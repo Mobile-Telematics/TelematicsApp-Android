@@ -35,7 +35,6 @@ android {
             buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL)
             buildConfigField("String", "tripEventTypeUrl", AppConfig.TRIP_EVENT_TYPE_URL)
             buildConfigField("String", "carServiceUrl", AppConfig.OBD_API_ENDPOINT)
-            buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
             buildConfigField("String", "SOURCE", AppConfig.SOURCE)
         }
         getByName("debug") {
@@ -52,7 +51,6 @@ android {
             buildConfigField("String", "leaderboardUrl", AppConfig.LEADERBOARD_URL_DEV)
             buildConfigField("String", "tripEventTypeUrl", AppConfig.TRIP_EVENT_TYPE_URL_DEV)
             buildConfigField("String", "carServiceUrl", AppConfig.OBD_API_ENDPOINT_DEV)
-            buildConfigField("String", "HERE_API_KEY", AppConfig.HERE_API_KEY)
             buildConfigField("String", "SOURCE", AppConfig.SOURCE)
         }
     }

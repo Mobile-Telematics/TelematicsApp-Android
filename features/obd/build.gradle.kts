@@ -27,10 +27,7 @@ android {
             )
             manifestPlaceholders(
                 mapOf(
-                    "crashlyticsCollectionEnabled" to true,
-                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY,
-                    "hereMapsAppID" to AppConfig.HERE_APP_ID,
-                    "hereMapsAppToken" to AppConfig.HERE_APP_CODE
+                    "crashlyticsCollectionEnabled" to true
                 )
             )
         }
@@ -39,10 +36,7 @@ android {
             debuggable(true)
             manifestPlaceholders(
                 mapOf(
-                    "crashlyticsCollectionEnabled" to false,
-                    "hereMapsLicenceKey" to AppConfig.HERE_LICENCE_KEY,
-                    "hereMapsAppID" to AppConfig.HERE_APP_ID,
-                    "hereMapsAppToken" to AppConfig.HERE_APP_CODE
+                    "crashlyticsCollectionEnabled" to false
                 )
             )
         }
