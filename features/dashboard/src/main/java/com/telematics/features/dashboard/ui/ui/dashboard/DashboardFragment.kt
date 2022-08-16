@@ -290,6 +290,9 @@ class DashboardFragment : Fragment() {
                     phoneUsage
             }
         }
+
+        //hide streaks
+        binding.dashboardDriveCoinsLayout.root.isVisible = false
     }
 
     private fun showEmptyDashboard(inData: UserStatisticsIndividualData?) {
