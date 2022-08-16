@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -58,6 +59,8 @@ class RewardFragment : BaseFragment() {
 
         if (toStreaks)
             binding.headerTabs.getTabAt(1)?.select()
+
+        hideStreaks()
     }
 
     private fun initInviteScreen() {
@@ -106,5 +109,19 @@ class RewardFragment : BaseFragment() {
         val transaction: FragmentTransaction = manager.beginTransaction()
         transaction.replace(container, fragment)
         transaction.commit()
+    }
+
+
+    private fun hideStreaks() {
+
+        val tabLayout = binding.headerTabs
+        (tabLayout.getTabAt(0)?.view as LinearLayout).visibility = View.GONE
+        (tabLayout.getTabAt(1)?.view as LinearLayout).visibility = View.GONE
+
+        val params = tabLayout.layoutParams
+        params.height = 1
+        tabLayout.layoutParams = params
+
+        binding.headerTabs.getTabAt(0)?.select()
     }
 }
