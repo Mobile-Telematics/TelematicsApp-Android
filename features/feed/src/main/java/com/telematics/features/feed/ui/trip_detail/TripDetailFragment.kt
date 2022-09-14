@@ -103,7 +103,6 @@ class TripDetailFragment : BaseFragment() {
                     MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.google_map_style)
                 )
                 getTripDetailsByPos(currentTripPosition)
-                1
             }
         }
     }
@@ -629,7 +628,7 @@ class TripDetailFragment : BaseFragment() {
             b.include(LatLng(point.latitude, point.longitude))
         }
         val cu = CameraUpdateFactory.newLatLngBounds(b.build(), 200)
-        mMap?.setPadding(55, 100, 55, 200)
+        mMap?.setPadding(55, 100, 55, 250)
         if (needMapAnimation)
             mMap?.animateCamera(cu)
         else
@@ -761,6 +760,11 @@ class TripDetailFragment : BaseFragment() {
 
     /** handle trip */
     private fun changeTripTypeTo(tripDetailsData: TripDetailsData, toType: TripData.TripType) {
+
+        if (tripDetailsData.id == null) {
+            Log.d(TAG, "TripDataFragment:changeTripTypeTo: tripDetailsData.id == null")
+            return
+        }
 
         val tripId = tripDetailsData.id!!
 
