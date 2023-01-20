@@ -208,22 +208,6 @@ For example, by adding tag options to any trip, you will be able to mark specifi
 
 NOTE: you can use `DEL` tag and hide the trips marked by it in the app. These trips will be shown in DataHub on List of Trips page with a special mark that these trips were hidden in the app.
 
-## Trip Details
-
-To set API KEY for HERE Maps change HERE_API_KEY in the AppConfig.kt file. </br>
-const val HERE_API_KEY = "YOUR_HERE_API_KEY"
-
-To set LICENSE KEY for HERE Maps change HERE_LICENSE_KEY in the AppConfig.kt file. </br>
-const val HERE_LICENSE_KEY = "YOUR_HERE_LICENSE_KEY"
-
-To set APP ID for HERE Maps change HERE_APP_ID in the AppConfig.kt file. </br>
-const val HERE_APP_ID = "YOUR_HERE_APP_ID"
-
-To set APP CODE for HERE Maps change HERE_APP_CODE in the AppConfig.kt file. </br>
-const val HERE_APP_CODE = "YOUR_HERE_APP_CODE"
-
-Having received a list of the user's trips, you can refer to your array of trips and get more detailed information, as well as a set of points to be displayed on the HERE Maps API.
-
 
 ## Leaderboard
 
