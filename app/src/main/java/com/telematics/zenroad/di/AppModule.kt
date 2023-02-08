@@ -16,6 +16,7 @@ import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.data.model.tracking.TripsMapper
 import com.telematics.data.repository.*
 import com.telematics.data.tracking.TrackingApiImpl
+import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.data.utils.ImageLoader
 import com.telematics.domain.repository.*
 import dagger.Module
@@ -307,6 +308,20 @@ object AppModule {
     ): TrackingApiRepo {
         return TrackingApiImpl(tripsMapper, tripEventTypeApi)
     }
+
+    @Provides
+    @Singleton
+    fun provideTrackingUseCase(
+        context: Context,
+        trackingApiRepo: TrackingApiRepo,
+        imageLoader: ImageLoader,
+        settingsRepo: SettingsRepo
+    ) = TrackingUseCase(
+        context,
+        trackingApiRepo,
+        imageLoader,
+        settingsRepo
+    )
 
     @Provides
     @Singleton

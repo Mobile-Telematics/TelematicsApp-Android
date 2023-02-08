@@ -45,8 +45,10 @@ class TrackingApiImpl @Inject constructor(
     }
 
     override fun setDeviceToken(deviceId: String) {
-        Log.d(TAG, "setDeviceToken: deviceId $deviceId")
-        trackingApi.setDeviceID(deviceId)
+        if (trackingApi.getDeviceId() != deviceId) {
+            Log.d(TAG, "setDeviceToken: deviceId $deviceId")
+            trackingApi.setDeviceID(deviceId)
+        }
     }
 
     override fun checkPermissionAndStartWizard(activity: Activity) {

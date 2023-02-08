@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class TrackingUseCase
 @Inject constructor(
-    context: Context,
+    private val context: Context,
     private val trackingApiRepo: TrackingApiRepo,
     private val imageLoader: ImageLoader,
     private val settingsRepo: SettingsRepo
@@ -26,7 +26,7 @@ class TrackingUseCase
 
     private var notificationIntent: Intent? = null
 
-    init {
+    fun initializeSdk() {
         trackingApiRepo.setContext(context)
     }
 
