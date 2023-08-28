@@ -38,15 +38,15 @@ android {
     signingConfigs {
         getByName("debug") {
             keyAlias = "key0"
-            keyPassword = "******"
-            storeFile = file("path_to_file/keystore.jks")
-            storePassword = "******"
+            keyPassword = "987654"
+            storeFile = file("C:/Users/Dell/.android/keystore.jks")
+            storePassword = "987654"
         }
         create("release") {
             keyAlias = "key0"
-            keyPassword = "******"
-            storeFile = file("path_to_file/keystore.jks")
-            storePassword = "******"
+            keyPassword = "987654"
+            storeFile = file("C:/Users/Dell/.android/keystore.jks")
+            storePassword = "987654"
         }
     }
 

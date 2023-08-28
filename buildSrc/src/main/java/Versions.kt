@@ -46,7 +46,7 @@ object Versions {
 object PluginVersion {
 
     const val gradle = "4.1.3"
-    const val kotlin = "1.4.32"
+    const val kotlin = "1.6.0"
     const val googleServices = "4.3.8"
     const val firebaseCrashlytics = "2.7.1"
 }
