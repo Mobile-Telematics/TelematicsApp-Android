@@ -628,7 +628,7 @@ class TripDetailFragment : BaseFragment() {
             b.include(LatLng(point.latitude, point.longitude))
         }
         val cu = CameraUpdateFactory.newLatLngBounds(b.build(), 200)
-        mMap?.setPadding(55, 100, 55, 250)
+        mMap?.setPadding(55, 100, 55, 270)
         if (needMapAnimation)
             mMap?.animateCamera(cu)
         else

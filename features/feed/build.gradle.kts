@@ -16,6 +16,8 @@ android {
         versionName = AppConfig.versionName
         minSdkVersion(AppConfig.minSdk)
         targetSdkVersion(AppConfig.targetSdk)
+
+        manifestPlaceholders["MAPS_API_KEY"] = AppConfig.GOOGLE_MAP_API
     }
 
     buildTypes {
@@ -26,22 +28,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            manifestPlaceholders(
-                mapOf(
-                    "crashlyticsCollectionEnabled" to true,
-                    "MAPS_API_KEY" to AppConfig.GOOGLE_MAP_API
-                )
-            )
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            manifestPlaceholders(
-                mapOf(
-                    "crashlyticsCollectionEnabled" to false,
-                    "MAPS_API_KEY" to AppConfig.GOOGLE_MAP_API
-                )
-            )
         }
     }
 

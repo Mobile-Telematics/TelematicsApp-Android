@@ -23,6 +23,7 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            manifestPlaceholders["crashlyticsCollectionEnabled"] = true
             debuggable(false)
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -31,6 +32,7 @@ android {
         }
         getByName("debug") {
             isMinifyEnabled = false
+            manifestPlaceholders["crashlyticsCollectionEnabled"] = false
             debuggable(true)
         }
     }

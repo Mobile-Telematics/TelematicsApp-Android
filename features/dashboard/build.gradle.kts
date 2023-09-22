@@ -26,13 +26,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", true)))
             //signingConfig = signingConfigs.release
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            manifestPlaceholders(mapOf(Pair("crashlyticsCollectionEnabled", false)))
             //signingConfig = signingConfigs.debug
         }
     }

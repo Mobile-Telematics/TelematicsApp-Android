@@ -25,20 +25,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            manifestPlaceholders(
-                mapOf(
-                    "crashlyticsCollectionEnabled" to true
-                )
-            )
         }
         getByName("debug") {
             isMinifyEnabled = false
             debuggable(true)
-            manifestPlaceholders(
-                mapOf(
-                    "crashlyticsCollectionEnabled" to false
-                )
-            )
         }
     }
 
