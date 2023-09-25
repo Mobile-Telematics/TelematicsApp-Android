@@ -12,6 +12,7 @@ import com.telematics.data.db_room.OnDemandDao
 import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
 import com.telematics.data.interceptor.MainInterceptor
+import com.telematics.data.interceptor.TimeoutInterceptor
 import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.data.model.tracking.TripsMapper
 import com.telematics.data.repository.*
@@ -81,12 +82,29 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideMainInterceptor(
-        refreshApi: RefreshApi,
-        sessionRepository: SessionRepo
-    ): MainInterceptor {
+    fun providesTimeoutInterceptor(): TimeoutInterceptor = TimeoutInterceptor(
+        connectTimeoutMillis = 30_000,
+        readTimeoutMillis = 30_000,
+        writeTimeoutMillis = 30_000
+    )
 
-        return MainInterceptor(sessionRepository, refreshApi)
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(
+        mainInterceptor: MainInterceptor,
+        loggingInterceptor: HttpLoggingInterceptor,
+        instanceValuesInterceptor: InstanceValuesInterceptor,
+        errorInterceptor: ErrorInterceptor,
+        timeoutInterceptor: TimeoutInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder().apply {
+            addInterceptor(timeoutInterceptor)
+            addInterceptor(mainInterceptor)
+            addInterceptor(instanceValuesInterceptor)
+            authenticator(mainInterceptor)
+            addInterceptor(loggingInterceptor)
+            addInterceptor(errorInterceptor)
+        }.build()
     }
 
     @Singleton

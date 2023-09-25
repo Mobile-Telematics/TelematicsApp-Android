@@ -10,5 +10,5 @@ interface RefreshApi {
 
     // refresh token
     @POST("v1/Auth/RefreshToken")
-    fun refreshToken(@Body refreshRequest: RefreshRequest): ApiResponse<ApiResult>
+    suspend fun refreshToken(@Body refreshRequest: RefreshRequest): ApiResponse<ApiResult>
 }

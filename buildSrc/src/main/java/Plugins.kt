@@ -5,7 +5,7 @@ object Plugins {
 
     private const val gradle = "com.android.tools.build:gradle:${PluginVersion.gradle}"
     private const val kotlin_gradle =
-        "org.jetbrains.kotlin:kotlin-gradle-plugin:${PluginVersion.kotlin}"
+        "org.jetbrains.kotlin:kotlin-gradle-plugin:${PluginVersion.kotlinGradle}"
     private const val daggerHilt =
         "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHilt}"
 
@@ -29,7 +29,6 @@ object Plugins {
     const val kotlinKapt = "kotlin-kapt"
     const val kotlinAndroid = "kotlin-android"
     const val daggerHiltPlugin = "dagger.hilt.android.plugin"
-    const val kotlinAndroidExtensions = "kotlin-android-extensions"
     const val googlePlugins = "com.google.gms.google-services"
     const val firebaseCrashlyticsPlugin = "com.google.firebase.crashlytics"
 }

@@ -3,25 +3,20 @@ plugins {
     id(Plugins.daggerHiltPlugin)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
-    id(Plugins.kotlinAndroidExtensions)
 }
 
 android {
 
-    compileSdkVersion(AppConfig.compileSdk)
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        //applicationId = "${AppConfig.applicationIdPrefix}.dashboard"
-        versionCode = AppConfig.versionCode
-        versionName = AppConfig.versionName
-        minSdkVersion(AppConfig.minSdk)
-        targetSdkVersion(AppConfig.targetSdk)
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            debuggable(false)
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -29,7 +24,6 @@ android {
         }
         getByName("debug") {
             isMinifyEnabled = false
-            debuggable(true)
         }
     }
 

@@ -7,19 +7,16 @@ plugins {
 
 android {
 
-    compileSdkVersion(AppConfig.compileSdk)
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        versionCode = AppConfig.versionCode
-        versionName = AppConfig.versionName
-        minSdkVersion(AppConfig.minSdk)
-        targetSdkVersion(AppConfig.targetSdk)
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            debuggable(false)
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -39,7 +36,6 @@ android {
         }
         getByName("debug") {
             isMinifyEnabled = false
-            debuggable(true)
             buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
             buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
@@ -82,4 +78,6 @@ dependencies {
     implementation(AppDependencies.googleGuava)
     implementation(AppDependencies.roomRuntime)
     kapt(AppDependencies.roomCompiler)
+
+    implementation(AppDependencies.loginAuthFramework)
 }

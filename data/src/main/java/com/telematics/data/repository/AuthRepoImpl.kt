@@ -6,7 +6,12 @@ import com.telematics.data.api.LoginApi
 import com.telematics.data.mappers.toInstanceName
 import com.telematics.data.mappers.toRegistrationApiData
 import com.telematics.data.mappers.toSessionData
-import com.telematics.data.model.login.*
+import com.telematics.data.model.login.LoginBody
+import com.telematics.data.model.login.LoginFields
+import com.telematics.data.model.login.LoginFieldsWithDeviceToken
+import com.telematics.data.model.login.LoginWithDeviceTokenBody
+import com.telematics.data.model.login.RegistrationBody
+import com.telematics.data.model.login.UserUpdateBody
 import com.telematics.domain.model.LoginType
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
@@ -14,9 +19,9 @@ import com.telematics.domain.model.authentication.IUser
 import com.telematics.domain.model.authentication.User
 import com.telematics.domain.model.company_id.InstanceName
 import com.telematics.domain.repository.UserServicesRepo
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import javax.inject.Inject
 
@@ -78,7 +83,8 @@ class AuthRepoImpl @Inject constructor(
         val file = File(path)
         val type = MimeTypeMap.getSingleton()
             .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(path))
-        val requestFile = RequestBody.create(MediaType.parse(type), file)
+
+        val requestFile = file.asRequestBody(type?.toMediaTypeOrNull())
         val body = MultipartBody.Part.createFormData("file", path, requestFile)
         api.uploadImage(body)
     }

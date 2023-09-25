@@ -6,6 +6,7 @@ import com.telematics.data.api.errors.ApiError
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.json.JSONObject
 import javax.inject.Inject
 
@@ -15,13 +16,13 @@ class ErrorInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response = chain.proceed(request)
-        val bodyString = response.body()!!.string()
+        val bodyString = response.body?.string()
 
-        val code = response.code()
+        val code = response.code
 
         Log.d(
             "ErrorInterceptor",
-            "code: $code url: ${request.url().uri()} msg: ${response.message()}"
+            "code: $code url: ${request.url.toUri()} msg: ${response.message}"
         )
 
         try {
@@ -40,8 +41,9 @@ class ErrorInterceptor @Inject constructor(
         }
 
 
+
         return response.newBuilder()
-            .body(ResponseBody.create(response.body()?.contentType(), bodyString))
+            .body(bodyString?.toResponseBody(response.body?.contentType()))
             .build()
     }
 }
