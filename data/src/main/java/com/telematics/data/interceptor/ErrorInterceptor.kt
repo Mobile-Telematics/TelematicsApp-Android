@@ -1,18 +1,13 @@
 package com.telematics.data.interceptor
 
 import android.util.Log
-import com.google.gson.Gson
 import com.telematics.data.api.errors.ApiError
 import okhttp3.Interceptor
 import okhttp3.Response
-import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.json.JSONObject
-import javax.inject.Inject
 
-class ErrorInterceptor @Inject constructor(
-    private val gson: Gson
-) : Interceptor {
+class ErrorInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response = chain.proceed(request)

@@ -130,13 +130,17 @@ class SettingsFragment : BaseFragment() {
     private fun openPrivacy() {
 
         val link = BuildConfig.PRIVACY_POLICY
-        TryOpenLink(requireContext()).open(link)
+        if (!TryOpenLink(requireContext()).open(link)) {
+            showMessage(R.string.link_open_error)
+        }
     }
 
     private fun openTerms() {
 
         val link = BuildConfig.TERMS_OF_USE
-        TryOpenLink(requireContext()).open(link)
+        if (!TryOpenLink(requireContext()).open(link)) {
+            showMessage(R.string.link_open_error)
+        }
     }
 
     private fun openSplashFragment() {

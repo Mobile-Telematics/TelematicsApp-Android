@@ -220,10 +220,10 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/circle_setting_tracking_mode_disable"
                 android:padding="12dp"
-                app:tint="#fff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#fff" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

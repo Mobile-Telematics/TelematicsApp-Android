@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
+import com.telematics.content.R
 import com.telematics.content.utils.BaseFragment
 import com.telematics.domain.model.leaderboard.LeaderboardType
-import com.telematics.leaderboard.R
 import com.telematics.leaderboard.databinding.FragmentLeaderboardDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 

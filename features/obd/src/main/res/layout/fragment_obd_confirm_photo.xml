@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:indeterminate="true"
-        android:visibility="invisible"
         android:progressTint="@color/colorDefButton"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

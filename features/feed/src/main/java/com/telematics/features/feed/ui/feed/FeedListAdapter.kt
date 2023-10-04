@@ -12,7 +12,7 @@ import com.telematics.data.model.tracking.MeasuresFormatter
 import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.feed.R
-import kotlinx.android.synthetic.main.layout_trip_item.view.*
+import com.telematics.feed.databinding.LayoutTripItemBinding
 import kotlin.math.roundToInt
 
 
@@ -58,19 +58,17 @@ class FeedListAdapter(private val formatter: MeasuresFormatter) :
         notifyItemChanged(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.layout_trip_item, parent, false)
-        return ViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
+        LayoutTripItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataSet[position])
 
         val screenWidth = holder.itemView.context.resources.displayMetrics.widthPixels
-        holder.itemView.eventTripMainBubble.layoutParams.width = screenWidth
-        holder.itemView.eventTripMainBubble.invalidate()
-        holder.itemView.eventTripHorizontalScroll.scrollX = 0
+        holder.binding.eventTripMainBubble.layoutParams.width = screenWidth
+        holder.binding.eventTripMainBubble.invalidate()
+        holder.binding.eventTripHorizontalScroll.scrollX = 0
 
         setAnimation(holder.itemView, position)
     }
@@ -95,14 +93,15 @@ class FeedListAdapter(private val formatter: MeasuresFormatter) :
         }
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(val binding: LayoutTripItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(tripItem: TripData) {
+        fun bind(tripItem: TripData) = with(binding) {
 
             val context = itemView.context
 
             formatter.getDistanceByKm(tripItem.dist.toDouble()).apply {
-                itemView.eventTripMileage.text = this.format()
+                eventTripMileage.text = this.format()
             }
 
             formatter.getDistanceMeasureValue().apply {
@@ -110,19 +109,19 @@ class FeedListAdapter(private val formatter: MeasuresFormatter) :
                     DistanceMeasure.KM -> R.string.dashboard_new_km
                     DistanceMeasure.MI -> R.string.dashboard_new_mi
                 }
-                itemView.measure_dist_text.text = context.getString(distValue)
+                measureDistText.text = context.getString(distValue)
             }
             val startDate = formatter.parseFullNewDate(tripItem.timeStart!!)
             val endDate = formatter.parseFullNewDate(tripItem.timeEnd!!)
-            itemView.eventTripDateStart.text = formatter.getDateWithTime(startDate)
-            itemView.eventTripDateFinish.text = formatter.getDateWithTime(endDate)
-            itemView.eventTripStartCity.text =
+            eventTripDateStart.text = formatter.getDateWithTime(startDate)
+            eventTripDateFinish.text = formatter.getDateWithTime(endDate)
+            eventTripStartCity.text =
                 "|  ".plus(tripItem.cityStart + ", " + tripItem.districtStart) // "125, 5th Really long name Avenue, Pittsburgh, PA"
-            itemView.eventTripEndCity.text =
+            eventTripEndCity.text =
                 "|  ".plus(tripItem.cityEnd + ", " + tripItem.districtEnd) // "47 Cherry Hill Highway, New York, NY"
-            itemView.eventTripOverallScore.text = tripItem.rating.roundToInt().toString()
+            eventTripOverallScore.text = tripItem.rating.roundToInt().toString()
 
-            itemView.eventTripOverallScore.setTextColor(
+            eventTripOverallScore.setTextColor(
                 when (tripItem.rating.roundToInt()) {
                     in 0..40 -> context.resources.color(R.color.colorRedText)
                     in 41..60 -> context.resources.color(R.color.colorOrangeText)
@@ -132,30 +131,30 @@ class FeedListAdapter(private val formatter: MeasuresFormatter) :
                 }
             )
 
-            itemView.eventTripDetailsClickArea.setOnClickListener {
+            eventTripDetailsClickArea.setOnClickListener {
                 this@FeedListAdapter.clickListener?.onItemClick(
                     tripItem,
-                    this.absoluteAdapterPosition
+                    absoluteAdapterPosition
                 )
             }
 
-            itemView.item_event_type_layout.setOnClickListener {
+            itemEventTypeLayout.setOnClickListener {
                 this@FeedListAdapter.clickListener?.onItemChangeTypeClick(
                     tripItem,
-                    this.absoluteAdapterPosition
+                    absoluteAdapterPosition
                 )
             }
 
-            itemView.eventTripDelete.setOnClickListener {
+            eventTripDelete.setOnClickListener {
                 this@FeedListAdapter.clickListener?.onItemDelete(
                     tripItem,
-                    this.absoluteAdapterPosition
+                    absoluteAdapterPosition
                 )
             }
-            itemView.eventTripHide.setOnClickListener {
+            eventTripHide.setOnClickListener {
                 this@FeedListAdapter.clickListener?.onItemHide(
                     tripItem,
-                    this.absoluteAdapterPosition
+                    absoluteAdapterPosition
                 )
             }
 
@@ -163,60 +162,68 @@ class FeedListAdapter(private val formatter: MeasuresFormatter) :
             val updateViews = {
                 when (tripItem.type) {
                     TripData.TripType.DRIVER -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_driver)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_driver)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_driver)
                     }
+
                     TripData.TripType.PASSENGER -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_passenger)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_passenger)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_passenger)
                     }
+
                     TripData.TripType.BUS -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_bus)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_bus)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_bus)
                     }
+
                     TripData.TripType.MOTORCYCLE -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_motorcycle)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_motorcycle)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_motorcycle)
                     }
+
                     TripData.TripType.TRAIN -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_train)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_train)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_train)
                     }
+
                     TripData.TripType.TAXI -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_taxi)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_taxi)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_taxi)
                     }
+
                     TripData.TripType.BICYCLE -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_bicycle)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_bicycle)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_bicycle)
                     }
+
                     TripData.TripType.OTHER -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_other)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_other)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_other)
                     }
+
                     else -> {
-                        itemView.item_event_type_name.text =
+                        itemEventTypeName.text =
                             context.getString(R.string.progress_trip_type_other)
-                        itemView.item_event_type_img.setImageResource(R.drawable.ic_event_trip_bubble_other)
+                        itemEventTypeImg.setImageResource(R.drawable.ic_event_trip_bubble_other)
                     }
                 }
             }
 
             updateViews()
 
-            itemView.eventTripLabel.text =
-                itemView.resources.getString(R.string.progress_event_trip)
-            itemView.eventTripLabel.background = itemView.resources.drawable(
+            eventTripLabel.text =
+                context.getString(R.string.progress_event_trip)
+            eventTripLabel.background = itemView.resources.drawable(
                 R.drawable.ic_event_trip_label_bg_green,
-                itemView.context
+                context
             )
         }
     }

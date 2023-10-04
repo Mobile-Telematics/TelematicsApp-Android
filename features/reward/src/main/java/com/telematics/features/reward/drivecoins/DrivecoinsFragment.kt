@@ -3,6 +3,7 @@ package com.telematics.features.reward.drivecoins
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -58,7 +59,7 @@ class DrivecoinsFragment : BaseFragment() {
         val swipeRefreshLayout = binding.driveCoinSwipeRefresh
         swipeRefreshLayout.setOnRefreshListener {
 
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 swipeRefreshLayout.isRefreshing = false
             }, 1000)
 
@@ -311,10 +312,12 @@ class DrivecoinsFragment : BaseFragment() {
                 requireContext(),
                 R.color.colorPrimaryText
             )
+
             data.travellingSum > 0 -> ContextCompat.getColor(
                 requireContext(),
                 R.color.colorGreenText
             )
+
             else -> ContextCompat.getColor(requireContext(), R.color.colorRedText)
         }
         val safeDrivingTextColor = when {
@@ -322,10 +325,12 @@ class DrivecoinsFragment : BaseFragment() {
                 requireContext(),
                 R.color.colorPrimaryText
             )
+
             data.safeDrivingSum > 0 -> ContextCompat.getColor(
                 requireContext(),
                 R.color.colorGreenText
             )
+
             else -> ContextCompat.getColor(requireContext(), R.color.colorRedText)
         }
         val ecoDrivingTextColor = when {
@@ -333,10 +338,12 @@ class DrivecoinsFragment : BaseFragment() {
                 requireContext(),
                 R.color.colorPrimaryText
             )
+
             data.ecoDrivingSum > 0 -> ContextCompat.getColor(
                 requireContext(),
                 R.color.colorGreenText
             )
+
             else -> ContextCompat.getColor(requireContext(), R.color.colorRedText)
         }
 

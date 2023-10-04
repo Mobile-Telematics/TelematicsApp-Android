@@ -15,7 +15,7 @@ import com.telematics.domain.model.carservice.Vehicle
 import com.telematics.obd.R
 import com.telematics.obd.databinding.FragmentObdAddVehicleBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 
 
@@ -54,20 +54,20 @@ class ObdAddVehicleFragment : BaseFragment() {
             saveVehicle()
         }
 
-        binding.vehicleInitialMileage.setOnFocusChangeListener { v, hasFocus ->
+        binding.vehicleInitialMileage.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 checkMileageEdit()
             }
         }
 
-        binding.vehicleInitialMileage.setOnEditorActionListener { v, actionId, event ->
+        binding.vehicleInitialMileage.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard()
             }
             true
         }
 
-        binding.vehicleInitialMileage.setOnClickListener { v ->
+        binding.vehicleInitialMileage.setOnClickListener {
             checkMileageEdit()
         }
 
@@ -92,15 +92,18 @@ class ObdAddVehicleFragment : BaseFragment() {
                         currentManufacturerId = id
                         binding.vehicleManufacturer.setText(name)
                     }
+
                     OBDVehicleChooseView.Type.MODEL -> {
                         currentModelId = id
                         binding.vehicleModel.setText(name)
                     }
+
+                    else -> {}
                 }
             }
         })
 
-        binding.vehicleCarYear.doOnTextChanged { text, start, count, after ->
+        binding.vehicleCarYear.doOnTextChanged { text, _, _, _ ->
 
             if (text?.isEmpty() == true) {
                 return@doOnTextChanged
@@ -122,6 +125,7 @@ class ObdAddVehicleFragment : BaseFragment() {
                     year > Calendar.getInstance().get(Calendar.YEAR) -> {
                         binding.vehicleCarYear.error = "Invalid year"
                     }
+
                     year <= 0 -> {
                         binding.vehicleCarYear.error = "Invalid year"
                     }
@@ -260,6 +264,7 @@ class ObdAddVehicleFragment : BaseFragment() {
                 binding.vehicleCarYear.error = "Invalid year"
                 result = false
             }
+
             vehicle.carYear != null && vehicle.carYear ?: 0 <= 0 && vehicle.carYear != -1 -> {
                 binding.vehicleCarYear.error = "Invalid year"
                 result = false

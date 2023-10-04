@@ -1,5 +1,6 @@
 package com.telematics.features.leaderboard.ui.leaderboard_details.page
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.telematics.data.extentions.format
 import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.leaderboard.R
-import kotlinx.android.synthetic.main.layout_item_leaderboard.view.*
+import com.telematics.leaderboard.databinding.LayoutItemLeaderboardBinding
 
 class LeaderboardDetailsPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,14 +21,24 @@ class LeaderboardDetailsPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
         return when (viewType) {
             ItemType.ITEM.ordinal -> {
                 LeaderboardMemberViewHolder(
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.layout_item_leaderboard, parent, false)
+                    LayoutItemLeaderboardBinding
+                        .inflate(
+                            LayoutInflater.from(parent.context),
+                            parent,
+                            false
+                        )
                 )
             }
+
             else -> {
-                LeaderboardMemberViewHolder(
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.layout_item_leaderboard_placeholder, parent, false)
+                LeaderboardPlaceholderViewHolder(
+                    LayoutInflater
+                        .from(parent.context)
+                        .inflate(
+                            R.layout.layout_item_leaderboard_placeholder,
+                            parent,
+                            false
+                        )
                 )
             }
         }
@@ -48,37 +59,42 @@ class LeaderboardDetailsPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    inner class LeaderboardMemberViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    inner class LeaderboardMemberViewHolder(val binding: LayoutItemLeaderboardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: LeaderboardMemberData
 
-        fun bind(lm: LeaderboardMemberData) {
-            this.item = lm
-            Glide.with(view.context)
+        @SuppressLint("SetTextI18n")
+        fun bind(lm: LeaderboardMemberData) = with(binding) {
+            item = lm
+            Glide.with(root.context)
                 .load(lm.photoUrl)
                 .placeholder(R.drawable.ic_no_avatar_white)
-                .into(view.leaderboardUserIcon)
-            view.leaderboardPosition.text = lm.rank.toString()
+                .into(leaderboardUserIcon)
+            leaderboardPosition.text = lm.rank.toString()
 
             if (lm.firstName.isNullOrEmpty() && lm.familyName.isNullOrEmpty())
-                view.leaderboardNickName.text = lm.nickname
+                leaderboardNickName.text = lm.nickname
             else
-                view.leaderboardNickName.text = lm.firstName + " " + lm.familyName
+                leaderboardNickName.text = "${lm.firstName} ${lm.familyName}"
 
             if (lm.type == LeaderboardType.Trips)
-                view.leaderboardScore.text = lm.value.format("0.#")
+                leaderboardScore.text = lm.value.format("0.#")
             else
-                view.leaderboardScore.text = lm.value.format()
+                leaderboardScore.text = lm.value.format()
 
             if (lm.isCurrentUser) {
-                view.leaderbordItem.background = view.resources.drawable(
+                leaderbordItem.background = root.resources.drawable(
                     R.drawable.gradient_leadboard_current_user,
-                    view.context
+                    root.context
                 )
             } else {
-                view.leaderbordItem.background = null
+                leaderbordItem.background = null
             }
         }
     }
+
+    inner class LeaderboardPlaceholderViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView)
 
     fun setData(list: List<LeaderboardMemberData>) {
         items.clear()

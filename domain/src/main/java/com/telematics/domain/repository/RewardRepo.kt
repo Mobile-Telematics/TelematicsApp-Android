@@ -1,6 +1,11 @@
 package com.telematics.domain.repository
 
-import com.telematics.domain.model.reward.*
+import com.telematics.domain.model.reward.DailyLimitData
+import com.telematics.domain.model.reward.DriveCoinsDetailedData
+import com.telematics.domain.model.reward.DriveCoinsDuration
+import com.telematics.domain.model.reward.DriveCoinsTotalData
+import com.telematics.domain.model.reward.Streak
+import com.telematics.domain.model.reward.StreaksData
 
 interface RewardRepo {
 

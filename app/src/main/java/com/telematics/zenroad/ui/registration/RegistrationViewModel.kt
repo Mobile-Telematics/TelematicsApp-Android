@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
-): ViewModel() {
+) : ViewModel() {
 
     fun registration(
         login: String,

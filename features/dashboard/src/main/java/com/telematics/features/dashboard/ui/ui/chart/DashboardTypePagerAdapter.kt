@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.telematics.dashboard.R
 import com.telematics.domain.model.statistics.ScoreType
 import com.telematics.domain.model.statistics.ScoreTypeModel
-import kotlinx.android.extensions.LayoutContainer
 
 
 class DashboardTypePagerAdapter(private val data: MutableList<ScoreTypeModel>) :
@@ -41,9 +40,8 @@ class DashboardTypePagerAdapter(private val data: MutableList<ScoreTypeModel>) :
         holder.bind(getItem(position), position)
     }
 
-    inner class ViewHolder(override val containerView: DashboardProgressView) :
-        RecyclerView.ViewHolder(containerView),
-        LayoutContainer {
+    inner class ViewHolder(private val containerView: DashboardProgressView) :
+        RecyclerView.ViewHolder(containerView) {
         fun bind(item: ScoreTypeModel, position: Int) {
             containerView.setProgress(addData[position].score)
             val strType =

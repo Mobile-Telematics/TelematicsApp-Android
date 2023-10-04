@@ -3,7 +3,12 @@ package com.telematics.domain.repository
 import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.on_demand.DashboardOnDemandJob
-import com.telematics.domain.model.statistics.*
+import com.telematics.domain.model.statistics.DriveCoins
+import com.telematics.domain.model.statistics.DrivingDetailsData
+import com.telematics.domain.model.statistics.StatisticEcoScoringMain
+import com.telematics.domain.model.statistics.StatisticEcoScoringTabData
+import com.telematics.domain.model.statistics.UserStatisticsIndividualData
+import com.telematics.domain.model.statistics.UserStatisticsScoreData
 
 interface StatisticRepo {
     suspend fun getDriveCoins(): DriveCoins

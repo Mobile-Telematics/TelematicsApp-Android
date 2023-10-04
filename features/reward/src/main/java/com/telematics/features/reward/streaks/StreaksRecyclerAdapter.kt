@@ -39,6 +39,7 @@ class StreaksRecyclerAdapter(private val streaksList: List<Streak> = listOf()) :
                     )
                     title.text = itemView.context.getString(R.string.acceleration_card_title)
                 }
+
                 StreakCarType.Braking -> {
                     badgeImage.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -48,6 +49,7 @@ class StreaksRecyclerAdapter(private val streaksList: List<Streak> = listOf()) :
                     )
                     title.text = itemView.context.getString(R.string.braking_card_title)
                 }
+
                 StreakCarType.Cornering -> {
                     badgeImage.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -57,6 +59,7 @@ class StreaksRecyclerAdapter(private val streaksList: List<Streak> = listOf()) :
                     )
                     title.text = itemView.context.getString(R.string.cornering_card_title)
                 }
+
                 StreakCarType.Distraction -> {
                     badgeImage.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -66,6 +69,7 @@ class StreaksRecyclerAdapter(private val streaksList: List<Streak> = listOf()) :
                     )
                     title.text = itemView.context.getString(R.string.distraction_card_title)
                 }
+
                 StreakCarType.Speeding -> {
                     badgeImage.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -75,6 +79,7 @@ class StreaksRecyclerAdapter(private val streaksList: List<Streak> = listOf()) :
                     )
                     title.text = itemView.context.getString(R.string.speeding_card_title)
                 }
+
                 StreakCarType.PhoneUsage -> {
                     badgeImage.setImageDrawable(
                         ContextCompat.getDrawable(

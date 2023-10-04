@@ -7,8 +7,18 @@ import com.telematics.data.model.carservice.ManufacturerRest
 import com.telematics.data.model.carservice.ModelRest
 import com.telematics.data.model.company_id.InstanceNameBody
 import com.telematics.data.model.rest.ApiResult
-import com.telematics.data.model.reward.*
-import com.telematics.data.model.statistics.*
+import com.telematics.data.model.reward.DailyLimit
+import com.telematics.data.model.reward.DriveCoinsDetailed
+import com.telematics.data.model.reward.DriveCoinsDetailed2
+import com.telematics.data.model.reward.DriveCoinsScoreEco
+import com.telematics.data.model.reward.DriveCoinsTotal
+import com.telematics.data.model.reward.StreaksRest
+import com.telematics.data.model.statistics.DrivingDetailsRest
+import com.telematics.data.model.statistics.EcoScoringRest
+import com.telematics.data.model.statistics.LeaderboardResponse
+import com.telematics.data.model.statistics.LeaderboardUserResponse
+import com.telematics.data.model.statistics.UserStatisticsIndividualRest
+import com.telematics.data.model.statistics.UserStatisticsScoreRest
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
 import com.telematics.domain.model.carservice.ManufacturerData
@@ -20,11 +30,23 @@ import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.leaderboard.LeaderboardUser
 import com.telematics.domain.model.leaderboard.LeaderboardUserItems
 import com.telematics.domain.model.measures.DateMeasure
-import com.telematics.domain.model.reward.*
-import com.telematics.domain.model.statistics.*
+import com.telematics.domain.model.reward.DailyLimitData
+import com.telematics.domain.model.reward.DriveCoinsDetailedData
+import com.telematics.domain.model.reward.DriveCoinsTotalData
+import com.telematics.domain.model.reward.Streak
+import com.telematics.domain.model.reward.StreakCarType
+import com.telematics.domain.model.reward.StreaksData
+import com.telematics.domain.model.statistics.DrivingDetailsData
+import com.telematics.domain.model.statistics.ScoreType
+import com.telematics.domain.model.statistics.ScoreTypeModel
+import com.telematics.domain.model.statistics.StatisticEcoScoringMain
+import com.telematics.domain.model.statistics.StatisticEcoScoringTabData
+import com.telematics.domain.model.statistics.UserStatisticsIndividualData
+import com.telematics.domain.model.statistics.UserStatisticsScoreData
 import com.telematics.domain.model.tracking.ElmDevice
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import kotlin.math.roundToInt
 
 fun ApiResult?.toSessionData(): SessionData {
@@ -380,33 +402,47 @@ fun DriveCoinsDetailedData.setCompleteData(
     var highSpeedingMileage = 0
 
     coinsDetailedList?.forEach { driveCoinsDetailed ->
-        when (driveCoinsDetailed.coinFactor.toLowerCase()) {
-            "EcoScore".toLowerCase() -> detailedData.ecoDrivingEcoScore =
-                driveCoinsDetailed.coinsSum
-            "EcoScoreBrakes".toLowerCase() -> detailedData.ecoDrivingBrakes =
-                driveCoinsDetailed.coinsSum
-            "EcoScoreDepreciation".toLowerCase() -> detailedData.ecoDrivingCostOfOwnership =
-                driveCoinsDetailed.coinsSum
-            "EcoScoreFuel".toLowerCase() -> detailedData.ecoDrivingFuel =
-                driveCoinsDetailed.coinsSum
-            "EcoScoreTyres".toLowerCase() -> detailedData.ecoDrivingTires =
+        when (driveCoinsDetailed.coinFactor.lowercase(Locale.getDefault())) {
+            "EcoScore".lowercase(Locale.getDefault()) -> detailedData.ecoDrivingEcoScore =
                 driveCoinsDetailed.coinsSum
 
-            "Mileage".toLowerCase() -> detailedData.travelingMileage = driveCoinsDetailed.coinsSum
-            "DurationSec".toLowerCase() -> detailedData.travelingTimeDriven =
+            "EcoScoreBrakes".lowercase(Locale.getDefault()) -> detailedData.ecoDrivingBrakes =
                 driveCoinsDetailed.coinsSum
-            "AccelerationCount".toLowerCase() -> detailedData.travelingAccelerations =
-                driveCoinsDetailed.coinsSum
-            "BrakingCount".toLowerCase() -> detailedData.travelingBrakings =
-                driveCoinsDetailed.coinsSum
-            "PhoneUsage".toLowerCase() -> detailedData.travelingPhoneUsage =
-                driveCoinsDetailed.coinsSum
-            "CorneringCount".toLowerCase() -> detailedData.travelingCornerings =
-                driveCoinsDetailed.coinsSum
-            "MidSpeedingMileage".toLowerCase() -> midSpeedingMileage = driveCoinsDetailed.coinsSum
-            "HighSpeedingMileage".toLowerCase() -> highSpeedingMileage = driveCoinsDetailed.coinsSum
 
-            "SafeScore".toLowerCase() -> detailedData.safeDrivingCoinsTotal =
+            "EcoScoreDepreciation".lowercase(Locale.getDefault()) -> detailedData.ecoDrivingCostOfOwnership =
+                driveCoinsDetailed.coinsSum
+
+            "EcoScoreFuel".lowercase(Locale.getDefault()) -> detailedData.ecoDrivingFuel =
+                driveCoinsDetailed.coinsSum
+
+            "EcoScoreTyres".lowercase(Locale.getDefault()) -> detailedData.ecoDrivingTires =
+                driveCoinsDetailed.coinsSum
+
+            "Mileage".lowercase(Locale.getDefault()) -> detailedData.travelingMileage =
+                driveCoinsDetailed.coinsSum
+
+            "DurationSec".lowercase(Locale.getDefault()) -> detailedData.travelingTimeDriven =
+                driveCoinsDetailed.coinsSum
+
+            "AccelerationCount".lowercase(Locale.getDefault()) -> detailedData.travelingAccelerations =
+                driveCoinsDetailed.coinsSum
+
+            "BrakingCount".lowercase(Locale.getDefault()) -> detailedData.travelingBrakings =
+                driveCoinsDetailed.coinsSum
+
+            "PhoneUsage".lowercase(Locale.getDefault()) -> detailedData.travelingPhoneUsage =
+                driveCoinsDetailed.coinsSum
+
+            "CorneringCount".lowercase(Locale.getDefault()) -> detailedData.travelingCornerings =
+                driveCoinsDetailed.coinsSum
+
+            "MidSpeedingMileage".lowercase(Locale.getDefault()) -> midSpeedingMileage =
+                driveCoinsDetailed.coinsSum
+
+            "HighSpeedingMileage".lowercase(Locale.getDefault()) -> highSpeedingMileage =
+                driveCoinsDetailed.coinsSum
+
+            "SafeScore".lowercase(Locale.getDefault()) -> detailedData.safeDrivingCoinsTotal =
                 driveCoinsDetailed.coinsSum
         }
     }

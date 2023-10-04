@@ -101,17 +101,21 @@ class VehiclesFragment : BaseFragment() {
                 binding.connectedStatus.text = when (timestamp) {
                     0L ->
                         getString(R.string.obd_car_last_session_never)
+
                     in 1L..59L ->
                         String.format(getString(R.string.obd_car_last_session_min), timestamp)
+
                     in 60L..1440L ->
                         String.format(
                             getString(R.string.obd_car_last_session_hours),
                             timestamp / 60
                         )
+
                     in 1440..Long.MAX_VALUE -> String.format(
                         getString(R.string.obd_car_last_session_days),
                         timestamp / 60 / 24
                     )
+
                     else -> getString(R.string.obd_car_last_session_never)
                 }
             }

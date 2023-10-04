@@ -11,18 +11,19 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import com.telematics.data.R
 import java.io.*
 
 class PhotoUtils {
 
     companion object {
 
-        const val SELECT_PICTURE_REQUEST_CODE = 9000
-        const val TAKE_PHOTO_REQUEST_CODE = 9001
-        const val CROP_PHOTO_REQUEST_CODE = 9002
+        private const val SELECT_PICTURE_REQUEST_CODE = 9000
+        private const val TAKE_PHOTO_REQUEST_CODE = 9001
+        private const val CROP_PHOTO_REQUEST_CODE = 9002
 
-        const val IMAGE_TEMP_FILE_NAME = "cameraTemp.png"
-        const val IMAGE_TEMP = "photos"
+        private const val IMAGE_TEMP_FILE_NAME = "cameraTemp.png"
+        private const val IMAGE_TEMP = "photos"
 
         private var sCallback: Callback? = null
 
@@ -78,32 +79,35 @@ class PhotoUtils {
             val context: Context? = fragment.activity
             if (requestCode == SELECT_PICTURE_REQUEST_CODE) {
                 if (resultCode == Activity.RESULT_OK) {
-                    val selectedImage = data?.data
-                    if (selectedImage!!.scheme == "file") {
-                        showCrop(
-                            fragment,
-                            selectedImage.encodedPath,
-                            getPathToTempFiles(context) + lastFileName
-                        )
-                        return
-                    }
-                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-                    val cursor = fragment.activity
-                        ?.contentResolver
-                        ?.query(selectedImage, filePathColumn, null, null, null)
-                    if (cursor != null) {
-                        if (cursor.moveToFirst()) {
-                            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
-                            var filePath = cursor.getString(columnIndex)
-                            if (filePath == null) filePath =
-                                getImagePathFromInputStreamUri(fragment.context, selectedImage)
-                            showCrop(
-                                fragment,
-                                filePath,
-                                getPathToTempFiles(context) + lastFileName
-                            )
+                    data?.data?.also { selectedImage ->
+                        if (selectedImage.scheme == "file") {
+                            selectedImage.encodedPath?.also { encodedPath ->
+                                showCrop(
+                                    fragment,
+                                    encodedPath,
+                                    getPathToTempFiles(context) + lastFileName
+                                )
+                            }
+                            return
                         }
-                        cursor.close()
+                        val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+                        val cursor = fragment.activity
+                            ?.contentResolver
+                            ?.query(selectedImage, filePathColumn, null, null, null)
+                        if (cursor != null) {
+                            if (cursor.moveToFirst()) {
+                                val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+                                var filePath = cursor.getString(columnIndex)
+                                if (filePath == null) filePath =
+                                    getImagePathFromInputStreamUri(fragment.context, selectedImage)
+                                showCrop(
+                                    fragment,
+                                    filePath,
+                                    getPathToTempFiles(context) + lastFileName
+                                )
+                            }
+                            cursor.close()
+                        }
                     }
                 }
             } else if (requestCode == TAKE_PHOTO_REQUEST_CODE) {
@@ -166,25 +170,38 @@ class PhotoUtils {
             return File(c?.externalCacheDir, "tempFile.png") // context needed
         }
 
-        private fun showCrop(fragment: Fragment, path: String?, pathTo: String) {
+        private fun showCrop(fragment: Fragment, path: String, pathTo: String) {
             val from = File(path)
             val to = File(pathTo)
             try {
+                if (!from.canRead()) {
+                    throw Exception(fragment.requireContext().getString(R.string.crop_screen_access_denied))
+                }
                 copy(from, to)
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 Log.d(TAG, "copy file error", e)
+                sCallback?.run {
+                    onError(e.message)
+                }
+                fragment.onActivityResult(CROP_PHOTO_REQUEST_CODE, Activity.RESULT_CANCELED, null)
+                return
             }
-            if (sCallback != null) {
-                sCallback!!.openCropScreen(from.absolutePath, to.absolutePath)
+
+            sCallback?.run {
+                openCropScreen(from.absolutePath, to.absolutePath)
                 sCallback = null
-            } else {
-                fragment.onActivityResult(CROP_PHOTO_REQUEST_CODE, Activity.RESULT_OK, null)
-            }
+
+            } ?: fragment.onActivityResult(CROP_PHOTO_REQUEST_CODE, Activity.RESULT_CANCELED, null)
         }
 
         private fun clear(context: Context?, avatarFileName: String?) {
-            val file = File(getPathToTempFiles(context), avatarFileName)
-            file.delete()
+            context?.also { ctx ->
+                avatarFileName?.also { avatar ->
+                    val file = File(getPathToTempFiles(ctx), avatar)
+                    file.delete()
+
+                }
+            }
         }
 
         fun saveToFile(bmp: Bitmap, filename: File, format: CompressFormat?) {
@@ -228,5 +245,6 @@ class PhotoUtils {
 
     interface Callback {
         fun openCropScreen(fileFrom: String?, fileTo: String?)
+        fun onError(message: String?)
     }
 }

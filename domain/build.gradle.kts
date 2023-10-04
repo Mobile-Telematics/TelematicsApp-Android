@@ -1,50 +1,16 @@
 plugins {
-    id(Plugins.androidLibrary)
-    kotlin(Plugins.android)
-    id(Plugins.kotlinKapt)
+    id("telematics.android.library")
+    id("telematics.android.room")
 }
 
 
 android {
-
-    compileSdk = AppConfig.compileSdk
-
-    defaultConfig {
-        minSdk = AppConfig.minSdk
-        targetSdk = AppConfig.targetSdk
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-        getByName("debug") {
-            isMinifyEnabled = false
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    namespace = "com.telematics.domain"
 }
 
 dependencies {
+    implementation(libs.androidx.recyclerview)
 
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(libs.kotlinx.coroutines.core)
 
-    implementation(AppDependencies.moduleLibraries)
-    implementation(AppDependencies.moduleLibraries)
-    implementation(AppDependencies.appLibraries)
-
-    implementation(AppDependencies.roomRuntime)
-    kapt(AppDependencies.roomCompiler)
 }

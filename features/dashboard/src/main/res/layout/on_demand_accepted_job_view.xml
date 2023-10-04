@@ -10,11 +10,11 @@
 
     <TextView
         android:id="@+id/on_demand_view_accepted_name"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
+        android:fontFamily="@font/open_sans_bold"
         android:text="02/16 11:06AM"
         android:textColor="@color/elm_connected_text_color"
         android:textSize="16sp" />
@@ -22,11 +22,11 @@
     <Button
         android:id="@+id/on_demand_view_accepted_decline"
         style="@style/Button"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/btn_rectangle_red"
+        android:fontFamily="@font/open_sans_bold"
         android:text="@string/decline"
         android:textColor="#E35959"
         android:textSize="16sp" />
@@ -34,8 +34,8 @@
     <Button
         android:id="@+id/on_demand_view_accepted_start"
         style="@style/Button"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
+        android:fontFamily="@font/open_sans_bold"
         android:stateListAnimator="@null"
         android:text="@string/start"
         android:textSize="16sp" />

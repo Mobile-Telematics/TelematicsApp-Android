@@ -1,0 +1,143 @@
+[versions]
+
+# ----- Base app settings ------
+# the API level to compile your project
+compileSdk = "33"
+# the minimum SDK version
+minSdk = "21"
+# the target SDK version
+targetSdk = "33"
+# -----------------------------
+
+androidGradlePlugin = "8.1.1"
+firebaseCrashlyticsPlugin = "2.9.9"
+googleServicesPlugin = "4.3.15"
+kotlin = "1.9.0"
+
+trackingApi = "2.2.257"
+loginAuthFramework = "1.0.1"
+
+androidxActivity = "1.7.2"
+androidxAppCompat = "1.6.1"
+androidxConstraintLayout = "2.1.4"
+androidxCoreKtx = "1.10.1"
+androidxFragment = "1.6.1"
+androidxLifecycle = "2.6.2"
+androidxNavigation = "2.6.0"
+androidxRecyclerView = "1.3.1"
+androidxRoom = "2.5.2"
+androidxSecurityCrypto = "1.0.0"
+androidxSwipeRefreshLayout = "1.1.0"
+
+chartView = "v3.1.0"
+circleIndicatorView = "2.1.6"
+countryCodePicker = "2.7.3"
+cropView = "1.1.8"
+
+daggerHilt = "2.47"
+
+firebaseBom = "32.3.1"
+
+javaxInject = "1"
+javaxAnnotations = "1.0"
+
+glide = "4.15.1"
+googleMaterial = "1.9.0"
+
+kotlinxCoroutines = "1.7.3"
+
+okhttp = "4.11.0"
+
+retrofit = "2.9.0"
+
+googlePlayServicesMaps = "18.1.0"
+googlePlayServicesAuth = "20.7.0"
+
+gson = "2.10.1"
+
+[libraries]
+
+# tracking & auth
+trackingApi = { group = "com.telematicssdk", name = "tracking", version.ref = "trackingApi" }
+loginAuthFramework = { group = "com.telematicssdk", name = "auth", version.ref = "loginAuthFramework" }
+
+# android ui
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "androidxActivity" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCoreKtx" }
+androidx-fragment = { group = "androidx.fragment", name = "fragment", version.ref = "androidxFragment" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidxSwipeRefreshLayout" }
+
+chartView = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "chartView" }
+circleIndicatorView = { group = "me.relex", name = "circleindicator", version.ref = "circleIndicatorView" }
+countryCodePicker = { group = "com.hbb20", name = "ccp", version.ref = "countryCodePicker" }
+cropView = { group = "com.isseiaoki", name = "simplecropview", version.ref = "cropView" }
+
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
+
+# di hilt
+dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "daggerHilt" }
+dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
+
+# javax
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
+javax-annotation = { group = "javax.annotation", name = "jsr250-api", version.ref = "javaxAnnotations" }
+
+# security-crypto
+androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "androidxSecurityCrypto" }
+
+# coroutines
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+
+# retrofit
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
+google-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+# lifecycle
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+
+# navigation
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
+
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx" }
+
+# google
+google-play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "googlePlayServicesAuth" }
+google-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "googlePlayServicesMaps" }
+
+# room DB
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoom" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidxRoom" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoom" }
+
+# Dependencies of the included build-logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }

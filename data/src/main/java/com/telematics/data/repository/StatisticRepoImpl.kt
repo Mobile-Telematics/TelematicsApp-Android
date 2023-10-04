@@ -5,15 +5,27 @@ import com.telematics.data.api.LeaderboardApi
 import com.telematics.data.api.UserStatisticsApi
 import com.telematics.data.extentions.DateFormat
 import com.telematics.data.extentions.timeMillsToDisplayableString
-import com.telematics.data.mappers.*
+import com.telematics.data.mappers.toDashboardEcoScoringMain
+import com.telematics.data.mappers.toDashboardEcoScoringTabData
+import com.telematics.data.mappers.toDrivingDetailsData
+import com.telematics.data.mappers.toLeaderboardData
+import com.telematics.data.mappers.toUserStatisticsIndividualData
+import com.telematics.data.mappers.toUserStatisticsScoreData
+import com.telematics.data.mappers.transformOnDemand
 import com.telematics.domain.model.leaderboard.LeaderboardMemberData
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.on_demand.DashboardOnDemandJob
-import com.telematics.domain.model.statistics.*
+import com.telematics.domain.model.statistics.DriveCoins
+import com.telematics.domain.model.statistics.DrivingDetailsData
+import com.telematics.domain.model.statistics.StatisticEcoScoringMain
+import com.telematics.domain.model.statistics.StatisticEcoScoringTabData
+import com.telematics.domain.model.statistics.UserStatisticsIndividualData
+import com.telematics.domain.model.statistics.UserStatisticsScoreData
 import com.telematics.domain.repository.StatisticRepo
 import com.telematics.domain.repository.UserRepo
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 class StatisticRepoImpl @Inject constructor(
@@ -132,10 +144,15 @@ class StatisticRepoImpl @Inject constructor(
         calendar.timeInMillis = System.currentTimeMillis()
         val endDate = format.format(calendar.time)
 
-        val first =  userStatisticsApi.getIndividualDataByTag(job.getTag, "2000-01-01T00:00:01", endDate)
-            .result?.transformOnDemand() ?: UserStatisticsIndividualData()
+        val first =
+            userStatisticsApi.getIndividualDataByTag(job.getTag, "2000-01-01T00:00:01", endDate)
+                .result?.transformOnDemand() ?: UserStatisticsIndividualData()
 
-        val second = userStatisticsApi.getIndividualScoreDataByTag(job.getTag, "2000-01-01T00:00:01", endDate)
+        val second = userStatisticsApi.getIndividualScoreDataByTag(
+            job.getTag,
+            "2000-01-01T00:00:01",
+            endDate
+        )
             .result?.toUserStatisticsScoreData() ?: UserStatisticsScoreData()
 
 

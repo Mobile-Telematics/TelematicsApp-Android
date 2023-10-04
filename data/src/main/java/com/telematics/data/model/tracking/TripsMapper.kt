@@ -4,12 +4,14 @@ import com.raxeltelematics.v2.sdk.server.model.sdk.AddressParts
 import com.raxeltelematics.v2.sdk.server.model.sdk.Track
 import com.raxeltelematics.v2.sdk.server.model.sdk.TrackDetails
 import com.raxeltelematics.v2.sdk.server.model.sdk.TrackPoint
-import com.telematics.data.BuildConfig
-import com.telematics.domain.model.tracking.*
+import com.telematics.domain.model.tracking.TripData
+import com.telematics.domain.model.tracking.TripDetailsAddressesData
+import com.telematics.domain.model.tracking.TripDetailsData
+import com.telematics.domain.model.tracking.TripImageHolder
+import com.telematics.domain.model.tracking.TripPointData
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class TripsMapper @Inject constructor(
@@ -161,7 +163,7 @@ class TripsMapper @Inject constructor(
         tripData.isOriginChanged = tripRest.hasOriginChanged
         if (!tripRest.tags.isNullOrEmpty()) {
             val deleted = tripRest.tags!!.find {
-                it.tag.toLowerCase(Locale.ROOT) == "del"
+                it.tag.lowercase(Locale.ROOT) == "del"
             }
             deleted?.let {
                 tripData.isDeleted = true
@@ -222,10 +224,10 @@ class TripsMapper @Inject constructor(
         trip.points!!.withIndex().forEach {
             r.append("${it.value.latitude},${it.value.longitude},")
         }
-        val m = "${trip.points!![0].latitude}," +
+        /*val m = "${trip.points!![0].latitude}," +
                 "${trip.points!![0].longitude}," +
                 "${trip.points!!.last().latitude}," +
-                "${trip.points!!.last().longitude}"
+                "${trip.points!!.last().longitude}"*/
         r.deleteCharAt(r.length - 1)
 
         val url = StringBuilder()

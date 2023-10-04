@@ -8,7 +8,11 @@ import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.authentication.model.UserDatabase
 import com.telematics.data.api.errors.ApiError
-import com.telematics.data.extentions.*
+import com.telematics.data.extentions.DateFormat
+import com.telematics.data.extentions.iso8601InSecondsToLong
+import com.telematics.data.extentions.stringDateToTimeInMillis
+import com.telematics.data.extentions.timeMillsToDisplayableString
+import com.telematics.data.extentions.timeMillsToIso8601InSeconds
 import com.telematics.domain.model.authentication.User
 
 class Mapper {
@@ -62,17 +66,16 @@ class Mapper {
 
         fun userDatabaseToUser(userDatabase: UserDatabase): User {
 
-            val birthdayInString = ""
-            if (userDatabase.birthday.isNullOrBlank())
-                "" else
+            val birthdayInString = userDatabase.birthday?.let {
                 try {
                     userDatabase.birthday
                         ?.iso8601InSecondsToLong()
-                        ?.timeMillsToDisplayableString(DateFormat.DayMonthFullYear())
+                        ?.timeMillsToDisplayableString(DateFormat.DayMonthFullYear()) ?: ""
                 } catch (e: Exception) {
                     Log.d("Mapper", "userDatabaseToUser: ${e.message}")
                     ""
                 }
+            } ?: ""
 
             return User().apply {
                 email = userDatabase.email

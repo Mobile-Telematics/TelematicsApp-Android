@@ -5,11 +5,11 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="Driving Streaks"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,10 +42,10 @@
 
     <TextView
         android:id="@+id/dash_drive_coins_speeding_trips"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="0 trips"
         android:textColor="#555555"
         android:textSize="16sp"
@@ -84,10 +84,10 @@
 
     <TextView
         android:id="@+id/dash_drive_coins_phone_usage_trips"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="0 trips"
         android:textColor="#555555"
         android:textSize="16sp"
@@ -96,11 +96,11 @@
 
     <TextView
         android:id="@+id/dash_drive_coins_learn_more"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:fontFamily="@font/open_sans_bold"
         android:padding="4dp"
         android:text="Learn more >>"
         android:textColor="#AAAAAA"

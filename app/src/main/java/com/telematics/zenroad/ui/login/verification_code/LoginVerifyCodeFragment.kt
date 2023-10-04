@@ -164,6 +164,7 @@ class LoginVerifyCodeFragment : BaseFragment() {
                     showErrorMessage(R.string.auth_error_network)
                     disableInputCode()
                 }
+
                 else -> showErrorMessage(R.string.error_unknown)
             }
         }

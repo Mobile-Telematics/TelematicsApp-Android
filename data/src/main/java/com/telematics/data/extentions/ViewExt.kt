@@ -8,7 +8,8 @@ import com.telematics.data.R
 fun ProgressBar.setProgressWithColor(p: Int) {
 
     val newP = if (p > 100) 100 else if (p < 0) 0 else p
-    progressTintList = ColorStateList.valueOf(ContextCompat.getColor(this.context, p.getColorByScore()))
+    progressTintList =
+        ColorStateList.valueOf(ContextCompat.getColor(this.context, p.getColorByScore()))
     progress = newP
 }
 
@@ -17,15 +18,19 @@ fun Int.getColorByScore(): Int {
         in 81..100 -> {
             R.color.colorSpeedTypeNormal
         }
+
         in 61..80 -> {
             R.color.colorSpeedTypeMid
         }
+
         in 40..60 -> {
             R.color.colorSpeedTypeMid2
         }
+
         in 0..39 -> {
             R.color.colorSpeedTypeHigh
         }
+
         else -> R.color.colorSpeedTypeNormal
     }
 }

@@ -8,7 +8,7 @@ class MainViewModel @Inject constructor(
     private val trackingUseCase: TrackingUseCase
 ) : ViewModel() {
 
-    fun allPermissionsGranted(){
+    fun allPermissionsGranted() {
 
         trackingUseCase.enableTrackingSDK()
     }

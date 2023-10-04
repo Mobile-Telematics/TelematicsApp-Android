@@ -133,8 +133,10 @@ class DeviceConnectFragment : BaseFragment() {
             "SERVER_ERROR_NETWORK_CONNECTION_NOT_AVAILABLE",
             "SERVER_ERROR_UNKNOWN" ->
                 showMessage(R.string.obd_internet_error)
+
             "VEHICLE_NOT_SUPPORTED" ->
                 findNavController().navigate(R.id.action_deviceConnectFragment_to_vehicleNotSupportedFragment)
+
             else ->
                 findNavController().navigate(R.id.action_deviceConnectFragment_to_couldNotConnectFragment)
 

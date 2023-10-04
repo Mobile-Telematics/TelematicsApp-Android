@@ -18,7 +18,12 @@ import com.telematics.domain.model.on_demand.OnDemandJobState
 import com.telematics.domain.model.on_demand.OnDemandState
 import com.telematics.domain.model.on_demand.TrackingState
 import com.telematics.domain.model.reward.StreaksData
-import com.telematics.domain.model.statistics.*
+import com.telematics.domain.model.statistics.DriveCoins
+import com.telematics.domain.model.statistics.StatisticEcoScoringMain
+import com.telematics.domain.model.statistics.StatisticEcoScoringTabsData
+import com.telematics.domain.model.statistics.StatisticScoringData
+import com.telematics.domain.model.statistics.UserStatisticsIndividualData
+import com.telematics.domain.model.statistics.UserStatisticsScoreData
 import com.telematics.domain.model.tracking.TripData
 import com.telematics.domain.repository.OnDemandRepo
 import com.telematics.domain.repository.RewardRepo
@@ -28,7 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
@@ -268,18 +273,17 @@ class DashboardViewModel @Inject constructor(
 
     private fun handlerForTrackingAPI(enableSDK: Boolean? = null, startTracking: Boolean? = null) {
 
-        if (enableSDK != null) {
-            if (enableSDK)
+        enableSDK?.also {
+            if (it)
                 trackingUseCase.enableTracking()
             else
                 trackingUseCase.disableTrackingSDK()
         }
 
-        when (startTracking) {
-            true -> {
+        startTracking?.also {
+            if (it) {
                 trackingUseCase.startTracking()
-            }
-            false -> {
+            } else {
                 trackingUseCase.stopTracking()
             }
         }
@@ -418,7 +422,7 @@ class DashboardViewModel @Inject constructor(
     fun removeOnDemandJob(job: DashboardOnDemandJob) {
 
         flow {
-            val list = onDemandRepo.getOnDemandJobList()
+            //val list = onDemandRepo.getOnDemandJobList()
             trackingUseCase.removeFutureTrackTag(job.getTag)
             handlerForTrackingAPI(null, false)
             onDemandRepo.removeOnDemandJob(job)

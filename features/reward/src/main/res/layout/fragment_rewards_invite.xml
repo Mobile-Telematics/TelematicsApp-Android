@@ -70,10 +70,10 @@
     <!-- Support -->
     <TextView
         android:id="@+id/rewardsInviteSupport"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/reward_invite_support_margin"
+        android:fontFamily="@font/open_sans_bold"
         android:gravity="center_vertical"
         android:text="@string/rewards_invite_support"
         android:textAlignment="center"

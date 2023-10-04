@@ -94,6 +94,7 @@ class ChooseTrackingModeFragment : BaseFragment() {
                 binding.chooseTrackingModeSave.text =
                     getString(R.string.proceed_with_mode, modeText)
             }
+
             TrackingState.DEMAND -> {
                 setEnableStateCheckView(binding.chooseTrackingModeParentDemandSelectBtn)
                 binding.chooseTrackingModeParentDemandSelectMark.setBackgroundResource(R.color.colorDefButton)
@@ -101,6 +102,7 @@ class ChooseTrackingModeFragment : BaseFragment() {
                 binding.chooseTrackingModeSave.text =
                     getString(R.string.proceed_with_mode, modeText)
             }
+
             TrackingState.DISABLE -> {
                 setEnableStateCheckView(binding.chooseTrackingModeParentDisableSelectBtn)
                 binding.chooseTrackingModeParentDisableSelectMark.setBackgroundResource(R.color.colorDefButton)
@@ -145,11 +147,14 @@ class ChooseTrackingModeFragment : BaseFragment() {
         alertDialog.setTitle(getString(R.string.on_demand_switch, text))
         alertDialog.setMessage(getString(R.string.on_demand_are_you_sure))
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_yes)) { _, _ ->
-            viewModel.setOnDemandCurrentJobToCompleted(tempState).observe(viewLifecycleOwner){result ->
+            viewModel.setOnDemandCurrentJobToCompleted(tempState).observe(viewLifecycleOwner) {
                 navBack()
             }
         }
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.dialog_cancel)) { dialog, _ ->
+        alertDialog.setButton(
+            AlertDialog.BUTTON_NEGATIVE,
+            getString(R.string.dialog_cancel)
+        ) { dialog, _ ->
             dialog.cancel()
         }
         alertDialog.setCancelable(true)

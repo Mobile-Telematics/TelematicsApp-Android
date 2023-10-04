@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.telematics.data.extentions.getSerializableCompat
 import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.leaderboard.databinding.FragmentLeaderboardDetailsPageBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,8 +40,12 @@ class LeaderboardDetailsPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        leaderboardType =
-            arguments?.getSerializable(LEADERBOARD_DETAILS_PAGE_TYPE) as LeaderboardType
+        arguments?.getSerializableCompat(
+            LEADERBOARD_DETAILS_PAGE_TYPE,
+            LeaderboardType::class.java
+        )?.also {
+            leaderboardType = it
+        }
 
         initViews()
         observeLeaderboardUserList(leaderboardType)

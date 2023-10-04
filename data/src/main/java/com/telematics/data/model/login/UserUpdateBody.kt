@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class UserUpdateBody(
     @SerializedName("Phone")
-    val phone: String? =null,
+    val phone: String? = null,
     @SerializedName("Email")
-    val email: String? =null,
+    val email: String? = null,
     @SerializedName("address")
     val address: String? = null,
     @SerializedName("birthday")

@@ -18,7 +18,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -43,16 +42,18 @@ import com.telematics.domain.model.on_demand.DashboardOnDemandJob
 import com.telematics.domain.model.on_demand.OnDemandJobState
 import com.telematics.domain.model.on_demand.OnDemandState
 import com.telematics.domain.model.on_demand.TrackingState
-import com.telematics.domain.model.statistics.*
+import com.telematics.domain.model.statistics.DriveCoins
+import com.telematics.domain.model.statistics.ScoreType
+import com.telematics.domain.model.statistics.ScoreTypeModel
+import com.telematics.domain.model.statistics.StatisticEcoScoringMain
+import com.telematics.domain.model.statistics.StatisticEcoScoringTabData
+import com.telematics.domain.model.statistics.StatisticEcoScoringTabsData
+import com.telematics.domain.model.statistics.StatisticScoringData
+import com.telematics.domain.model.statistics.UserStatisticsIndividualData
 import com.telematics.features.dashboard.ui.ui.chart.DashboardTypePagerAdapter
 import com.telematics.features.dashboard.ui.ui.ecoscoring.DashboardEcoScoringTabAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard.view.*
-import kotlinx.android.synthetic.main.fragment_new_dashboard_rank.*
-import kotlinx.android.synthetic.main.layout_eco_scoring_dashboard.*
-import kotlinx.android.synthetic.main.layout_last_trip_dashboard.view.*
-import java.util.*
+import java.util.Timer
 import javax.inject.Inject
 import kotlin.concurrent.schedule
 import kotlin.math.roundToInt
@@ -61,6 +62,9 @@ import kotlin.math.roundToInt
 class DashboardFragment : Fragment() {
 
     companion object {
+        private const val TAG = "DashboardFragment"
+        private const val DISTANCE_LIMIT = BuildConfig.DASHBOARD_DISTANCE_LIMIT
+
         private var onNavToFeed: (() -> Unit)? = null
         private var onRankClickListener: (() -> Unit)? = null
         private var onRewardClickListner: ((toStreaks: Boolean) -> Unit)? = null
@@ -78,9 +82,6 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private val TAG = "DashboardFragment"
-
-    private val DISTANCE_LIMIT = BuildConfig.DASHBOARD_DISTANCE_LIMIT
 
     @Inject
     lateinit var dashboardViewModel: DashboardViewModel
@@ -199,19 +200,21 @@ class DashboardFragment : Fragment() {
         }
 
         dashboardViewModel.driveCoinsData.removeObservers(this)
-        dashboardViewModel.driveCoinsData.observe(viewLifecycleOwner, {
+        dashboardViewModel.driveCoinsData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Failure -> {
                     showDriveCoins(0)
                 }
+
                 is Resource.Loading -> {
                     showDriveCoins(0)
                 }
+
                 is Resource.Success<DriveCoins> -> {
                     showDriveCoins(it.data?.totalCoins ?: 0)
                 }
             }
-        })
+        }
         dashboardViewModel.getDriveCoins()
     }
 
@@ -219,7 +222,7 @@ class DashboardFragment : Fragment() {
 
         Log.d(TAG, "observeRank: start")
 
-        fun setRank(rank: String) {
+        fun setRank(rank: String) = with(binding) {
             Log.d(TAG, "setRank: rank $rank")
 
             val spannable = SpannableString(rank)
@@ -232,7 +235,7 @@ class DashboardFragment : Fragment() {
                 ),
                 rank.indexOf("#"), rank.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            rankValue.text = spannable
+            include.rankValue.text = spannable
         }
 
         dashboardViewModel.getRank().observe(viewLifecycleOwner) { result ->
@@ -263,19 +266,21 @@ class DashboardFragment : Fragment() {
         }
 
         dashboardViewModel.userIndividualStatisticsData.removeObservers(this)
-        dashboardViewModel.userIndividualStatisticsData.observe(viewLifecycleOwner, {
+        dashboardViewModel.userIndividualStatisticsData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Failure -> {
                     showEmptyDashboard(null)
                 }
+
                 is Resource.Loading -> {
 
                 }
+
                 is Resource.Success -> {
                     showUserIndividualStatistics(it.data)
                 }
             }
-        })
+        }
         dashboardViewModel.getUserIndividualStatistics()
     }
 
@@ -350,9 +355,9 @@ class DashboardFragment : Fragment() {
         /*binding.dashboardEmptyLastTrip.dashboardEmptyLastTripPermissions.setOnClickListener {
             //todo open permissions
         }*/
-       /* binding.dashboardEmptyLastTrip.root.setOnClickListener {
-            navToFeed()
-        }*/
+        /* binding.dashboardEmptyLastTrip.root.setOnClickListener {
+             navToFeed()
+         }*/
 
         //eco_scoring
         binding.include4.layoutItemEcoScoringFuel.itemEcoScoringProgress.apply {
@@ -512,9 +517,11 @@ class DashboardFragment : Fragment() {
                 is Resource.Failure -> {
                     showEmptyDashboard(null)
                 }
+
                 is Resource.Loading -> {
 
                 }
+
                 is Resource.Success -> {
                     val dashboardData = it.data ?: StatisticScoringData()
                     showContent(dashboardData)
@@ -549,7 +556,7 @@ class DashboardFragment : Fragment() {
                     in 80..100 -> ContextCompat.getColor(requireContext(), R.color.colorGreenText)
                     else -> ContextCompat.getColor(requireContext(), R.color.colorGreenText)
                 }
-                binding.include3.eventTripOverallScore.eventTripOverallScore.setTextColor(
+                binding.include3.eventTripOverallScore.setTextColor(
                     overallScoreColor
                 )
 
@@ -598,83 +605,87 @@ class DashboardFragment : Fragment() {
             ecoScoring.layoutItemEcoScoringCost.itemEcoScoringProgress.setProgressWithColor(data.cost)
 
             val color = data.score.getColorByScore()
-            ecoScoringMainScore.backgroundTintList =
+            binding.include4.ecoScoringMainScore.backgroundTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(this.requireContext(), color))
-            ecoScoringMainScore.text = data.score.toString()
+            binding.include4.ecoScoringMainScore.text = data.score.toString()
 
             //todo add rotation for arrow
-/*            if (oldScore != null && score < oldScore.oldScore) {
-                scoScoringArrow.rotation = 180f
-                scoScoringArrow.imageTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        this.requireContext(),
-                        R.color.colorSpeedTypeHigh
-                    )
-                )
-            }
-            if (score != oldScore?.oldScore) {
-                if (oldScore == null)
-                    viewModel.saveOldEcoScoringArrowState(score, true)
-                else {
-                    val arrowStateUp = score > oldScore.oldScore
-                    viewModel.saveOldEcoScoringArrowState(score, arrowStateUp)
-                }
-            } else {
-                scoScoringArrow.rotation = if (oldScore.lastArrowStateUp) 0f else 180f
-                scoScoringArrow.imageTintList = ColorStateList.valueOf(
-                    if (oldScore.lastArrowStateUp) ContextCompat.getColor(
-                        this.requireContext(),
-                        R.color.colorDefButton
-                    ) else Color.RED
-                )
-            }*/
+            /*            if (oldScore != null && score < oldScore.oldScore) {
+                            scoScoringArrow.rotation = 180f
+                            scoScoringArrow.imageTintList = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    this.requireContext(),
+                                    R.color.colorSpeedTypeHigh
+                                )
+                            )
+                        }
+                        if (score != oldScore?.oldScore) {
+                            if (oldScore == null)
+                                viewModel.saveOldEcoScoringArrowState(score, true)
+                            else {
+                                val arrowStateUp = score > oldScore.oldScore
+                                viewModel.saveOldEcoScoringArrowState(score, arrowStateUp)
+                            }
+                        } else {
+                            scoScoringArrow.rotation = if (oldScore.lastArrowStateUp) 0f else 180f
+                            scoScoringArrow.imageTintList = ColorStateList.valueOf(
+                                if (oldScore.lastArrowStateUp) ContextCompat.getColor(
+                                    this.requireContext(),
+                                    R.color.colorDefButton
+                                ) else Color.RED
+                            )
+                        }*/
         }
 
         dashboardViewModel.mainEcoScoringLiveData.removeObservers(this)
         dashboardViewModel.mainEcoScoringLiveData.removeObservers(viewLifecycleOwner)
-        dashboardViewModel.mainEcoScoringLiveData.observe(viewLifecycleOwner, {
+        dashboardViewModel.mainEcoScoringLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Failure -> {
                 }
+
                 is Resource.Loading -> {
 
                 }
+
                 is Resource.Success -> {
                     showMainEcoScoring(it.data ?: StatisticEcoScoringMain())
                 }
             }
-        })
+        }
         dashboardViewModel.getMainEcoScoring()
     }
 
     private fun initEcoScoringTable() {
 
-        fun showContent(data: StatisticEcoScoringTabsData?) {
+        fun showContent(data: StatisticEcoScoringTabsData?) = with(binding) {
 
             val pagerAdapter = DashboardEcoScoringTabAdapter(
-                this.childFragmentManager,
+                childFragmentManager,
                 data,
-                this.requireContext(),
+                requireContext(),
                 dashboardViewModel.measuresFormatter
             )
-            pager.adapter = pagerAdapter
-            tabLayout.setupWithViewPager(pager)
+            include4.pager.adapter = pagerAdapter
+            include4.tabLayout.setupWithViewPager(include4.pager)
         }
 
-        dashboardViewModel.tableEcoScoringLiveData.removeObservers(this)
-        dashboardViewModel.tableEcoScoringLiveData.observe(viewLifecycleOwner, {
+        dashboardViewModel.tableEcoScoringLiveData.removeObservers(this@DashboardFragment)
+        dashboardViewModel.tableEcoScoringLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Failure -> {
 
                 }
+
                 is Resource.Loading -> {
 
                 }
+
                 is Resource.Success -> {
                     showContent(it.data)
                 }
             }
-        })
+        }
 
         dashboardViewModel.getEcoScoringTable()
     }
@@ -828,6 +839,7 @@ class DashboardFragment : Fragment() {
                 binding.onDemand.onDemandSetState.setTextColor(Color.rgb(154, 154, 154))
                 binding.onDemand.onDemandSetState.setText(R.string.on_demand_go_offline)
             }
+
             OnDemandState.ON_DUTY -> {
                 binding.onDemand.onDemandStatusImg.imageTintList =
                     ColorStateList.valueOf(enableColor)
@@ -835,6 +847,7 @@ class DashboardFragment : Fragment() {
                 binding.onDemand.onDemandSetState.setTextColor(Color.rgb(154, 154, 154))
                 binding.onDemand.onDemandSetState.setText(R.string.on_demand_go_offline)
             }
+
             OnDemandState.OFFLINE -> {
                 binding.onDemand.onDemandStatusImg.imageTintList = null
                 binding.onDemand.onDemandState.setText(R.string.on_demand_offline)
@@ -904,6 +917,7 @@ class DashboardFragment : Fragment() {
                         acceptBtn.setTextColor(Color.WHITE)
                         declineBtn.isVisible = true
                     }
+
                     OnDemandJobState.PAUSED.name -> {
                         acceptBtn.setText(R.string.on_demand_resume)
                         acceptBtn.setOnClickListener {
@@ -925,6 +939,7 @@ class DashboardFragment : Fragment() {
                         )
                         declineBtn.isVisible = true
                     }
+
                     OnDemandJobState.CURRENT.name -> {
                         acceptBtn.setText(R.string.on_demand_pause)
                         acceptBtn.setOnClickListener {
@@ -999,6 +1014,7 @@ class DashboardFragment : Fragment() {
                                                     R.string.template_km,
                                                     data.first.mileageKm.toString()
                                                 )
+
                                                 DistanceMeasure.MI -> getString(
                                                     R.string.template_mi,
                                                     data.first.mileageKm.toMiles().toString()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,8 @@
     android:orientation="vertical"
     tools:layout_gravity="center"
     tools:layout_height="250dp"
-    tools:layout_width="250dp">
+    tools:layout_width="250dp"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <com.telematics.features.dashboard.ui.ui.chart.ProgressView
         android:id="@+id/dashboardProgress"
@@ -90,4 +91,4 @@
         app:layout_constraintTop_toTopOf="@+id/dashboardProgress"
         app:layout_constraintVertical_bias="0.9"
         tools:text="Cornering" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

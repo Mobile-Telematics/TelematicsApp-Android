@@ -58,7 +58,7 @@ class VehicleUseCase @Inject constructor(
 
     fun getModels(manufacturerId: Int): Flow<List<ModelData>> {
 
-        return flow{
+        return flow {
             val data = carServiceRepo.getModels(manufacturerId)
             emit(data)
         }

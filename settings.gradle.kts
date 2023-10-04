@@ -1,3 +1,22 @@
+pluginManagement {
+    includeBuild("build-logic")
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        //jcenter() // Warning: this repository is going to shut down soon
+        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://s3.us-east-2.amazonaws.com/android.telematics.sdk.production/") }
+        maven { url = uri("file://${rootDir}/repo") }
+    }
+}
 include(
     ":app",
     ":data",
@@ -11,4 +30,4 @@ include(
     ":features:reward",
     ":features:obd"
 )
-rootProject.name = "Zenroad"
+rootProject.name = "Telematics"

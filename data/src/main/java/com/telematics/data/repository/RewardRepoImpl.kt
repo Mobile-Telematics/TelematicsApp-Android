@@ -3,12 +3,22 @@ package com.telematics.data.repository
 import android.util.Log
 import com.telematics.data.api.DriveCoinsApi
 import com.telematics.data.api.UserStatisticsApi
-import com.telematics.data.mappers.*
-import com.telematics.domain.model.reward.*
+import com.telematics.data.mappers.setCompleteData
+import com.telematics.data.mappers.toDailyLimitData
+import com.telematics.data.mappers.toDriveCoinsTotalData
+import com.telematics.data.mappers.toStreakData
+import com.telematics.data.mappers.toStreakList
+import com.telematics.domain.model.reward.DailyLimitData
+import com.telematics.domain.model.reward.DriveCoinsDetailedData
+import com.telematics.domain.model.reward.DriveCoinsDuration
+import com.telematics.domain.model.reward.DriveCoinsTotalData
+import com.telematics.domain.model.reward.Streak
+import com.telematics.domain.model.reward.StreaksData
 import com.telematics.domain.repository.RewardRepo
 import com.telematics.domain.repository.SettingsRepo
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 class RewardRepoImpl @Inject constructor(
@@ -84,12 +94,15 @@ class RewardRepoImpl @Inject constructor(
             DriveCoinsDuration.ALL_TIME -> {
                 allTimePeriod.first
             }
+
             DriveCoinsDuration.DAY -> {
                 dayPeriod.first
             }
+
             DriveCoinsDuration.THIS_MONTH -> {
                 thisMonthPeriod.first
             }
+
             DriveCoinsDuration.LAST_MONTH -> {
                 lastMonthPeriod.first
             }

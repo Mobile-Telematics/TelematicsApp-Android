@@ -2,24 +2,20 @@ package com.telematics.zenroad.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.room.Room
 import com.google.gson.Gson
 import com.telematics.authentication.data.Authentication
 import com.telematics.data.BuildConfig
 import com.telematics.data.api.*
-import com.telematics.data.db_room.AppDatabase
-import com.telematics.data.db_room.OnDemandDao
 import com.telematics.data.interceptor.ErrorInterceptor
 import com.telematics.data.interceptor.InstanceValuesInterceptor
 import com.telematics.data.interceptor.MainInterceptor
 import com.telematics.data.interceptor.TimeoutInterceptor
 import com.telematics.data.model.tracking.MeasuresFormatter
-import com.telematics.data.model.tracking.TripsMapper
 import com.telematics.data.repository.*
 import com.telematics.data.tracking.TrackingApiImpl
-import com.telematics.data.tracking.TrackingUseCase
 import com.telematics.data.utils.ImageLoader
 import com.telematics.domain.repository.*
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -60,15 +56,8 @@ object AppModule {
 
     @Reusable
     @Provides
-    fun provideGson(): Gson {
-        return Gson()
-    }
+    fun provideGsonConverterFactory(): Converter.Factory = GsonConverterFactory.create(Gson())
 
-    @Reusable
-    @Provides
-    fun provideGsonConverterFactory(gson: Gson): Converter.Factory {
-        return GsonConverterFactory.create(gson)
-    }
 
     @Singleton
     @Provides
@@ -79,6 +68,14 @@ object AppModule {
             Context.MODE_PRIVATE
         )
     }
+
+    @Singleton
+    @Provides
+    fun provideInstanceValuesInterceptor(): InstanceValuesInterceptor = InstanceValuesInterceptor()
+
+    @Singleton
+    @Provides
+    fun provideErrorInterceptor(): ErrorInterceptor = ErrorInterceptor()
 
     @Singleton
     @Provides
@@ -99,31 +96,6 @@ object AppModule {
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             addInterceptor(timeoutInterceptor)
-            addInterceptor(mainInterceptor)
-            addInterceptor(instanceValuesInterceptor)
-            authenticator(mainInterceptor)
-            addInterceptor(loggingInterceptor)
-            addInterceptor(errorInterceptor)
-        }.build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideInstanceValuesInterceptor(): InstanceValuesInterceptor = InstanceValuesInterceptor()
-
-    @Singleton
-    @Provides
-    fun provideErrorInterceptor(gson: Gson): ErrorInterceptor = ErrorInterceptor(gson)
-
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(
-        mainInterceptor: MainInterceptor,
-        loggingInterceptor: HttpLoggingInterceptor,
-        instanceValuesInterceptor: InstanceValuesInterceptor,
-        errorInterceptor: ErrorInterceptor
-    ): OkHttpClient {
-        return OkHttpClient.Builder().apply {
             addInterceptor(mainInterceptor)
             addInterceptor(instanceValuesInterceptor)
             authenticator(mainInterceptor)
@@ -250,122 +222,59 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepo(loginApi: LoginApi): UserServicesRepo = AuthRepoImpl(loginApi)
+    fun provideImageLoader(): ImageLoader = ImageLoader()
 
-    @Provides
-    @Singleton
-    fun provideSessionRepo(sharedPreferences: SharedPreferences): SessionRepo =
-        SessionRepoImpl(sharedPreferences)
+}
 
-    @Provides
-    @Singleton
-    fun provideUserRepo(sharedPreferences: SharedPreferences): UserRepo =
-        UserRepoImpl(sharedPreferences)
 
-    @Provides
+@Module
+@InstallIn(SingletonComponent::class)
+interface RepoModuleBinds {
+    @Binds
     @Singleton
-    fun provideDashboardRepo(
-        driveCoinsApi: DriveCoinsApi,
-        userStatisticsApi: UserStatisticsApi,
-        leaderboardApi: LeaderboardApi,
-        userRepo: UserRepo
-    ): StatisticRepo = StatisticRepoImpl(driveCoinsApi, userStatisticsApi, leaderboardApi, userRepo)
+    fun bindAuthRepo(repo: AuthRepoImpl): UserServicesRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideLeaderboardRepo(
-        leaderboardApi: LeaderboardApi,
-        userRepo: UserRepo
-    ): LeaderboardRepo = LeaderboardRepoImpl(leaderboardApi, userRepo)
+    fun bindSessionRepo(repo: SessionRepoImpl): SessionRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideRewardRepo(
-        driveCoinsApi: DriveCoinsApi,
-        userStatisticsApi: UserStatisticsApi,
-        settingsRepo: SettingsRepo
-    ): RewardRepo = RewardRepoImpl(driveCoinsApi, userStatisticsApi, settingsRepo)
+    fun bindUserRepo(repo: UserRepoImpl): UserRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideCarServiceRepo(
-        carServiceApi: CarServiceApi,
-        userRepo: UserRepo
-    ): CarServiceRepo = CarServiceRepoImpl(carServiceApi, userRepo)
+    fun bindDashboardRepo(repo: StatisticRepoImpl): StatisticRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideAuthentication(
-        authRepo: UserServicesRepo,
-        sessionRepo: SessionRepo,
-        userRepo: UserRepo,
-        context: Context
-    ): AuthenticationRepo {
-        return Authentication(authRepo, sessionRepo, userRepo, context)
-    }
+    fun bindLeaderboardRepo(repo: LeaderboardRepoImpl): LeaderboardRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideDateFormatter(settingsRepo: SettingsRepo): MeasuresFormatter {
-        return MeasuresFormatterImpl(settingsRepo)
-    }
+    fun bindRewardRepo(repo: RewardRepoImpl): RewardRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideTripsMapper(
-        measuresFormatter: MeasuresFormatter
-    ): TripsMapper {
-        return TripsMapper(measuresFormatter)
-    }
+    fun bindCarServiceRepo(repo: CarServiceRepoImpl): CarServiceRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideTrackingRepo(
-        tripsMapper: TripsMapper,
-        tripEventTypeApi: TripEventTypeApi
-    ): TrackingApiRepo {
-        return TrackingApiImpl(tripsMapper, tripEventTypeApi)
-    }
+    fun bindSettingsRepo(repo: SettingsRepoImpl): SettingsRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideTrackingUseCase(
-        context: Context,
-        trackingApiRepo: TrackingApiRepo,
-        imageLoader: ImageLoader,
-        settingsRepo: SettingsRepo
-    ) = TrackingUseCase(
-        context,
-        trackingApiRepo,
-        imageLoader,
-        settingsRepo
-    )
+    fun bindOnDemandRepo(repo: OnDemandRepoImpl): OnDemandRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideSettingsRepo(sharedPreferences: SharedPreferences): SettingsRepo {
-        return SettingsRepoImpl(sharedPreferences)
-    }
+    fun bindTrackingRepo(repo: TrackingApiImpl): TrackingApiRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideOnDemandRepo(onDemandDao: OnDemandDao): OnDemandRepo {
-        return OnDemandRepoImpl(onDemandDao)
-    }
+    fun bindAuthentication(repo: Authentication): AuthenticationRepo
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideImageLoader(): ImageLoader {
-        return ImageLoader()
-    }
-
-    @Provides
-    @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java,
-            "AppDB"
-        ).build()
-    }
+    fun bindDateFormatter(fromatter: MeasuresFormatterImpl): MeasuresFormatter
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="@dimen/button_corners"/>
-    <size android:height="@dimen/button_height"/>
-    <solid android:color="@color/colorOrangeButton"/>
+    <corners android:radius="@dimen/button_corners" />
+    <size android:height="@dimen/button_height" />
+    <solid android:color="@color/colorOrangeButton" />
 </shape>

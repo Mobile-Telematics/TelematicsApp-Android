@@ -40,9 +40,9 @@
 
             <ImageView
                 android:id="@+id/leaderboardUserIcon"
-                android:src="@drawable/ic_no_avatar_white"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_no_avatar_white" />
 
         </androidx.cardview.widget.CardView>
 

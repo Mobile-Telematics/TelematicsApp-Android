@@ -2,6 +2,7 @@ package com.telematics.zenroad
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.telematics.data.extentions.isExactAlarmGranted
 import com.telematics.data.tracking.TrackingUseCase
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -16,6 +17,8 @@ class MainApplication : Application() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        trackingUseCase.initializeSdk()
+        if (isExactAlarmGranted(this)) {
+            trackingUseCase.initializeSdk()
+        }
     }
 }

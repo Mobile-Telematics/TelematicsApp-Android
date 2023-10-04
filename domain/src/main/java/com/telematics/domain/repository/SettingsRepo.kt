@@ -26,4 +26,7 @@ interface SettingsRepo {
     fun setDemandDutyState(state: OnDemandState)
     fun setOnDemandLastCurrentJob(job: DashboardOnDemandJob)
     fun getOnDemandLastCurrentJob(): Long
+
+    fun isNotificationPermissionCompleted(): Boolean
+    fun setNotificationPermissionCompleted()
 }

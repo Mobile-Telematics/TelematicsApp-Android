@@ -1,13 +1,14 @@
 package com.telematics.features.account.ui.account.vehicle
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,13 +17,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.telematics.domain.model.carservice.ManufacturerData
 import com.telematics.domain.model.carservice.ModelData
 import com.telematics.features.account.R
-import kotlinx.android.synthetic.main.fragment_choose_model_vehicle.view.*
+import com.telematics.features.account.databinding.FragmentChooseModelVehicleBinding
 
 
-class VehicleChooseView(context: Context, attributeSet: AttributeSet?) :
-    ConstraintLayout(context, attributeSet) {
+class VehicleChooseView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : CoordinatorLayout(context, attrs, defStyleAttr) {
 
-    private lateinit var view: View
+    private val binding =
+        FragmentChooseModelVehicleBinding.inflate(LayoutInflater.from(context), this)
 
     init {
         init(context)
@@ -39,13 +44,11 @@ class VehicleChooseView(context: Context, attributeSet: AttributeSet?) :
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
 
-    private fun init(context: Context) {
+    private fun init(context: Context) = with(binding) {
 
-        val inflater =
-            getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        view = inflater.inflate(R.layout.fragment_choose_model_vehicle, this)
+        root.setBackgroundColor(Color.parseColor("#1A000000"))
 
-        val bottomSheet = view.chooseModelVehicleParent
+        val bottomSheet = chooseModelVehicleParent
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
 
         bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetCallback() {
@@ -59,13 +62,13 @@ class VehicleChooseView(context: Context, attributeSet: AttributeSet?) :
         })
 
         adapter = Adapter()
-        view.chooseModelVehicleItemsRV.layoutManager = LinearLayoutManager(context)
-        view.chooseModelVehicleItemsRV.adapter = adapter
+        chooseModelVehicleItemsRV.layoutManager = LinearLayoutManager(context)
+        chooseModelVehicleItemsRV.adapter = adapter
 
-        view.chooseModelVehicleSearchView.queryHint = context.getString(R.string.obd_search)
-        view.chooseModelVehicleSearchView.isIconified = false
-        view.chooseModelVehicleSearchView.clearFocus()
-        view.chooseModelVehicleSearchView.setOnQueryTextListener(object :
+        chooseModelVehicleSearchView.queryHint = context.getString(R.string.obd_search)
+        chooseModelVehicleSearchView.isIconified = false
+        chooseModelVehicleSearchView.clearFocus()
+        chooseModelVehicleSearchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
@@ -78,23 +81,23 @@ class VehicleChooseView(context: Context, attributeSet: AttributeSet?) :
             }
         })
 
-        view.setOnClickListener {
-            view.isVisible = false
+        setOnClickListener {
+            isVisible = false
         }
     }
 
-    fun show() {
+    fun show() = with(binding) {
 
-        view.chooseModelVehicleItemsRV.smoothScrollToPosition(0)
-        view.chooseModelVehicleSearchView.setQuery("", false)
-        view.chooseModelVehicleSearchView.clearFocus()
+        chooseModelVehicleItemsRV.smoothScrollToPosition(0)
+        chooseModelVehicleSearchView.setQuery("", false)
+        chooseModelVehicleSearchView.clearFocus()
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-        view.isVisible = true
+        isVisible = true
     }
 
     fun hide() {
 
-        view.isVisible = false
+        isVisible = false
     }
 
     fun setManufacturers(list: List<ManufacturerData>) {

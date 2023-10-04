@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateMargins
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.telematics.data.mappers.getIconRes
@@ -12,7 +13,6 @@ import com.telematics.domain.model.leaderboard.LeaderboardType
 import com.telematics.domain.model.leaderboard.LeaderboardUserItems
 import com.telematics.features.leaderboard.model.LeaderboardPropertyProgressView
 import com.telematics.leaderboard.R
-import kotlinx.android.extensions.LayoutContainer
 
 class LeaderboardSummaryAdapter(private val listener: ClickListener?) :
     ListAdapter<LeaderboardUserItems, RecyclerView.ViewHolder>(LeaderboardUserItems.DIFF_CALLBACK) {
@@ -23,8 +23,19 @@ class LeaderboardSummaryAdapter(private val listener: ClickListener?) :
                 layoutParams = ConstraintLayout.LayoutParams(
                     ConstraintLayout.LayoutParams.MATCH_PARENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
-                )
+                ).apply {
+                    height =
+                        context.resources.getDimension(R.dimen.leaderboard_user_item_normal_size)
+                            .toInt()
+                    updateMargins(
+                        left = context.resources.getDimension(R.dimen.leaderboard_user_item_margin_start)
+                            .toInt(),
+                        right = context.resources.getDimension(R.dimen.leaderboard_user_item_margin_start)
+                            .toInt()
+                    )
+                }
             }
+
             else -> {
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.leaderboard_user_placeholder_item, parent, false)
@@ -41,7 +52,7 @@ class LeaderboardSummaryAdapter(private val listener: ClickListener?) :
         (holder as LeaderboardItemViewHolder).bind(getItem(position), getItemViewType(position))
     }
 
-    inner class LeaderboardItemViewHolder(override val containerView: View) : LayoutContainer,
+    inner class LeaderboardItemViewHolder(private val containerView: View) :
         RecyclerView.ViewHolder(containerView) {
 
         fun bind(item: LeaderboardUserItems, type: Int) {
@@ -62,6 +73,7 @@ class LeaderboardSummaryAdapter(private val listener: ClickListener?) :
                         }
                     }
                 }
+
                 ItemType.PLACEHOLDER.ordinal -> {
 
                 }

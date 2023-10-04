@@ -15,6 +15,7 @@ import com.telematics.authentication.exception.AuthErrorCode
 import com.telematics.authentication.exception.AuthException
 import com.telematics.content.utils.BaseFragment
 import com.telematics.data.BuildConfig
+import com.telematics.data.extentions.getSerializableCompat
 import com.telematics.domain.model.LoginType
 import com.telematics.zenroad.R
 import com.telematics.zenroad.databinding.SignUpFragmentBinding
@@ -53,8 +54,10 @@ class RegistrationFragment : BaseFragment() {
 
         val login = arguments?.getString(LoginFragment.BUNDLE_LOGIN_KEY) ?: ""
         val password = arguments?.getString(LoginFragment.BUNDLE_PASSWORD_KEY) ?: ""
-        val loginType = arguments?.get(LoginFragment.BUNDLE_LOGIN_TYPE_KEY) as LoginType
-        this.loginType = loginType
+        arguments?.getSerializableCompat(LoginFragment.BUNDLE_LOGIN_TYPE_KEY, LoginType::class.java)
+            ?.also {
+                this.loginType = it
+            }
 
         Log.d(TAG, "onViewCreated: login:$login password:$password loginType:$loginType")
 
@@ -120,6 +123,7 @@ class RegistrationFragment : BaseFragment() {
                         )
                     }
             }
+
             LoginType.PHONE -> {
                 if (countryCode == -1) {
                     countryCode = binding.registrationInputPhoneCCP.selectedCountryCodeAsInt
@@ -174,6 +178,7 @@ class RegistrationFragment : BaseFragment() {
             LoginType.PHONE -> {
                 binding.registrationInputPhoneCCP.fullNumber = login
             }
+
             LoginType.EMAIL -> {
                 binding.registrationInputEmail.setText(login)
                 binding.registrationInputPassword.setText(password)
@@ -258,6 +263,7 @@ class RegistrationFragment : BaseFragment() {
             LoginType.EMAIL -> {
                 binding.registrationInputEmail.text.toString()
             }
+
             LoginType.PHONE -> {
                 binding.registrationInputPhoneCCP.selectedCountryCodeWithPlus + binding.registrationInputPhone.text.toString()
             }

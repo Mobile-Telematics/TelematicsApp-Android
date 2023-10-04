@@ -6,7 +6,9 @@ import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.EditText
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class DatePickerDialog {
 

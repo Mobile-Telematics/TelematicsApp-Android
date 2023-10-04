@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "DashboardOnDemandJob")
 data class DashboardOnDemandJob(
-    val name: String = "",
-    val state: String = "",
-    val createTime: Long = 0L //use for sort by date
+    val name: String,
+    val state: String,
+    val createTime: Long //use for sort by date
 ) {
 
     @PrimaryKey(autoGenerate = true)

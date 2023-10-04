@@ -1,26 +1,26 @@
 plugins {
-    id(Plugins.androidLibrary)
-    kotlin(Plugins.android)
-    id(Plugins.kotlinKapt)
+    id("telematics.android.library")
+    id("telematics.android.room")
+    id("telematics.android.retrofit")
+    id("telematics.android.hilt")
 }
 
 
 android {
-
-    compileSdk = AppConfig.compileSdk
+    namespace = "com.telematics.data"
 
     defaultConfig {
-        minSdk = AppConfig.minSdk
-        targetSdk = AppConfig.targetSdk
+        buildConfigField("int", "DB_VERSION", "1")
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
             buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
             buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
@@ -33,9 +33,9 @@ android {
             buildConfigField("String", "tripEventTypeUrl", AppConfig.TRIP_EVENT_TYPE_URL)
             buildConfigField("String", "carServiceUrl", AppConfig.OBD_API_ENDPOINT)
             buildConfigField("String", "SOURCE", AppConfig.SOURCE)
+            buildConfigField("boolean", "REQUEST_NOTIFICATION_PERMISSION", AppConfig.REQUEST_NOTIFICATION_PERMISSION)
         }
         getByName("debug") {
-            isMinifyEnabled = false
             buildConfigField("String", "PRIVACY_POLICY", AppConfig.PRIVACY_POLICY)
             buildConfigField("String", "TERMS_OF_USE", AppConfig.TERMS_OF_USE)
             buildConfigField("String", "INSTANCE_ID", AppConfig.INSTANCE_ID)
@@ -48,36 +48,26 @@ android {
             buildConfigField("String", "tripEventTypeUrl", AppConfig.TRIP_EVENT_TYPE_URL_DEV)
             buildConfigField("String", "carServiceUrl", AppConfig.OBD_API_ENDPOINT_DEV)
             buildConfigField("String", "SOURCE", AppConfig.SOURCE)
+            buildConfigField("boolean", "REQUEST_NOTIFICATION_PERMISSION", AppConfig.REQUEST_NOTIFICATION_PERMISSION)
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
+    buildFeatures {
+        buildConfig = true
     }
 }
 
 dependencies {
 
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(project(":domain"))
+    implementation(project(":content"))
 
-    implementation(AppDependencies.moduleLibraries)
-    implementation(AppDependencies.appLibraries)
+    implementation(libs.javax.inject)
+    implementation(libs.javax.annotation)
 
-    implementation(AppDependencies.retrofitLibraries)
-    implementation(AppDependencies.encryptedSharedPref)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.fragment)
 
-    implementation(project(Modules.domain))
-    implementation(project(Modules.content))
-
-    implementation(AppDependencies.trackingApi)
-    implementation(AppDependencies.googleGuava)
-    implementation(AppDependencies.roomRuntime)
-    kapt(AppDependencies.roomCompiler)
-
-    implementation(AppDependencies.loginAuthFramework)
+    implementation(libs.trackingApi)
+    implementation(libs.loginAuthFramework)
 }

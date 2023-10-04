@@ -8,7 +8,8 @@ import com.telematics.domain.model.measures.TimeMeasure
 import com.telematics.domain.repository.SettingsRepo
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class MeasuresFormatterImpl @Inject constructor(

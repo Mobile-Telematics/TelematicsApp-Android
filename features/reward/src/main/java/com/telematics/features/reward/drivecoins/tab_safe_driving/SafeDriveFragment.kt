@@ -5,8 +5,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_DETAILED_KEY
+import com.telematics.data.extentions.getSerializableCompat
 import com.telematics.domain.model.reward.DriveCoinsDetailedData
+import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_DETAILED_KEY
 import com.telematics.reward.R
 
 class SafeDriveFragment : Fragment(R.layout.fragment_safe_drive) {
@@ -14,8 +15,10 @@ class SafeDriveFragment : Fragment(R.layout.fragment_safe_drive) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = arguments?.getSerializable(DRIVE_COINS_DETAILED_KEY) as DriveCoinsDetailedData?
-                ?: DriveCoinsDetailedData()
+        val data: DriveCoinsDetailedData = arguments?.getSerializableCompat(
+            DRIVE_COINS_DETAILED_KEY,
+            DriveCoinsDetailedData::class.java
+        ) ?: DriveCoinsDetailedData()
 
         view.findViewById<TextView>(R.id.safe_total_coins).apply {
             text = data.safeDrivingCoinsTotal.toString()

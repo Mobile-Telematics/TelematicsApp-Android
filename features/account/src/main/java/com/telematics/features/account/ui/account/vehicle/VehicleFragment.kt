@@ -11,12 +11,14 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.telematics.content.utils.BaseFragment
+import com.telematics.data.extentions.getSerializableCompat
 import com.telematics.domain.model.authentication.User
 import com.telematics.domain.model.carservice.Vehicle
 import com.telematics.features.account.R
 import com.telematics.features.account.databinding.FragmentVehicleBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 
@@ -51,7 +53,10 @@ class VehicleFragment : BaseFragment() {
 
         setBackPressedCallback()
 
-        (arguments?.getSerializable(VEHICLE_FRAGMENT_VEHICLE_KEY) as Vehicle?)?.let {
+        arguments?.getSerializableCompat(
+            VEHICLE_FRAGMENT_VEHICLE_KEY,
+            Vehicle::class.java
+        )?.also {
             inputVehicle = it
             isNewVehicle = false
             isCanChangeMileage = inputVehicle.initialMileage.isNullOrBlank()
@@ -79,20 +84,20 @@ class VehicleFragment : BaseFragment() {
             )
         }
 
-        binding.vehicleInitialMileage.setOnFocusChangeListener { v, hasFocus ->
+        binding.vehicleInitialMileage.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 checkMileageEdit()
             }
         }
 
-        binding.vehicleInitialMileage.setOnEditorActionListener { v, actionId, event ->
+        binding.vehicleInitialMileage.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 hideKeyboard()
             }
             true
         }
 
-        binding.vehicleInitialMileage.setOnClickListener { v ->
+        binding.vehicleInitialMileage.setOnClickListener {
             checkMileageEdit()
         }
 
@@ -117,15 +122,18 @@ class VehicleFragment : BaseFragment() {
                         currentManufacturerId = id
                         binding.vehicleManufacturer.setText(name)
                     }
+
                     VehicleChooseView.Type.MODEL -> {
                         currentModelId = id
                         binding.vehicleModel.setText(name)
                     }
+
+                    else -> {}
                 }
             }
         })
 
-        binding.vehicleCarYear.doOnTextChanged { text, start, count, after ->
+        binding.vehicleCarYear.doOnTextChanged { text, _, _, _ ->
 
             if (text?.isEmpty() == true) {
                 return@doOnTextChanged
@@ -147,6 +155,7 @@ class VehicleFragment : BaseFragment() {
                     year > Calendar.getInstance().get(Calendar.YEAR) -> {
                         binding.vehicleCarYear.error = "Invalid year"
                     }
+
                     year <= 0 -> {
                         binding.vehicleCarYear.error = "Invalid year"
                     }
@@ -314,7 +323,7 @@ class VehicleFragment : BaseFragment() {
         binding.vehicleVinNumber.setText(vehicle.vin ?: "")
         binding.vehicleManufacturer.setText(vehicle.manufacturer ?: "")
         val modelText =
-            if (vehicle.model?.toLowerCase(Locale.ROOT) == "no option") "" else vehicle.model ?: ""
+            if (vehicle.model?.lowercase(Locale.ROOT) == "no option") "" else vehicle.model ?: ""
         binding.vehicleModel.setText(modelText)
         binding.vehicleCarName.setText(vehicle.name ?: "")
 
@@ -362,6 +371,7 @@ class VehicleFragment : BaseFragment() {
                 binding.vehicleCarYear.error = "Invalid year"
                 result = false
             }
+
             vehicle.carYear != null && vehicle.carYear ?: 0 <= 0 && vehicle.carYear != -1 -> {
                 binding.vehicleCarYear.error = "Invalid year"
                 result = false

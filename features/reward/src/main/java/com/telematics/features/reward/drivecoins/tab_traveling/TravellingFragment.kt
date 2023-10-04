@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.telematics.data.extentions.getSerializableCompat
 import com.telematics.domain.model.reward.DriveCoinsDetailedData
 import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_DETAILED_KEY
 import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_IN_MILES_KEY
@@ -16,8 +17,11 @@ class TravellingFragment : Fragment(R.layout.fragment_travelling) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = arguments?.getSerializable(DRIVE_COINS_DETAILED_KEY) as DriveCoinsDetailedData?
-            ?: DriveCoinsDetailedData()
+        val data = arguments?.getSerializableCompat(
+            DRIVE_COINS_DETAILED_KEY,
+            DriveCoinsDetailedData::class.java
+        ) ?: DriveCoinsDetailedData()
+
         val inMiles = arguments?.getBoolean(DRIVE_COINS_IN_MILES_KEY) ?: false
 
         view.alpha = 0f

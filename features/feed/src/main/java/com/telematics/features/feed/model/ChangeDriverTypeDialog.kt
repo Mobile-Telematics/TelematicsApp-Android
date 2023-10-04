@@ -89,41 +89,49 @@ class ChangeDriverTypeDialog(
                     popupSelectTripTypeDriver.elevation = selectedElevation
                     popupSelectTripTypeDriver.imageTintList = selectedImageTint
                 }
+
                 TripData.TripType.PASSENGER -> {
                     popupSelectTripTypePassenger.backgroundTintList = selectedBackgroundTint
                     popupSelectTripTypePassenger.elevation = selectedElevation
                     popupSelectTripTypePassenger.imageTintList = selectedImageTint
                 }
+
                 TripData.TripType.BUS -> {
                     popupSelectTripTypeBus.backgroundTintList = selectedBackgroundTint
                     popupSelectTripTypeBus.elevation = selectedElevation
                     popupSelectTripTypeBus.imageTintList = selectedImageTint
                 }
+
                 TripData.TripType.MOTORCYCLE -> {
                     popupSelectTripTypeMotorcycle.backgroundTintList = selectedBackgroundTint
                     popupSelectTripTypeMotorcycle.elevation = selectedElevation
                     popupSelectTripTypeMotorcycle.imageTintList = selectedImageTint
                 }
+
                 TripData.TripType.TRAIN -> {
                     popupSelectTripTypeTrain.backgroundTintList = selectedBackgroundTint
                     popupSelectTripTypeTrain.elevation = selectedElevation
                     popupSelectTripTypeTrain.imageTintList = selectedImageTint
                 }
+
                 TripData.TripType.TAXI -> {
                     popupSelectTripTypeTaxi.backgroundTintList = selectedBackgroundTint
                     popupSelectTripTypeTaxi.elevation = selectedElevation
                     popupSelectTripTypeTaxi.imageTintList = selectedImageTint
                 }
+
                 TripData.TripType.BICYCLE -> {
                     popupSelectTripTypeBicycle.backgroundTintList = selectedBackgroundTint
                     popupSelectTripTypeBicycle.elevation = selectedElevation
                     popupSelectTripTypeBicycle.imageTintList = selectedImageTint
                 }
+
                 TripData.TripType.OTHER -> {
                     popupSelectTripTypeOther.backgroundTintList = selectedBackgroundTint
                     popupSelectTripTypeOther.elevation = selectedElevation
                     popupSelectTripTypeOther.imageTintList = selectedImageTint
                 }
+
                 else -> {
                 }
             }

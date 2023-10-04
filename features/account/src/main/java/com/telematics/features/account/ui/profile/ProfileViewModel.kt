@@ -25,8 +25,12 @@ class ProfileViewModel @Inject constructor(
         return userState
     }
 
-    fun updateUser(user: User) {
+    fun updateUser(user: User): LiveData<Result<Unit>> {
+        val userState = MutableLiveData<Result<Unit>>()
         loginUseCase.updateUser(user)
+            .flowOn(Dispatchers.IO)
+            .setLiveDataForResult(userState)
             .launchIn(viewModelScope)
+        return userState
     }
 }

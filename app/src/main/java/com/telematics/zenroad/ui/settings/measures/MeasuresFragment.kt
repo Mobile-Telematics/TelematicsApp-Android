@@ -65,6 +65,7 @@ class MeasuresFragment : BaseFragment() {
             DateMeasure.DD_MM -> {
                 binding.ddMmButton.isChecked = true
             }
+
             DateMeasure.MM_DD -> {
                 binding.mmDdButton.isChecked = true
             }
@@ -77,6 +78,7 @@ class MeasuresFragment : BaseFragment() {
             DistanceMeasure.KM -> {
                 binding.kmBtn.isChecked = true
             }
+
             DistanceMeasure.MI -> {
                 binding.miBtn.isChecked = true
             }
@@ -89,6 +91,7 @@ class MeasuresFragment : BaseFragment() {
             TimeMeasure.H24 -> {
                 binding.btn24.isChecked = true
             }
+
             TimeMeasure.H12 -> {
                 binding.btn12.isChecked = true
             }

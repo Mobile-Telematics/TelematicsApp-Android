@@ -6,15 +6,27 @@ import android.net.Uri
 import android.webkit.URLUtil
 
 class TryOpenLink(private val context: Context) {
+    fun open(link: String): Boolean {
 
-    fun open(link: String) {
-        val intent = Intent(
-            Intent.ACTION_VIEW,
-            when {
-                URLUtil.isValidUrl(link) -> Uri.parse(link)
-                else -> Uri.parse(link)
+        if (!URLUtil.isValidUrl(link)) return false
+
+        val openIntent = Intent(Intent.ACTION_VIEW).apply {
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            setDataAndType(Uri.parse(link), "text/html")
+        }
+
+        return try {
+            context.startActivity(openIntent)
+            true
+        } catch (ex: Exception) {
+            try {
+                openIntent.addCategory(Intent.CATEGORY_BROWSABLE)
+                context.startActivity(openIntent)
+                true
+            } catch (ex: Exception) {
+                false
             }
-        )
-        context.startActivity(intent)
+        }
     }
 }

@@ -16,10 +16,10 @@
 
     <TextView
         android:id="@+id/on_demand_state"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="@string/offline"
         android:textColor="@color/elm_connected_text_color"
         android:textSize="24sp"
@@ -29,11 +29,11 @@
 
     <TextView
         android:id="@+id/on_demand_set_state"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="@string/on_demand_go_online"
         android:textColor="@color/colorDefButton"
         android:textSize="24sp"
@@ -63,10 +63,10 @@
 
     <TextView
         android:id="@+id/on_demand_current_job_name"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="@string/express_delivery"
         android:textColor="@color/elm_connected_text_color"
         android:textSize="20sp"
@@ -82,10 +82,10 @@
         android:backgroundTint="@color/colorDefButton"
         android:padding="18dp"
         android:src="@drawable/ic_rect_round_5dp"
-        app:tint="#fff"
         app:layout_constraintBottom_toBottomOf="@id/on_demand_current_job_name"
         app:layout_constraintEnd_toStartOf="@id/on_demand_pause"
-        app:layout_constraintTop_toTopOf="@id/on_demand_current_job_name" />
+        app:layout_constraintTop_toTopOf="@id/on_demand_current_job_name"
+        app:tint="#fff" />
 
     <ImageView
         android:id="@+id/on_demand_pause"
@@ -138,12 +138,12 @@
     <Button
         android:id="@+id/on_demand_incoming_job_accept"
         style="@style/Button"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/selector_default_btn_stroke"
+        android:fontFamily="@font/open_sans_bold"
         android:maxLines="1"
         android:padding="8dp"
         android:text="@string/accept"
@@ -157,10 +157,10 @@
     <Button
         android:id="@+id/on_demand_incoming_job_start"
         style="@style/Button"
-        android:fontFamily="@font/open_sans_bold"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/open_sans_bold"
         android:maxLines="1"
         android:padding="8dp"
         android:text="@string/start"

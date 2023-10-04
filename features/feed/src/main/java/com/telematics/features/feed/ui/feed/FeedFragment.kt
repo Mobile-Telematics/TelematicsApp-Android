@@ -276,7 +276,9 @@ class FeedFragment : BaseFragment() {
     private fun tryOpenLink() {
 
         val link = feedViewModel.getPermissionLink(requireContext())
-        TryOpenLink(requireContext()).open(link)
+        if (!TryOpenLink(requireContext()).open(link)) {
+            showMessage(R.string.link_open_error)
+        }
     }
 
     /** go to tripDetails*/

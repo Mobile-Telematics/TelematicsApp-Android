@@ -20,9 +20,16 @@ import com.telematics.authentication.extention.await
 import com.telematics.authentication.mapper.Mapper
 import com.telematics.authentication.model.UserDatabase
 import com.telematics.data.BuildConfig
+import com.telematics.data.extentions.DateFormat
+import com.telematics.data.extentions.stringDateToTimeInMillis
+import com.telematics.data.extentions.timeMillsToIso8601InSeconds
 import com.telematics.domain.model.RegistrationApiData
 import com.telematics.domain.model.SessionData
-import com.telematics.domain.model.authentication.*
+import com.telematics.domain.model.authentication.FirebaseUser
+import com.telematics.domain.model.authentication.IUser
+import com.telematics.domain.model.authentication.PhoneAuthCallback
+import com.telematics.domain.model.authentication.PhoneAuthCred
+import com.telematics.domain.model.authentication.User
 import com.telematics.domain.model.company_id.InstanceName
 import com.telematics.domain.repository.AuthenticationRepo
 import com.telematics.domain.repository.SessionRepo
@@ -32,9 +39,10 @@ import com.telematicssdk.auth.TelematicsAuth
 import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
-class Authentication constructor(
+class Authentication @Inject constructor(
     private val authRepo: UserServicesRepo,
     private val sessionRepo: SessionRepo,
     private val userRepo: UserRepo,
@@ -73,7 +81,10 @@ class Authentication constructor(
         return userId
     }
 
-    override suspend fun registrationCreateAPI(email: String?, phone: String?): RegistrationApiData {
+    override suspend fun registrationCreateAPI(
+        email: String?,
+        phone: String?
+    ): RegistrationApiData {
 
         emptyRegistrationUser.email = email
         emptyRegistrationUser.phone = phone
@@ -218,7 +229,7 @@ class Authentication constructor(
 
     override suspend fun getUserInFirebaseDatabase(userId: String): User {
 
-        val userDatabase = firebaseDatabase.child("users").child(userId).await<UserDatabase>()
+        val userDatabase = firebaseDatabase.child("users").child(userId).await()
         val user = Mapper.userDatabaseToUser(userDatabase)
         Log.d(TAG, "getDeviceTokenInFirebaseDatabase: $user")
         userRepo.saveUser(user)
@@ -232,9 +243,11 @@ class Authentication constructor(
         Log.d(TAG, "updateUser user:${newUser}")
 
         //update user in API user.telematicssdk.com
-        authRepo.updateUser(newUser)
+        //authRepo.updateUser(newUser)
 
-        val userDatabase = Mapper.userToUserDatabase(newUser)
+        val birthdayInStr =
+            user.birthday?.stringDateToTimeInMillis(DateFormat.DayMonthFullYear())
+                ?.timeMillsToIso8601InSeconds()
 
         TelematicsAuth.updateUserProfile(
             INSTANCE_ID,
@@ -246,13 +259,14 @@ class Authentication constructor(
             newUser.clientId,
             newUser.firstName,
             newUser.lastName,
-            userDatabase.birthday,
+            birthdayInStr,
             null,
             newUser.childrenCount,
             newUser.address,
             null
         ).await()
 
+        val userDatabase = Mapper.userToUserDatabase(newUser)
         Log.d(TAG, "updateUser userDatabase:${userDatabase}")
         user.userId?.let { userId ->
             firebaseDatabase.child("users").child(userId).setValue(userDatabase).await()

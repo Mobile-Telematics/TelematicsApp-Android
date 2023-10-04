@@ -160,7 +160,7 @@
             android:id="@+id/action_settingsFragment_to_chooseTrackingModeFragment"
             app:destination="@+id/chooseTrackingModeFragment"
             app:enterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"/>
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment

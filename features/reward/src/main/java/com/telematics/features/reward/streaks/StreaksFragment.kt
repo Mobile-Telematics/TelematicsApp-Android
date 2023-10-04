@@ -2,6 +2,7 @@ package com.telematics.features.reward.streaks
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,7 @@ class StreaksFragment : BaseFragment() {
         val swipeRefreshLayout = binding.streaksSwipeRefresh
         swipeRefreshLayout.setOnRefreshListener {
 
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 swipeRefreshLayout.isRefreshing = false
             }, 1000)
 

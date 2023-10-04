@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/leaderboard_user_item_normal_size"
     android:layout_marginStart="@dimen/leaderboard_user_item_margin_start"
     android:layout_marginEnd="@dimen/leaderboard_user_item_margin_start"
-    android:background="@drawable/ic_wizard_back_bubble_smallest">
+    android:background="@drawable/ic_wizard_back_bubble_smallest"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ImageView
         android:id="@+id/propertyIcon"
@@ -78,4 +78,4 @@
         android:layout_height="match_parent"
         android:elevation="1dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

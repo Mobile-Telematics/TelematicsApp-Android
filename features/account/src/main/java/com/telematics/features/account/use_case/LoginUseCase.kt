@@ -215,11 +215,14 @@ class LoginUseCase @Inject constructor(
     fun updateUser(user: User): Flow<Unit> {
         return flow {
             val oldUser = userRepo.getUser()
-            val newUser = oldUser.getNewUpdatedUser(user)
-            val userId = userRepo.getUserId()
-            newUser.userId = userId
-            userRepo.saveUser(newUser)
-            authenticationRepo.updateUserInFirebaseDatabase(newUser)
+            val newUser = oldUser.getNewUpdatedUser(user).copy(
+                userId = userRepo.getUserId()
+            )
+
+            if (oldUser != newUser) {
+                userRepo.saveUser(newUser)
+                authenticationRepo.updateUserInFirebaseDatabase(newUser)
+            }
             emit(Unit)
         }
     }

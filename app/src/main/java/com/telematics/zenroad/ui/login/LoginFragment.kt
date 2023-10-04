@@ -132,6 +132,7 @@ class LoginFragment : BaseFragment() {
                         )
                     }
             }
+
             LoginType.PHONE -> {
                 if (countryCode == -1) {
                     countryCode = binding.loginInputPhoneCCP.selectedCountryCodeAsInt
@@ -252,6 +253,7 @@ class LoginFragment : BaseFragment() {
             LoginType.EMAIL -> {
                 binding.loginInputEmail.text.toString()
             }
+
             LoginType.PHONE -> {
                 binding.loginInputPhoneCCP.selectedCountryCodeWithPlus + binding.loginInputPhone.text.toString()
             }

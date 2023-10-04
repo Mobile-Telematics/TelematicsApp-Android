@@ -1,6 +1,5 @@
 package ui.step2_wizard
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.telematics.content.utils.BaseFragment
+import com.telematics.data.extentions.getMediaPermissions
 import com.telematics.data.utils.PermissionUtils
 import com.telematics.data.utils.PhotoUtils
 import com.telematics.obd.R
@@ -78,12 +78,7 @@ class VehicleWizardFragment : BaseFragment() {
             else showPermissionError()
         }
 
-        val permissions = arrayOf(
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        )
-
-        permissionUtils.askPermissions(requireActivity(), permissions)
+        permissionUtils.askPermissions(requireActivity(), getMediaPermissions())
     }
 
     private fun showPickupDialog() {
@@ -105,6 +100,12 @@ class VehicleWizardFragment : BaseFragment() {
             override fun openCropScreen(fileFrom: String?, fileTo: String?) {
                 openCrop(fileFrom, fileTo)
             }
+
+            override fun onError(message: String?) {
+                message?.also {
+                    showMessage(it)
+                }
+            }
         })
         PhotoUtils.openCamera(this, odometerPictureName)
     }
@@ -114,6 +115,12 @@ class VehicleWizardFragment : BaseFragment() {
         PhotoUtils.setCallback(object : PhotoUtils.Callback {
             override fun openCropScreen(fileFrom: String?, fileTo: String?) {
                 openCrop(fileFrom, fileTo)
+            }
+
+            override fun onError(message: String?) {
+                message?.also {
+                    showMessage(it)
+                }
             }
         })
         PhotoUtils.openGallery(this, odometerPictureName)

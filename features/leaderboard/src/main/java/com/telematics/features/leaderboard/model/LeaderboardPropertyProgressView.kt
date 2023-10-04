@@ -10,36 +10,45 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.telematics.leaderboard.R
-import kotlinx.android.synthetic.main.leaderboard_user_value_item.view.*
+import com.telematics.leaderboard.databinding.LeaderboardUserValueItemBinding
 import kotlin.math.roundToInt
 
 class LeaderboardPropertyProgressView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
+
+    private val binding =
+        LeaderboardUserValueItemBinding.inflate(LayoutInflater.from(context), this)
+
     init {
-        val mInflater =
-            getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mInflater.inflate(R.layout.leaderboard_user_value_item, this, true)
-        seekBar.setOnTouchListener { _, _ -> true }
-        topView.setOnClickListener { this.performClick() }
+        with(binding) {
+            seekBar.setOnTouchListener { _, _ -> true }
+            topView.setOnClickListener { performClick() }
+
+            root.background =
+                AppCompatResources.getDrawable(context, R.drawable.ic_wizard_back_bubble_smallest)
+        }
     }
 
-    fun setTextRes(@StringRes res: Int) {
+    fun setTextRes(@StringRes res: Int) = with(binding) {
         propertyHeader.text = context.getString(res)
     }
 
-    fun setImageRes(@DrawableRes res: Int) {
+    fun setImageRes(@DrawableRes res: Int) = with(binding) {
         propertyIcon.setImageResource(res)
     }
 
-    fun setProgressMax(max: Int = 100) {
+    fun setProgressMax(max: Int = 100) = with(binding) {
         seekBar.max = max * 10
     }
 
-    fun setProgress(progress: Double) {
+    fun setProgress(progress: Double) = with(binding) {
         if (progress.roundToInt() == seekBar.progress) return
         seekBar.progress = 0
         val animator = ObjectAnimator.ofInt(seekBar, "progress", progress.roundToInt() * 10)
@@ -48,7 +57,7 @@ class LeaderboardPropertyProgressView @JvmOverloads constructor(
         animator.start()
     }
 
-    fun highlight() {
+    fun highlight() = with(binding) {
         // hided icon
         val h = propertyIcon.layoutParams.height
         val iconParams = LayoutParams(
@@ -59,7 +68,7 @@ class LeaderboardPropertyProgressView @JvmOverloads constructor(
 
         // changed constraint of seekbar and set start margin for it
         val set = ConstraintSet()
-        set.clone(container)
+        set.clone(this@LeaderboardPropertyProgressView)
         set.connect(R.id.seekBar, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
         set.connect(R.id.seekBar, ConstraintSet.END, R.id.openArrow, ConstraintSet.START)
         set.setMargin(
@@ -67,7 +76,7 @@ class LeaderboardPropertyProgressView @JvmOverloads constructor(
             ConstraintSet.START,
             resources.getDimensionPixelOffset(R.dimen.leaderboard_user_item_margin_start)
         )
-        set.applyTo(container)
+        set.applyTo(this@LeaderboardPropertyProgressView)
 
         // changed typeface and text size of type text
         propertyHeader.setTypeface(propertyPlace.typeface, Typeface.BOLD)
@@ -83,7 +92,7 @@ class LeaderboardPropertyProgressView @JvmOverloads constructor(
         )
 
         // made parent hwight bigger and set margins for it
-        val w = container.layoutParams.width
+        val w = layoutParams.width
         val parentParams = LayoutParams(
             w,
             resources.getDimensionPixelOffset(R.dimen.leaderboard_user_item_big_size)
@@ -94,15 +103,15 @@ class LeaderboardPropertyProgressView @JvmOverloads constructor(
             resources.getDimensionPixelOffset(R.dimen.leaderboard_user_item_margin_start),
             0
         )
-        container.layoutParams = parentParams
+        layoutParams = parentParams
     }
 
     @SuppressLint("SetTextI18n")
-    fun setPlace(place: Int) {
+    fun setPlace(place: Int) = with(binding) {
         ValueAnimator.ofInt(0, place).apply {
             duration = 900
             addUpdateListener {
-                propertyPlace?.text = "#${it.animatedValue}"
+                propertyPlace.text = "#${it.animatedValue}"
             }
         }.start()
 

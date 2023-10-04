@@ -321,9 +321,9 @@
                     android:layout_width="@dimen/feed_event_hidden_button_size"
                     android:layout_height="@dimen/feed_event_hidden_button_size"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="12dp"
                     android:background="@drawable/feed_circle"
                     android:padding="11dp"
-                    android:layout_marginBottom="12dp"
                     android:visibility="visible"
                     app:srcCompat="@drawable/ic_event_hide" />
 

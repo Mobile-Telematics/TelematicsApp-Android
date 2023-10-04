@@ -1,9 +1,7 @@
 package com.telematics.data.model.tracking
 
-import com.telematics.domain.model.measures.DateMeasure
 import com.telematics.domain.model.measures.DistanceMeasure
-import com.telematics.domain.model.measures.TimeMeasure
-import java.util.*
+import java.util.Date
 
 
 interface MeasuresFormatter {
@@ -22,5 +20,5 @@ interface MeasuresFormatter {
     fun getDistanceByKm(km: Int): Double
     fun getDistanceMeasureValue(): DistanceMeasure
 
-    fun getDateForDemandMode(time:Long?): String
+    fun getDateForDemandMode(time: Long?): String
 }

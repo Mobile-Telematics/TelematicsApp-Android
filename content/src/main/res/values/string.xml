@@ -51,6 +51,7 @@
 
     <string name="crop_screen_title">Crop Image</string>
     <string name="crop_screen_done">DONE</string>
+    <string name="crop_screen_access_denied">Access denied</string>
 
     <!--Verify code Screen-->
     <string name="verify_code_screen_message">Message with a code was sent to %1s\nEnter it in the field below</string>
@@ -299,6 +300,7 @@
 
     <!--ERRORS-->
     <string name="server_error_error">Service is temporarily unavailable.</string>
+    <string name="link_open_error">Can\'t open the link.</string>
 
     <!--OBD-->
     <string name="odb_step_1">STEP <b>1</b></string>
@@ -379,7 +381,8 @@
     <string name="on_demand_start">START</string>
     <string name="on_demand_offline">Offline</string>
     <string name="on_demand_online">Online</string>
-    <string name="on_demand_on_duty">On Duty</string><string name="on_demand_tracking">On-Demand Tracking</string>
+    <string name="on_demand_on_duty">On Duty</string>
+    <string name="on_demand_tracking">On-Demand Tracking</string>
     <string name="automatic_tracking">Automatic Tracking</string>
     <string name="tracking_disabled">Tracking Disabled</string>
     <string name="proceed_with_mode">Proceed with %s Mode</string>

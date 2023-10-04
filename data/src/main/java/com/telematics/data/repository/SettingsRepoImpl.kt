@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import com.telematics.data.BuildConfig
 import com.telematics.domain.model.measures.DateMeasure
 import com.telematics.domain.model.measures.DistanceMeasure
 import com.telematics.domain.model.measures.TimeMeasure
@@ -24,6 +25,7 @@ class SettingsRepoImpl @Inject constructor(
     private val trackingStateKey = "trackingStateKey"
     private val onDemandDutyStateKey = "onDemandDutyStateKey"
     private val onDemandLastCurrentJobKey = "onDemandLastCurrentJobKey"
+    private val notificationPermissionsKey = "notificationPermissionsKey"
 
     override fun getTelematicsLink(context: Context): String {
         return telematicsSettingsLink(context)
@@ -154,5 +156,12 @@ class SettingsRepoImpl @Inject constructor(
     override fun getOnDemandLastCurrentJob(): Long {
 
         return sharedPreferences.getLong(onDemandLastCurrentJobKey, -1L)
+    }
+
+    override fun isNotificationPermissionCompleted(): Boolean =
+        sharedPreferences.getBoolean(notificationPermissionsKey, !BuildConfig.REQUEST_NOTIFICATION_PERMISSION)
+
+    override fun setNotificationPermissionCompleted() {
+        sharedPreferences.edit().putBoolean(notificationPermissionsKey, true).apply()
     }
 }

@@ -1,7 +1,11 @@
 package com.telematics.features.dashboard.ui.ui.chart
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import kotlin.math.min
@@ -73,18 +77,22 @@ class ProgressView @JvmOverloads constructor(
             in 0..62 -> {
                 drawFirstLinePart(currentProgress, canvas)
             }
+
             in 63..71 -> {
                 val forDraw = 9 - (71 - currentProgress)
                 drawSecondLinePart(forDraw, canvas)
             }
+
             in 72..80 -> {
                 val forDraw = 9 - (80 - currentProgress)
                 drawThirdLinePart(forDraw, canvas)
             }
+
             in 81..89 -> {
                 val forDraw = 9 - (89 - currentProgress)
                 drawForthLinePart(forDraw, canvas)
             }
+
             else -> {
                 val forDraw = 9 - (98 - currentProgress)
                 drawFifthLinePart(forDraw, canvas)
@@ -185,11 +193,11 @@ class ProgressView @JvmOverloads constructor(
     }
 
     private fun getLineColor(): Int = when (progress) {
-        in 0..62 -> lineColors[ ColorName.RED]!!
-        in 63..71 -> lineColors[ ColorName.ORANGE]!!
-        in 72..80 -> lineColors[ ColorName.ORANGE]!!
-        in 81..89 -> lineColors[ ColorName.YELLOW]!!
-        else -> lineColors[ ColorName.GREEN]!!
+        in 0..62 -> lineColors[ColorName.RED]!!
+        in 63..71 -> lineColors[ColorName.ORANGE]!!
+        in 72..80 -> lineColors[ColorName.ORANGE]!!
+        in 81..89 -> lineColors[ColorName.YELLOW]!!
+        else -> lineColors[ColorName.GREEN]!!
     }
     //endregion
 
@@ -205,7 +213,7 @@ class ProgressView @JvmOverloads constructor(
 
     private fun drawFirstPart(canvas: Canvas) {
         paintArc.strokeCap = Paint.Cap.ROUND
-        paintArc.color = backColors[ ColorName.RED]!!
+        paintArc.color = backColors[ColorName.RED]!!
         mCanvas.drawArc(oval, 155F, 137F, false, paintArc)
 
         paintArc.strokeCap = Paint.Cap.BUTT
@@ -215,28 +223,28 @@ class ProgressView @JvmOverloads constructor(
 
     private fun drawSecondPart(canvas: Canvas) {
         paintArc.strokeCap = Paint.Cap.BUTT
-        paintArc.color = backColors[ ColorName.RED]!!
+        paintArc.color = backColors[ColorName.RED]!!
         mCanvas.drawArc(oval, 296F, 20F, false, paintArc)
         canvas.drawBitmap(bitmap, 0f, 0f, mBitmapPaint)
     }
 
     private fun drawThirdPart(canvas: Canvas) {
         paintArc.strokeCap = Paint.Cap.BUTT
-        paintArc.color = backColors[ ColorName.ORANGE]!!
+        paintArc.color = backColors[ColorName.ORANGE]!!
         mCanvas.drawArc(oval, 317F, 20F, false, paintArc)
         canvas.drawBitmap(bitmap, 0f, 0f, mBitmapPaint)
     }
 
     private fun drawFourthPart(canvas: Canvas) {
         paintArc.strokeCap = Paint.Cap.BUTT
-        paintArc.color = backColors[ ColorName.YELLOW]!!
+        paintArc.color = backColors[ColorName.YELLOW]!!
         mCanvas.drawArc(oval, 338F, 20F, false, paintArc)
         canvas.drawBitmap(bitmap, 0f, 0f, mBitmapPaint)
     }
 
     private fun drawFifthPart(canvas: Canvas) {
         paintArc.strokeCap = Paint.Cap.BUTT
-        paintArc.color = backColors[ ColorName.GREEN]!!
+        paintArc.color = backColors[ColorName.GREEN]!!
         mCanvas.drawArc(oval, 359F, 17F, false, paintArc)
 
         paintArc.strokeCap = Paint.Cap.ROUND

@@ -121,11 +121,13 @@ class ChooseTrackingModeViewModel @Inject constructor(
                 trackingUseCase.disableTrackingSDK()
                 trackingUseCase.stopTracking()
             }
+
             TrackingState.AUTO -> {
                 trackingUseCase.enableTrackingSDK()
                 trackingUseCase.stopTracking()
                 trackingUseCase.enableTracking()
             }
+
             TrackingState.DISABLE -> {
                 trackingUseCase.disableTrackingSDK()
                 trackingUseCase.stopTracking()

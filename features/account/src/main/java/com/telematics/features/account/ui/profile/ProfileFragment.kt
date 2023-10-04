@@ -14,7 +14,7 @@ import com.telematics.features.account.databinding.FragmentProfileBinding
 import com.telematics.features.account.model.DatePickerDialog
 import com.telematics.features.account.ui.account.AccountFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -114,9 +114,14 @@ class ProfileFragment : BaseFragment() {
             this.clientId = clientId
         }
 
-        profileViewModel.updateUser(newUser)
-
-        finish(newUser)
+        profileViewModel.updateUser(newUser).observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                finish(newUser)
+            }
+            result.onFailure {
+                showMessage(R.string.something_went_wrong)
+            }
+        }
     }
 
     private fun showErrorMessage(@StringRes id: Int) {

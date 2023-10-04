@@ -1,7 +1,8 @@
 package com.telematics.domain.model.tracking
 
 import java.io.Serializable
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 data class TripData(
 
@@ -73,7 +74,7 @@ data class TripData(
 
         companion object {
             fun parse(value: String?): TagType {
-                return when (value?.toLowerCase(Locale.ROOT)) {
+                return when (value?.lowercase(Locale.ROOT)) {
                     "business" -> BUSINESS
                     else -> PERSONAL
                 }
@@ -81,5 +82,5 @@ data class TripData(
         }
     }
 
-    data class Tag(var type: TagType = TagType.PERSONAL): Serializable
+    data class Tag(var type: TagType = TagType.PERSONAL) : Serializable
 }

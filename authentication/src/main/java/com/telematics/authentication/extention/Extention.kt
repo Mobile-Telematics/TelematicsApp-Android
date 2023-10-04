@@ -37,7 +37,7 @@ suspend fun <T> Task<T>.await(): T = suspendCoroutine { continuation ->
     }
 }
 
-suspend fun <T> DatabaseReference.await(): T = suspendCoroutine { continuation ->
+suspend fun DatabaseReference.await(): UserDatabase = suspendCoroutine { continuation ->
     addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             Log.d("FIREBASE Database await", "onDataChange")
@@ -45,14 +45,14 @@ suspend fun <T> DatabaseReference.await(): T = suspendCoroutine { continuation -
                 val userDatabase = snapshot.getValue(UserDatabase::class.java)
                 userDatabase?.deviceToken?.let { deviceToken ->
                     Log.d("FIREBASE Database await", "onDataChange deviceToken:${deviceToken}")
-                    continuation.resume(userDatabase as T)
+                    continuation.resume(userDatabase)
                 } ?: run {
                     Log.d("FIREBASE Database await", "onDataChange deviceToken null")
 //                continuation.resumeWithException(AuthException(AuthErrorCode.EMPTY_DEVICE_TOKEN))
-                    continuation.resume(UserDatabase() as T)
+                    continuation.resume(UserDatabase())
                 }
             } catch (e: Exception) {
-                continuation.resume(UserDatabase() as T)
+                continuation.resume(UserDatabase())
             }
         }
 
@@ -63,37 +63,38 @@ suspend fun <T> DatabaseReference.await(): T = suspendCoroutine { continuation -
     })
 }
 
-suspend fun <T> PhoneAuthOptions.Builder.await(): T = suspendCoroutine { continuation ->
-    setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        override fun onCodeAutoRetrievalTimeOut(p0: String) {
-            super.onCodeAutoRetrievalTimeOut(p0)
-            val result = Pair(PhoneAuthResult.TIMEOUT, null)
-            continuation.resume(result as T)
-        }
+suspend fun PhoneAuthOptions.Builder.await(): Pair<PhoneAuthResult, Any?> =
+    suspendCoroutine { continuation ->
+        setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onCodeAutoRetrievalTimeOut(p0: String) {
+                super.onCodeAutoRetrievalTimeOut(p0)
+                val result = Pair(PhoneAuthResult.TIMEOUT, null)
+                continuation.resume(result)
+            }
 
-        override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
-            super.onCodeSent(p0, p1)
-            val result = Pair(PhoneAuthResult.TIMEOUT, null)
-            continuation.resume(result as T)
-        }
+            override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
+                super.onCodeSent(p0, p1)
+                val result = Pair(PhoneAuthResult.TIMEOUT, null)
+                continuation.resume(result)
+            }
 
-        override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-            val result = Pair(PhoneAuthResult.TIMEOUT, p0)
-            continuation.resume(result as T)
-        }
+            override fun onVerificationCompleted(p0: PhoneAuthCredential) {
+                val result = Pair(PhoneAuthResult.TIMEOUT, p0)
+                continuation.resume(result)
+            }
 
-        override fun onVerificationFailed(p0: FirebaseException) {
-            val errorCode = Mapper.getErrorCodeByException(p0)
-            val authException = AuthException(errorCode)
-            continuation.resumeWithException(authException)
-        }
-    })
-}
+            override fun onVerificationFailed(p0: FirebaseException) {
+                val errorCode = Mapper.getErrorCodeByException(p0)
+                val authException = AuthException(errorCode)
+                continuation.resumeWithException(authException)
+            }
+        })
+    }
 
 fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
     observe(lifecycleOwner, object : Observer<T> {
-        override fun onChanged(t: T) {
-            observer.onChanged(t)
+        override fun onChanged(value: T) {
+            observer.onChanged(value)
             removeObserver(this)
         }
     })

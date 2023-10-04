@@ -1,13 +1,17 @@
 package com.telematics.zenroad.ui.main
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -15,6 +19,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
 import com.telematics.authentication.extention.observeOnce
 import com.telematics.content.utils.BaseFragment
+import com.telematics.data.extentions.getNotGrantedNotificationPermissions
+import com.telematics.data.extentions.isExactAlarmGranted
 import com.telematics.features.account.AccountFeatureHost
 import com.telematics.features.account.ui.account.AccountFragment
 import com.telematics.features.dashboard.ui.ui.dashboard.DashboardFragment
@@ -37,6 +43,30 @@ class MainFragment : BaseFragment() {
 
     lateinit var binding: MainFragmentBinding
 
+    private val requestMultiplePermissions = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { results ->
+
+        results.forEach {
+            when (it.key) {
+                android.Manifest.permission.POST_NOTIFICATIONS -> {
+                    mainFragmentViewModel.onNotificationPermissionRequested()
+                    checkExactAlarmPermissions()
+                }
+            }
+        }
+    }
+
+    private val requestExactAlarmPermission =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+
+            if (isExactAlarmGranted(requireContext())) {
+                initTrackingApi()
+            } else {
+                showDeniedPermissionDialog()
+            }
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,7 +82,10 @@ class MainFragment : BaseFragment() {
 
         val navTo = arguments?.getString(SettingsFragment.NAV_TO_KEY)
 
-        initTrackingApi()
+        //if your app needs to request notification permission (Android 13+),
+        // set REQUEST_NOTIFICATION_PERMISSION = true in AppConfig
+        checkNotificationPermissions()
+
         initToolbar()
         initBottomMenu(navTo)
     }
@@ -65,12 +98,12 @@ class MainFragment : BaseFragment() {
 
         var previousItemId = 0
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
+        bottomNavigationView.setOnItemSelectedListener {
 
             mainFragmentViewModel.saveCurrentBottomMenuState(it.itemId)
 
             if (previousItemId == it.itemId) {
-                return@setOnNavigationItemSelectedListener true
+                return@setOnItemSelectedListener true
             }
             previousItemId = it.itemId
 
@@ -78,23 +111,28 @@ class MainFragment : BaseFragment() {
                 R.id.nav_feed -> {
                     navToFeed()
                 }
+
                 R.id.nav_leaderboard -> {
                     navToLeaderboard()
                 }
+
                 R.id.nav_dashboard -> {
                     navToDashboard()
                 }
+
                 R.id.nav_reward -> {
                     navToReward()
                 }
+
                 R.id.nav_profile -> {
                     navToAccount()
                 }
+
                 else -> {
                     navToDashboard()
                 }
             }
-            return@setOnNavigationItemSelectedListener true
+            return@setOnItemSelectedListener true
         }
 
         //first state
@@ -186,22 +224,60 @@ class MainFragment : BaseFragment() {
     }
 
     private fun initTrackingApi() {
-
-        mainFragmentViewModel.checkPermissions().observeOnce(viewLifecycleOwner) { result ->
-            result.onSuccess { allPermissionsGranted ->
-                if (!allPermissionsGranted) {
+        mainFragmentViewModel.initTrackingApi(requireContext()).observeOnce(viewLifecycleOwner) {
+            mainFragmentViewModel.checkPermissions().observeOnce(viewLifecycleOwner) { result ->
+                result.onSuccess { allPermissionsGranted ->
+                    if (!allPermissionsGranted) {
+                        startWizard()
+                    } else {
+                        mainFragmentViewModel.enableTracking()
+                    }
+                }
+                result.onFailure {
                     startWizard()
-                } else {
-                    mainFragmentViewModel.enableTracking()
                 }
             }
-            result.onFailure {
-                startWizard()
+        }
+    }
+
+    private fun checkNotificationPermissions() {
+        mainFragmentViewModel.checkNotificationPermissions().observeOnce(viewLifecycleOwner) { result ->
+            if (result) {
+                requestMultiplePermissions.launch(
+                    getNotGrantedNotificationPermissions(
+                        requireContext()
+                    ).toTypedArray()
+                )
+            } else {
+                checkExactAlarmPermissions()
             }
         }
+    }
 
-        mainFragmentViewModel.setDeviceTokenForTrackingApi()
-        setIntentForNotification()
+    private fun checkExactAlarmPermissions() {
+        mainFragmentViewModel.checkAlarmPermissions().observeOnce(viewLifecycleOwner) { result ->
+            if (result) {
+                initTrackingApi()
+            } else {
+                requestExactAlarmPermission()
+            }
+        }
+    }
+
+    private fun requestExactAlarmPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+            val intent = Intent()
+            intent.action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+            try {
+                requestExactAlarmPermission.launch(intent)
+            } catch (e: Exception) {
+                initTrackingApi()
+            }
+
+        } else {
+            initTrackingApi()
+        }
     }
 
     private fun startWizard() {
@@ -209,11 +285,16 @@ class MainFragment : BaseFragment() {
         mainFragmentViewModel.startWizard(requireActivity())
     }
 
-    private fun setIntentForNotification() {
-
-        val intent = Intent(context, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        mainFragmentViewModel.setIntentForNotification(intent)
+    private fun showDeniedPermissionDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(com.raxeltelematics.android.tracking.R.string.dialog_telematics_instructions_permission)
+            .setTitle(com.raxeltelematics.android.tracking.R.string.dialog_telematics_permission_denied)
+            .setPositiveButton(getString(com.raxeltelematics.android.tracking.R.string.dialog_telematics_settings)) { _, _ ->
+                requestExactAlarmPermission()
+            }
+            .setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun navToFeed() {

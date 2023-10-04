@@ -19,7 +19,15 @@ import androidx.core.view.isVisible
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.JointType
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.RoundCap
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.telematics.content.utils.BaseFragment
 import com.telematics.data.extentions.color
@@ -144,6 +152,7 @@ class TripDetailFragment : BaseFragment() {
                             }
                             .start()
                     }
+
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         tripBottomSheetTypeLayout.isVisible = true
                         nextArrow.isVisible = false
@@ -163,6 +172,7 @@ class TripDetailFragment : BaseFragment() {
             when (bottomSheetBehavior.state) {
                 BottomSheetBehavior.STATE_COLLAPSED -> bottomSheetBehavior.state =
                     BottomSheetBehavior.STATE_EXPANDED
+
                 BottomSheetBehavior.STATE_EXPANDED -> bottomSheetBehavior.state =
                     BottomSheetBehavior.STATE_COLLAPSED
             }
@@ -325,34 +335,42 @@ class TripDetailFragment : BaseFragment() {
                 tripTypeTextRes = R.string.progress_trip_type_driver
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_driver
             }
+
             TripData.TripType.PASSENGER -> {
                 tripTypeTextRes = R.string.progress_trip_type_passenger
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_passenger
             }
+
             TripData.TripType.BUS -> {
                 tripTypeTextRes = R.string.progress_trip_type_bus
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_bus
             }
+
             TripData.TripType.MOTORCYCLE -> {
                 tripTypeTextRes = R.string.progress_trip_type_motorcycle
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_motorcycle
             }
+
             TripData.TripType.TRAIN -> {
                 tripTypeTextRes = R.string.progress_trip_type_train
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_train
             }
+
             TripData.TripType.TAXI -> {
                 tripTypeTextRes = R.string.progress_trip_type_taxi
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_taxi
             }
+
             TripData.TripType.BICYCLE -> {
                 tripTypeTextRes = R.string.progress_trip_type_bicycle
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_bicycle
             }
+
             TripData.TripType.OTHER -> {
                 tripTypeTextRes = R.string.progress_trip_type_other
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_other
             }
+
             else -> {
                 tripTypeTextRes = R.string.progress_trip_type_other
                 tripTypeImgRes = R.drawable.ic_event_trip_bubble_other
@@ -422,14 +440,17 @@ class TripDetailFragment : BaseFragment() {
                 R.drawable.ic_dot_orange,
                 requireContext()
             )
+
             in 61..80 -> requireContext().resources.drawable(
                 R.drawable.ic_dot_yellow,
                 requireContext()
             )
+
             in 80..100 -> requireContext().resources.drawable(
                 R.drawable.ic_dot_green,
                 requireContext()
             )
+
             else -> requireContext().resources.drawable(R.drawable.ic_dot_green, requireContext())
         }
         textView.setTextColor(color)
@@ -518,7 +539,7 @@ class TripDetailFragment : BaseFragment() {
 
             val v: View =
                 LayoutInflater.from(requireContext()).inflate(R.layout.info_bubble_layout, null)
-            val latLng: LatLng = marker.position
+            //val latLng: LatLng = marker.position
 
             val event = markersList.find { it.first == marker }?.second!!
             val alertType = AlertType.from(event.alertType)
@@ -540,6 +561,7 @@ class TripDetailFragment : BaseFragment() {
                     v.findViewById<TextView>(R.id.info_speed_text).text =
                         getString(R.string.trip_details_km_h, event.speed.format())
                 }
+
                 DistanceMeasure.MI -> {
                     v.findViewById<TextView>(R.id.info_speed_text).text =
                         getString(R.string.trip_details_mi_h, event.speed.toMiles().format())

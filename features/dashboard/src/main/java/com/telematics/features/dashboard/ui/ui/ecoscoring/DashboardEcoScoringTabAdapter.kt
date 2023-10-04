@@ -38,7 +38,8 @@ class DashboardEcoScoringTabAdapter(
         if (ecoScoringTabData != null) {
             averageSpeed = measuresFormatter.getDistanceByKm(ecoScoringTabData.averageSpeed)
             maxSpeed = measuresFormatter.getDistanceByKm(ecoScoringTabData.maxSpeed)
-            averageTripDistance = measuresFormatter.getDistanceByKm(ecoScoringTabData.averageTripDistance)
+            averageTripDistance =
+                measuresFormatter.getDistanceByKm(ecoScoringTabData.averageTripDistance)
         }
         args.putDouble(DashboardEcoScoringTabFragment.AVERAGE_SPEED_KEY, averageSpeed)
         args.putDouble(DashboardEcoScoringTabFragment.MAX_SPEED_KEY, maxSpeed)
@@ -46,7 +47,7 @@ class DashboardEcoScoringTabAdapter(
             DashboardEcoScoringTabFragment.AVERAGE_TRIP_DISTANCE_KEY,
             averageTripDistance
         )
-        val inMiles = when(measuresFormatter.getDistanceMeasureValue()){
+        val inMiles = when (measuresFormatter.getDistanceMeasureValue()) {
             DistanceMeasure.MI -> true
             DistanceMeasure.KM -> false
         }

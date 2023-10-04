@@ -12,29 +12,35 @@ import com.telematics.data.extentions.DateFormatString.FORMAT_TIME
 import com.telematics.data.extentions.DateFormatString.FORMAT_TIME_FULL_RAXEL_SDK_TRACKS
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 
 object DateFormatString {
-    internal const val FORMAT_FOR_FILE_NAME = "yyyyMMdd_HHmmss"
+    //    internal const val FORMAT_FOR_FILE_NAME = "yyyyMMdd_HHmmss"
     internal const val FORMAT_ISO8601 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
     internal const val FORMAT_ISO8601_JUST_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ"
-    internal const val FORMAT_ISO8601_JUST_SECONDS_Z = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-    internal const val FORMAT_ISO8601_JUST_SECONDS_DECIMAL = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
-    internal const val FORMAT_ISO_ZONED_DATE_TIME = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-    internal const val FORMAT_ISO8601_ZONED_DATE_TIME =
-        "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ" // 2018-10-15T11:09:01.577513+11:00
+
+    //    internal const val FORMAT_ISO8601_JUST_SECONDS_Z = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+//    internal const val FORMAT_ISO8601_JUST_SECONDS_DECIMAL = "yyyy-MM-dd'T'HH:mm:ss.sssZ"
+//    internal const val FORMAT_ISO_ZONED_DATE_TIME = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
+//    internal const val FORMAT_ISO8601_ZONED_DATE_TIME =
+//        "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ" // 2018-10-15T11:09:01.577513+11:00
     internal const val FORMAT_MONTH_ABBREVIATION = "dd MMM yyyy"
     internal const val FORMAT_DAY_MONTH_FULL_YEAR = "dd MMMM yyyy"
     internal const val FORMAT_DISPLAYABLE = "dd/MM/yyyy"
-    internal const val FORMAT_DISPLAYABLE_MONTH = "MMM/yyyy"
-    internal const val FORMAT_DISPLAYABLE_MONTH_AM = "dd MMM yyyy, HH:mma"
-    internal const val FORMAT_DISPLAYABLE_TAG_INFO = "dd/MM/yyyy HH:mma"
+
+    //    internal const val FORMAT_DISPLAYABLE_MONTH = "MMM/yyyy"
+//    internal const val FORMAT_DISPLAYABLE_MONTH_AM = "dd MMM yyyy, HH:mma"
+//    internal const val FORMAT_DISPLAYABLE_TAG_INFO = "dd/MM/yyyy HH:mma"
     internal const val FORMAT_TIME = "hh:mma"
     internal const val FORMAT_DATE_FROM_SERVER = "yyyy-MM-dd"
     internal const val FORMAT_FULL_MONTH_YEAR = "MMMM yyyy"
-    internal const val FORMAT_COMPLETE_TIME_FULL_MONTH = "dd MMMM yyyy, HH:mm:ss"
+
+    //    internal const val FORMAT_COMPLETE_TIME_FULL_MONTH = "dd MMMM yyyy, HH:mm:ss"
     internal const val FORMAT_TIME_FULL_RAXEL_SDK_TRACKS = "yyyy-MM-dd'T'HH:mm:ssZZ"
 
 }
@@ -98,12 +104,12 @@ fun Date.toDayOrdinalAndMonthAndYear(): String {
     return "$dayOfMonth$dayOfMonthOrdinal $monthDisplayName $year"
 }
 
-fun String.toDateWithFormat(stringFormat: String, locale: Locale? = Locale.getDefault()): Date {
+fun String.toDateWithFormat(stringFormat: String, locale: Locale? = Locale.getDefault()): Date? {
     val format = SimpleDateFormat(stringFormat, locale)
     return format.parse(this)
 }
 
-fun String.toDateWithFormatUtc(stringFormat: String): Date {
+fun String.toDateWithFormatUtc(stringFormat: String): Date? {
     val format = SimpleDateFormat(stringFormat, Locale.getDefault())
     format.timeZone = TimeZone.getTimeZone("UTC")
     return format.parse(this)
@@ -112,23 +118,21 @@ fun String.toDateWithFormatUtc(stringFormat: String): Date {
 fun String.toStringDateSafe(dateInStringFormat: String, dateOutStringFormat: String): String {
     return try {
         this.toDateWithFormat(dateInStringFormat)
-            .toStringWithFormat(dateOutStringFormat)
+            ?.toStringWithFormat(dateOutStringFormat) ?: ""
     } catch (e: Exception) {
         this
     }
 }
 
 fun String.toCalendarWithFormat(stringFormat: String): Calendar {
-    val date = toDateWithFormat(stringFormat).time
+    val date = toDateWithFormat(stringFormat)?.time ?: 0L
     return Calendar.getInstance().apply { timeInMillis = date }
 }
 
-fun String.iso8601InSecondsToLong(): Long {
-    var result: Long? = 0L
+fun String.iso8601InSecondsToLong(): Long? {
     val format = SimpleDateFormat(FORMAT_ISO8601_JUST_SECONDS, Locale.getDefault())
     format.timeZone = TimeZone.getTimeZone("GMT")
-    result = format.parse(this).time
-    return result
+    return format.parse(this)?.time
 }
 
 
@@ -177,12 +181,12 @@ fun Long.timeMillsToIso8601(): String {
 
 fun String.iso8601TimeToLong(): Long? {
     var result: Long? = null
-    if (!this.isEmpty()) {
+    if (this.isNotEmpty()) {
         val simpleDateFormat =
             SimpleDateFormat(DateFormat.Iso8601DateTime().format, Locale.getDefault())
         simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
         try {
-            result = simpleDateFormat.parse(this).time
+            result = simpleDateFormat.parse(this)?.time
         } catch (e: ParseException) {
             error { "Error during parsing a date : " + e.message }
         }
@@ -194,7 +198,7 @@ fun String.stringDateToTimeInMillis(dateFormat: DateFormat = DateFormat.ServerFo
     val result: Long?
     try {
         val simpleDateFormat = SimpleDateFormat(dateFormat.format, Locale.getDefault())
-        result = simpleDateFormat.parse(this).time
+        result = simpleDateFormat.parse(this)?.time
     } catch (e: ParseException) {
         return null
     }

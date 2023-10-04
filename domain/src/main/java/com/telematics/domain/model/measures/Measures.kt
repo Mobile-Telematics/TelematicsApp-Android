@@ -10,7 +10,7 @@ enum class DistanceMeasure(val value: String) {
     companion object {
         fun parse(value: String?): DistanceMeasure {
             return when (value) {
-				MILES -> MI
+                MILES -> MI
                 else -> KM
             }
         }
@@ -29,7 +29,7 @@ enum class DateMeasure(val value: String) {
     companion object {
         fun parse(value: String?): DateMeasure {
             return when (value) {
-				MONTH_DAY -> MM_DD
+                MONTH_DAY -> MM_DD
                 else -> DD_MM
             }
         }
@@ -48,7 +48,7 @@ enum class TimeMeasure(val value: String) {
     companion object {
         fun parse(value: String?): TimeMeasure {
             return when (value) {
-				FORMAT_12 -> H12
+                FORMAT_12 -> H12
                 else -> H24
             }
         }

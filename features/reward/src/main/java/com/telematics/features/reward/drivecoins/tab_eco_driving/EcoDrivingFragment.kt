@@ -1,6 +1,7 @@
 package com.telematics.features.reward.drivecoins.tab_eco_driving
 
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
@@ -9,12 +10,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.telematics.data.extentions.getColorByScore
-import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_DETAILED_KEY
+import com.telematics.data.extentions.getSerializableCompat
 import com.telematics.domain.model.reward.DriveCoinsDetailedData
+import com.telematics.features.reward.drivecoins.DriveCoinsViewPagerAdapter.Companion.DRIVE_COINS_DETAILED_KEY
 import com.telematics.reward.R
 
 class EcoDrivingFragment : Fragment(R.layout.fragment_eco_drive) {
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -25,8 +28,10 @@ class EcoDrivingFragment : Fragment(R.layout.fragment_eco_drive) {
         view.findViewById<SeekBar>(R.id.tyres_seek_bar).setOnTouchListener { _, _ -> true }
         view.findViewById<SeekBar>(R.id.cost_seek_bar).setOnTouchListener { _, _ -> true }
 
-        val data = arguments?.getSerializable(DRIVE_COINS_DETAILED_KEY) as DriveCoinsDetailedData?
-            ?: DriveCoinsDetailedData()
+        val data = arguments?.getSerializableCompat(
+            DRIVE_COINS_DETAILED_KEY,
+            DriveCoinsDetailedData::class.java
+        ) ?: DriveCoinsDetailedData()
 
         view.findViewById<SeekBar>(R.id.eco_seek_bar).apply {
             setProgressForSeekBar(this, data.ecoScore)
