@@ -9,6 +9,7 @@ import com.telematics.domain.model.SessionData
 import com.telematics.domain.repository.SessionRepo
 import com.telematics.domain.repository.UserRepo
 import com.telematicssdk.auth.TelematicsAuth
+import com.telematicssdk.auth.errors.ApiException
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Interceptor
@@ -20,7 +21,6 @@ import javax.inject.Inject
 class MainInterceptor @Inject constructor(
     private val sessionRepository: SessionRepo,
     private val userRepository: UserRepo,
-    private val refreshApi: RefreshApi,
 ) : Interceptor, Authenticator {
     private val monitor = Any()
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -61,63 +61,33 @@ class MainInterceptor @Inject constructor(
                         ).build()
                 } else {
                     try {
-                        refreshApi.refreshToken(
-                            RefreshRequest(
-                                sessionData.accessToken,
-                                sessionData.refreshToken
+                        val loginResult = TelematicsAuth.refreshTokenOrLogin(
+                            BuildConfig.INSTANCE_ID,
+                            BuildConfig.INSTANCE_KEY,
+                            userRepository.getDeviceToken(),
+                            sessionData.accessToken,
+                            sessionData.refreshToken
+                        ).await()
+
+                        val newSession = SessionData(
+                            loginResult.accessToken,
+                            loginResult.refreshToken,
+                            null
+                        )
+
+                        sessionRepository.saveSession(newSession)
+                        request
+                            .newBuilder()
+                            .removeHeader(AUTHORIZATION_HEADER_NAME)
+                            .addHeader(
+                                AUTHORIZATION_HEADER_NAME,
+                                newSession.accessToken.buildAuthorizationHeader()
                             )
-                        ).run {
-                            when (status) {
-                                in 200..299 -> {
-                                    result?.toSessionData()?.let { newSession ->
-                                        sessionRepository.saveSession(newSession)
-                                        request
-                                            .newBuilder()
-                                            .removeHeader(AUTHORIZATION_HEADER_NAME)
-                                            .addHeader(
-                                                AUTHORIZATION_HEADER_NAME,
-                                                newSession.accessToken.buildAuthorizationHeader()
-                                            )
-                                            .build()
-
-                                    }
-                                }
-
-                                400, 401 -> {
-                                    try {
-                                        val loginResult = TelematicsAuth.login(
-                                            BuildConfig.INSTANCE_ID,
-                                            BuildConfig.INSTANCE_KEY,
-                                            userRepository.getDeviceToken()
-                                        ).await()
-
-                                        val newSession = SessionData(
-                                            loginResult.accessToken,
-                                            loginResult.refreshToken,
-                                            null
-                                        )
-
-                                        sessionRepository.saveSession(newSession)
-                                        request
-                                            .newBuilder()
-                                            .removeHeader(AUTHORIZATION_HEADER_NAME)
-                                            .addHeader(
-                                                AUTHORIZATION_HEADER_NAME,
-                                                newSession.accessToken.buildAuthorizationHeader()
-                                            )
-                                            .build()
-                                    } catch (e: Exception) {
-                                        sessionRepository.clearSession()
-                                        null
-                                    }
-                                }
-
-                                else -> {
-                                    null
-                                }
-                            }
-                        }
+                            .build()
                     } catch (e: Exception) {
+                        if (e is ApiException && e.errorCode in listOf(400, 404, 422)) {
+                            sessionRepository.clearSession()
+                        }
                         null
                     }
                 }

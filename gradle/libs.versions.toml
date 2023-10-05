@@ -15,7 +15,7 @@ googleServicesPlugin = "4.3.15"
 kotlin = "1.9.0"
 
 trackingApi = "2.2.257"
-loginAuthFramework = "1.0.1"
+loginAuthFramework = "1.1.0"
 
 androidxActivity = "1.7.2"
 androidxAppCompat = "1.6.1"
