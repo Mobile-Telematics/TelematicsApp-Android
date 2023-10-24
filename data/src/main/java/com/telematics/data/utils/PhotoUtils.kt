@@ -204,7 +204,7 @@ class PhotoUtils {
             }
         }
 
-        fun saveToFile(bmp: Bitmap, filename: File, format: CompressFormat?) {
+        fun saveToFile(bmp: Bitmap, filename: File, format: CompressFormat) {
             var out: FileOutputStream? = null
             try {
                 out = FileOutputStream(filename)

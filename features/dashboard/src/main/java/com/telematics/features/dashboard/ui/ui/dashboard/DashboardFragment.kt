@@ -52,6 +52,7 @@ import com.telematics.domain.model.statistics.StatisticScoringData
 import com.telematics.domain.model.statistics.UserStatisticsIndividualData
 import com.telematics.features.dashboard.ui.ui.chart.DashboardTypePagerAdapter
 import com.telematics.features.dashboard.ui.ui.ecoscoring.DashboardEcoScoringTabAdapter
+import com.telematics.sdkhelper.hidePersistentSdkNotifications
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Timer
 import javax.inject.Inject
@@ -148,6 +149,7 @@ class DashboardFragment : Fragment() {
 
         setListener()
         init()
+        hidePersistentSdkNotifications(requireContext())
     }
 
     private fun setListener() {

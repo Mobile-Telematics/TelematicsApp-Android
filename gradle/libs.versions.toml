@@ -2,7 +2,7 @@
 
 # ----- Base app settings ------
 # the API level to compile your project
-compileSdk = "33"
+compileSdk = "34"
 # the minimum SDK version
 minSdk = "21"
 # the target SDK version

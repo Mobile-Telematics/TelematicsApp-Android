@@ -7,6 +7,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -29,14 +30,13 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun hideKeyboard() {
-
-        val imm: InputMethodManager =
-            requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        var view = requireActivity().currentFocus
-        if (view == null) {
-            view = View(activity)
+        requireActivity().getSystemService<InputMethodManager>()?.let { imm ->
+            var view = requireActivity().currentFocus
+            if (view == null) {
+                view = View(activity)
+            }
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     fun setWhiteNavigationBar() {

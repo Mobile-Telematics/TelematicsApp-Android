@@ -28,6 +28,7 @@ include(
     ":features:feed",
     ":features:leaderboard",
     ":features:reward",
-    ":features:obd"
+    ":features:obd",
+    ":core:sdkhelper"
 )
 rootProject.name = "Telematics"

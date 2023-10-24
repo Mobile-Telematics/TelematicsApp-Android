@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:sdkhelper"))
     implementation(libs.chartView)
     implementation(libs.circleIndicatorView)
 }

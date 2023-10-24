@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_sdk_persistent_notification_instructions">For optimal app function, a persistent notification is displayed. If preferred, disable it without affecting performance by tapping Settings.\nThanks for your understanding.</string>
+    <string name="dialog_sdk_persistent_notification_title">Notification Reminder</string>
+    <string name="dialog_sdk_settings">Settings</string>
+    <string name="dialog_sdk_skip">Skip</string>
+</resources>

@@ -1,20 +1,28 @@
 package com.telematics.data.extentions
 
 import android.Manifest
+import android.Manifest.permission.CAMERA
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.READ_MEDIA_IMAGES
+import android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
 import android.app.AlarmManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 
 fun getMediaPermissions() =
     when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
+            arrayOf(CAMERA, READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED)
+        }
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
-            arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES)
+            arrayOf(CAMERA, READ_MEDIA_IMAGES)
         }
 
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
-            arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
+            arrayOf(CAMERA, READ_EXTERNAL_STORAGE)
         }
 
         else -> {
@@ -55,8 +63,8 @@ fun isExactAlarmGranted(context: Context) : Boolean =
         !retrievePermissions(context).contains(Manifest.permission.SCHEDULE_EXACT_ALARM) -> true
         Build.VERSION.SDK_INT < Build.VERSION_CODES.S -> true
         else -> {
-            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmManager.canScheduleExactAlarms()
+            val alarmManager = context.getSystemService<AlarmManager>()
+            alarmManager?.canScheduleExactAlarms() ?: false
         }
     }
 
