@@ -8,6 +8,7 @@ pluginManagement {
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
     repositories {
         google()
         mavenCentral()

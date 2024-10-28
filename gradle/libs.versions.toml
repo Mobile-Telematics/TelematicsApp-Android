@@ -6,17 +6,18 @@ compileSdk = "34"
 # the minimum SDK version
 minSdk = "21"
 # the target SDK version
-targetSdk = "33"
+targetSdk = "34"
 # -----------------------------
 
 androidGradlePlugin = "8.1.1"
 firebaseCrashlyticsPlugin = "2.9.9"
 googleServicesPlugin = "4.3.15"
-kotlin = "1.9.0"
+kotlin = "1.9.22"
 
-trackingApi = "2.2.257"
+trackingApi = "2.2.263"
 loginAuthFramework = "1.1.0"
 
+androidDesugarJdkLibs = "2.1.2"
 androidxActivity = "1.7.2"
 androidxAppCompat = "1.6.1"
 androidxConstraintLayout = "2.1.4"
@@ -56,6 +57,7 @@ googlePlayServicesAuth = "20.7.0"
 gson = "2.10.1"
 
 [libraries]
+android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
 # tracking & auth
 trackingApi = { group = "com.telematicssdk", name = "tracking", version.ref = "trackingApi" }
