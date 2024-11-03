@@ -126,7 +126,7 @@ from https://app.damoov.com/user/registration :<br/>
 const val INSTANCE_ID_PROD = "YOUR_INSTANCE_ID"<br/>
 const val INSTANCE_KEY_PROD = "YOUR_INSTANCE_KEY"
 
-To set application label change app_name in strings.xml in content module:<br/>
+To set application label change app_name in strings.xml in app module:<br/>
 <string name="app_name">YOUR_LABEL</string>
 
 To set Privacy Policy change PRIVACY_POLICY in AppConfig.kt file :<br/>
