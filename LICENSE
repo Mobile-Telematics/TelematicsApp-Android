@@ -23,13 +23,13 @@ You are solely responsible for taking backup copies of the data you store on the
 
 3. REGISTRATION
 
-To use a Service you may need to register and create a DATA HUB account with username and a password. You may need to provide us with certain personal and other information. HERE may verify your email address before account can be used.
+To use a Service you may need to register and create a DATA HUB account with username and a password. You may need to provide us with certain personal and other information. Damoov may verify your email address before account can be used.
 
  You agree to provide truthful and complete information when you register for the Service and to keep that information updated. You must take due care to protect your username and password against misuse by others and promptly notify Damoov about any misuse. You, and your parent or legal guardian if you are a minor, are personally responsible for any use of the Service.
 
 4. COPIES
 
-Licensee is authorized to duplicate the TELEMATICS SDK for internal test and development purposes and for distribution of the Mobile Application to End Users. Licensee is further allowed to make a reasonable number of copies of the TELEMATICS SDK for non-productive backup and recovery purposes. Any and all such copies shall in all respects be subject to the terms and conditions of this agreement. Licensee shall not make copies of the TELEMATICS SDK additional to those expressly permitted in this agreement nor copy any documentation accompanying the TELEMATICS SDK other than as strictly needed for its permitted use. Licensee shall not remove or obscure any copyright and/or trademark notices or other proprietary notices in the TELEMATICS SDK. All notices must be duplicated as they appear on the TELEMATICS SDK on all authorized copies.
+Licensee is authorized to duplicate the TELEMATICS SDK for internal test and development purposes and for distribution of the Mobile Application to End Users. Licensee is further allowed to make a reasonable number of copies of the TELEMATICS SDK for non-productive backup and recovery purposes. Any and all such copies shall in all respects be subject to the terms and conditions of this agreement. Licensee shall not make copies of the TELEMATICS SDK additional to those expressly permitted in this agreement nor copy any documentation accompanying the TELEMATICS SDK other than as strictly needed for its permitted use. Licensee shall not remove or obscure any copyright and/or trademark notices or other proprietary notices in the TELEMATICS SDK. 
 
 
 5. USING THE SERVICE
@@ -46,7 +46,7 @@ Remove any Content from the Service; and
 Restrict access to any part of the Service at any time in its sole discretion.
 6. RESTRICTIONS
 
-Licensee may combine the TELEMATICS SDK with its Mobile Application. Except to the extent expressly permitted by law, Licensee shall not otherwise modify, adapt, merge or create derivative works of the TELEMATICS SDK nor electronically transfer into another computer language, translate, reverse engineer or reengineer the TELEMATICS SDK. Licensee will not (i) disclose its DATA HUB credentials ("Credentials") to any third party; (ii) disclose the TELEMATICS SDK to any third party other than (x) its service providers that are under obligations in respect of the TELEMATICS SDK no less stringent than those set forth herein, or (y) End Users as an integrated part of the Mobile Application; (iii) attempt to access any systems, programs or data of DataMotion to which no access is granted hereunder or that are not required for your activities in connection with this agreement; or (iv) use any device or software to interfere or attempt to interfere with the proper operation of DATA HUB. Licensee will notify Damoov immediately if it learns of any unauthorized use of its Credentials or unauthorized acquisition of Data. Licensee will not, and will ensure that its End Users shall not decompile, disassemble, analyze or examine the TELEMATICS SDK or otherwise attempt to learn the source code, structure, algorithms or ideas underlying the TELEMATICS SDK (except to the extent allowed by the applicable laws), e.g. for the purpose of reverse engineering, re-engineering or rebuilding an SDK with the same or similar functionalities.
+Licensee may combine the TELEMATICS SDK with its Mobile Application. Except to the extent expressly permitted by law, Licensee shall not otherwise modify, adapt, merge or create derivative works of the TELEMATICS SDK nor electronically transfer into another computer language, translate, reverse engineer or reengineer the TELEMATICS SDK. Licensee will not (i) disclose its DATA HUB credentials ("Credentials") to any third party; (ii) disclose the TELEMATICS SDK to any third party other than (x) its service providers that are under obligations in respect of the TELEMATICS SDK no less stringent than those set forth herein, or (y) End Users as an integrated part of the Mobile Application; (iii) attempt to access any systems, programs or data of Damoov to which no access is granted hereunder or that are not required for your activities in connection with this agreement; or (iv) use any device or software to interfere or attempt to interfere with the proper operation of DATA HUB. Licensee will notify Damoov immediately if it learns of any unauthorized use of its Credentials or unauthorized acquisition of Data. Licensee will not, and will ensure that its End Users shall not decompile, disassemble, analyze or examine the TELEMATICS SDK or otherwise attempt to learn the source code, structure, algorithms or ideas underlying the TELEMATICS SDK (except to the extent allowed by the applicable laws), e.g. for the purpose of reverse engineering, re-engineering or rebuilding an SDK with the same or similar functionalities.
 
 7. INTELLECTUAL PROPERTY RIGHTS
 
@@ -73,8 +73,6 @@ The Service offers subscriptions. You authorize the Service to place a periodica
  Use of the Service may involve transmission of data through your service provider's network. Prices listed within the Service do not include possible data transmission, text message, voice or other service provision charges by your network service provider.
  Damoov assumes no responsibility for the payment of any charges of your service providers.
 
- Payment of Damoov 's invoices will be made within thirty (30) days of the invoice date by bank transfer in USD free of any deductions. All invoices shall be deemed accepted unless disputed in good faith within thirty (30) days after the invoice date. If an invoice is disputed, Fee shall pay the undisputed portion of the invoice when due.
-
  Any amount due but not paid in full on the due date shall automatically and without prior notice be increased with an interest for late payment of ten percent (10%) per year. This amount will, by way of indemnity, automatically and without prior notice be increased by ten percent (10%) with a minimum of one hundred USD ($100) from the day following the due date of the invoice, in addition to the principal amount and the interest for late payment.
 
  In addition to any other rights under this agreement, Damoov shall have the right to suspend the use of the DATA HUB and connectivity of the TELEMATICS SDK in case of late payment. Fee will fully reimburse Damoov the costs of notice, collection and recovery (including attorney's fees and expenses) made in connection with any unpaid invoice. Damoov may increase the fees on an annual basis by giving thirty (30) days prior written notice to Licensee, provided that the annual percentage increase in the fees shall not exceed the aggregate percentage increase of the 10% per year
@@ -85,7 +83,7 @@ You agree to the electronic delivery of Service being initiated concurrently wit
 
  In the event that after your Order you discover and promptly inform Damoov within 48 hours that service you have ordered is faulty; (b) the Service delivers to you does not match the description of the Service you ordered via Damoov or its parents, subsidiaries, affiliates or partners
 
- Please note that HERE may not be able to process your customer support request if you are unable to provide your Company ID, which is provided to you by Damoov following your account registration.
+ Please note that Damoov may not be able to process your customer support request if you are unable to provide your Company ID, which is provided to you by Damoov following your account registration.
 
 13. TERMINATION
 
