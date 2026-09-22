@@ -1,6 +1,16 @@
-# Android Open-Source Telematics App with Firebase© integration
+# Zenroad — Open-source Telematics App for Android
 
 ![](https://github.com/Mobile-Telematics/TelematicsApp-Android/blob/master/img_readme/telematicsapp.jpeg)
+
+Don't start from a blank screen. **Zenroad** is Damoov's open-source reference app — clone it, connect a sandbox, and ship telematics on Damoov.
+
+**Quick links**
+
+- **Download Zenroad:** [Google Play](https://play.google.com/store/apps/details?id=com.telematicssdk.zenroad&hl=en) · [App Store](https://apps.apple.com/us/app/zenroad/id1563218393)
+- **Product page:** [damoov.com/telematics-app](https://www.damoov.com/telematics-app/)
+- **Docs:** [Add the SDK to your app](https://docs.damoov.com/docs/add-the-sdk-to-your-app)
+- **Sandbox:** [Start free at app.damoov.com](https://app.damoov.com/)
+- **iOS reference app:** [TelematicsApp-iOS](https://github.com/Mobile-Telematics/TelematicsApp-iOS)
 
 ## Description
 
